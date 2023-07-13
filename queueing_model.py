@@ -8,71 +8,21 @@ Created on Mon Jul 10 12:22:20 2023
 Queueing model of flow of people through homeless services
 """
 
-def arr_rate(t):
-    """
-    returns arrival rate at time t
+# imports
+import numpy as np
+import matplotlib.pyplot as plt
+import math
 
-    Parameters
-    ----------
-    t : float
-        time.
 
-    Returns
-    -------
-    arr_rate : arrival rate at time t.
-
-    """
-    
-    arr_rate = 1
-    
-    return arr_rate
-
-def serve_rate(t):
-    """
-    returns servie rate at time t
-
-    Parameters
-    ----------
-    t : float
-        time.
-
-    Returns
-    -------
-    serve_rate : service rate at time t.
-
-    """
-    
-    serve_rate = 1
-    
-    return serve_rate
-
-def num_serve(t):
-    """
-    returns number of servers at time t
-
-    Parameters
-    ----------
-    t : float
-        time.
-
-    Returns
-    -------
-    num_serve: num servers at time t.
-
-    """
-    
-    num_serve = 1
-    
-    return num_serve
 
 class queue(object):
     """
     A queue to be modelled with numerical integration
     """
     
-    def __init__(self):
+    def __init__(self, annual_arrival_rate, mean_service_time, servers_initial, shelter_initial, server_build_rate, shelter_build_rate, num_in_system_initial, max_in_system):
         """
-        Initialise instance of queue with empty probability distribution date (self.p)
+        Initialise instance of queue
 
 
         Returns
@@ -81,23 +31,116 @@ class queue(object):
 
         """
         self.p = None
+        self.num_sys = None
+        self.num_queue = None
+        self.num_unsheltered = None
+        self.annual_arrival_rate = annual_arrival_rate
+        self.mean_service_time = mean_service_time
+        self.servers_initial = servers_initial
+        self.shelter_initial= shelter_initial
+        self.server_build_rate = np.repeat(server_build_rate, 6)
+        self.shelter_build_rate = np.repeat(shelter_build_rate, 6)
+        self.num_in_system_initial = num_in_system_initial
+        self.max_in_system = max_in_system
 
-    def model_dynamics(self, n_0, N, Y, d):
+    def arr_rate(self, t):
+        """
+        returns arrival rate at time t
+
+        Parameters
+        ----------
+        t : float
+            time.
+
+        Returns
+        -------
+        arr_rate : arrival rate at time t.
+
+        """
+        
+        arr_rate = self.annual_arrival_rate[math.floor(t)]
+        
+        return arr_rate
+
+    def serve_rate(self, t):
+        """
+        returns servie rate at time t
+
+        Parameters
+        ----------
+        t : float
+            time.
+
+        Returns
+        -------
+        serve_rate : service rate at time t.
+
+        """
+        
+        serve_rate = 1/self.mean_service_time
+        
+        return serve_rate
+
+    def num_serve(self, t):
+        """
+        returns number of servers at time t
+
+        Parameters
+        ----------
+        t : float
+            time.
+
+        Returns
+        -------
+        num_serve: num servers at time t.
+
+        """
+        
+        num_serve = self.servers_initial
+        
+        num_two_months = math.floor(t/(1/6))
+        
+        for i in range(num_two_months):
+            num_serve += self.server_build_rate[i]
+        
+        return num_serve
+
+    def num_shelt(self, t):
+        """
+        returns number of shelters at time t
+
+        Parameters
+        ----------
+        t : float
+            time.
+
+        Returns
+        -------
+        num_shelt: num shelters at time t.
+
+        """
+        
+        num_shelt = self.shelter_initial
+        
+        num_two_months = math.floor(t/(1/6))
+        
+        for i in range(num_two_months):
+            num_shelt += self.shelter_build_rate[i]
+        
+        return num_shelt
+
+    def model_dynamics(self, Y, d):
         """
         Model the dynamics of the queue
         
         Parameters
         ----------
-        n_0 : int
-            number of customers in the system at time t=0.
-        N : int
-            max number of customers in system. 
         Y : float
             time horizon for analysis in integer years
         d : float
             width of time step in days
 
-        Returns
+        Returnsserver_build_rate
         -------
         None.
 
@@ -106,21 +149,32 @@ class queue(object):
         # set up 
         d = d/365 # timestep size in years
         T = int(Y/d) # number of time steps
+        N = self.max_in_system
+        n_0 = self.num_in_system_initial        
         
         # init state probabilities
         self.p = [[0 for i in range(T)] for j in range(N+1)]
         self.p[n_0][0] = 1 # enforce state at time 0
         
-        # init m, number of busy servers
+        # init m, number of busy servers in each state
         m = [0 for i in range(N+1)]
         
-        # numerical integration
+        # init outputs
+        self.num_sys = [0 for i in range(T)]
+        self.num_queue = [0 for i in range(T)]        
+        self.num_unsheltered = [0 for i in range(T)]
+        
+        self.num_sys[0] = n_0
+        self.num_queue[0] = max(0, n_0 - self.num_serve(0))
+        self.num_unsheltered[0] = max(0, n_0 - self.num_serve(0) - self.num_shelt(0))
+        
+        # numerical integration - loop through t
         for t in range(1,T):
             
             # arrival/service rates and number servers at prev timestep
-            lmbda = arr_rate((t-1)*d) 
-            mu = serve_rate((t-1)*d) 
-            s = num_serve((t-1)*d)
+            lmbda = self.arr_rate((t-1)*d) 
+            mu = self.serve_rate((t-1)*d) 
+            s = self.num_serve((t-1)*d)
             
             # number of busy servers
             m[1] = min(1,s)
@@ -130,21 +184,148 @@ class queue(object):
             self.p[0][t] = (self.p[0][t-1] * (1-lmbda*d)) + (self.p[1][t-1] * (mu*m[1]*d))
             self.p[N][t] = (self.p[N][t-1] * (1-mu*m[N]*d)) + (self.p[N-1][t-1] * (lmbda*d))
             
+            # loop through each state n
             for n in range(1,N):
-                m[n+1] = min(n,s)           
+                # number of shelters busy in next state     
+                m[n+1] = min(n+1,s) 
+                
+                # prob of being in other states
                 self.p[n][t] = (self.p[n-1][t-1] * lmbda*d) + (self.p[n][t-1] * (1-lmbda*d-mu*m[n]*d)) + (self.p[n+1][t-1] * (mu*m[n+1]*d))
+            
+            # number of servers and shelters at current timestep
+            s = self.num_serve(t*d)
+            shelt = self.num_shelt(t*d)
+            
+            # expected values for outputs
+            for n in range(N+1):                
+                self.num_sys[t] += n * self.p[n][t]
+                self.num_queue[t] += max(0,n-s) * self.p[n][t]
+                self.num_unsheltered[t] += max(0,n-s-shelt) * self.p[n][t]
  
-q = queue(5)
-q.model_dynamics(5,10,1,1)
+def mms_steadystate(lmbda, s, mu):
+    """
+    Compute steady state expected number in system and queue for an M/M/s queue
 
+    Parameters
+    ----------
+    lmbda : float
+        arrival rate.
+    s : int
+        number of servers.
+    mu : float
+        service rate.
 
+    Returns
+    -------
+    num_sys : float
+        expected number in system.
+    num_q : float
+        expected number in queue.
 
+    """
+    
+    # traffic intensity
+    rho = lmbda/(s*mu)
+    
+    # sum of terms
+    summation = 0
+    for n in range(s):
+        summation += ((s*rho)**n)/math.factorial(n)
+        
+    summation += ((s*rho)**s)/(math.factorial(s)*(1-rho))
+    
+    # pi_0
+    pi_0 = 1/summation
+    
+    # num_q
+    num_q = rho*((s*rho)**s)*pi_0/(math.factorial(s)*((1-rho)**2))
+    
+    # num_sys
+    num_sys = num_q + lmbda/mu
+    
+    return num_sys, num_q
 
+# steady state solution - number in system
+mms_steadystate(35, 4, 12)
 
+# model queue (MMs steady state)
+annual_arrival_rate = [35, 35, 35, 35, 35, 35]
+mean_service_time = 1/12
+servers_initial = 4
+shelter_initial= 0
+server_build_rate = [0,0,0,0,0,0]
+shelter_build_rate = [0,0,0,0,0,0]
+num_in_system_initial = 0
+max_in_system = 100
 
+q = queue(annual_arrival_rate, mean_service_time, servers_initial, shelter_initial, server_build_rate, shelter_build_rate, num_in_system_initial, max_in_system)
+q.model_dynamics(5,1)
 
+# plot queue dynamics - num in system
+fig, ax = plt.subplots()
+ax.plot(np.arange(0,5,1/365), q.num_sys)
 
+ax.set(xlabel='time (yrs)', ylabel='# in system',
+       title='Expected number in system')
+ax.grid()
 
+plt.show()
+
+# plot queue dynamics - number in queue
+fig, ax = plt.subplots()
+ax.plot(np.arange(0,5,1/365), q.num_queue)
+
+ax.set(xlabel='time (yrs)', ylabel='# in queue',
+       title='Expected number in queue')
+ax.grid()
+
+plt.show()
+
+# model queue (time dependent homeless services system)
+servers_initial = 40
+shelter_initial = 15
+server_build_rate = [2,2,0,-2,-1,-1]
+shelter_build_rate = [3,6,7,10,8,4]
+mean_service_time = (1/52)*(0+300+400)/3
+annual_arrival_rate = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100]
+reentry_rate = 0.17
+annual_arrival_rate_reentries = (servers_initial*reentry_rate)/mean_service_time
+annual_arrival_rate = [i+annual_arrival_rate_reentries for i in annual_arrival_rate]
+num_in_system_initial = 120
+max_in_system = 1000
+
+q = queue(annual_arrival_rate, mean_service_time, servers_initial, shelter_initial, server_build_rate, shelter_build_rate, num_in_system_initial, max_in_system)
+q.model_dynamics(5,1)
+
+# plot queue dynamics - num in system
+fig, ax = plt.subplots()
+ax.plot(np.arange(0,5,1/365), q.num_sys)
+
+ax.set(xlabel='time (yrs)', ylabel='# in system',
+       title='Expected number in system')
+ax.grid()
+
+plt.show()
+
+# plot queue dynamics - number in queue
+fig, ax = plt.subplots()
+ax.plot(np.arange(0,5,1/365), q.num_queue)
+
+ax.set(xlabel='time (yrs)', ylabel='# in queue',
+       title='Expected number in queue')
+ax.grid()
+
+plt.show()
+
+# plot queue dynamics - number unsheltered
+fig, ax = plt.subplots()
+ax.plot(np.arange(0,5,1/365), q.num_unsheltered)
+
+ax.set(xlabel='time (yrs)', ylabel='# unsheltered',
+       title='Expected number unsheltered')
+ax.grid()
+
+plt.show()
 
 
 
