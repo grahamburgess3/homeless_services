@@ -10,10 +10,7 @@ Queueing model of flow of people through homeless services
 
 # imports
 import numpy as np
-import matplotlib.pyplot as plt
 import math
-
-
 
 class queue(object):
     """
@@ -244,99 +241,3 @@ def mms_steadystate(lmbda, s, mu):
     num_sys = num_q + lmbda/mu
     
     return num_sys, num_q
-
-# steady state solution - number in system
-mms_steadystate(35, 4, 12)
-
-# model queue (MMs steady state)
-annual_arrival_rate = [35, 35, 35, 35, 35, 35]
-mean_service_time = 1/12
-servers_initial = 4
-shelter_initial= 0
-server_build_rate = [0,0,0,0,0,0]
-shelter_build_rate = [0,0,0,0,0,0]
-num_in_system_initial = 0
-max_in_system = 100
-
-q = queue(annual_arrival_rate, mean_service_time, servers_initial, shelter_initial, server_build_rate, shelter_build_rate, num_in_system_initial, max_in_system)
-q.model_dynamics(5,1)
-
-# plot queue dynamics - num in system
-fig, ax = plt.subplots()
-ax.plot(np.arange(0,5,1/365), q.num_sys)
-
-ax.set(xlabel='time (yrs)', ylabel='# in system',
-       title='Expected number in system')
-ax.grid()
-
-plt.show()
-
-# plot queue dynamics - number in queue
-fig, ax = plt.subplots()
-ax.plot(np.arange(0,5,1/365), q.num_queue)
-
-ax.set(xlabel='time (yrs)', ylabel='# in queue',
-       title='Expected number in queue')
-ax.grid()
-
-plt.show()
-
-# model queue (time dependent homeless services system)
-servers_initial = 40
-shelter_initial = 15
-server_build_rate = [2,2,0,-2,-1,-1]
-shelter_build_rate = [3,6,7,10,8,4]
-mean_service_time = (1/52)*(0+300+400)/3
-annual_arrival_rate = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100]
-reentry_rate = 0.17
-annual_arrival_rate_reentries = (servers_initial*reentry_rate)/mean_service_time
-annual_arrival_rate = [i+annual_arrival_rate_reentries for i in annual_arrival_rate]
-num_in_system_initial = 120
-max_in_system = 1000
-
-q = queue(annual_arrival_rate, mean_service_time, servers_initial, shelter_initial, server_build_rate, shelter_build_rate, num_in_system_initial, max_in_system)
-q.model_dynamics(5,1)
-
-# plot queue dynamics - num in system
-fig, ax = plt.subplots()
-ax.plot(np.arange(0,5,1/365), q.num_sys)
-
-ax.set(xlabel='time (yrs)', ylabel='# in system',
-       title='Expected number in system')
-ax.grid()
-
-plt.show()
-
-# plot queue dynamics - number in queue
-fig, ax = plt.subplots()
-ax.plot(np.arange(0,5,1/365), q.num_queue)
-
-ax.set(xlabel='time (yrs)', ylabel='# in queue',
-       title='Expected number in queue')
-ax.grid()
-
-plt.show()
-
-# plot queue dynamics - number unsheltered
-fig, ax = plt.subplots()
-ax.plot(np.arange(0,5,1/365), q.num_unsheltered)
-
-ax.set(xlabel='time (yrs)', ylabel='# unsheltered',
-       title='Expected number unsheltered')
-ax.grid()
-
-plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
