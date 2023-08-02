@@ -11,6 +11,8 @@ Queueing model of flow of people through homeless services
 # imports
 import numpy as np
 import math
+import matplotlib.pyplot as plt
+import numpy as np
 
 class queue(object):
     """
@@ -95,7 +97,7 @@ class queue(object):
         
         num_serve = self.servers_initial
         
-        num_two_months = math.floor(t/(1/6))
+        num_two_months = math.ceil(t/(1/6))
         
         for i in range(num_two_months):
             num_serve += self.server_build_rate[i]
@@ -119,7 +121,7 @@ class queue(object):
         
         num_shelt = self.shelter_initial
         
-        num_two_months = math.floor(t/(1/6))
+        num_two_months = math.ceil(t/(1/6))
         
         for i in range(num_two_months):
             num_shelt += self.shelter_build_rate[i]
@@ -241,3 +243,41 @@ def mms_steadystate(lmbda, s, mu):
     num_sys = num_q + lmbda/mu
     
     return num_sys, num_q
+
+def create_fanchart(arr, line, q):
+    """
+    create a fan chart using an array of arrays and a line
+
+    Parameters
+    ----------
+    arr : np.array(np.array)
+        simulation data over time for multiple simulation runs
+    line : list
+        bi-monthly data from the analytical queueing model
+    q : queue
+        the analytical queueing model
+
+    Returns
+    -------
+    fix, ax : graph object
+
+    """
+    x = (np.arange(arr.shape[0]))/6
+    percentiles = (60, 70, 80, 90)
+    fig, ax = plt.subplots()
+    for p in percentiles:
+        low = np.percentile(arr, 100-p, axis=1)
+        high = np.percentile(arr, p, axis=1)
+        alpha = (100 - p) / 100
+        ax.fill_between(x, low, high, color='green', alpha=alpha)
+    thin, = ax.plot(np.arange(0,6,1/365), q.num_unsheltered, color = 'black', linestyle = 'dashed', linewidth = 0.5)
+    thick, = ax.plot(x, line, color = 'black', linewidth = 0.8)
+    plt.xlabel('Years')
+    plt.ylabel('# Unsheltered')
+    plt.title('Number of unsheltered people - simulation and queueing model results')
+    
+    first_legend = plt.legend([f'Simulation: {100-p}th - {p}th percentile' for p in percentiles])
+    ax.add_artist(first_legend)
+    ax.legend(handles=[thick,thin], labels=['Queueing model: bi-monthly','Queueing model: daily'], loc='upper right', bbox_to_anchor=(1,0.74))
+    
+    return fig, ax
