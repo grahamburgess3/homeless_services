@@ -29,10 +29,12 @@ class queue(object):
         None.
 
         """
-        self.p = None
-        self.num_sys = None
-        self.num_queue = None
-        self.num_unsheltered = None
+        self.p = None # prob of being in each state (num in system) at each time t
+        self.p_q = None # prob of being in each state (num in queue) at each time t
+        self.p_unsh = None # prob of being in each state (num unsheltered) at each time t
+        self.num_sys = None # expected val at each time t
+        self.num_queue = None # expected val at each time t
+        self.num_unsheltered = None # expected val at each time t
         self.annual_arrival_rate = annual_arrival_rate
         self.mean_service_time = mean_service_time
         self.servers_initial = servers_initial
@@ -149,11 +151,15 @@ class queue(object):
         d = d/365 # timestep size in years
         T = int(Y/d) # number of time steps
         N = self.max_in_system
-        n_0 = self.num_in_system_initial        
+        n_0 = self.num_in_system_initial      
         
         # init state probabilities
         self.p = [[0 for i in range(T)] for j in range(N+1)]
         self.p[n_0][0] = 1 # enforce state at time 0
+        self.p_q = [[0 for i in range(T)] for j in range(N+1)]
+        self.p_q[max(0, n_0 - self.num_serve(0))][0] = 1 # enforce state at time 0
+        self.p_unsh = [[0 for i in range(T)] for j in range(N+1)]
+        self.p_unsh[max(0, n_0 - self.num_serve(0) - self.num_shelt(0))][0] = 1 # enforce state at time 0
         
         # init m, number of busy servers in each state
         m = [0 for i in range(N+1)]
@@ -195,11 +201,15 @@ class queue(object):
             s = self.num_serve(t*d)
             shelt = self.num_shelt(t*d)
             
-            # expected values for outputs
             for n in range(N+1):                
+                # expected values for outputs
                 self.num_sys[t] += n * self.p[n][t]
                 self.num_queue[t] += max(0,n-s) * self.p[n][t]
                 self.num_unsheltered[t] += max(0,n-s-shelt) * self.p[n][t]
+                
+                # probs of number in q and unsheltered
+                self.p_q[max(0,n-s)][t] += self.p[n][t]
+                self.p_unsh[max(0,n-s-shelt)][t] += self.p[n][t]
  
 def mms_steadystate(lmbda, s, mu):
     """
@@ -279,5 +289,109 @@ def create_fanchart(arr, line, q):
     first_legend = plt.legend([f'Simulation: {100-p}th - {p}th percentile' for p in percentiles])
     ax.add_artist(first_legend)
     ax.legend(handles=[thick,thin], labels=['Queueing model: bi-monthly','Queueing model: daily'], loc='upper right', bbox_to_anchor=(1,0.74))
+    
+    return fig, ax
+
+def create_chart_prob_dists(data_sim,q,t,binwidth):
+    """
+    create a chart of probabilities distribtutions
+
+    Parameters
+    ----------
+    data_sim : np.array
+        data from simulation model  
+    q : queue
+        the analytical queueing model
+    t : int
+        time to look at in years
+    binwidth : int
+        bin width for histogram, in number of people unsheltered
+
+    Returns
+    -------
+    fix, ax : graph object
+
+    """
+    x = np.arange(100)
+    data_q = [q.p_unsh[i][t*365] for i in range(100)]
+    fig, ax = plt.subplots()
+    ax.hist(data_sim[t*6], bins=range(min(data_sim[t*6]), max(data_sim[t*6]) + binwidth, binwidth), density = True)
+    line, = ax.plot(x, data_q, color = 'black', linewidth = 1)
+    plt.xlabel('# Unsheltered')
+    plt.ylabel('Probability')
+    plt.title('Probability density for number unsheltered after year ' +  str(t))
+    first_legend = plt.legend(['Analytical model','Simulation model'])
+    ax.add_artist(first_legend)
+
+    return fig, ax
+
+def create_chart_comparing_percentiles(data_sim,q,percentiles, index_list):
+    """
+    create a chart of probabilities distribtutions
+
+    Parameters
+    ----------
+    data_sim : np.array
+        data from simulation model  
+    q : queue
+        the analytical queueing model
+    percentiles : list
+        list of percentiles to include in plot (should be 3 percentiles)
+    index_list : int
+        list of indeces of the data to include for the analytical queueing model (bi monthly to match simulation data)
+
+    Returns
+    -------
+    fix, ax : graph object
+
+    """
+    # set up
+    fig, ax = plt.subplots()
+    
+    # x axis data
+    x = (np.arange(data_sim.shape[0]))/6
+    
+    # y axis data - simulation
+    data_sim_quant = [[0 for i in range(data_sim.shape[0])] for j in range(len(percentiles))]
+    for i in range(data_sim.shape[0]):
+        for j in range(len(percentiles)):
+            data_sim_quant[j][i]=np.percentile(data_sim[i],percentiles[j])
+            
+    # y axis data - analytical q model
+    data_q_quant = [[0 for i in range(len(index_list))] for j in range(len(percentiles))]
+    for j in range(len(percentiles)):
+        for t in range(len(index_list)):
+            i=0
+            prob = 0.0
+            looking = True
+            while looking == True:
+                prob += q.p_unsh[i][index_list[t]]
+                if(prob) >= percentiles[j]*0.01:
+                    looking=False
+                else: 
+                    i+=1
+            data_q_quant[j][t]=i
+
+    # lines
+    line1, = ax.plot(x, data_sim_quant[2], color = 'red', linewidth = 1)
+    line2, = ax.plot(x, data_q_quant[2], color = 'red', linewidth = 1, linestyle='dashed')
+    
+    line3, = ax.plot(x, data_sim_quant[1], color = 'orange', linewidth = 1)
+    line4, = ax.plot(x, data_q_quant[1], color = 'orange', linewidth = 1, linestyle='dashed')
+    
+    line5, = ax.plot(x, data_sim_quant[0], color = 'green', linewidth = 1)
+    line6, = ax.plot(x, data_q_quant[0], color = 'green', linewidth = 1, linestyle='dashed')
+    
+    plt.xlabel('Year')
+    plt.ylabel('# Unsheltered')
+    plt.title('Number unsheltered - Percentiles ' + str(percentiles[0]) + ', ' + str(percentiles[1]) +  ', ' + str(percentiles[2]))
+    
+    first_legend = plt.legend([str(percentiles[2]) + 'th percentile - Simulation',
+                               str(percentiles[2]) + 'th percentile - Analytical',
+                               str(percentiles[1]) + 'th percentile - Simulation',
+                               str(percentiles[1]) + 'th percentile - Analytical',
+                               str(percentiles[0]) + 'th percentile - Simulation',
+                               str(percentiles[0]) + 'th percentile - Analytical'])
+    ax.add_artist(first_legend)
     
     return fig, ax
