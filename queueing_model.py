@@ -100,6 +100,7 @@ class queue(object):
         num_serve = self.servers_initial
         
         num_two_months = math.ceil(t/(1/6))
+        #num_two_months = math.ceil((t*365)/63) # alternative method to increase number of units every 9 weeks. 
         
         for i in range(num_two_months):
             num_serve += self.server_build_rate[i]
@@ -124,6 +125,7 @@ class queue(object):
         num_shelt = self.shelter_initial
         
         num_two_months = math.ceil(t/(1/6))
+        #num_two_months = math.ceil((t*365)/63) # alternative method to increase number of units every 9 weeks. 
         
         for i in range(num_two_months):
             num_shelt += self.shelter_build_rate[i]
