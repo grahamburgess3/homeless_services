@@ -99,8 +99,8 @@ class queue(object):
         
         num_serve = self.servers_initial
         
-        num_two_months = math.ceil(t/(1/6))
-        #num_two_months = math.ceil((t*365)/63) # alternative method to increase number of units every 9 weeks. 
+        #num_two_months = math.ceil(t/(1/6))
+        num_two_months = math.ceil((t*365)/63) # alternative method to increase number of units every 9 weeks. 
         
         for i in range(num_two_months):
             num_serve += self.server_build_rate[i]
@@ -124,8 +124,8 @@ class queue(object):
         
         num_shelt = self.shelter_initial
         
-        num_two_months = math.ceil(t/(1/6))
-        #num_two_months = math.ceil((t*365)/63) # alternative method to increase number of units every 9 weeks. 
+        #num_two_months = math.ceil(t/(1/6))
+        num_two_months = math.ceil((t*365)/63) # alternative method to increase number of units every 9 weeks. 
         
         for i in range(num_two_months):
             num_shelt += self.shelter_build_rate[i]
@@ -274,7 +274,7 @@ def create_fanchart(arr, line, q):
     fix, ax : graph object
 
     """
-    x = (np.arange(arr.shape[0]))/6
+    x=np.arange(arr.shape[0])*63/365 # every 9 weeks
     percentiles = (60, 70, 80, 90)
     fig, ax = plt.subplots()
     for p in percentiles:
@@ -315,7 +315,7 @@ def create_chart_prob_dists(data_sim,q,t,binwidth):
 
     """
     x = np.arange(100)
-    data_q = [q.p_unsh[i][t*365] for i in range(100)]
+    data_q = [q.p_unsh[i][t*378] for i in range(100)]
     fig, ax = plt.subplots()
     ax.hist(data_sim[t*6], bins=range(min(data_sim[t*6]), max(data_sim[t*6]) + binwidth, binwidth), density = True)
     line, = ax.plot(x, data_q, color = 'black', linewidth = 1)
@@ -351,7 +351,7 @@ def create_chart_comparing_percentiles(data_sim,q,percentiles, index_list):
     fig, ax = plt.subplots()
     
     # x axis data
-    x = (np.arange(data_sim.shape[0]))/6
+    x = np.arange(data_sim.shape[0])*63/365
     
     # y axis data - simulation
     data_sim_quant = [[0 for i in range(data_sim.shape[0])] for j in range(len(percentiles))]
