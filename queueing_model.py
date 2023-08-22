@@ -19,10 +19,13 @@ class queue(object):
     A queue to be modelled with numerical integration
     """
     
-    def __init__(self, annual_arrival_rate, mean_service_time, servers_initial, shelter_initial, server_build_rate, shelter_build_rate, num_in_system_initial, max_in_system):
+    def __init__(self, annual_arrival_rate, mean_service_time, servers_initial, shelter_initial, server_build_rate, shelter_build_rate, num_in_system_initial, max_in_system, num_annual_buildpoints, build_frequency_weeks):
         """
         Initialise instance of queue
-
+        Note: there are no hardcoded elements in this class (apart from obvious things like the number of days in a week) but care should be taken if adapting some of the inputs, as detailed below: 
+        - annual_arrival_rate should include the same number of entries as the value of Y when calling model_dynamics(Y,d)
+        - server_build_rate and shelter_build_rate should have the same number of entries as num_annual_buildpoints, and this number should tally (roughly) with build_frequency_weeks. For example, if build_freq_weeks is 9, then it will take 54 weeks for this to happen 6 times, so things will start being out of sync after 5 years of model time, which is OK as long as you don't model so far ahead (or if the queue is always empty before 5 years, say.)
+        - Care should also be taken if changing the step size d from 1 day, which is what it was intially set up for. 
 
         Returns
         -------
@@ -39,10 +42,12 @@ class queue(object):
         self.mean_service_time = mean_service_time
         self.servers_initial = servers_initial
         self.shelter_initial= shelter_initial
-        self.server_build_rate = np.repeat(server_build_rate, 6)
-        self.shelter_build_rate = np.repeat(shelter_build_rate, 6)
+        self.server_build_rate = np.repeat(server_build_rate, num_annual_buildpoints)
+        self.shelter_build_rate = np.repeat(shelter_build_rate, num_annual_buildpoints)
+        self.build_frequency_weeks = build_frequency_weeks
         self.num_in_system_initial = num_in_system_initial
         self.max_in_system = max_in_system
+        
 
     def arr_rate(self, t):
         """
@@ -51,7 +56,7 @@ class queue(object):
         Parameters
         ----------
         t : float
-            time.
+            time in years.
 
         Returns
         -------
@@ -65,12 +70,12 @@ class queue(object):
 
     def serve_rate(self, t):
         """
-        returns servie rate at time t
+        returns servie rate at time t - this is in fact constant.
 
         Parameters
         ----------
         t : float
-            time.
+            time in years.
 
         Returns
         -------
@@ -89,7 +94,7 @@ class queue(object):
         Parameters
         ----------
         t : float
-            time.
+            time in years.
 
         Returns
         -------
@@ -99,10 +104,12 @@ class queue(object):
         
         num_serve = self.servers_initial
         
-        #num_two_months = math.ceil(t/(1/6))
-        num_two_months = math.ceil((t*365)/63) # alternative method to increase number of units every 9 weeks. 
+        days_passed = t*365
+        build_freq_days = self.build_frequency_weeks*7
         
-        for i in range(num_two_months):
+        num_builds = math.ceil(days_passed/build_freq_days)
+        
+        for i in range(num_builds):
             num_serve += self.server_build_rate[i]
         
         return num_serve
@@ -124,10 +131,11 @@ class queue(object):
         
         num_shelt = self.shelter_initial
         
-        #num_two_months = math.ceil(t/(1/6))
-        num_two_months = math.ceil((t*365)/63) # alternative method to increase number of units every 9 weeks. 
+        days_passed = t*365
+        build_freq_days = self.build_frequency_weeks*7
+        num_builds = math.ceil(days_passed/build_freq_days)
         
-        for i in range(num_two_months):
+        for i in range(num_builds):
             num_shelt += self.shelter_build_rate[i]
         
         return num_shelt
@@ -135,6 +143,7 @@ class queue(object):
     def model_dynamics(self, Y, d):
         """
         Model the dynamics of the queue
+        Assume 365 days in all years
         
         Parameters
         ----------
