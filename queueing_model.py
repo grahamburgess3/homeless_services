@@ -397,3 +397,74 @@ def create_chart_comparing_percentiles(data_sim,q,percentiles, index_list):
     ax.add_artist(first_legend)
     
     return fig, ax
+
+def analytic_cdf(n, q, nmax, yr):
+    """
+    Function to give the analytical queue CDF values for an input array
+    
+    Parameters
+    ----------
+    n : np.array
+        This refers to the empirical distribution of values for the number of people unsheltered
+    q : queue
+        This is the queue against which to compare the analytical CDF
+    nmax : int
+        This is the max number of unsheltered people to evaluate the analytical CDF at
+    yr : int
+        This is the point in time at which to evaluate the analytical CDF
+
+    Returns
+    -------
+    out : list
+        This is a list of corresponding CDF values for the given input n. 
+    
+    """
+    data = [q.p_unsh[0][yr*378]]
+    for i in range(1,nmax):
+        data.append(data[i-1] + q.p_unsh[i][yr*378])
+    out = [data[i] for i in n]
+    return out
+
+def compare_cdf(data_sim, q, nmax, yr):
+    """
+    Function to display a chart comparing CDFs of the analytical queuing model output for #unsheltered with ecdf
+    
+    Parameters
+    ----------
+    data_sim : nparray
+        simulation output
+    q : queue
+        the queue object
+    nmax : int
+        max number of people unsheltered to consider in the plot
+    yr : int
+        the year to look at.       
+
+
+    Returns
+    -------
+    fig, ax : plot objects
+    
+    """
+    # analytical q data
+    data = [q.p_unsh[0][yr*378]]
+    for i in range(1,nmax):
+        data.append(data[i-1] + q.p_unsh[i][yr*378])
+    q_out = [data[i] for i in range(nmax)]
+    x1 = np.arange(nmax)
+    
+    # simulation data
+    x2 = np.sort(data_sim[yr*6])
+    sim_out = np.arange(len(x2))/float(len(x2))
+    
+    fig, ax = plt.subplots()
+    #ax.hist(data_sim[t*6], bins=range(min(data_sim[t*6]), max(data_sim[t*6]) + binwidth, binwidth), density = True)
+    line1, = ax.plot(x1, q_out, color = 'black', linewidth = 1)
+    line2, = ax.plot(x2, sim_out, color = 'blue', linewidth = 1)
+    plt.xlabel('# Unsheltered')
+    plt.ylabel('Probability')
+    plt.title('CDF for number unsheltered after year ' +  str(yr))
+    first_legend = plt.legend(['Analytical model','Simulation model'])
+    ax.add_artist(first_legend)
+    
+    return fig, ax
