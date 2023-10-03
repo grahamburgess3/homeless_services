@@ -4,11 +4,12 @@ import math
 
 # Inputs
 housing_capacity_initial = 40
-housing_build_frequency = 1/6
+housing_build_frequency = 1/6 # in years
 end_of_simulation = 5 # in years
 housing_service_mean = (1/52)*(0+300+400)/3 # in years
 arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100, 37.4052] # expected number per year
 build_rates = [3,6,7,10,8,4]
+current_demand = 120
 
 def get_arrival_rate(arrival_rates, t):
         """
@@ -49,20 +50,6 @@ def get_build_rate(build_rates, t):
         
         return build_rate
     
-# Arrivals
-def source(env, arrival_rates, housing_service_mean, housing, end_of_simulation):
-    i = 0
-    while(env.now < end_of_simulation):
-        i += 1
-        arrival_rate = get_arrival_rate(arrival_rates, env.now)
-        t = random.expovariate(arrival_rate)
-        yield env.timeout(t)
-        c = customer(env,
-                     'Customer%02d' % i,
-                     housing,
-                     housing_service_mean)
-        env.process(c)
-
 def customer(env, name, housing, housing_service_mean):
     arrive = env.now
     print('%7.4f %s: Here I am' % (arrive, name))
@@ -101,6 +88,7 @@ class HousingStock():
         self.env = env
         self.houses = simpy.Store(env)
         self.houses.items = [House() for _ in range(initial_stock)]
+        self.data_queue = []
  
     def add_house(self):
             house = House()
@@ -108,7 +96,7 @@ class HousingStock():
             
     def remove_house(self):
         if len(self.houses.items) > 0:
-            house = yield self.house.get()
+            house = yield self.houses.get()
         else:
             pass
 
@@ -119,35 +107,42 @@ class HousingStock():
     def put(self, house):
         self.houses.put(house)
 
-def gen_arrivals(env, houses):
-    while True:
-        arrival_rate = get_arrival_rate(arrival_rates, env.now)
-        t = random.expovariate(arrival_rate)
-        yield env.timeout(t)
-        c = Customer()
-        env.process(find_housing(env, c, houses))
+def gen_arrivals(env, housing_stock, housing_service_mean, arrival_rates, current_demand):
+        for _ in range(current_demand):
+            c = Customer()
+            env.process(find_housing(env, c, housing_stock, housing_service_mean))
 
-def find_housing(env, c, houses):
-    house = yield houses.get()
+        while True:
+            arrival_rate = get_arrival_rate(arrival_rates, env.now)
+            t = random.expovariate(arrival_rate)
+            yield env.timeout(t)
+            c = Customer()
+            env.process(find_housing(env, c, housing_stock, housing_service_mean))
+
+def find_housing(env, c, housing_stock, housing_service_mean):
+    house = yield housing_stock.get()
     time_in_housing = random.expovariate(1/housing_service_mean)
     yield env.timeout(time_in_housing)
-    houses.put(house)
+    housing_stock.put(house)
     
-def development_sched(env, houses):
+def development_sched(env, housing_stock, housing_build_frequency):
     while True:
+        housing_stock.data_queue.append(len(housing_stock.houses.get_queue))
         t = housing_build_frequency
         yield env.timeout(t)
         build_rate = get_build_rate(build_rates, env.now)
         if (build_rate > 0):
             for _ in range(build_rate):
-                houses.add_house()
+                housing_stock.add_house()
         elif (build_rate < 0):
             for _ in range(abs(build_rate)):
-                env.process(houses.remove_house())
+                env.process(housing_stock.remove_house())
                 
 # run the model
 env = simpy.Environment()
-houses = HousingStock(env, housing_capacity_initial)
-env.process(gen_arrivals(env, houses))
-env.process(development_sched(env, houses))
+housing_stock = HousingStock(env, housing_capacity_initial)
+env.process(gen_arrivals(env, housing_stock, housing_service_mean, arrival_rates, current_demand))
+env.process(development_sched(env, housing_stock, housing_build_frequency))
 env.run(until=end_of_simulation)
+print(housing_stock.data_queue)
+print(len(housing_stock.data_queue))
