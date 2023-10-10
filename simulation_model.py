@@ -5,23 +5,6 @@ import collections
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Inputs
-capacity_initial = {'housing' : 40, 'shelter' : 15}
-housing_build_frequency = 1/6 # in years
-end_of_simulation = 5 # in years
-service_mean = {'housing' : (1/52)*(0+300+400)/3, 'shelter' : 0.0} # in years
-arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100, 37.4052] # expected number per year
-build_rates = {'housing' : [3,6,7,10,8,4], 'shelter' : [2,2,0,-2,-1,-1]}
-current_demand = 120
-
-#capacity_initial = {'housing' : 2, 'shelter' : 2}
-#housing_build_frequency = 1/6 # in years
-#end_of_simulation = 1/7 # in years
-#service_mean = {'housing' : (1/52)*(0+300+400)/3, 'shelter' : 0.0} # in years
-#arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100, 37.4052] # expected number per year
-#build_rates = {'housing' : [0,0,0,0,0,0], 'shelter' : [0,0,0,0,0,0]}
-#current_demand = 6
-
 def get_arrival_rate(arrival_rates, t):
         """
         returns arrival rate at time t
@@ -42,7 +25,7 @@ def get_arrival_rate(arrival_rates, t):
         return arr_rate
 
 
-def get_build_rate(build_rates, t):
+def get_new_buildings(build_rates, leftover, build_freq, change_freq, t_end):
         """
         returns build rate at time t
 
@@ -56,10 +39,25 @@ def get_build_rate(build_rates, t):
         build_rate : build rate at time t.
 
         """
-        
-        build_rate = build_rates[math.floor(t)]
-        
-        return build_rate
+        t_start = t_end - build_freq
+        t = t_start
+        buildings = leftover
+
+        while t < t_end:
+                print('START: ' + str(t_start) + ' ' + str(t) + ' ' + str(t_end))
+                way_through = t/change_freq
+                build_rate = build_rates[math.floor(way_through)]
+                time_to_tend = t_end - t
+                if way_through % 1 > 0:
+                        time_to_next_rate = (math.ceil(way_through) - way_through)*change_freq
+                elif way_through % 1 == 0:
+                        time_to_next_rate = change_freq
+                time_to_build_at_this_rate = min(time_to_tend, time_to_next_rate) 
+                buildings += build_rate * time_to_build_at_this_rate
+                t += time_to_build_at_this_rate
+                print('END: ' + str(t_start) + ' ' + str(t) + ' ' + str(t_end))
+                
+        return buildings
 
 class HousingFilterStore(simpy.FilterStore):
         def __init__(self, *args, **kwargs):
@@ -135,13 +133,6 @@ def find_housing(env, c, housing_stock, service_mean):
         accomm_type = 'shelter'
         print('customer ' + str(c.id) + ' looks for ' +  str(accomm_type) + ' at time ' + str(env.now))
         print('get queue is ' + str(len(housing_stock.houses.get_queue)) + str(type(housing_stock.houses.get_queue)))
-#        if (len(housing_stock.houses.get_queue)>0):
-   #             print(housing_stock.houses.get_queue[0].__dir__())
-    #            print(str(dir(housing_stock.houses.get_queue[0])))
- #               print(vars(housing_stock.houses.get_queue[0]))
-#                print(housing_stock.houses.get_queue[0].resource)
- #               print(vars(housing_stock.houses.get_queue[0].filter))
-  #              print(dir(housing_stock.houses.get_queue[0].filter))
         housing_stock.houses.queue[accomm_type]+=1
         shelter = yield housing_stock.houses.get(filter = lambda house: house.type == accomm_type)
         housing_stock.houses.queue[accomm_type]-=1
@@ -175,7 +166,8 @@ def find_housing(env, c, housing_stock, service_mean):
         housing_stock.houses.put(housing)
         print('customer ' + str(c.id) + ' leaves ' +  str(accomm_type1) + ' at time ' + str(env.now)) 
         
-def development_sched(env, housing_stock, housing_build_frequency, build_rates):
+def development_sched(env, housing_stock, housing_build_frequency, build_rate_change_frequency, build_rates):
+    leftover = {'shelter' : 0, 'housing' : 0}
     while True:
         housing_stock.data_queue.append(len(housing_stock.houses.get_queue)) # this includes sheltered Queue
         housing_stock.data_queue_shelter.append(housing_stock.houses.queue['shelter'])
@@ -183,39 +175,30 @@ def development_sched(env, housing_stock, housing_build_frequency, build_rates):
         t = housing_build_frequency
         yield env.timeout(t)
         for accomm_type in ['shelter','housing']:
-                build_rate = get_build_rate(build_rates[accomm_type], env.now)
-                if (build_rate > 0):
-                        for _ in range(build_rate):
+                new_buildings = get_new_buildings(build_rates[accomm_type], leftover[accomm_type], housing_build_frequency, build_rate_change_frequency, env.now)
+                if (new_buildings > 0):
+                        new_buildings_integer = math.floor(new_buildings)
+                        leftover[accomm_type] = new_buildings - new_buildings_integer                        
+                        for _ in range(new_buildings_integer):
                                 housing_stock.add_house(accomm_type)
-                elif (build_rate < 0):
-                        for _ in range(abs(build_rate)):
+                elif (new_buildings < 0):
+                        new_buildings_integer = math.ceil(new_buildings)
+                        leftover[accomm_type] = new_buildings - new_buildings_integer
+                        for _ in range(abs(new_buildings_integer)):
                                 env.process(housing_stock.remove_house(accomm_type))
-                
-capacity_initial = {'housing' : 40, 'shelter' : 15}
-housing_build_frequency = 1/6 # in years
-end_of_simulation = 5 # in years
-service_mean = {'housing' : (1/52)*(0+300+400)/3, 'shelter' : 0.0} # in years
-arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100, 37.4052] # expected number per year
-build_rates = {'housing' : [3,6,7,10,8,4], 'shelter' : [2,2,0,-2,-1,-1]}
-current_demand = 120
-number_reps = 10
-seed = 10
 
-
-def simulate(end_of_simulation, number_reps, housing_build_frequency, capacity_initial, service_mean, arrival_rates, build_rates, current_demand, seed):
+def simulate(end_of_simulation, number_reps, housing_build_frequency, build_rate_change_frequency, capacity_initial, service_mean, arrival_rates, build_rates, current_demand, seed):
         results = []
         random.seed(seed)
         for rep in range(number_reps):
                 env = simpy.Environment()
                 housing_stock = HousingStock(env, capacity_initial)
                 env.process(gen_arrivals(env, housing_stock, service_mean, arrival_rates, current_demand))
-                env.process(development_sched(env, housing_stock, housing_build_frequency, build_rates))
+                env.process(development_sched(env, housing_stock, housing_build_frequency, build_rate_change_frequency, build_rates))
                 env.run(until=end_of_simulation)
                 results.append(np.array(housing_stock.data_queue_shelter))
         results = np.array(results).T
         return(results)
-
-output = simulate(end_of_simulation, number_reps, housing_build_frequency, capacity_initial, service_mean, arrival_rates, build_rates, current_demand, seed)
 
 def create_fanchart(arr):
     """
@@ -247,12 +230,3 @@ def create_fanchart(arr):
     ax.add_artist(first_legend)
     
     return fig, ax
-
-fig, ax = create_fanchart(output)
-
-        
-
-
-        
-        
-
