@@ -65,13 +65,13 @@ class Accommodation():
 
 class AccommodationFilterStore(simpy.FilterStore):
         """
-        A class to represent a set of different types of accommodation units (inherits of simpy's built'in FilterStore)
+        A class to represent a set of different types of accommodation units (inherits simpy's built'in FilterStore)
         The items attribute (inherited from simpy.FilterStore) contains details of the accommodation units in this store
 
         Attributes
         ----------
         queue : dict(int)
-           the size of the queue for shelter and housing
+           the size of the queue for shelter and housing - this changes as each simulation run progresses
 
         """
         def __init__(self, *args, **kwargs):
@@ -97,11 +97,13 @@ class AccommodationStock():
         store : AccommodationFilterStore
            the store which contains units of different types of accommodation
         data_queue : list
-           the size of get_queue - i.e. the number of customers waiting for shelter or in shelter waiting for housing.
+           stored data over time: the number of customers waiting for store.get() event (shelter and housing combined)
         data_queue_shelter : list
-           the number of customers waiting for shelter
+           stored data over time: the number of customers waiting for store.get() event (shelter only)
         data_queue_housing : list
-           the number of customers waiting for housing
+           stored data over time: the number of customers waiting for store.get() event (housing only)
+        data_new_arrivals : list
+           stored data over time: the number of new customers to have arrived
         
         """
         def __init__(self, env, initial_stock):
@@ -121,6 +123,7 @@ class AccommodationStock():
                 self.data_queue = []
                 self.data_queue_shelter = []
                 self.data_queue_housing = []
+                self.data_new_arrivals = []
  
         def add_accommodation(self, type):
                 """
@@ -168,9 +171,9 @@ def get_arrival_rate(arrival_rates, t):
 
         return arr_rate
 
-def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand):
+def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand, warm_up_time):
         """
-        Generate customer arrivals according to the initial demand and the future arrival rates and for each arrival generate a 'find_accommodation' process
+        Generate customer arrivals according to the initial demand and the future arrival rates and for each arrival generate a 'find_accommodation' process. Non-homogeneous Poisson arrivals. 
 
         Parameters
         ----------
@@ -184,8 +187,13 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
            annual customer arrival rates
         initial_demand : dict(int)
            the number of customers to exist in the environment at time t = 0
+        warm_up_time : float
+           building time before new arrivals enter system
 
         """
+        # wait for warm up (while initial building taking place)
+        yield env.timeout(warm_up_time)
+        
         # generate arrivals for those initially in system (current demand)
         for i in range(initial_demand):
             c = Customer()
@@ -196,13 +204,19 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
         # generate arrivals with non-homogeneous Poisson process using 'thinning'
         arrival_rate_max = max(arrival_rates)
         while True:
-            arrival_rate = get_arrival_rate(arrival_rates, env.now)
+            arrival_rate = get_arrival_rate(arrival_rates, env.now-warm_up_time)
             U = random.uniform(0,1)
-            t = random.expovariate(arrival_rate)
+            t = random.expovariate(arrival_rate_max)
             yield env.timeout(t)
             if U <= arrival_rate / arrival_rate_max:
+#                    if Customer.next_id >= 121:
+#                            if Customer.next_id <160:
+#                                    print('customer ' + str(c.id) + ' arrives at time t = ' + str(env.now))
+#                                    print('arrival rate is ' + str(arrival_rate))
+#                                    print('arrival rate max is ' + str(arrival_rate_max))
+#                                    print('rand unif is ' + str(U))
+#                                    print('rand exp is ' + str(t))
                     c = Customer()
- #                   print('customer ' + str(c.id) + ' arrives at time t = ' + str(env.now))
  #                   print('current queue: ' + str(len(accommodation_stock.store.get_queue)))
                     env.process(process_find_accommodation(env, c, accommodation_stock, service_mean))
 
@@ -226,9 +240,9 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean):
         accomm_type = 'shelter'
 #        print('customer ' + str(c.id) + ' looks for ' +  str(accomm_type) + ' at time ' + str(env.now))
 #        print('get queue is ' + str(len(accommodation_stock.store.get_queue)) + str(type(accommodation_stock.store.get_queue)))
-        accommodation_stock.store.queue[accomm_type]+=1
+        accommodation_stock.store.queue[accomm_type] += 1
         shelter = yield accommodation_stock.store.get(filter = lambda accomm: accomm.type == accomm_type)
-        accommodation_stock.store.queue[accomm_type]-=1
+        accommodation_stock.store.queue[accomm_type] -= 1
 #        print('customer ' + str(c.id) + ' enters ' +  str(accomm_type) + ' at time ' + str(env.now)) 
         if service_mean[accomm_type] > 0:
             time_in_accomm = random.expovariate(1/service_mean[accomm_type])
@@ -257,19 +271,19 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean):
         accommodation_stock.store.put(housing)
 #        print('customer ' + str(c.id) + ' leaves ' +  str(accomm_type_next) + ' at time ' + str(env.now)) 
 
-def get_new_accommodation(build_rates, leftover, build_freq, change_freq, t_end):
+def get_new_accommodation(build_rates, leftover, build_time, change_time, t_end):
         """
-        returns the number of accommodation units (shelter or housing) to be built at time t_end, given the building rate between (t_end - change_freq) and t_end, which may have changed in that time period, and given the 'leftover' from the previous build (which arises when a non-integer build rate leads to a non-integer number of houses being built)
+        returns the number of accommodation units (shelter or housing) to be built at time t_end, given the building rate between (t_end - change_time) and t_end, which may have changed in that time period, and given the 'leftover' from the previous build (which arises when a non-integer build rate leads to a non-integer number of houses being built)
 
         Parameters
         ----------
         build_rates : dict(list)
-            for each accommodation type, the number of accommodation units to be built over the course of the time period (in years) given by 'change_freq'
+            for each accommodation type, the number of accommodation units to be built over the course of the time period (in years) given by 'change_time'
         leftover : float
             the non-integer amount of accommodation units leftover from the previous building time
-        build_freq : float
+        build_time : float
             the time, in years, between building new accommodation units
-        change_freq : float
+        change_time : float
             the time, in years, at which point the building rate may be changed
         t_end : float
            this is the simulation time (in years) at which building is taking place. 
@@ -281,7 +295,7 @@ def get_new_accommodation(build_rates, leftover, build_freq, change_freq, t_end)
 
         """
         # initialise
-        t_start = t_end - build_freq
+        t_start = t_end - build_time
         t = t_start
         buildings = leftover
 
@@ -289,17 +303,17 @@ def get_new_accommodation(build_rates, leftover, build_freq, change_freq, t_end)
         # given the build rate function is piecewise constant, do this integration in chunks, ending each chunk either when the build rate changes or when we reach t_end
         while t < t_end:
                 # get the build rate
-                way_through = t/change_freq # how far through the build rate function we are at time t (as a proportion of the time between changing the build rate)
+                way_through = t/change_time # how far through the build rate function we are at time t (as a proportion of the time between changing the build rate)
                 build_rate = build_rates[math.floor(way_through)] # the build rate at time t
 
-                # get the time until t_end
-                time_to_tend = t_end - t
+                # get the time until t_end (as proportion of change_time)
+                time_to_tend = (t_end - t)/change_time
 
-                # get the time until the build rate may change
+                # get the time until the build rate may change (as a proportion of change_time)
                 if way_through % 1 > 0:
-                        time_to_next_rate = (math.ceil(way_through) - way_through)*change_freq
+                        time_to_next_rate = (math.ceil(way_through) - way_through)
                 elif way_through % 1 == 0:
-                        time_to_next_rate = change_freq
+                        time_to_next_rate = 1
 
                 # get the time for this chunk of integration
                 time_to_build_at_this_rate = min(time_to_tend, time_to_next_rate)
@@ -308,11 +322,11 @@ def get_new_accommodation(build_rates, leftover, build_freq, change_freq, t_end)
                 buildings += build_rate * time_to_build_at_this_rate
 
                 # advance time
-                t += time_to_build_at_this_rate
+                t += time_to_build_at_this_rate * change_time
                 
         return buildings
 
-def gen_development_sched(env, accommodation_stock, accomm_build_freq, build_rate_change_frequency, build_rates):
+def gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn_build_rate_changes, build_rates, warm_up_time):
         """
         Using yield statements and store.get() and store.put() functions, this process advances the simulation clock until new accommodation is to be built. 
 
@@ -322,16 +336,21 @@ def gen_development_sched(env, accommodation_stock, accomm_build_freq, build_rat
            the environment in which to generate processes for the new arrivals
         accommodation_stock : AccommodationStock
            the stock of accommodation where the customer arrivals will go to look for accommodation
-        accomm_build_freq : float
+        accomm_build_time : float
            the time (in years) in between building new accommodation
-        build_rate_change_frequency : float
+        time_btwn_build_rate_changes : float
            the time (in years) in between points where the build_rate may change
         build_rates : dict(list)
-           the build rates for each type of accommodation. The time difference between each build rate is given by build_rate_change_frequency
+           the build rates for each type of accommodation. The time difference between each build rate is given by time_btwn_build_rate_changes
+        warm_up_time : float
+           building time before new arrivals enter system
 
         """
         # initialise
         leftover = {'shelter' : 0, 'housing' : 0}
+
+        # advance through warm up time
+        yield env.timeout(warm_up_time)
 
         # continuously build accommodation
         while True:
@@ -339,15 +358,15 @@ def gen_development_sched(env, accommodation_stock, accomm_build_freq, build_rat
                 accommodation_stock.data_queue.append(len(accommodation_stock.store.get_queue)) # this includes sheltered Queue
                 accommodation_stock.data_queue_shelter.append(accommodation_stock.store.queue['shelter'])
                 accommodation_stock.data_queue_housing.append(accommodation_stock.store.queue['housing'])
-
-                # advance time
-                t = accomm_build_freq
-                yield env.timeout(t)
-
+                if len(accommodation_stock.data_new_arrivals) > 0:
+                        accommodation_stock.data_new_arrivals.append(Customer.next_id-1 - sum(accommodation_stock.data_new_arrivals))
+                else:
+                        accommodation_stock.data_new_arrivals.append(Customer.next_id-1)
+                
                 # build accommodation
                 for accomm_type in ['shelter','housing']:
                         # compute the number of units to build at this time (based on the build rate function since we last built)
-                        new_buildings = get_new_accommodation(build_rates[accomm_type], leftover[accomm_type], accomm_build_freq, build_rate_change_frequency, env.now)
+                        new_buildings = get_new_accommodation(build_rates[accomm_type], leftover[accomm_type], accomm_build_time, time_btwn_build_rate_changes, env.now)
 
                         # either add or remove, depending on sign of new_buildings
                         if (new_buildings > 0):
@@ -360,8 +379,25 @@ def gen_development_sched(env, accommodation_stock, accomm_build_freq, build_rat
                                 leftover[accomm_type] = new_buildings - new_buildings_integer # keep track of leftover
                                 for i in range(abs(new_buildings_integer)):
                                         env.process(accommodation_stock.remove_accommodation(accomm_type))
+                                        
+#                        if accomm_type == 'shelter':
+#                            print('Time ' + str(env.now-warm_up_time) + ' build ' + str(new_buildings_integer) + ' new ' + str(accomm_type) + ' units with ' + str(leftover[accomm_type]) + ' leftover.')
 
-def simulate(end_of_simulation, number_reps, accomm_build_freq, build_rate_change_frequency, capacity_initial, service_mean, arrival_rates, build_rates, initial_demand, seed):
+
+                # advance time
+                yield env.timeout(accomm_build_time)
+
+def simulate(end_of_simulation,
+             number_reps,
+             accomm_build_time,
+             time_btwn_build_rate_changes,
+             capacity_initial,
+             service_mean,
+             arrival_rates,
+             build_rates,
+             initial_demand,
+             seed,
+             warm_up_time):
         """
         Given a set of inputs and a random seed, simulate the system multiple times over a fixed period of simulation time
 
@@ -371,9 +407,9 @@ def simulate(end_of_simulation, number_reps, accomm_build_freq, build_rate_chang
            the simulation time (in years) at which to stop simulating
         number_reps : int
            the number of simulations replications to perform
-        accomm_build_freq : float
+        accomm_build_time : float
            the time (in years) in between building new accommodation
-        build_rate_change_frequency : float
+        time_btwn_build_rate_changes : float
            the time (in years) in between points where the build_rate may change
         capacity_initial : dict(int)
            the initial amount of accommodation units to place in the store
@@ -382,22 +418,29 @@ def simulate(end_of_simulation, number_reps, accomm_build_freq, build_rate_chang
         arrival_rates : list
            annual customer arrival rates
         build_rates : dict(list)
-           the build rates for each type of accommodation. The time difference between each build rate is given by build_rate_change_frequency
+           the build rates for each type of accommodation. The time difference between each build rate is given by time_btwn_build_rate_changes
         initial_demand : dict(int)
            the number of customers to exist in the environment at time t = 0
         seed : int
            the starting seed for use in random.seed()
+        warm_up_time : float
+           building time before new arrivals enter system
 
         """
         results = []
+        arrivals = []
+        arrivals2 = []
         random.seed(seed)
-        for rep in range(number_reps):
+        for rep  in range(number_reps):
                 env = simpy.Environment()
                 accommodation_stock = AccommodationStock(env, capacity_initial)
-                env.process(gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand))
-                env.process(gen_development_sched(env, accommodation_stock, accomm_build_freq, build_rate_change_frequency, build_rates))
+                env.process(gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand, warm_up_time))
+                env.process(gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn_build_rate_changes, build_rates, warm_up_time))
                 env.run(until=end_of_simulation)
                 results.append(np.array(pd.concat([pd.Series([initial_demand - capacity_initial['shelter']-capacity_initial['housing']]), pd.Series(accommodation_stock.data_queue_shelter[1:])])))
+                arrivals.append(sum(accommodation_stock.data_new_arrivals[1:7]))
+                arrivals2.append(sum(accommodation_stock.data_new_arrivals[7:13])) 
+#                results.append(np.array(pd.concat([pd.Series(accommodation_stock.data_queue_sheltner)])))
         results = np.array(results).T
         return(results)
 
@@ -439,3 +482,73 @@ def create_fanchart(arr):
         ax.add_artist(first_legend)
     
         return fig, ax
+
+def compare_cdf(data_simpy, data_simio, yr):
+    """
+    Function to display a chart comparing CDFs of the analytical queuing model output for #unsheltered with ecdf
+    
+    Parameters
+    ----------
+    data_simpy : nparray
+        simulation output from simpy
+    data_simio : nparray
+        simulation output from simio
+    yr : int
+        the year to look at.       
+
+    Returns
+    -------
+    fig, ax : plot objects
+    
+    """
+    
+    # simulation data simpy
+    x1 = np.sort(data_simpy[yr*6])
+    simpy_out = np.arange(len(x1))/float(len(x1))
+
+    # simulation data simio
+    x2 = np.sort(data_simio[yr*6])
+    simio_out = np.arange(len(x2))/float(len(x2))
+    
+    fig, ax = plt.subplots()
+    line1, = ax.plot(x1, simpy_out, color = 'black', linewidth = 1)
+    line2, = ax.plot(x2, simio_out, color = 'blue', linewidth = 1)
+    plt.xlabel('# Unsheltered')
+    plt.ylabel('Probability')
+    plt.title('CDF for number unsheltered after year ' +  str(yr))
+    first_legend = plt.legend(['SimPy model','Simio model'])
+    ax.add_artist(first_legend)
+    
+    return fig, ax
+
+"""
+number_reps = 1
+end_of_simulation = 6 # in years
+seed = 1
+warm_up_time = 63/365 # in years
+initial_demand = 120
+initial_capacity = {'housing' : 40, 'shelter' : 15}
+arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100, 37.4052] # in 1/year. One constant rate per year.
+service_mean = {'housing' : (1/52)*(0+300+400)/3, 'shelter' : 0.0} # in years
+arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100, 37.4052] # six entries, one for each year over 6 years. 
+reentry_rate = 0.17 # the proportion of those leaving accommodation which re-enter the system some time later
+arrival_rate_reentries = (initial_capacity['housing']*reentry_rate)/service_mean['housing'] # assuming re-entries from the initial number of servers
+arrival_rates = [i+arrival_rate_reentries for i in arrival_rates]
+time_btwn_changes_in_build_rate = (63*6)/365 # in years
+build_rates = {'housing' : [18, 36, 42, 60, 48, 24], 'shelter' : [12, 12, 0, -12, -6, -6]} # in 1/year
+time_btwn_building = 63/365 # in years. 63/365 years = 9 weeks.
+output,arrivals,arrivals2 = simulate(end_of_simulation, 
+                      number_reps, 
+                      time_btwn_building, 
+                      time_btwn_changes_in_build_rate, 
+                      initial_capacity, 
+                      service_mean, 
+                      arrival_rates, 
+                      build_rates, 
+                      initial_demand, 
+                      seed,
+                      warm_up_time)
+
+print(sum(arrivals)/len(arrivals))
+print(sum(arrivals2)/len(arrivals2))
+"""
