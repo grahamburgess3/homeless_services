@@ -96,14 +96,10 @@ class AccommodationStock():
            the environment in which this stock lives
         store : AccommodationFilterStore
            the store which contains units of different types of accommodation
-        data_queue : list
-           stored data over time: the number of customers waiting for store.get() event (shelter and housing combined)
         data_queue_shelter : list
            stored data over time: the number of customers waiting for store.get() event (shelter only)
         data_queue_housing : list
            stored data over time: the number of customers waiting for store.get() event (housing only)
-        data_new_arrivals : list
-           stored data over time: the number of new customers to have arrived
         
         """
         def __init__(self, env, initial_stock):
@@ -120,10 +116,8 @@ class AccommodationStock():
                 self.env = env
                 self.store = AccommodationFilterStore(env)
                 self.store.items = [Accommodation('housing') for i in range(initial_stock['housing'])] + [Accommodation('shelter') for j in range(initial_stock['shelter'])]
-                self.data_queue = []
                 self.data_queue_shelter = []
                 self.data_queue_housing = []
-                self.data_new_arrivals = []
  
         def add_accommodation(self, type):
                 """
@@ -197,8 +191,6 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
         # generate arrivals for those initially in system (current demand)
         for i in range(initial_demand):
             c = Customer()
-#            print('customer ' + str(c.id) + ' arrives at time t = ' + str(env.now))
-#            print('current queue: ' + str(len(accommodation_stock.store.get_queue)))            
             env.process(process_find_accommodation(env, c, accommodation_stock, service_mean))
             
         # generate arrivals with non-homogeneous Poisson process using 'thinning'
@@ -209,15 +201,7 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
             t = random.expovariate(arrival_rate_max)
             yield env.timeout(t)
             if U <= arrival_rate / arrival_rate_max:
-#                    if Customer.next_id >= 121:
-#                            if Customer.next_id <160:
-#                                    print('customer ' + str(c.id) + ' arrives at time t = ' + str(env.now))
-#                                    print('arrival rate is ' + str(arrival_rate))
-#                                    print('arrival rate max is ' + str(arrival_rate_max))
-#                                    print('rand unif is ' + str(U))
-#                                    print('rand exp is ' + str(t))
                     c = Customer()
- #                   print('current queue: ' + str(len(accommodation_stock.store.get_queue)))
                     env.process(process_find_accommodation(env, c, accommodation_stock, service_mean))
 
 def process_find_accommodation(env, c, accommodation_stock, service_mean):
@@ -238,12 +222,9 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean):
         """
         # First look for shelter
         accomm_type = 'shelter'
-#        print('customer ' + str(c.id) + ' looks for ' +  str(accomm_type) + ' at time ' + str(env.now))
-#        print('get queue is ' + str(len(accommodation_stock.store.get_queue)) + str(type(accommodation_stock.store.get_queue)))
         accommodation_stock.store.queue[accomm_type] += 1
         shelter = yield accommodation_stock.store.get(filter = lambda accomm: accomm.type == accomm_type)
         accommodation_stock.store.queue[accomm_type] -= 1
-#        print('customer ' + str(c.id) + ' enters ' +  str(accomm_type) + ' at time ' + str(env.now)) 
         if service_mean[accomm_type] > 0:
             time_in_accomm = random.expovariate(1/service_mean[accomm_type])
         else:
@@ -252,15 +233,12 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean):
 
         # When done in shelter (but before leaving shelter) look for housing
         accomm_type_next = 'housing'        
-#        print('customer ' + str(c.id) + ' looks for ' +  str(accomm_type_next) + ' at time ' + str(env.now))
         accommodation_stock.store.queue[accomm_type_next] += 1
         housing = yield accommodation_stock.store.get(filter = lambda accomm: accomm.type == accomm_type_next)
         accommodation_stock.store.queue[accomm_type_next] -= 1
 
         # When found housing, leave shelter and spend time in housing
         accommodation_stock.store.put(shelter)
-#        print('customer ' + str(c.id) + ' leaves ' +  str(accomm_type) + ' at time ' + str(env.now)) 
-#        print('customer ' + str(c.id) + ' enters ' +  str(accomm_type_next) + ' at time ' + str(env.now)) 
         if service_mean[accomm_type_next] > 0:
             time_in_accomm = random.expovariate(1/service_mean[accomm_type_next])
         else:
@@ -269,7 +247,6 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean):
 
         # Finally, leave housing
         accommodation_stock.store.put(housing)
-#        print('customer ' + str(c.id) + ' leaves ' +  str(accomm_type_next) + ' at time ' + str(env.now)) 
 
 def get_new_accommodation(build_rates, leftover, build_time, change_time, t_end):
         """
@@ -355,13 +332,8 @@ def gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn
         # continuously build accommodation
         while True:
                 # collect data
-                accommodation_stock.data_queue.append(len(accommodation_stock.store.get_queue)) # this includes sheltered Queue
                 accommodation_stock.data_queue_shelter.append(accommodation_stock.store.queue['shelter'])
                 accommodation_stock.data_queue_housing.append(accommodation_stock.store.queue['housing'])
-                if len(accommodation_stock.data_new_arrivals) > 0:
-                        accommodation_stock.data_new_arrivals.append(Customer.next_id-1 - sum(accommodation_stock.data_new_arrivals))
-                else:
-                        accommodation_stock.data_new_arrivals.append(Customer.next_id-1)
                 
                 # build accommodation
                 for accomm_type in ['shelter','housing']:
@@ -380,10 +352,6 @@ def gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn
                                 for i in range(abs(new_buildings_integer)):
                                         env.process(accommodation_stock.remove_accommodation(accomm_type))
                                         
-#                        if accomm_type == 'shelter':
-#                            print('Time ' + str(env.now-warm_up_time) + ' build ' + str(new_buildings_integer) + ' new ' + str(accomm_type) + ' units with ' + str(leftover[accomm_type]) + ' leftover.')
-
-
                 # advance time
                 yield env.timeout(accomm_build_time)
 
@@ -428,8 +396,6 @@ def simulate(end_of_simulation,
 
         """
         results = []
-        arrivals = []
-        arrivals2 = []
         random.seed(seed)
         for rep  in range(number_reps):
                 env = simpy.Environment()
@@ -438,9 +404,6 @@ def simulate(end_of_simulation,
                 env.process(gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn_build_rate_changes, build_rates, warm_up_time))
                 env.run(until=end_of_simulation)
                 results.append(np.array(pd.concat([pd.Series([initial_demand - capacity_initial['shelter']-capacity_initial['housing']]), pd.Series(accommodation_stock.data_queue_shelter[1:])])))
-                arrivals.append(sum(accommodation_stock.data_new_arrivals[1:7]))
-                arrivals2.append(sum(accommodation_stock.data_new_arrivals[7:13])) 
-#                results.append(np.array(pd.concat([pd.Series(accommodation_stock.data_queue_sheltner)])))
         results = np.array(results).T
         return(results)
 
@@ -475,7 +438,7 @@ def create_fanchart(arr):
         # labels
         plt.xlabel('Years')
         plt.ylabel('# Unsheltered')
-        plt.title('Number of unsheltered people - simulation and queueing model results')
+        plt.title('Number of unsheltered people - SimPy simulation model results')
 
         # legend
         first_legend = plt.legend([f'Simulation: {100-p}th - {p}th percentile' for p in percentiles])
@@ -537,7 +500,7 @@ arrival_rates = [i+arrival_rate_reentries for i in arrival_rates]
 time_btwn_changes_in_build_rate = (63*6)/365 # in years
 build_rates = {'housing' : [18, 36, 42, 60, 48, 24], 'shelter' : [12, 12, 0, -12, -6, -6]} # in 1/year
 time_btwn_building = 63/365 # in years. 63/365 years = 9 weeks.
-output,arrivals,arrivals2 = simulate(end_of_simulation, 
+output = simulate(end_of_simulation, 
                       number_reps, 
                       time_btwn_building, 
                       time_btwn_changes_in_build_rate, 
@@ -549,6 +512,5 @@ output,arrivals,arrivals2 = simulate(end_of_simulation,
                       seed,
                       warm_up_time)
 
-print(sum(arrivals)/len(arrivals))
-print(sum(arrivals2)/len(arrivals2))
+print(output)
 """
