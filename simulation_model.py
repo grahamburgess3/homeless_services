@@ -5,6 +5,7 @@ import collections
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from datetime import datetime
 
 class Customer():
         """
@@ -393,19 +394,31 @@ def simulate(end_of_simulation,
            the starting seed for use in random.seed()
         warm_up_time : float
            building time before new arrivals enter system
+           
+        Returns
+        -------
+        results : np.array
+           the size of the unsheltered queue at discrete time points, for each simulation run.         
+        timetaken : datetime.timedelta
+           the time taken for all the simulation replications to be run. 
 
         """
         results = []
         random.seed(seed)
+        start = datetime.now()
         for rep  in range(number_reps):
+
                 env = simpy.Environment()
                 accommodation_stock = AccommodationStock(env, capacity_initial)
                 env.process(gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand, warm_up_time))
                 env.process(gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn_build_rate_changes, build_rates, warm_up_time))
                 env.run(until=end_of_simulation)
                 results.append(np.array(pd.concat([pd.Series([initial_demand - capacity_initial['shelter']-capacity_initial['housing']]), pd.Series(accommodation_stock.data_queue_shelter[1:])])))
+                end = datetime
+        end = datetime.now()
         results = np.array(results).T
-        return(results)
+        timetaken = end-start
+        return(results,timetaken)
 
 def create_fanchart(arr):
         """
@@ -483,34 +496,3 @@ def compare_cdf(data_simpy, data_simio, yr):
     ax.add_artist(first_legend)
     
     return fig, ax
-
-"""
-number_reps = 1
-end_of_simulation = 6 # in years
-seed = 1
-warm_up_time = 63/365 # in years
-initial_demand = 120
-initial_capacity = {'housing' : 40, 'shelter' : 15}
-arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100, 37.4052] # in 1/year. One constant rate per year.
-service_mean = {'housing' : (1/52)*(0+300+400)/3, 'shelter' : 0.0} # in years
-arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100, 37.4052] # six entries, one for each year over 6 years. 
-reentry_rate = 0.17 # the proportion of those leaving accommodation which re-enter the system some time later
-arrival_rate_reentries = (initial_capacity['housing']*reentry_rate)/service_mean['housing'] # assuming re-entries from the initial number of servers
-arrival_rates = [i+arrival_rate_reentries for i in arrival_rates]
-time_btwn_changes_in_build_rate = (63*6)/365 # in years
-build_rates = {'housing' : [18, 36, 42, 60, 48, 24], 'shelter' : [12, 12, 0, -12, -6, -6]} # in 1/year
-time_btwn_building = 63/365 # in years. 63/365 years = 9 weeks.
-output = simulate(end_of_simulation, 
-                      number_reps, 
-                      time_btwn_building, 
-                      time_btwn_changes_in_build_rate, 
-                      initial_capacity, 
-                      service_mean, 
-                      arrival_rates, 
-                      build_rates, 
-                      initial_demand, 
-                      seed,
-                      warm_up_time)
-
-print(output)
-"""
