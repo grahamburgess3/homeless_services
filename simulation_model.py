@@ -365,7 +365,6 @@ def simulate(end_of_simulation,
              arrival_rates,
              build_rates,
              initial_demand,
-             seed,
              warm_up_time):
         """
         Given a set of inputs and a random seed, simulate the system multiple times over a fixed period of simulation time
@@ -390,8 +389,6 @@ def simulate(end_of_simulation,
            the build rates for each type of accommodation. The time difference between each build rate is given by time_btwn_build_rate_changes
         initial_demand : dict(int)
            the number of customers to exist in the environment at time t = 0
-        seed : int
-           the starting seed for use in random.seed()
         warm_up_time : float
            building time before new arrivals enter system
            
@@ -404,7 +401,6 @@ def simulate(end_of_simulation,
 
         """
         results = []
-        random.seed(seed)
         start = datetime.now()
         for rep  in range(number_reps):
 
