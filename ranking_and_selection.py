@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import math
 
 class SolutionSpace():
     """
@@ -112,3 +113,31 @@ class Solution():
 
         """
         self.solution = solution
+
+def MySim(x, n=1, RandomSeed=-1):
+  # simulates the (s,S) inventory example of Koenig & Law
+  # x in {1,2,...,1600} is the system index
+  # n = number of replications
+  # output is average cost for 30 periods
+  
+    littleS = math.ceil(x/40)
+    bigS = littleS + x - (littleS - 1)*40
+  
+    Y = []
+    for j in range(n):
+        InvtPos = bigS
+        Cost = 0
+        for period in range(30):
+            Demand = np.random.poisson(lam=25,size=1)[0]
+            if InvtPos < littleS:
+                INext = bigS
+                Cost = Cost + 32 +3*(bigS - InvtPos)
+            else:
+                INext = InvtPos
+            if (INext - Demand >= 0):
+                Cost = Cost + INext - Demand
+            else:
+                Cost = Cost + 5*(Demand - INext) 
+            InvtPos = INext - Demand
+        Y.append(Cost/30)
+    return Y
