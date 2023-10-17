@@ -2,31 +2,72 @@ import numpy as np
 import pandas as pd
 
 class SolutionSpace():
-    
+    """
+    A class to represent a set of solutions making up a solution space, which can be tested for cost using stochastic simulation
+
+    Attributes (Instance)
+    ----------
+    solutions : list(Solution)
+       the set of solutions in question
+    costs : list(list)
+       for each solution, a list of the initial realisations of cost, from the simulation
+    covar : np.array
+       the covariance matrix for the costs of each solution
+    active : np.array(bool)
+       True for each solution if it is still in consideration to be the best
+    eliminate : np.array(int)
+       Details the iteration at which each solution was rejected (0 if not rejected)
+        
+        """
     def __init__(self, solutions):
+        """
+        Constructs the initial attributes for an instance of SolutionSpace
+
+        Parameters
+        ----------
+        solutions : list(dict(list))
+           a dictionary for each solution, each containing a list of the build rates for each type of accommodation, for that solution
+
+        """
         self.solutions = [Solution(solutions[i]) for i in range(len(solutions))]
-        self.Y0 = [[] for i in solutions]
-        self.S2 = None
+        self.costs = [[] for i in solutions]
+        self.covar = None
         self.active = np.array([True for i in solutions])
         self.eliminate = [0 for i in solutions]
 
     def optimise_rs(self, alpha, n0, delta, sim):
+        """
+        Find an optimal solution using the KN Ranking & Selection algorithm (see Nelson and Pei, 2021, Chapter 9)
+        Callin this function updates the self.active attribute to leave only one True element - this is the optimal solution
+
+        Parameters
+        ----------
+        alpha : float
+           (1-alpha) desired confidence. Assuming the true optimal is at least delta better than all the rest, this routine will select the best with probability 1-alpha
+        n0 : int
+           The number of initial replications of each solution to simulate before elimination begins
+        delta : float
+           The indifference zone - i.e. the smallest difference in expected cost which is of practical importance.
+        sim : function
+           A function which takes as input self.solutions[i] for i in range(len(self.solutions)) and returns the cost of that solution
+        """
+
         # get first n0 solutions
         for x in range(len(self.solutions)):
             for rep in range(n0):
                 cost = sim(self.solutions[x].solution)
-                self.Y0[x].append(cost)
+                self.costs[x].append(cost)
 
         # get initial variance
-        self.Y0 = np.array(self.Y0)
-        self.S2 = np.cov(self.Y0)
+        self.costs = np.array(self.costs)
+        self.covar = np.cov(self.costs)
 
         # setup for iteration
         eta = 0.5*( (2*alpha/(len(self.solutions)-1))**(-2/(n0-1)) -1)
-        h2 = 2*eta*(n0-1)
-        Y_sum = np.sum(self.Y0, axis=1)
-        r = n0
-        k_iter = np.array([i for i in range(len(self.solutions))])
+        t2 = 2*eta*(n0-1)
+        costs_sum = np.sum(self.costs, axis=1) # sum of costs over each replication, for each solution
+        r = n0 # iteration number
+        sol_index = np.array([i for i in range(len(self.solutions))]) # represent the index of each solution
 
         # elimination loop
         while sum(self.active) > 1:
@@ -34,16 +75,16 @@ class SolutionSpace():
             a_temp = self.active.copy()
 
             # collect new data
-            for i in k_iter[self.active]:
+            for i in sol_index[self.active]:
                 cost = sim(self.solutions[x].solution)
-                Y_sum[i] += cost
+                costs_sum[i] += cost
 
             # elimination
-            for i in k_iter[self.active]:
-                for j in k_iter[self.active]:
-                    S2diff = self.S2[i,i] + self.S2[j,j] - 2 * self.S2[i,j]
-                    W = max(0, (delta/2)*(h2*S2diff/delta**2 - r))
-                    if Y_sum[i] > Y_sum[j] + W:
+            for i in sol_index[self.active]:
+                for j in sol_index[self.active]:
+                    covar_diff = self.covar[i,i] + self.covar[j,j] - 2 * self.covar[i,j]
+                    W = max(0, (delta/2)*(t2*covar_diff/delta**2 - r))
+                    if costs_sum[i] > costs_sum[j] + W:
                         a_temp[i] = False
                         self.eliminate[i] = r
                         break
@@ -51,6 +92,23 @@ class SolutionSpace():
             self.active = a_temp.copy()
         
 class Solution():
+    """
+    A class to represent a single solution, which can be tested for cost using stochastic simulation
 
+    Attributes (Instance)
+    ----------
+    solution : dict
+       A dictionary which can be the argument to the function which runs the stochastic simulation
+
+    """
     def __init__(self, solution):
+        """
+        Constructs the initial attributes for an instance of Solution
+
+        Parameters
+        ----------
+        solution : dict(list)
+           a list of the build rates for each type of accommodation
+
+        """
         self.solution = solution
