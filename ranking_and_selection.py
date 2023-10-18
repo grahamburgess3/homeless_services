@@ -2,6 +2,27 @@ import numpy as np
 import pandas as pd
 import math
 
+def generate_solution_space(build_rate_options, annual_budget, total_budgets, simulation_length):
+    """
+    
+    """
+
+    previous_options = [{'housing' : [], 'shelter' : []}]
+    # go through each year
+    for yr in range(simulation_length):
+        new_options = []
+        for h in range(len(build_rate_options['housing'])):
+            for s in range(len(build_rate_options['shelter'])):
+                if build_rate_options['housing'][h] + build_rate_options['shelter'][s] <= annual_budget:
+                    for opt in previous_options:
+                        if sum(opt['housing']) + build_rate_options['housing'][h] <= total_budgets['housing'] and sum(opt['shelter']) + build_rate_options['shelter'][s] <= total_budgets['shelter']:
+                            new_opt = {'housing':opt['housing'].copy(),'shelter':opt['shelter'].copy()}
+                            new_opt['housing'].append(build_rate_options['housing'][h])
+                            new_opt['shelter'].append(build_rate_options['shelter'][s])
+                            new_options.append(new_opt)
+        previous_options = new_options.copy()
+    return new_options
+
 class SolutionSpace():
     """
     A class to represent a set of solutions making up a solution space, which can be tested for cost using stochastic simulation
@@ -58,6 +79,7 @@ class SolutionSpace():
             for rep in range(n0):
                 cost = sim(self.solutions[x].solution)
                 self.costs[x].append(cost)
+            print('don init reps for ' + str(x))
 
         # get initial variance
         self.costs = np.array(self.costs)
@@ -72,6 +94,7 @@ class SolutionSpace():
 
         # elimination loop
         while sum(self.active) > 1:
+            print('start iteration ' + str(r+1) + ' with ' + str(len(self.active)) + ' active solutions out of initial ' + str(len(self.solutions)))
             r += 1
             a_temp = self.active.copy()
 
@@ -85,6 +108,7 @@ class SolutionSpace():
                 for j in sol_index[self.active]:
                     covar_diff = self.covar[i,i] + self.covar[j,j] - 2 * self.covar[i,j]
                     W = max(0, (delta/2)*(t2*covar_diff/delta**2 - r))
+                    print(str(i) + ' cost: ' + str(costs_sum[i]) + ', ' + str(j) + ' cost: ' + str(costs_sum[j]) + '. W: ' + str(W))
                     if costs_sum[i] > costs_sum[j] + W:
                         a_temp[i] = False
                         self.eliminate[i] = r
@@ -114,7 +138,7 @@ class Solution():
         """
         self.solution = solution
 
-def MySim(x, n=1, RandomSeed=-1):
+def InventorySystem(x, n=1, RandomSeed=-1):
   # simulates the (s,S) inventory example of Koenig & Law
   # x in {1,2,...,1600} is the system index
   # n = number of replications
