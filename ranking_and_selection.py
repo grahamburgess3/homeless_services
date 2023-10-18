@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import math
+from datetime import datetime
 
 def generate_solution_space(build_rate_options, annual_budget, total_budgets, simulation_length):
     """
@@ -73,34 +74,41 @@ class SolutionSpace():
         sim : function
            A function which takes as input self.solutions[i] for i in range(len(self.solutions)) and returns the cost of that solution
         """
+        # start
+        print('starting routine at time  ' + str(datetime.now()))
 
         # get first n0 solutions
         for x in range(len(self.solutions)):
             for rep in range(n0):
                 cost = sim(self.solutions[x].solution)
                 self.costs[x].append(cost)
-            print('don init reps for ' + str(x))
+        print('done init reps at time  ' + str(datetime.now()))
 
-        # get initial variance
-        self.costs = np.array(self.costs)
-        self.covar = np.cov(self.costs)
+        # get initial covariance
+        self.covar = np.cov(np.array(self.costs))
 
         # setup for iteration
         eta = 0.5*( (2*alpha/(len(self.solutions)-1))**(-2/(n0-1)) -1)
         t2 = 2*eta*(n0-1)
-        costs_sum = np.sum(self.costs, axis=1) # sum of costs over each replication, for each solution
+        costs_sum = np.sum(np.array(self.costs), axis=1) # sum of costs over each replication, for each solution
         r = n0 # iteration number
         sol_index = np.array([i for i in range(len(self.solutions))]) # represent the index of each solution
 
         # elimination loop
-        while sum(self.active) > 1:
-            print('start iteration ' + str(r+1) + ' with ' + str(len(self.active)) + ' active solutions out of initial ' + str(len(self.solutions)))
+        num_active_old = np.sum(self.active)
+        num_active_new = num_active_old
+        while np.sum(self.active) > 1:
+            num_active_diff = num_active_old-num_active_new
+            if num_active_diff > 0:
+                print('start iteration ' + str(r+1) + ' with ' + str(np.sum(self.active)) + ' active solutions out of initial ' + str(len(self.solutions)) + ' at time ' + str(datetime.now()))
+            num_active_old = np.sum(self.active)                
             r += 1
             a_temp = self.active.copy()
 
             # collect new data
             for i in sol_index[self.active]:
                 cost = sim(self.solutions[x].solution)
+                self.costs[i].append(cost)
                 costs_sum[i] += cost
 
             # elimination
@@ -108,13 +116,13 @@ class SolutionSpace():
                 for j in sol_index[self.active]:
                     covar_diff = self.covar[i,i] + self.covar[j,j] - 2 * self.covar[i,j]
                     W = max(0, (delta/2)*(t2*covar_diff/delta**2 - r))
-                    print(str(i) + ' cost: ' + str(costs_sum[i]) + ', ' + str(j) + ' cost: ' + str(costs_sum[j]) + '. W: ' + str(W))
                     if costs_sum[i] > costs_sum[j] + W:
                         a_temp[i] = False
                         self.eliminate[i] = r
                         break
                         
             self.active = a_temp.copy()
+            num_active_new = np.sum(self.active)
         
 class Solution():
     """
