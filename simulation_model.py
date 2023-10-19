@@ -436,6 +436,38 @@ def simulate(end_of_simulation,
         results['time_taken'] = end-start
         return(results)
 
+def simulate_as_is(build_rates):
+        """ One replication with as-is variables apart from build rates"""
+        number_reps = 1
+        initial_build_time = 63/365 # 9 weeks in years
+        end_of_simulation = 5 + initial_build_time - 0.25 # in years
+        initial_demand = 120
+        initial_capacity = {'housing' : 40, 'shelter' : 15}
+        arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100] # in 1/year. One constant rate per year.
+        service_mean = {'housing' : (1/52)*(0+300+400)/3, 'shelter' : 0.0} # in years
+
+        # adjust arrival rates to include re-entries
+        reentry_rate = 0.17 # the proportion of those leaving accommodation which re-enter the system some time later
+        arrival_rate_reentries = (initial_capacity['housing']*reentry_rate)/service_mean['housing'] # assuming re-entries from the initial number of servers
+        arrival_rates = [i+arrival_rate_reentries for i in arrival_rates]#
+        time_btwn_changes_in_build_rate = (6*63)/365 # in years
+        time_btwn_building = 63/365 # in years. 63/365 years = 9 weeks.
+
+        output = simulate(end_of_simulation, 
+                          number_reps, 
+                          time_btwn_building, 
+                          time_btwn_changes_in_build_rate, 
+                          initial_capacity, 
+                          service_mean, 
+                          arrival_rates, 
+                          build_rates, 
+                          initial_demand, 
+                          initial_build_time)
+    
+        output = output['unsheltered_q_avg'][0]
+    
+        return output
+
 def create_fanchart(arr):
         """
         create a fan chart using an array of arrays

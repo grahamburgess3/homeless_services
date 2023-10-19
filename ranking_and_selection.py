@@ -38,7 +38,7 @@ class SolutionSpace():
        the covariance matrix for the costs of each solution
     active : np.array(bool)
        True for each solution if it is still in consideration to be the best
-    eliminate : np.array(int)
+    eliminate : list
        Details the iteration at which each solution was rejected (0 if not rejected)
         
         """
