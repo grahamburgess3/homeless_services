@@ -20,6 +20,9 @@ class Customer():
         ----------
         id : int
            unique ID for this type of accommodation
+        proceed : bool
+           defines whether or not the customer proceeds to look for accommodation
+           this always starts as True, and if it remains as True once they leave system, they re-enter system and look for accommodation again
         
         """
         next_id = 1
@@ -30,6 +33,8 @@ class Customer():
 
                 """
                 self.id = Customer.next_id
+                self.proceed = True
+                self.prob_re_entry = random.uniform(0,1)
                 Customer.next_id += 1 # advance the class attribute accordingly
 
 class Accommodation():
@@ -103,7 +108,7 @@ class AccommodationStock():
            stored data over time: the number of customers waiting for store.get() event (housing only)
         
         """
-        def __init__(self, env, initial_stock):
+        def __init__(self, env, initial_stock, re_entry_prob):
                 """
                 Constructs the initial attributes for an instance of AccommodationStock
 
@@ -120,6 +125,7 @@ class AccommodationStock():
                 self.data_queue_shelter = [] # this is appended to at regular intervals
                 self.data_queue_housing = [] # this is appended to at regular intervals
                 self.data_queue_shelter_avg = {'running_avg' : 0, 'time_last_updated' : 0} # this is updated whenever the queue changes
+                self.re_entry_prob = 
 
         def update_stats(self, t, accomm_type, up_down):
                 """
@@ -212,7 +218,7 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
         for i in range(initial_demand):
             c = Customer()
             env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time))
-            
+
         # generate arrivals with non-homogeneous Poisson process using 'thinning'
         arrival_rate_max = max(arrival_rates)
         while True:
@@ -222,6 +228,7 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
             yield env.timeout(t)
             if U <= arrival_rate / arrival_rate_max:
                     c = Customer()
+                    
                     env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time))
         
 def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time):
@@ -240,33 +247,41 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_u
            the mean service time for stays in different types of accommodation
 
         """
-        # First look for shelter
-        accomm_type = 'shelter'
-        accommodation_stock.update_stats(env.now-warm_up_time, accomm_type, 1)
-        shelter = yield accommodation_stock.store.get(filter = lambda accomm: accomm.type == accomm_type)
-        accommodation_stock.update_stats(env.now-warm_up_time, accomm_type, -1)
-        if service_mean[accomm_type] > 0:
-            time_in_accomm = random.expovariate(1/service_mean[accomm_type])
-        else:
-            time_in_accomm = 0
-        yield env.timeout(time_in_accomm)
+        while c.proceed == True:
+                # First look for shelter
+                accomm_type = 'shelter'
+                accommodation_stock.update_stats(env.now-warm_up_time, accomm_type, 1)
+                shelter = yield accommodation_stock.store.get(filter = lambda accomm: accomm.type == accomm_type)
+                accommodation_stock.update_stats(env.now-warm_up_time, accomm_type, -1)
+                if service_mean[accomm_type] > 0:
+                        time_in_accomm = random.expovariate(1/service_mean[accomm_type])
+                else:
+                        time_in_accomm = 0
+                yield env.timeout(time_in_accomm)
 
-        # When done in shelter (but before leaving shelter) look for housing
-        accomm_type_next = 'housing'
-        accommodation_stock.update_stats(env.now-warm_up_time, accomm_type_next, 1)        
-        housing = yield accommodation_stock.store.get(filter = lambda accomm: accomm.type == accomm_type_next)
-        accommodation_stock.update_stats(env.now-warm_up_time, accomm_type_next, -1)        
+                # When done in shelter (but before leaving shelter) look for housing
+                accomm_type_next = 'housing'
+                accommodation_stock.update_stats(env.now-warm_up_time, accomm_type_next, 1)        
+                housing = yield accommodation_stock.store.get(filter = lambda accomm: accomm.type == accomm_type_next)
+                accommodation_stock.update_stats(env.now-warm_up_time, accomm_type_next, -1)        
 
-        # When found housing, leave shelter and spend time in housing
-        accommodation_stock.store.put(shelter)
-        if service_mean[accomm_type_next] > 0:
-            time_in_accomm = random.expovariate(1/service_mean[accomm_type_next])
-        else:
-            time_in_accomm = 0
-        yield env.timeout(time_in_accomm)
+                # When found housing, leave shelter and spend time in housing
+                accommodation_stock.store.put(shelter)
+                if service_mean[accomm_type_next] > 0:
+                        time_in_accomm = random.expovariate(1/service_mean[accomm_type_next])
+                else:
+                        time_in_accomm = 0
+                yield env.timeout(time_in_accomm)
 
-        # Finally, leave housing
-        accommodation_stock.store.put(housing)
+                # Finally, leave housing
+                accommodation_stock.store.put(housing)
+
+                # Re enter system?
+                if c.prob_re_entry >= accommodation_stock.re_entry_prob:
+                        c.proceed = False
+                else:
+                        c.prob_re_entry = random.uniform(0,1)
+                        
 
 def get_new_accommodation(build_rates, leftover, build_time, change_time, t_end):
         """
@@ -384,7 +399,8 @@ def simulate(end_of_simulation,
              arrival_rates,
              build_rates,
              initial_demand,
-             warm_up_time):
+             warm_up_time,
+             re_entry_prob):
         """
         Given a set of inputs and a random seed, simulate the system multiple times over a fixed period of simulation time
 
@@ -423,7 +439,7 @@ def simulate(end_of_simulation,
         start = datetime.now()
         for rep  in range(number_reps):
                 env = simpy.Environment()
-                accommodation_stock = AccommodationStock(env, capacity_initial)
+                accommodation_stock = AccommodationStock(env, capacity_initial, re_entry_prob)
                 env.process(gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand, warm_up_time))
                 env.process(gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn_build_rate_changes, build_rates, warm_up_time))
                 env.run(until=end_of_simulation)
