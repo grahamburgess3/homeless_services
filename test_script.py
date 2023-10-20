@@ -27,5 +27,16 @@ for i in range(1600):
     y.append(bigS(i))
 
 out = np.array([3,1,2,0])
-for i in out:
-    print (i)
+#for i in out:
+#    print (i)
+
+class Car():
+    def __init__(self, size):
+        self.size = size
+
+Car.weight = 3
+
+c1 = Car('big')
+c2 = Car('small')
+print(c1.weight)
+print(c2.weight)

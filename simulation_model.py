@@ -15,6 +15,8 @@ class Customer():
         ----------
         next_id : dict(int)
            unique id for the next customer to be initialised
+        prob_re_entry : float
+           the probability that the customer will re-enter the system upon leaving housing (defined in simulate() function)
 
         Attributes (Instance)
         ----------
@@ -23,6 +25,8 @@ class Customer():
         proceed : bool
            defines whether or not the customer proceeds to look for accommodation
            this always starts as True, and if it remains as True once they leave system, they re-enter system and look for accommodation again
+        rand_re_entry : float
+           random number between 0 and 1 which dicates whether or not this customer will re-enter the system the next time it leaves the system. 
         
         """
         next_id = 1
@@ -34,7 +38,7 @@ class Customer():
                 """
                 self.id = Customer.next_id
                 self.proceed = True
-                self.prob_re_entry = random.uniform(0,1)
+                self.rand_re_entry = random.uniform(0,1)
                 Customer.next_id += 1 # advance the class attribute accordingly
 
 class Accommodation():
@@ -108,7 +112,7 @@ class AccommodationStock():
            stored data over time: the number of customers waiting for store.get() event (housing only)
         
         """
-        def __init__(self, env, initial_stock, re_entry_prob):
+        def __init__(self, env, initial_stock):
                 """
                 Constructs the initial attributes for an instance of AccommodationStock
 
@@ -125,7 +129,6 @@ class AccommodationStock():
                 self.data_queue_shelter = [] # this is appended to at regular intervals
                 self.data_queue_housing = [] # this is appended to at regular intervals
                 self.data_queue_shelter_avg = {'running_avg' : 0, 'time_last_updated' : 0} # this is updated whenever the queue changes
-                self.re_entry_prob = 
 
         def update_stats(self, t, accomm_type, up_down):
                 """
@@ -228,7 +231,6 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
             yield env.timeout(t)
             if U <= arrival_rate / arrival_rate_max:
                     c = Customer()
-                    
                     env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time))
         
 def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time):
@@ -277,10 +279,10 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_u
                 accommodation_stock.store.put(housing)
 
                 # Re enter system?
-                if c.prob_re_entry >= accommodation_stock.re_entry_prob:
+                if c.rand_re_entry >= c.prob_re_entry:
                         c.proceed = False
                 else:
-                        c.prob_re_entry = random.uniform(0,1)
+                        c.rand_re_entry = random.uniform(0,1)
                         
 
 def get_new_accommodation(build_rates, leftover, build_time, change_time, t_end):
@@ -400,7 +402,7 @@ def simulate(end_of_simulation,
              build_rates,
              initial_demand,
              warm_up_time,
-             re_entry_prob):
+             prob_re_entry):
         """
         Given a set of inputs and a random seed, simulate the system multiple times over a fixed period of simulation time
 
@@ -426,6 +428,8 @@ def simulate(end_of_simulation,
            the number of customers to exist in the environment at time t = 0
         warm_up_time : float
            building time before new arrivals enter system
+        prob_re_entry : float
+           the chance that a customer will re-enter the system once it has left housing
            
         Returns
         -------
@@ -435,11 +439,12 @@ def simulate(end_of_simulation,
            the time taken for all the simulation replications to be run. 
 
         """
+        Customer.prob_re_entry = prob_re_entry
         results = {'unsheltered_q_over_time' : [], 'unsheltered_q_avg' : [], 'time_taken' : 0}
         start = datetime.now()
         for rep  in range(number_reps):
                 env = simpy.Environment()
-                accommodation_stock = AccommodationStock(env, capacity_initial, re_entry_prob)
+                accommodation_stock = AccommodationStock(env, capacity_initial)
                 env.process(gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand, warm_up_time))
                 env.process(gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn_build_rate_changes, build_rates, warm_up_time))
                 env.run(until=end_of_simulation)
