@@ -566,6 +566,8 @@ def compare_cdf(data_simpy, data_simio, yr):
     
     return fig, ax
 
-def plot_hist(data, num_bins):
+def plot_hist(data, num_bins, xlab, ylab):
         plt.hist(data, num_bins)
+        plt.xlabel(xlab)
+        plt.ylabel(ylab)
         return plt

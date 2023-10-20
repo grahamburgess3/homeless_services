@@ -58,7 +58,7 @@ class SolutionSpace():
         self.active = np.array([True for i in solutions])
         self.eliminate = [0 for i in solutions]
 
-    def optimise_rs(self, alpha, n0, delta, sim):
+    def optimise_rs(self, alpha, n0, delta, sim, print_progress):
         """
         Find an optimal solution using the KN Ranking & Selection algorithm (see Nelson and Pei, 2021, Chapter 9)
         Callin this function updates the self.active attribute to leave only one True element - this is the optimal solution
@@ -73,16 +73,20 @@ class SolutionSpace():
            The indifference zone - i.e. the smallest difference in expected cost which is of practical importance.
         sim : function
            A function which takes as input self.solutions[i] for i in range(len(self.solutions)) and returns the cost of that solution
+        print_progress : bool
+           Indicate whether print statements of progress in the optimisation is desired
         """
         # start
-        print('starting routine at time  ' + str(datetime.now()))
+        if print_progress == True:
+            print('starting routine at time  ' + str(datetime.now()))
 
         # get first n0 solutions
         for x in range(len(self.solutions)):
             for rep in range(n0):
                 cost = sim(self.solutions[x].solution)
                 self.costs[x].append(cost)
-        print('done init reps at time  ' + str(datetime.now()))
+        if print_progress == True:
+            print('done init reps at time  ' + str(datetime.now()))
 
         # get initial covariance
         self.covar = np.cov(np.array(self.costs))
@@ -99,7 +103,7 @@ class SolutionSpace():
         num_active_new = num_active_old
         while np.sum(self.active) > 1:
             num_active_diff = num_active_old-num_active_new
-            if num_active_diff > 0:
+            if (num_active_diff > 0 and print_progress == True):
                 print('start iteration ' + str(r+1) + ' with ' + str(np.sum(self.active)) + ' active solutions out of initial ' + str(len(self.solutions)) + ' at time ' + str(datetime.now()))
             num_active_old = np.sum(self.active)                
             r += 1
@@ -173,3 +177,11 @@ def InventorySystem(x, n=1, RandomSeed=-1):
             InvtPos = INext - Demand
         Y.append(Cost/30)
     return Y
+
+def get_sS_system(x):
+    """
+    Returns the (two dimensional s,S parameters for solution x
+    """
+    littleS = math.ceil(x/40)
+    bigS = littleS + x - (littleS - 1)*40
+    return littleS, bigS
