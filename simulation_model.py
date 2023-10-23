@@ -473,6 +473,7 @@ def simulate_as_is(build_rates):
         arrival_rates = [i+arrival_rate_reentries for i in arrival_rates]#
         time_btwn_changes_in_build_rate = (6*63)/365 # in years
         time_btwn_building = 63/365 # in years. 63/365 years = 9 weeks.
+        reentry_rate = 0 # set this to zero now we have accounted for re-entries using an uplift to arrival rate
 
         output = simulate(end_of_simulation, 
                           number_reps, 
@@ -483,7 +484,8 @@ def simulate_as_is(build_rates):
                           arrival_rates, 
                           build_rates, 
                           initial_demand, 
-                          initial_build_time)
+                          initial_build_time,
+                          reentry_rate)
     
         output = output['unsheltered_q_avg'][0]
     
