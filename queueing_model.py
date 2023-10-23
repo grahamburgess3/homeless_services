@@ -179,6 +179,7 @@ class queue(object):
         self.num_sys = [0 for i in range(T)]
         self.num_queue = [0 for i in range(T)]        
         self.num_unsheltered = [0 for i in range(T)]
+        self.num_unsheltered_avg = 0 # average over time
         
         self.num_sys[0] = n_0
         self.num_queue[0] = max(0, n_0 - self.num_serve(0))
@@ -221,7 +222,10 @@ class queue(object):
                 # probs of number in q and unsheltered
                 self.p_q[max(0,n-s)][t] += self.p[n][t]
                 self.p_unsh[max(0,n-s-shelt)][t] += self.p[n][t]
- 
+
+            # average over time of the expected value of number unshelterd
+            self.num_unsheltered_avg += (d*self.num_unsheltered[t])/Y
+        
 def mms_steadystate(lmbda, s, mu):
     """
     Compute steady state expected number in system and queue for an M/M/s queue
