@@ -128,7 +128,8 @@ class AccommodationStock():
                 self.store.items = [Accommodation('housing') for i in range(initial_stock['housing'])] + [Accommodation('shelter') for j in range(initial_stock['shelter'])]
                 self.data_queue_shelter = [] # this is appended to at regular intervals
                 self.data_queue_housing = [] # this is appended to at regular intervals
-                self.data_queue_shelter_avg = {'running_avg' : 0, 'time_last_updated' : 0} # this is updated whenever the queue changes
+                self.data_queue_avg = {'housing':{'running_avg' : 0, 'time_last_updated' : 0},
+                                       'shelter':{'running_avg' : 0, 'time_last_updated' : 0}}# this is updated whenever the queue changes
 
         def update_stats(self, t, accomm_type, up_down):
                 """
@@ -144,9 +145,9 @@ class AccommodationStock():
                    1 if adding to queue, -1 if removing from queue
 
                 """
-                self.data_queue_shelter_avg['running_avg'] += self.store.queue[accomm_type] * (t - self.data_queue_shelter_avg['time_last_updated'])
+                self.data_queue_avg[accomm_type]['running_avg'] += self.store.queue[accomm_type] * (t - self.data_queue_avg[accomm_type]['time_last_updated'])
                 self.store.queue[accomm_type] += up_down * 1
-                self.data_queue_shelter_avg['time_last_updated'] = t
+                self.data_queue_avg[accomm_type]['time_last_updated'] = t
                 
         def add_accommodation(self, type):
                 """
@@ -449,9 +450,10 @@ def simulate(end_of_simulation,
                 env.process(gen_development_sched(env, accommodation_stock, accomm_build_time, time_btwn_build_rate_changes, build_rates, warm_up_time))
                 env.run(until=end_of_simulation)
                 results['unsheltered_q_over_time'].append(np.array(pd.concat([pd.Series([initial_demand - capacity_initial['shelter']-capacity_initial['housing']]), pd.Series(accommodation_stock.data_queue_shelter[1:])])))
-                accommodation_stock.data_queue_shelter_avg['running_avg'] += accommodation_stock.store.queue['shelter'] * (end_of_simulation - accommodation_stock.data_queue_shelter_avg['time_last_updated'])
-                accommodation_stock.data_queue_shelter_avg['running_avg'] = accommodation_stock.data_queue_shelter_avg['running_avg'] / end_of_simulation
-                results['unsheltered_q_avg'].append(accommodation_stock.data_queue_shelter_avg['running_avg'])
+                for accomm_type in ['housing', 'shelter']:
+                        accommodation_stock.data_queue_avg[accomm_type]['running_avg'] += accommodation_stock.store.queue[accomm_type] * (end_of_simulation - warm_up_time - accommodation_stock.data_queue_avg[accomm_type]['time_last_updated'])
+                        accommodation_stock.data_queue_avg[accomm_type]['running_avg'] = accommodation_stock.data_queue_avg[accomm_type]['running_avg'] / (end_of_simulation - warm_up_time)
+                results['unsheltered_q_avg'].append(accommodation_stock.data_queue_avg['shelter']['running_avg'])
         end = datetime.now()
         results['unsheltered_q_over_time'] = np.array(results['unsheltered_q_over_time']).T
         results['time_taken'] = end-start
