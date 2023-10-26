@@ -463,7 +463,7 @@ def simulate_as_is(build_rates):
         """ One replication with as-is variables apart from build rates"""
         number_reps = 1
         initial_build_time = 63/365 # 9 weeks in years
-        end_of_simulation = 5 + initial_build_time - 0.25 # in years
+        end_of_simulation = 4.75 + initial_build_time # in years
         initial_demand = 120
         initial_capacity = {'housing' : 40, 'shelter' : 15}
         arrival_rates = [35.0400, 42.0048, 46.2528, 46.2528, 41.6100] # in 1/year. One constant rate per year.

@@ -111,7 +111,7 @@ class SolutionSpace():
 
             # collect new data
             for i in sol_index[self.active]:
-                cost = sim(self.solutions[x].solution)
+                cost = sim(self.solutions[i].solution)
                 self.costs[i].append(cost)
                 costs_sum[i] += cost
 
