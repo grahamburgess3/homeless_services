@@ -106,9 +106,13 @@ class queue(object):
         
         days_passed = t*365
         build_freq_days = self.build_frequency_weeks*7
+
+        # Get the number of new build points (if the number of days that has passed is an integer # of the build_freq_days, then add one to num_builds so the builds happen at exactly the start of every period.
         
         num_builds = math.ceil(days_passed/build_freq_days)
-        
+        if (days_passed/build_freq_days) % 1 == 0:
+            num_builds += 1
+            
         for i in range(num_builds):
             num_serve += self.server_build_rate[i]
         
@@ -133,7 +137,12 @@ class queue(object):
         
         days_passed = t*365
         build_freq_days = self.build_frequency_weeks*7
+
+        # Get the number of new build points (if the number of days that has passed is an integer # of the build_freq_days, then add one to num_builds so the builds happen at exactly the start of every period.
+
         num_builds = math.ceil(days_passed/build_freq_days)
+        if (days_passed/build_freq_days) % 1 == 0:
+            num_builds += 1
         
         for i in range(num_builds):
             num_shelt += self.shelter_build_rate[i]
@@ -223,8 +232,8 @@ class queue(object):
                 self.p_q[max(0,n-s)][t] += self.p[n][t]
                 self.p_unsh[max(0,n-s-shelt)][t] += self.p[n][t]
 
-            # average over time of the expected value of number unshelterd
-            self.num_unsheltered_avg += (d*self.num_unsheltered[t])/Y
+            # average over time of the expected value of number unshelterd - add up to point t
+            self.num_unsheltered_avg += (d*self.num_unsheltered[t-1])/Y
         
 def mms_steadystate(lmbda, s, mu):
     """
