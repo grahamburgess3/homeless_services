@@ -38,6 +38,9 @@ class queue(object):
         self.num_sys = None # expected val at each time t
         self.num_queue = None # expected val at each time t
         self.num_unsheltered = None # expected val at each time t
+        self.num_sheltered = None # expected val at each time t
+        self.num_unsheltered_avg = None
+        self.num_sheltered_avg = None
         self.annual_arrival_rate = annual_arrival_rate
         self.mean_service_time = mean_service_time
         self.servers_initial = servers_initial
@@ -188,11 +191,14 @@ class queue(object):
         self.num_sys = [0 for i in range(T)]
         self.num_queue = [0 for i in range(T)]        
         self.num_unsheltered = [0 for i in range(T)]
+        self.num_sheltered = [0 for i in range(T)]
         self.num_unsheltered_avg = 0 # average over time
+        self.num_sheltered_avg = 0 # avg over time
         
         self.num_sys[0] = n_0
         self.num_queue[0] = max(0, n_0 - self.num_serve(0))
         self.num_unsheltered[0] = max(0, n_0 - self.num_serve(0) - self.num_shelt(0))
+        self.num_sheltered[0] = self.num_queue[0] - self.num_unsheltered[0]
         
         # numerical integration - loop through t
         for t in range(1,T):
@@ -225,8 +231,12 @@ class queue(object):
             for n in range(N+1):                
                 # expected values for outputs
                 self.num_sys[t] += n * self.p[n][t]
-                self.num_queue[t] += max(0,n-s) * self.p[n][t]
-                self.num_unsheltered[t] += max(0,n-s-shelt) * self.p[n][t]
+                extra_queue = max(0,n-s) * self.p[n][t]
+                self.num_queue[t] += extra_queue
+                extra_unsheltered = max(0,n-s-shelt) * self.p[n][t]
+                self.num_unsheltered[t] += extra_unsheltered
+                extra_sheltered = extra_queue - extra_unsheltered
+                self.num_sheltered[t] += extra_sheltered
                 
                 # probs of number in q and unsheltered
                 self.p_q[max(0,n-s)][t] += self.p[n][t]
@@ -234,6 +244,7 @@ class queue(object):
 
             # average over time of the expected value of number unshelterd - add up to point t
             self.num_unsheltered_avg += (d*self.num_unsheltered[t-1])/Y
+            self.num_sheltered_avg += (d*self.num_sheltered[t-1])/Y
         
 def mms_steadystate(lmbda, s, mu):
     """

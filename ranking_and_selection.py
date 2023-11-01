@@ -3,7 +3,7 @@ import pandas as pd
 import math
 from datetime import datetime
 
-def generate_solution_space(build_rate_options, annual_budget, total_budgets, simulation_length):
+def generate_solution_space(build_rate_options, annual_budget, total_budgets, costs, simulation_length):
     """
     
     """
@@ -14,7 +14,7 @@ def generate_solution_space(build_rate_options, annual_budget, total_budgets, si
         new_options = []
         for h in range(len(build_rate_options['housing'])):
             for s in range(len(build_rate_options['shelter'])):
-                if build_rate_options['housing'][h] + build_rate_options['shelter'][s] <= annual_budget:
+                if build_rate_options['housing'][h]*costs['housing'] + build_rate_options['shelter'][s]*costs['shelter'] <= annual_budget:
                     for opt in previous_options:
                         if sum(opt['housing']) + build_rate_options['housing'][h] <= total_budgets['housing'] and sum(opt['shelter']) + build_rate_options['shelter'][s] <= total_budgets['shelter']:
                             new_opt = {'housing':opt['housing'].copy(),'shelter':opt['shelter'].copy()}
@@ -23,6 +23,20 @@ def generate_solution_space(build_rate_options, annual_budget, total_budgets, si
                             new_options.append(new_opt)
         previous_options = new_options.copy()
     return new_options
+
+def keep_max_budget(sols, costs, annual_budget):
+    """
+
+    """
+    sol_subset = []
+    for i in range(len(sols)):
+        keep = True
+        for j in range(len(sols[0]['housing'])):
+            if sols[i]['housing'][j]*costs['housing'] + sols[i]['shelter'][j]*costs['shelter'] < annual_budget:
+                keep = False
+        if keep == True:
+            sol_subset.append(sols[i])
+    return sol_subset
 
 class SolutionSpace():
     """
@@ -54,11 +68,22 @@ class SolutionSpace():
         """
         self.solutions = [Solution(solutions[i]) for i in range(len(solutions))]
         self.costs = [[] for i in solutions]
+        self.costs_initial_reps = [[] for i in solutions]
         self.covar = None
         self.active = np.array([True for i in solutions])
         self.eliminate = [0 for i in solutions]
 
-    def optimise_rs(self, alpha, n0, delta, sim, print_progress):
+    def run_initial_reps(self, n0, sim):
+        # get first n0 solutions
+        for x in range(len(self.solutions)):
+            for rep in range(n0):
+                cost = sim(self.solutions[x].solution)
+                self.costs_initial_reps[x].append(cost)
+
+        # get initial covariance
+        self.covar = np.cov(np.array(self.costs_initial_reps))
+        
+    def optimise_rs(self, alpha, n0, delta, sim, initial_reps_needed, print_progress):
         """
         Find an optimal solution using the KN Ranking & Selection algorithm (see Nelson and Pei, 2021, Chapter 9)
         Callin this function updates the self.active attribute to leave only one True element - this is the optimal solution
@@ -73,6 +98,8 @@ class SolutionSpace():
            The indifference zone - i.e. the smallest difference in expected cost which is of practical importance.
         sim : function
            A function which takes as input self.solutions[i] for i in range(len(self.solutions)) and returns the cost of that solution
+        initial_reps_needed : bool
+           True if the initial simulation is neeeded (for example if this has already been done)
         print_progress : bool
            Indicate whether print statements of progress in the optimisation is desired
         """
@@ -80,18 +107,16 @@ class SolutionSpace():
         if print_progress == True:
             print('starting routine at time  ' + str(datetime.now()))
 
-        # get first n0 solutions
-        for x in range(len(self.solutions)):
-            for rep in range(n0):
-                cost = sim(self.solutions[x].solution)
-                self.costs[x].append(cost)
-        if print_progress == True:
-            print('done init reps at time  ' + str(datetime.now()))
-
-        # get initial covariance
-        self.covar = np.cov(np.array(self.costs))
+        # get first n0 solutions (if needed)
+        if initial_reps_needed == True:
+            self.run_initial_reps(n0, sim)
+            if print_progress == True:
+                print('done init reps at time  ' + str(datetime.now()))
 
         # setup for iteration
+        self.active = np.array([True for i in self.solutions])
+        self.eliminate = [0 for i in self.solutions]
+        self.costs = [self.costs_initial_reps[i].copy() for i in range(len(self.costs_initial_reps))]
         eta = 0.5*( (2*alpha/(len(self.solutions)-1))**(-2/(n0-1)) -1)
         t2 = 2*eta*(n0-1)
         costs_sum = np.sum(np.array(self.costs), axis=1) # sum of costs over each replication, for each solution
