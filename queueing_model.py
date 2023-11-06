@@ -105,7 +105,7 @@ class queue(object):
 
         """
         
-        num_serve = self.servers_initial
+        num_serve = {'before' : self.servers_initial, 'after' : None}
         
         days_passed = t*365
         build_freq_days = self.build_frequency_weeks*7
@@ -113,12 +113,15 @@ class queue(object):
         # Get the number of new build points (if the number of days that has passed is an integer # of the build_freq_days, then add one to num_builds so the builds happen at exactly the start of every period.
         
         num_builds = math.ceil(days_passed/build_freq_days)
-        if (days_passed/build_freq_days) % 1 == 0:
-            num_builds += 1
             
         for i in range(num_builds):
-            num_serve += self.server_build_rate[i]
-        
+            num_serve['before'] += self.server_build_rate[i]
+
+        if (days_passed/build_freq_days) % 1 == 0:
+            num_serve['after'] = num_serve['before'] + self.server_build_rate[num_builds]
+        else:
+            num_serve['after'] = num_serve['before']
+            
         return num_serve
 
     def num_shelt(self, t):
@@ -136,7 +139,7 @@ class queue(object):
 
         """
         
-        num_shelt = self.shelter_initial
+        num_shelt = {'before': self.shelter_initial, 'after' : None}
         
         days_passed = t*365
         build_freq_days = self.build_frequency_weeks*7
@@ -144,11 +147,13 @@ class queue(object):
         # Get the number of new build points (if the number of days that has passed is an integer # of the build_freq_days, then add one to num_builds so the builds happen at exactly the start of every period.
 
         num_builds = math.ceil(days_passed/build_freq_days)
-        if (days_passed/build_freq_days) % 1 == 0:
-            num_builds += 1
-        
         for i in range(num_builds):
-            num_shelt += self.shelter_build_rate[i]
+            num_shelt['before'] += self.shelter_build_rate[i]
+
+        if (days_passed/build_freq_days) % 1 == 0:
+            num_shelt['after'] = num_shelt['before'] + self.shelter_build_rate[num_builds]
+        else:
+            num_shelt['after'] = num_shelt['before']
         
         return num_shelt
 
@@ -180,9 +185,9 @@ class queue(object):
         self.p = [[0 for i in range(T)] for j in range(N+1)]
         self.p[n_0][0] = 1 # enforce state at time 0
         self.p_q = [[0 for i in range(T)] for j in range(N+1)]
-        self.p_q[max(0, n_0 - self.num_serve(0))][0] = 1 # enforce state at time 0
+        self.p_q[max(0, n_0 - self.num_serve(0)['before'])][0] = 1 # enforce state at time 0
         self.p_unsh = [[0 for i in range(T)] for j in range(N+1)]
-        self.p_unsh[max(0, n_0 - self.num_serve(0) - self.num_shelt(0))][0] = 1 # enforce state at time 0
+        self.p_unsh[max(0, n_0 - self.num_serve(0)['before'] - self.num_shelt(0)['before'])][0] = 1 # enforce state at time 0
         
         # init m, number of busy servers in each state
         m = [0 for i in range(N+1)]
@@ -196,8 +201,8 @@ class queue(object):
         self.num_sheltered_avg = 0 # avg over time
         
         self.num_sys[0] = n_0
-        self.num_queue[0] = max(0, n_0 - self.num_serve(0))
-        self.num_unsheltered[0] = max(0, n_0 - self.num_serve(0) - self.num_shelt(0))
+        self.num_queue[0] = max(0, n_0 - self.num_serve(0)['before'])
+        self.num_unsheltered[0] = max(0, n_0 - self.num_serve(0)['before'] - self.num_shelt(0)['before'])
         self.num_sheltered[0] = self.num_queue[0] - self.num_unsheltered[0]
         
         # numerical integration - loop through t
@@ -206,7 +211,7 @@ class queue(object):
             # arrival/service rates and number servers at prev timestep
             lmbda = self.arr_rate((t-1)*d) 
             mu = self.serve_rate((t-1)*d) 
-            s = self.num_serve((t-1)*d)
+            s = self.num_serve((t-1)*d)['after']
             
             # number of busy servers
             m[1] = min(1,s)
@@ -225,8 +230,8 @@ class queue(object):
                 self.p[n][t] = (self.p[n-1][t-1] * lmbda*d) + (self.p[n][t-1] * (1-lmbda*d-mu*m[n]*d)) + (self.p[n+1][t-1] * (mu*m[n+1]*d))
             
             # number of servers and shelters at current timestep
-            s = self.num_serve(t*d)
-            shelt = self.num_shelt(t*d)
+            s = self.num_serve(t*d)['before']
+            shelt = self.num_shelt(t*d)['before']
             
             for n in range(N+1):                
                 # expected values for outputs
