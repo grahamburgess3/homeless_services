@@ -19,7 +19,7 @@ class queue(object):
     A queue to be modelled with numerical integration
     """
     
-    def __init__(self, annual_arrival_rate, mean_service_time, servers_initial, shelter_initial, server_build_rate, shelter_build_rate, num_in_system_initial, max_in_system, num_annual_buildpoints, build_frequency_weeks):
+    def __init__(self, annual_arrival_rate, mean_service_time, initial_capacity, build_rates, num_in_system_initial, max_in_system, time_btwn_changes_in_build_rate, time_btwn_building):
         """
         Initialise instance of queue
         Note: there are no hardcoded elements in this class (apart from obvious things like the number of days in a week) but care should be taken if adapting some of the inputs, as detailed below: 
@@ -42,12 +42,13 @@ class queue(object):
         self.num_unsheltered_avg = None
         self.num_sheltered_avg = None
         self.annual_arrival_rate = annual_arrival_rate
-        self.mean_service_time = mean_service_time
-        self.servers_initial = servers_initial
-        self.shelter_initial= shelter_initial
-        self.server_build_rate = np.repeat(server_build_rate, num_annual_buildpoints)
-        self.shelter_build_rate = np.repeat(shelter_build_rate, num_annual_buildpoints)
-        self.build_frequency_weeks = build_frequency_weeks
+        self.mean_service_time = mean_service_time['housing']
+        self.servers_initial = initial_capacity['housing']
+        self.shelter_initial= initial_capacity['shelter']
+        self.num_build_points_btwn_changes = round(time_btwn_changes_in_build_rate/time_btwn_building)
+        self.server_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['housing']], self.num_build_points_btwn_changes)
+        self.shelter_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['shelter']], self.num_build_points_btwn_changes)
+        self.build_frequency_weeks = round(time_btwn_building*365/7)
         self.num_in_system_initial = num_in_system_initial
         self.max_in_system = max_in_system
         

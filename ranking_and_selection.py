@@ -73,17 +73,17 @@ class SolutionSpace():
         self.active = np.array([True for i in solutions])
         self.eliminate = [0 for i in solutions]
 
-    def run_initial_reps(self, n0, sim):
+    def run_initial_reps(self, n0, sim, **kwargs):
         # get first n0 solutions
         for x in range(len(self.solutions)):
             for rep in range(n0):
-                cost = sim(self.solutions[x].solution)
+                cost = sim(self.solutions[x].solution, **kwargs)
                 self.costs_initial_reps[x].append(cost)
 
         # get initial covariance
         self.covar = np.cov(np.array(self.costs_initial_reps))
         
-    def optimise_rs(self, alpha, n0, delta, sim, initial_reps_needed, print_progress):
+    def optimise_rs(self, alpha, n0, delta, sim, initial_reps_needed, print_progress, **kwargs):
         """
         Find an optimal solution using the KN Ranking & Selection algorithm (see Nelson and Pei, 2021, Chapter 9)
         Callin this function updates the self.active attribute to leave only one True element - this is the optimal solution
@@ -109,7 +109,7 @@ class SolutionSpace():
 
         # get first n0 solutions (if needed)
         if initial_reps_needed == True:
-            self.run_initial_reps(n0, sim)
+            self.run_initial_reps(n0, sim, **kwargs)
             if print_progress == True:
                 print('done init reps at time  ' + str(datetime.now()))
 
@@ -136,7 +136,7 @@ class SolutionSpace():
 
             # collect new data
             for i in sol_index[self.active]:
-                cost = sim(self.solutions[i].solution)
+                cost = sim(self.solutions[i].solution, **kwargs)
                 self.costs[i].append(cost)
                 costs_sum[i] += cost
 
