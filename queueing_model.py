@@ -224,7 +224,7 @@ class queue(object):
             
             # loop through each state n
             for n in range(1,N):
-                # number of shelters busy in next state     
+                # number of servers busy in next state     
                 m[n+1] = min(n+1,s) 
                 
                 # prob of being in other states

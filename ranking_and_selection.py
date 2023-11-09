@@ -1,7 +1,11 @@
+# external imports
 import numpy as np
 import pandas as pd
 import math
 from datetime import datetime
+
+# internal imports
+import queueing_model as qm
 
 def generate_solution_space(build_rate_options, annual_budget, total_budgets, costs, simulation_length):
     """
@@ -24,9 +28,32 @@ def generate_solution_space(build_rate_options, annual_budget, total_budgets, co
         previous_options = new_options.copy()
     return new_options
 
+def generate_solution_space_generic(extra_shelter, build_rate_length_years, annual_budget):
+    """
+    return list of dictionaries, each dict giving a solution in terms of shelter and housing build rates
+    """
+    # solution space constraints
+    build_rate_options = {'housing' : [int(annual_budget/3), int(annual_budget*2/3)], 
+                          'shelter' : [int((annual_budget/3) + extra_shelter), int((annual_budget*2/3) + (2 * extra_shelter))]}
+    accommodation_budgets = {'housing' : int((annual_budget*2/3) * (build_rate_length_years - 0.5)), 
+                             'shelter' : int((annual_budget*2/3 + 2 * extra_shelter) * (build_rate_length_years - 0.5))}
+    costs = {'housing': 1, 
+             'shelter': annual_budget / (annual_budget + (3 * extra_shelter))}
+
+    # geneate solution space
+    sols = generate_solution_space(build_rate_options,
+                                   annual_budget, 
+                                   accommodation_budgets, 
+                                   costs, 
+                                   build_rate_length_years)
+
+    sols = keep_max_budget(sols, costs, annual_budget)
+    
+    return(sols)
+
 def keep_max_budget(sols, costs, annual_budget):
     """
-
+    return a subset of solutions in which the annual budget is used up every year
     """
     sol_subset = []
     for i in range(len(sols)):
@@ -72,7 +99,40 @@ class SolutionSpace():
         self.covar = None
         self.active = np.array([True for i in solutions])
         self.eliminate = [0 for i in solutions]
+        self.true_best = {}
+        self.true_costs = {}
+        self.true_outputs_sh = []
+        self.true_outputs_unsh = []
 
+    def model_analytically(self, data_as_is, data_as_is_analytical, analysis_horizon, service_mean_housing):
+        """
+        get data from the analytical model for each solution in the solution space, with a specified service time info
+        """
+        for s in range(len(self.solutions)):
+            q = qm.queue(data_as_is['arrival_rates'],
+                         {'housing' : service_mean_housing, 'shelter' : 0}, 
+                         data_as_is['initial_capacity'], 
+                         self.solutions[s].solution, 
+                         data_as_is['initial_demand'], 
+                         data_as_is_analytical['max_in_system'],
+                         data_as_is['time_btwn_changes_in_build_rate'],
+                         data_as_is['time_btwn_building'])
+            q.model_dynamics(analysis_horizon,
+                             data_as_is_analytical['delta_t'])
+            self.true_outputs_sh.append(q.num_sheltered_avg)
+            self.true_outputs_unsh.append(q.num_unsheltered_avg)
+
+    def find_true_best(self, obj_function, obj_function_desc):
+        """
+        based on a given objective function, find the true best solution based on the data collected from analytical model
+        """
+        costs = []
+        for i in range(len(self.solutions)):
+            costs.append(obj_function(self.true_outputs_sh[i],self.true_outputs_unsh[i]))
+
+        best_one_index = costs.index(min(costs))
+        self.true_best[obj_function_desc] = [i for i in range(len(costs)) if costs[i] == costs[best_one_index]]
+            
     def run_initial_reps(self, n0, sim, **kwargs):
         # get first n0 solutions
         for x in range(len(self.solutions)):
