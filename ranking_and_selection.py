@@ -103,6 +103,7 @@ class SolutionSpace():
         self.true_costs = {}
         self.true_outputs_sh = []
         self.true_outputs_unsh = []
+        self.true_probs = []
 
     def model_analytically(self, data_as_is, data_as_is_analytical, analysis_horizon, service_mean_housing):
         """
@@ -121,6 +122,7 @@ class SolutionSpace():
                              data_as_is_analytical['delta_t'])
             self.true_outputs_sh.append(q.num_sheltered_avg)
             self.true_outputs_unsh.append(q.num_unsheltered_avg)
+            self.true_probs.append(q.p)
 
     def find_true_best(self, obj_function, obj_function_desc):
         """
