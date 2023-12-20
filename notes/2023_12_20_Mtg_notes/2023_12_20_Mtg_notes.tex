@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+
+\title{Supervisory meeting notes}
+\author{Graham Burgess}
+\date{19 December 2023}
+
+\begin{document}
+%
+\maketitle
+%
+\subsubsection*{Administrative and Housing service}
+%
+\begin{itemize}
+\item Modelling non-zero service time at shelters would increase the dimensionality of the state space
+\item If administrative resource is cheap compared to housing, it is intuitive to ensure that admininistraive resource capacity is sufficient to ensure that expensive housing resource does not go under-utilised.
+\item We may decide not to model this administrative service time given that the crux of the problem is the trade-off between housing and shelter.
+\end{itemize}
+%
+\subsubsection*{The length of the queue in our system}
+%
+\begin{itemize}
+\item The real-world system appears to resemble an overloaded queue - relatively simple models may be helpful in this case. e.g.:
+%
+  \begin{align*}
+    E[\text{size of Q at time t}] = & \text{Current size of queue} + \\
+                                    & E[\text{Number of new arrivals by time t}] - \\
+                                    & E[\text{Number of service completions by time t, given no breaks in service}]
+  \end{align*}
+%  
+\item An objective function involving the squared queue length may be suitable given that large queues exacerbate the  worsening situation for those in the queue. There can be further justification for this if you are concerned about the total waiting time for all customers in the queue. 
+\end{itemize}
+%
+\subsubsection*{The time horizons of interest of our analysis}
+%
+\begin{itemize}
+\item Given that it can be argued that the best long term solution in terms of queue length is to simply build as many housing servers as possible, we must ensure that our objective function also captures the short-term need for reducing unsheltered queues.
+\item Organisations often consider rolling horizons (e.g. this year make decisions based on 10 yrs from now, next year make decisions on 10 yrs from then), however in dynamic programming, infinite horizons are also interesting to analyse. In our problem we must make sure we appropriately balance our different short and long term needs.
+\end{itemize}
+%
+\end{document}
