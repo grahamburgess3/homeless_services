@@ -103,7 +103,11 @@ class SolutionSpace():
         self.true_costs = {}
         self.true_outputs_sh = []
         self.true_outputs_unsh = []
-        self.true_probs = []
+        self.true_outputs_sh_vs_t = []
+        self.true_outputs_unsh_vs_t = []
+        self.true_probs_num_system = []
+        self.true_probs_num_q = []
+        self.true_probs_num_unsh = []
 
     def model_analytically(self, data_as_is, data_as_is_analytical, analysis_horizon, service_mean_housing):
         """
@@ -122,8 +126,12 @@ class SolutionSpace():
                              data_as_is_analytical['delta_t'])
             self.true_outputs_sh.append(q.num_sheltered_avg)
             self.true_outputs_unsh.append(q.num_unsheltered_avg)
-            self.true_probs.append(q.p)
-
+            self.true_outputs_sh_vs_t.append(q.num_sheltered)
+            self.true_outputs_unsh_vs_t.append(q.num_unsheltered)
+            self.true_probs_num_system.append(q.p)
+            self.true_probs_num_q.append(q.p_q)
+            self.true_probs_num_unsh.append(q.p_unsh)
+            
     def find_true_best(self, obj_function, obj_function_desc):
         """
         based on a given objective function, find the true best solution based on the data collected from analytical model
