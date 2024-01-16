@@ -35,6 +35,7 @@ class queue(object):
         self.p = None # prob of being in each state (num in system) at each time t
         self.p_q = None # prob of being in each state (num in queue) at each time t
         self.p_unsh = None # prob of being in each state (num unsheltered) at each time t
+        self.p_sh = None # prob of being in each state (num sheltered) at each time t
         self.num_sys = None # expected val at each time t
         self.num_queue = None # expected val at each time t
         self.num_unsheltered = None # expected val at each time t
@@ -189,6 +190,8 @@ class queue(object):
         self.p_q[max(0, n_0 - self.num_serve(0)['before'])][0] = 1 # enforce state at time 0
         self.p_unsh = [[0 for i in range(T)] for j in range(N+1)]
         self.p_unsh[max(0, n_0 - self.num_serve(0)['before'] - self.num_shelt(0)['before'])][0] = 1 # enforce state at time 0
+        self.p_sh = [[0 for i in range(T)] for j in range(N+1)]
+        self.p_sh[min(max(0, n_0 - self.num_serve(0)['before']),self.num_shelt(0)['before'])][0] = 1
         
         # init m, number of busy servers in each state
         m = [0 for i in range(N+1)]
@@ -247,7 +250,8 @@ class queue(object):
                 # probs of number in q and unsheltered
                 self.p_q[max(0,n-s)][t] += self.p[n][t]
                 self.p_unsh[max(0,n-s-shelt)][t] += self.p[n][t]
-
+                self.p_sh[min(max(0,n-s),shelt)][t] += self.p[n][t]
+                
             # average over time of the expected value of number unshelterd - add up to point t
             self.num_unsheltered_avg += (d*self.num_unsheltered[t-1])/Y
             self.num_sheltered_avg += (d*self.num_sheltered[t-1])/Y
@@ -507,3 +511,40 @@ def compare_cdf(data_sim, q, nmax, yr):
     ax.add_artist(first_legend)
     
     return fig, ax
+
+def get_percentiles(decision_yr, T, percentiles, data, i, j):
+    """
+    Parameters
+    ----------
+    decision_yr : int - year at which additional accomm built
+    T : int - time duration to analyse in days
+    percentiles : dict(int) - two percentiles (one high and one low) must be of form {'low': int, 'high' : int}
+    data : list - data on probabilities
+    i : int - index in list of possible 'additional shelter' values to analyse
+    j : int - index in list of possible housing 'service times' values to analyse
+    
+    Returns
+    -------
+    out : dict(list) - percentiles of data in question
+    """
+    percentiles_high = [t for t in range(T)]
+    percentiles_low = [t for t in range(T)]
+
+    for t in range(T):
+        looking_high = True
+        looking_low = True
+        n = 0
+        prob_cumulative = 0
+        while looking_high:
+            prob_cumulative += data[i][j][decision_yr][n][t]
+            if prob_cumulative > percentiles['low']:
+                if looking_low == True:
+                    percentiles_low[t] = n
+                    looking_low = False
+            if prob_cumulative > percentiles['high']:
+                percentiles_high[t] = n
+                looking_high = False
+            n += 1
+
+    out = {'low' : percentiles_low, 'high' : percentiles_high}
+    return out
