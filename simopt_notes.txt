@@ -1,0 +1,22 @@
+# In the SimOpt library - the simopt/models folder contains both model classes and problem classes.
+
+# Thoughts on the lib ----------------
+# In the demo_model.py script, in the MM1Queue example, a lot of the outputs are nan
+# In MM1QueueMin... problem, not v obvious what the fixed factors should be (there are 3 specifications but clearly 2 fixed factors)
+
+# Progress on understanding the lib
+# demo_model shows how to run a single replication of a model - there is a default description of what the response is. 
+# demo_problem shows how to setup a problem and do replications at a given solution for that problem. - in the problem class there is a description of what the objective function is. Also - there are defaults for model parameters, in some cases these are set if none are given, in other cases they over-write what is already given.
+# the problem instance also defines useful things about the problem like whether its continuous, what type of constraints, dimensionality etc - there might be smth similar in the sovlers to be sure they match up
+
+# How the library works
+# base.py are the main class definitions.
+# mm1_queue.py has the Model(MM1Queue) but also Problem(MM1QueueMinSojTime)
+# Model, Solution and Problem are important base classes which are interlinked when being worked with.
+
+# In the MM1QueueMeanSojTime problem - the objective function is the mean sojourn time plus cost*mu**2 - where mu is the solution, which is the service rate. The defaul cost is set to 0.1, if we try a mu of 8, then this part of the objective functions is 6.4 and this is much larger than the mean sojourn time in this case. The bounds of the solution are 0 to inf. 
+
+# Next steps:
+# Try a suitable solver on the MM1Queue Mean Soj time problem, now I know how this problem works
+# Understand exactly what's going on with the post-normalise and plotting for the problem-solver
+# Try a problem-solver that's related to what my problem looks like and interpret results
