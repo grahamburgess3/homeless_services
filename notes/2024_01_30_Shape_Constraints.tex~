@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+
+\title{SAA formulation with shape constraints}
+\author{Graham Burgess}
+\date{31 January 2024}
+
+\begin{document}
+%
+\maketitle
+%
+  \begin{align*}
+    E[\text{size of Q at time t}] = & \text{Current size of queue} + \\
+                                    & E[\text{Number of new arrivals by time t}] - \\
+                                    & E[\text{Number of service completions by time t, given no breaks in service}]
+  \end{align*}
+
+\end{document}

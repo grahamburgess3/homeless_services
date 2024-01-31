@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb}
+
+\title{SAA formulation with shape constraints}
+\author{Graham Burgess}
+\date{January 2024}
+
+\begin{document}
+
+\maketitle
+
+\begin{align*}
+  \min_{\{h_{t}, s_{t}\}_{t = 1, ..., T}} & \mathbb{E} [Y(h_{t},s_{t})] = \frac{1}{N}\sum_{i=1}^{N}y_{i}(h_{t},s_{t}) \\
+  & \text{s.t.} \hspace{0.2cm} \{h_{t}\}_{t=1, ..., T} \in \Omega_{H} \\
+  & \hspace{0.7cm} \{s_{t}\}_{t=1, ..., T} \in \Omega_{S} \\
+\end{align*}
+
+$h_t$ is the number of housing units to be built in year $t$ 
+
+$s_t$ is the number of shelter units to be built in year $t$ 
+
+$T$ is the decision horizon, in years 
+
+$Y(\cdot)$ is the random system response
+
+$y_i$ is the observed system response at the $i$th iteration
+
+$N$ is the simulation budget for each feasible pair of build functions $\{h_t,s_t\}_{t = 1, ..., T}$
+
+$\Omega_H$ and $\Omega_S$ capture shape constraints on the build functions. 
+
+\end{document}
