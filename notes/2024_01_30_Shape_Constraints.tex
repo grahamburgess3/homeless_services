@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{amsmath} % Required for flexibility in mathematical equations
-\usepackage{amssymb}
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
 
 \title{SAA formulation with shape constraints}
 \author{Graham Burgess}
@@ -12,23 +12,20 @@
 \maketitle
 
 \begin{align*}
-  \min_{\{h_{t}, s_{t}\}_{t = 1, ..., T}} & \mathbb{E} [Y(h_{t},s_{t})] = \frac{1}{N}\sum_{i=1}^{N}y_{i}(h_{t},s_{t}) \\
-  & \text{s.t.} \hspace{0.2cm} \{h_{t}\}_{t=1, ..., T} \in \Omega_{H} \\
-  & \hspace{0.7cm} \{s_{t}\}_{t=1, ..., T} \in \Omega_{S} \\
+  \min_{\{h(t), s(t)\}} & \mathbb{E} [Y(h,s)] = \frac{1}{N}\sum_{i=1}^{N}y_{i}(h,s) \\
+  & \text{s.t.} \hspace{0.2cm} h(t) = \{h_{t}\}_{t=1, ..., T} \in \Omega_{H} \\
+  & \hspace{0.7cm} s(t) = \{s_{t}\}_{t=1, ..., T} \in \Omega_{S} \\
 \end{align*}
 
-$h_t$ is the number of housing units to be built in year $t$ 
-
-$s_t$ is the number of shelter units to be built in year $t$ 
-
-$T$ is the decision horizon, in years 
-
-$Y(\cdot)$ is the random system response
-
-$y_i$ is the observed system response at the $i$th iteration
-
-$N$ is the simulation budget for each feasible pair of build functions $\{h_t,s_t\}_{t = 1, ..., T}$
-
-$\Omega_H$ and $\Omega_S$ capture shape constraints on the build functions. 
-
+\begin{itemize}
+  \item $h(t)$ and $s(t)$ are build functions for housing and shelter, respectively. 
+  \item $h_t$ is the number of housing units to be built in year $t$ 
+  \item $s_t$ is the number of shelter units to be built in year $t$
+  \item $y_i(h,t)$ is a functional whose output is the observed system response at the $i$th iteration, given build functions $h$ and $s$.     
+  \item $Y(h,t)$ is a functional defining the random, unknown system response
+  \item $T$ is the decision horizon, in years 
+  \item $N$ is the simulation budget for each feasible pair of build functions $\{h(t),s(t)\}$
+  \item $\Omega_h$ and $\Omega_s$ are sets of feasible build functions, which capture the desired shape constraints. 
+\end{itemize}
+    
 \end{document}

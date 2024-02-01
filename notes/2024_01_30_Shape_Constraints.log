@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.10.20)  31 JAN 2024 17:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.10.20)  1 FEB 2024 10:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -174,10 +174,11 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 12.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (15.43677pt too wide) in paragraph at lines 30--31
+Overfull \hbox (9.8524pt too wide) in paragraph at lines 27--28
 []$\OML/cmm/m/it/10 N$ \OT1/cmr/m/n/10 is the sim-u-la-tion bud-get for each fe
-a-si-ble pair of build func-tions $\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 h[]; s[]\
-OMS/cmsy/m/n/10 g[]$ 
+a-si-ble pair of build func-tions $\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 h\OT1/cmr
+/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; s\OT1/cmr/m/n/10
+ (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 g$ 
  []
 
 [1
@@ -185,29 +186,28 @@ OMS/cmsy/m/n/10 g[]$
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 (./2024_01_30_Shape_Constraints.aux) ) 
 Here is how much of TeX's memory you used:
- 2501 strings out of 480247
- 36480 string characters out of 5896150
- 319880 words of memory out of 5000000
- 20447 multiletter control sequences out of 15000+600000
- 475902 words of font info for 55 fonts, out of 8000000 for 9000
+ 2504 strings out of 480247
+ 36516 string characters out of 5896150
+ 321880 words of memory out of 5000000
+ 20449 multiletter control sequences out of 15000+600000
+ 476237 words of font info for 56 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 55i,10n,62p,278b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 2024_01_30_Shape_Constraints.pdf (1 page, 112941 bytes).
+ 55i,10n,62p,290b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/burges26/.texlive2021/texmf-var/f
+onts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on 2024_01_30_Shape_Constraints.pdf (1 page, 98061 bytes).
 PDF statistics:
- 68 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
+ 63 PDF objects out of 1000 (max. 8388607)
+ 38 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
