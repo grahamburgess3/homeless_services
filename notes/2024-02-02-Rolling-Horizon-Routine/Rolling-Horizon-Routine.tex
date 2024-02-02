@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{algpseudocode} % Required for generating algorithms
+\usepackage{algorithm} % Required for generating algorithms
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+
+\title{Rolling horizon routine}
+\author{Graham Burgess}
+\date{February 2024}
+
+\begin{document}
+
+\maketitle
+
+    \begin{algorithm*}
+        
+    \caption{Rolling horizon routine}\label{alg:rolling-horizon}
+    \begin{algorithmic}[1]
+    \State \boldsymbol{x^{*}} = empty list to construct optimal solution
+    \State $T_D = $ decision horizon (years)
+    \State $T_M = $ modelling horizon (years). $T_M \geq T_D$
+    \State $\lambda_{0} =$ current demand (number in system)
+    \State \boldsymbol{\lambda} = $\{\lambda_t\}_{t = 1, ..., T_D + T_M - 1}$ = future annual arrival rates
+    \State $(h_{0}, s_{0})$ = current supply of housing and shelter
+    \State $\mathbb{X} = $ feasible building solutions for next $T_D$ years
+    \State $Y = $ objective function to minimise 
+    \State $M = $ analytical queueing model
+
+    \For {yr = $1$:$T_D$}
+        \State \boldsymbol{\lambda'} = $\{\lambda_t\}_{t = \text{yr}, ..., \text{yr}+T_M-1}$ (select arrival rates covering next $T_M$ years)
+        \State $\text{Plan}  = \text{Optimise}(Y, \mathbb{X}, \lambda_{0}, \boldsymbol{\lambda'}, (h_{0}, s_{0}), M)$ (Plan for next $T_D$ years)
+        \State \boldsymbol{x^{*}} $\gets $ \boldsymbol{x^{*}} $+ \text{Plan}[1]$ (Include 1st year of plan in optimal solution)
+        \State Update $(h_0,s_0)$ to be new current supply of housing/shelter
+        \State Update $\lambda_{0}$ to be new current demand
+        \State Update $\mathbb{X}$ to cover period $(\text{yr} + 1, \text{yr} + T_D)$
+    \EndFor
+    
+    \State Return \boldsymbol{x^*}
+    
+
+    
+    \end{algorithmic}
+    \end{algorithm*}
+
+\end{document}
