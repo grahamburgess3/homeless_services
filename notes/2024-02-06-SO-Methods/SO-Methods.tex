@@ -1,0 +1,32 @@
+\documentclass{article}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+
+\title{SO methods}
+\author{Graham Burgess}
+\date{February 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{SAA}
+``A Guide to Sample-Average Approximation'' - Kim, Ragu, Shane Henderson
+Multi-dimensional newsvendor problem analysis shows that differentiability and expectation are interchangeable. The true function and the sample problem have the same nice properties of smoothness and concavity. So then - sufficiently large N -> effectively concave and deterministic opt can be used to find optimum.
+
+We can say that SAA is appropriate for a problem if there is a structure to the sample average function which allows a nice deterministic optimisation solver to be used, and that the true function can be said to share that same structure.
+
+It is also noted here
+
+\section{Integer ordered decision vars}
+``Simulation-based optimization over discrete setswith noisy constraints'' YAO LUO and EUNJI LIM
+
+Ragu et al - RSpline
+
+``CONSTRAINED OPTIMIZATION OVER DISCRETE SETS VIA SPSA WITH APPLICATION TO NON-SEPARABLE RESOURCE ALLOCATION'' Witney et al.
+
+Other references from Ragu et al. - COMPASS and DSA (Discrete Stochastic Approx.)
+
+\end{document}
