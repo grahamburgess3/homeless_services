@@ -12,7 +12,45 @@
 
 \maketitle
 
-\section{SAA}
+\section{Introduction}
+
+How we categorise simulation optimisation (SO) methods:
+
+\begin{itemize}
+  \item decision variable discrete or continuous. In the discrete case: 
+  \begin{itemize}
+    \item Finite or infinite number of feasible solutions
+    \item Ordered or unordered feasible solutions
+    \item Random search used or not
+  \end{itemize}
+  \item how the problem may be constrained:
+  \begin{itemize}
+    \item unconstrained, partially constrained, fully constrained
+    \item stochastic constraints, deterministic constraints, box constraints
+  \end{itemize}
+  \item dimensionality of the problem
+  \item local or global solutions found
+  \item convergence guarentee
+
+\end{itemize}
+
+The problem we face in the housing waiting-list problem has the following corresponding characteristics:
+\begin{itemize}
+  \item In reality the decision variables (numbers of units of housing/shelter to build) are discrete, however we may work with a continuous approximation of the system. In the discrete case:
+  \begin{itemize}
+    \item We have a finite but large number of feasible solutions
+    \item Within each dimension of the solution space, solutions are ordered, however ordering across dimensions is not obvious
+  \end{itemize}
+  \item The problem we currently have in mind is:
+  \begin{itemize}
+    \item fully constrained
+    \item deterministic constraints  
+  \end{itemize}
+  \item There is potentially a medium number (approx. 10) of dimensions (how much of housing/shelter to build each year over some reasonable time horizon for planning
+  \item We would like a global solution, however we may still be interested in locally convergent methods provide we can add an element of random searching to escape any local optimum if necessary. 
+\end{itemize}
+
+\section{Discrete decision variables}
 ``A Guide to Sample-Average Approximation'' - Kim, Ragu, Shane Henderson
 Multi-dimensional newsvendor problem analysis shows that differentiability and expectation are interchangeable. The true function and the sample problem have the same nice properties of smoothness and concavity. So then - sufficiently large N -> effectively concave and deterministic opt can be used to find optimum.
 
@@ -28,5 +66,7 @@ Ragu et al - RSpline
 ``CONSTRAINED OPTIMIZATION OVER DISCRETE SETS VIA SPSA WITH APPLICATION TO NON-SEPARABLE RESOURCE ALLOCATION'' Witney et al.
 
 Other references from Ragu et al. - COMPASS and DSA (Discrete Stochastic Approx.)
+
+\section{Continuous decision varialbes}
 
 \end{document}
