@@ -50,23 +50,46 @@ The problem we face in the housing waiting-list problem has the following corres
   \item We would like a global solution, however we may still be interested in locally convergent methods provide we can add an element of random searching to escape any local optimum if necessary. 
 \end{itemize}
 
-\section{Discrete decision variables}
+\newpage
+
+\section{Integer ordered decision variables}
+
+\subsection{Discrete Stochastic Approximation}
+
+The idea is that the objective function on the discrete space (say $f$) is extended to the continuous space (say $\tilde{f}$) and SA is performed on this extension. Therefore at each iteration, the step to a new solution is not restricted to an integer point, which means it is 'free' to quickly move towards the optimal solution. Finally, one rounds to the nearest integer point. \newline
+
+
+In the 1-D case, a simple linear interpolation between points in $f$ is performed to construct $\tilde{f}$. Then, following an initial guess $\theta_0$ of the minimiser of $\tilde{f}$, gradient descent steps are taken using a gradient estimator obtained via (multiple replications of) simulation of the integer points either side of $\theta_0$. The step sizes are a sequence of positive numbers. \newline
+
+When $d>1$, the extension from $f$ to $\tilde{f}$ for $d>1$ is done by partitioning the continuous space (using a colletion of convex hulls built on points in the integer space) so that every point in the continuous space is contained within one of the convex hulls in the collection. Then $\tilde{f}$ is constructed as a linear combination of $f$ at all points on the surrounding convex hull. The weights in the linear combination depend on the proximity of the point in continuous space, to the corresponding points on the convex hull. Gradients are constructed using estimates (via multiple replications of simulation) of $f$ at the points on the convex hull. At each iteration, once a gradient is constructed, one moves to a new point by taking a step along the gradient, with the step sizes a sequence of positive numbers. Now that the dimensionality of the problem is greater than 1, multimodularity of the objective function (or $L^{\text{sharp}}$-convex) (as defined in the paper) is required to guarantee the convergence of this algorithm, sinc for multimodular (or $L^{\text{sharp}}$-convex) functions, the extenstion to the continuous space gives a convex function. \newline
+
+Step-size at iteration $n$ is of the form $a/(b+n)$ where $a$ and $b$ are positive constants. $b$ is chosen as the total number of iterations and $a$ is selected by the user based on what is most advantagous for an initial step-size. 
+
+\subsection{R-SPLINE}
+
+R-SPLINE is ``retrospective'' in that it solves a series of sample-path problems, using the previous solution (i.e. retrospective) as a starting point for each new sample-path problem. Each sample-path problem is generated implicitly (i.e. sample-paths are collected as needed as the algorithm is progresses). Each sample-path problem is solved using a repeating combination of a continuous line search, and a neighbourhood evaluation. \newline
+
+The line search moves along ``phantom'' gradients from integer point to integer point in search of a better solution. Each move starts with a random perturbation from the current best (integer) solution to a continuous point. Then the objective function value and gradient at this point is computed with a linear interpolation very similar to that in DSA. There is then ``continuous'' movement along this gradient and a jump to the nearest integer point, in search of an improved integer solution. The step-size at each continious movement is calculated to be as small as possible so that the jump to the nearest integer point will land on a new integer point. The line search stops when a move within the search is small (below some threshold). Once a line search is complete, a neighbourhood evaluation is performed to check that the current best is indeed a local solution (within all of its nearest neighbours, in every dimension). The combination of the line search and the neighbourhood evaluation is repeated until no improvement is found, or until the total simulation budget is used. \newline
+
+There is similarity between R-SPLINE and DSA in the way the objective function value and gradient in the continous space are calculated. However, there are differences: DSA, once transformed into the continous space, only moves in the continuous space, whereas R-SPLINE regularly jumps to the nearest integer point, before randomly perturbing away from that integer point. R-SPLINE involves repetitions of the line search and a neighbourhood evaluation, however DSA performs no neighbourhood evaluation as it moves towards the optimal solution. There is also a difference in how the step size is calculated as the search moves along the gradients. R-SPLINE has has an adaptive step-size (explained above), whereas DSA gets smaller and smaller as the algorithm progresses. Both algorithms increase the number of simulation replications from iteration to iteration. \newline
+
+More recently, a new algorithm called ``ADALINE'' incorporates many features of R-SPLINE but invovles an adaptive sample size at each iteration so as not to waste computation budget. 
+
+\subsection{COMPASS}
+
+\subsection{Using the Lagrangean}
+
+\subsection{GMRF}
+
+\subsection{RSM in a discrete setting}
+
+\section{Continuous decision variables}
+
+\subsection{Sample Average Approximation}
+
 ``A Guide to Sample-Average Approximation'' - Kim, Ragu, Shane Henderson
 Multi-dimensional newsvendor problem analysis shows that differentiability and expectation are interchangeable. The true function and the sample problem have the same nice properties of smoothness and concavity. So then - sufficiently large N -> effectively concave and deterministic opt can be used to find optimum.
 
 We can say that SAA is appropriate for a problem if there is a structure to the sample average function which allows a nice deterministic optimisation solver to be used, and that the true function can be said to share that same structure.
-
-It is also noted here
-
-\section{Integer ordered decision vars}
-``Simulation-based optimization over discrete setswith noisy constraints'' YAO LUO and EUNJI LIM
-
-Ragu et al - RSpline
-
-``CONSTRAINED OPTIMIZATION OVER DISCRETE SETS VIA SPSA WITH APPLICATION TO NON-SEPARABLE RESOURCE ALLOCATION'' Witney et al.
-
-Other references from Ragu et al. - COMPASS and DSA (Discrete Stochastic Approx.)
-
-\section{Continuous decision varialbes}
 
 \end{document}
