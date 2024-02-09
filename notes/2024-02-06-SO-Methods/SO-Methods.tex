@@ -21,7 +21,10 @@ How we categorise simulation optimisation (SO) methods:
   \begin{itemize}
     \item Finite or infinite number of feasible solutions
     \item Ordered or unordered feasible solutions
-    \item Random search used or not
+    \item Random search used or not. For random search methods:
+    \begin{itemize}
+      \item neighbourhood structure (adaptive usually better than fixed)
+    \end{itemize}
   \end{itemize}
   \item how the problem may be constrained:
   \begin{itemize}
@@ -77,7 +80,14 @@ More recently, a new algorithm called ``ADALINE'' incorporates many features of 
 
 \subsection{COMPASS}
 
-\subsection{Using the Lagrangean}
+
+Convergent optimisation via most-promising-area stochastic search (COMPASS). Based on random search (like many other DOvS algs in literature) but offers a unique adaptive neighbourhood structure known as the ``Most promising area'' (MPA). For terminating and steady state simulation. For fully/partially/un- constrained problems. The fully-constrained setting is described as follows: \newline
+
+The algorithm starts by simulating an initial solution and the entire feasible region is in the MPA. Then, new solutions are sampled from the MPA and simulated. Once simulation has taken place, the ``promising''-index of each feasible solution is the sample mean performance of the visited solution which is closest to it. Therefore, the MPA is the set of feasible sols which have the current sample best solution as their closest visited solution. By design, the only previously-visted solution in the MPA is the current best. At each iteration, COMPASS updates the current best solution and the MPA and assigns simulation experiments (using a Simulation Allocation Rule) to candidate solutions sampled uniformly from the the MPA. It keeps information from previously-visited solutions over the course of the algorithm.   \newline
+
+When the problem is partially- or un-constrained, a boundary around the current best solution is maintained and is widened as candidate solutions get close to the boundary. Within the boundary, the algorithm works as in the above fully-constrained description. \newline
+
+If the algorithm gets stuck in the wrong area (due to simulation noise) because all visited solutions are allocated further simulation budget, the algorithm will eventually move away from the sub-optimal area. The user must think carefully about how many solutions to sample from the MPA at each iteration. Fewer will reduce the time taken to find a local optimum, but the quality of this local optimum may not be good. 
 
 \subsection{GMRF}
 
