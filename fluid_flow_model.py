@@ -2,13 +2,14 @@ import math
 
 class FluidFlowModel():
 
-    def __init__(self, data):
+    def __init__(self, data, solution):
         """
         Initialise instance of fluid flow model - continuous approximation of M(t)/M/s(t) model
         
         Parameters
         ----------
-        data : dict : includes 'initial_demand', 'initial_capacity', 'service_mean', 'arrival_rates', 'build_rates'
+        data : dict : includes 'initial_demand', 'initial_capacity', 'service_mean', 'arrival_rates'
+        solution : dict(list) : includes annual build rates for 'housing' and 'shelter'
 
         Returns
         -------
@@ -20,8 +21,8 @@ class FluidFlowModel():
         self.s0 = data['initial_capacity']['shelter']
         self.mu0 = 1/data['service_mean']['housing']
         self.lambda_t = data['arrival_rates']
-        self.h_t = data['build_rates']['housing']
-        self.s_t = data['build_rates']['shelter']
+        self.h_t = solution['housing']
+        self.s_t = solution['shelter']
         self.n_t = [] # number in system over time (Expected val)
         self.sh_t = [] # number sheltered over time (Expected val)       
         self.unsh_t = [] # number unsheltered over time (Expected val)
