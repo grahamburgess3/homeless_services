@@ -10,7 +10,7 @@ import fluid_flow_model as fl
 # Set as is data
 data_as_is = {'initial_capacity' : {'housing':40, 'shelter':15},
               'initial_demand' : 120,
-              'service_mean' : {'housing': 4.487179487179487, 'shelter': 0}
+              'service_mean' : {'housing': 4.487179487179487, 'shelter': 0},
               'arrival_rates' : [36.55542857142857, 43.520228571428575, 47.76822857142857, 47.76822857142857, 43.12542857142857, 38.92062857142857]}
 
 # Model setup
@@ -29,14 +29,14 @@ model.h = Var(model.T, domain=NonNegativeReals)
 model.s = Var(model.T, domain=NonNegativeReals)
 
 # Constraints
-def budget(model):
+def set_budget(model):
     costs=0
     for i in model.T:
         costs += model.h[i] * cost['housing']
         costs += model.s[i] * cost['shelter']
     return costs <= budget
 
-model.BUDGET=Constraint(rule=budget)
+model.BUDGET=Constraint(rule=set_budget)
 
 # Objective function
 def obj_expression(model):
@@ -52,7 +52,6 @@ model.OBJ = Objective(rule=obj_expression)
 # Solve
 opt=SolverFactory('glpk')
 instance=model.create_instance()
-instance.preprocess()
 results=opt.solve(instance)
 
 # Optimal sol
