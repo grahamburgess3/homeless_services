@@ -24,7 +24,6 @@ class FluidFlowModel():
         self.h_t = solution['housing']
         self.s_t = solution['shelter']
         self.n_t = [] # number in system over time (Expected val)
-        self.sh_t = [] # number sheltered over time (Expected val)       
         self.unsh_t = [] # number unsheltered over time (Expected val)
         self.n_var_t = [] # Var[num in system] over time
         self.unsh_var_t = [] # Var[num unsheltered] over time
@@ -33,7 +32,7 @@ class FluidFlowModel():
 
     def evaluate_queue_size(self, t):
         """
-        Evaluate expected number in system, number sheltered and number unsheltered at time t
+        Evaluate expected number in system and number unsheltered at time t (and Var(x) and x^2)
         
         Parameters
         ----------
@@ -42,8 +41,11 @@ class FluidFlowModel():
         Returns
         -------
         n : float : E[number in system at time t]
-        sh : float : E[number sheltered at time t]
         unsh : float : E[number unsheltered at time t]
+        n_var :  float : Var[number in system at time t]
+        unsh_var : float : Var[number unsheltered at time t]
+        n_sq : float : E[(number in system at time t)^2]  
+        unsh_sq : E[(number unsheltered at time t)^2]  
 
         """
 
@@ -68,9 +70,8 @@ class FluidFlowModel():
         shelters += (t % 1) * self.s_t[yrs]
 
         # calculate queue lengths (expected values)
-        n = max(0, self.n0 + fluid_in - fluid_out)
-        sh = min(shelters, max(0, n - houses))
-        unsh = max(0, n - houses - shelters)
+        n = self.n0 + fluid_in - fluid_out
+        unsh = n - houses - shelters
 
         # calculate queue lengths (variance)
         n_var = fluid_in + fluid_out
@@ -81,15 +82,15 @@ class FluidFlowModel():
         unsh_sq = unsh**2 + unsh_var
         
         # return
-        return n, sh, unsh, n_var, unsh_var, n_sq, unsh_sq
+        return n, unsh, n_var, unsh_var, n_sq, unsh_sq
 
     def analyse(self, T):
         """
-        Reset and evaluate self.n_t, self.unsh_t, self.sh_t for all times in T
+        Reset and evaluate Q performance measures for all times in T
         
         Parameters
         ----------
-        T : list[float] : times (in years) to evaluate queue size
+        T : list[float] : times (in units of years) to evaluate queue size
 
         Returns
         -------
@@ -99,7 +100,6 @@ class FluidFlowModel():
         
         # Reset current values for Q lengths
         self.n_t = [] # number in system over time (Expected val)
-        self.sh_t = [] # number sheltered over time (Expected val)       
         self.unsh_t = [] # number unsheltered over time (Expected val)
         self.n_var_t = [] # Var[num in system] over time
         self.unsh_var_t = [] # Var[num unsheltered] over time
@@ -108,7 +108,6 @@ class FluidFlowModel():
         
         # Set starting values for Q lengths
         self.n_t.append(self.n0)
-        self.sh_t.append(min(self.s0, max(0, self.n0 - self.h0)))
         self.unsh_t.append(max(0,self.n0 - self.h0 - self.s0))
         self.n_var_t.append(0)
         self.unsh_var_t.append(0)
@@ -118,9 +117,8 @@ class FluidFlowModel():
         # Set remaining values for Q lengths, for t in T
         # (not include first element of T which should be t=0 and already accounted for
         for t in T[1:len(T)]:
-            n, sh, unsh, n_var, unsh_var, n_sq, unsh_sq = self.evaluate_queue_size(t)
+            n, unsh, n_var, unsh_var, n_sq, unsh_sq = self.evaluate_queue_size(t)
             self.n_t.append(n)
-            self.sh_t.append(sh)
             self.unsh_t.append(unsh)
             self.n_var_t.append(n_var)
             self.unsh_var_t.append(unsh_var)
