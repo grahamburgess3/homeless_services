@@ -9,13 +9,14 @@ import fluid_flow_model as fl
 
 # Set as is data
 data_as_is = {'initial_capacity' : {'housing':40, 'shelter':15},
-              'initial_demand' : 120,
-              'service_mean' : {'housing': 4.487179487179487, 'shelter': 0},
-              'arrival_rates' : [36.55542857142857, 43.520228571428575, 47.76822857142857, 47.76822857142857, 43.12542857142857, 38.92062857142857]}
+              'initial_demand' : 180,
+              'service_mean' : {'housing': 4.0, 'shelter': 0.0},
+              'arrival_rates' : [100,100,100,100]}
 
 # Model setup
-horizon = 5
-budget = 100
+horizon = 4
+budget = 132
+baseline_build = 12
 cost = {'housing' : 1.0, 'shelter' : 0.5}
 
 # Create Abstract Model
@@ -28,7 +29,7 @@ model.T = RangeSet(0, horizon-1)
 model.h = Var(model.T, domain=NonNegativeReals)
 model.s = Var(model.T, domain=NonNegativeReals)
 
-# Constraints
+# Constraints - budget
 def set_budget(model):
     costs=0
     for i in model.T:
@@ -37,6 +38,16 @@ def set_budget(model):
     return costs <= budget
 
 model.BUDGET=Constraint(rule=set_budget)
+
+# Constraints: Lower Bound on build rates
+def min_house_build(model,n):
+    return model.h[n]>=baseline_build
+
+def min_shelter_build(model,n):
+    return model.s[n]>=baseline_build
+
+model.h_base=Constraint(model.T,rule=min_house_build)
+model.s_base=Constraint(model.T,rule=min_shelter_build)
 
 # Objective function
 def obj_expression(model):
