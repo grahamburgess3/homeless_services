@@ -1,3 +1,9 @@
+# General thoughts: 
+- There are only a handful of solvers in the library - all for continuous - valued problems 
+- There are lots of example problems which are integer ordered - there is likely desire for additions to this library on integer ordered
+- The lib is structured in a way I can follow using classes, I think I could work with this library in future if I needed
+- Quite a lot of detailed stuff going in with respect to the boostrapping - not the easiest to follow in the code. 
+
 # In the SimOpt library - the simopt/models folder contains both model classes and problem classes.
 
 # Thoughts on the lib ----------------
