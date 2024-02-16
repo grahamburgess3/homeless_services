@@ -57,6 +57,8 @@ The problem we face in the housing waiting-list problem has the following corres
 
 \section{Integer ordered decision variables}
 
+This occurs when the decision variables are numerical in nature and only take integer values (e.g. how many staff to hire, how many houses to build) - can be seen as the integer points on a lattice.
+
 \subsection{Discrete Stochastic Approximation}
 
 The idea is that the objective function on the discrete space (say $f$) is extended to the continuous space (say $\tilde{f}$) and SA is performed on this extension. Therefore at each iteration, the step to a new solution is not restricted to an integer point, which means it is 'free' to quickly move towards the optimal solution. Finally, one rounds to the nearest integer point. \newline
@@ -93,6 +95,8 @@ If the algorithm gets stuck in the wrong area (due to simulation noise) because 
 
 \subsection{RSM in a discrete setting}
 
+Response Surface Optimization with Discrete Variables (2004)
+
 \section{Continuous decision variables}
 
 \subsection{Sample Average Approximation}
@@ -101,5 +105,33 @@ If the algorithm gets stuck in the wrong area (due to simulation noise) because 
 Multi-dimensional newsvendor problem analysis shows that differentiability and expectation are interchangeable. The true function and the sample problem have the same nice properties of smoothness and concavity. So then - sufficiently large N -> effectively concave and deterministic opt can be used to find optimum.
 
 We can say that SAA is appropriate for a problem if there is a structure to the sample average function which allows a nice deterministic optimisation solver to be used, and that the true function can be said to share that same structure.
+
+\subsubsection{Infinite dimension SO problems - (function decisions) - approx with SAA}
+
+Singham et al. 
+
+\subsubsection{Retrospective framework}
+
+How this differs from SAA
+
+\subsection{Stochastic Approximation}
+
+\subsection{Meta-modelling}
+
+\subsubsection{Trust-region methods}
+
+\subsubsection{Response Surface Methodology}
+
+STRONG
+
+\subsubsection{Global meta models}
+
+BO
+
+\subsubsection{Multi-fidelity models}
+
+A simulation-based optimization algorithm for dynamic large-scale urban transportation problems - Osorio and Chong 2018 \newline
+
+Zirui Cao et al. CLUSTER-BASED SAMPLING ALLOCATION FOR MULTI-FIDELITY SIMULATION OPTIMIZATION (WSC 2023)
 
 \end{document}
