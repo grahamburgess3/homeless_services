@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+
+\title{Optimisation formulations - brainstorming}
+\author{Graham Burgess}
+\date{February 2024}
+
+\begin{document}
+
+\maketitle
+
+We start off
+
+\begin{align*}
+        & \min_{\boldsymbol{h},\boldsymbol{s}} \hspace{0.2cm} y(\boldsymbol{h},\boldsymbol{s}) \\
+        & \text{ s.t. } \sum_{t=1}^{T} c_{h}h_{t} + c_{s}s_{t} \leq C \\
+        & \hspace{0.82cm} h_t, s_t \geq B \hspace{0.2cm} \forall t \in \{1, ..., T\}
+\end{align*}
+
+\end{document}

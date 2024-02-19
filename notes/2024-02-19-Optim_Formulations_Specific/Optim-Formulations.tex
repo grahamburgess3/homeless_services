@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % Required for margin formatting
+\usepackage[skip=10pt]{parskip} % Required to add space between paragraphs and remove indents
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+
+
+\title{Optimisation formulations - brainstorming}
+\author{Graham Burgess}
+\date{February 2024}
+
+\begin{document}
+%
+\maketitle
+%
+We start off with the a general optimisation formulation detailed below (as discussed in meeting of 15th Feb 2024). This formulation minimises a deterministic objective function subject to annual baseline building constraints and a total budget constraint. \par
+%
+Let $T \in Z^{+}$ be a fixed horizon over which to model queue behaviour and to make building decisions. \par
+%
+Let vectors $\boldsymbol{h} = \{h_t \hspace{0.2cm} \forall t \in {1,...,T}\}$ and $\boldsymbol{s} = \{s_t \hspace{0.2cm} \forall t \in {1,...,T}\}$ denote annual house and shelter building rates, respectively. For simplicity we say that housing/shelter building rates are constant within each year. \par
+%
+Let $c_{h} = 1$ be the cost of increasing $h_t$ by one, for any $t$. \par
+%
+Let $c_{s}$ be the cost of increasing $s_t$ by one, for any $t$. \par
+%
+Let $C$ be a total budget for building housing and shelter \par
+%
+Let $B$ be a baseline minimum annual house/shetler building rate \par
+%
+Let $y(\boldsymbol{h},\boldsymbol{s})$ be a deterministic objective function, evaluated using the fluid flow model. \par
+%
+\begin{align*}
+        & \min_{\boldsymbol{h},\boldsymbol{s}} \hspace{0.2cm} y(\boldsymbol{h},\boldsymbol{s}) \\
+        & \text{ s.t. } \sum_{t=1}^{T} c_{h}h_{t} + c_{s}s_{t} \leq C \\
+        & \hspace{0.82cm} h_t, s_t \geq B \hspace{0.2cm} \forall t \in \{1, ..., T\}
+\end{align*}
+%
+
+\end{document}
