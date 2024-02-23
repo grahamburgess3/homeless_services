@@ -25,8 +25,8 @@ class Problem():
         self.opt=SolverFactory('glpk')
         self.instance=self.problem.create_instance()
         self.results=self.opt.solve(self.instance)
-        self.h_opt=[self.instance.h[i].value for i in range(self.horizon)]
-        self.s_opt=[self.instance.s[i].value for i in range(self.horizon)]
+        self.h_opt=[self.instance.h[i].value for i in range(horizon)]
+        self.s_opt=[self.instance.s[i].value for i in range(horizon)]
         
 class Phi1(Problem):
 
@@ -104,5 +104,5 @@ problem.solve('glpk')
 
 # Outputs
 print('House building solution per year: ' + str(problem.h_opt))
-# print('Shelter building solution per year: ' + str(problem.s_opt))
-# print('Optimal objective Val: ' + str(problem.instance.OBJ()))
+print('Shelter building solution per year: ' + str(problem.s_opt))
+print('Optimal objective Val: ' + str(problem.instance.OBJ()))
