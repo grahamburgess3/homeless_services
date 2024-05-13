@@ -25,11 +25,13 @@ class FluidFlowModel():
         self.s = solution['shelter']
         self.n_t = [] # number in system over time (Expected val)
         self.unsh_t = [] # number unsheltered over time (Expected val)
+        self.sh_t = [] # number sheltered over time (Expected val)
         self.n_var_t = [] # Var[num in system] over time
         self.unsh_var_t = [] # Var[num unsheltered] over time
         self.n_sq_t = [] # E[(num in system)^2] over time
         self.unsh_sq_t = [] # E[(num unsheltered)^2] over time
-
+        self.sh_sq_t = [] # E[(num sheltered)^2] over time
+        
     def evaluate_queue_size(self, t):
         """
         Evaluate expected number in system and number unsheltered at time t (and Var(x) and x^2)
@@ -42,10 +44,12 @@ class FluidFlowModel():
         -------
         n : float : E[number in system at time t]
         unsh : float : E[number unsheltered at time t]
+        sh : float : E[number sheltered at time t]
         n_var :  float : Var[number in system at time t]
         unsh_var : float : Var[number unsheltered at time t]
         n_sq : float : E[(number in system at time t)^2]  
         unsh_sq : E[(number unsheltered at time t)^2]  
+        sh_sq : E[(number sheltered at time t)^2]  
 
         """
 
