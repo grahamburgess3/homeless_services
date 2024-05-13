@@ -31,15 +31,10 @@ class Problem():
         self.h_opt=[self.instance.h[i].value for i in range(self.horizon)]
         self.s_opt=[self.instance.s[i].value for i in range(self.horizon)]
         
-class Phi1(Problem):
+class Phi(Problem):
 
-    # Problem:
-    # min TimeAvg(E[unsh(t)])
-    # s.t. total budget constraint
-    #      annual minimum build constraint
-    
     def __init__(self, data, timestep, horizon, budget, costs_accomm, baseline_build, budget_constraint, min_house_build, min_shelter_build, objective_function):
-        super(Phi1, self).__init__(horizon)
+        super(Phi, self).__init__(horizon)
 
         # Set up model
         self.data = data
@@ -57,7 +52,7 @@ class Phi1(Problem):
 
         # Objective function
         self.problem.OBJ = pyo.Objective(rule=objective_function)        
-        
+
 class FluidModel():
 
     def __init__(self, data, solution):
