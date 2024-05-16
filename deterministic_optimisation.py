@@ -19,7 +19,8 @@ class Problem():
     
         # Levels
         self.problem.T = pyo.RangeSet(0, horizon-1)
-
+        self.problem.T_reduced = pyo.RangeSet(0, horizon-2)
+        
         # Variables
         self.problem.h = Var(self.problem.T, domain=pyo.NonNegativeReals)
         self.problem.s = Var(self.problem.T, domain=pyo.NonNegativeReals)
@@ -53,6 +54,15 @@ class Phi(Problem):
         # Objective function
         self.problem.OBJ = pyo.Objective(rule=objective_function)        
 
+class PhiShape(Phi):
+
+    def __init__(self, data, timestep, horizon, budget, costs_accomm, baseline_build, budget_constraint, min_house_build, min_shelter_build, h_increasing, s_increasing, objective_function):
+        super(PhiShape, self).__init__(data, timestep, horizon, budget, costs_accomm, baseline_build, budget_constraint, min_house_build, min_shelter_build, objective_function)
+
+        # add shape constraints
+        self.problem.h_increase = pyo.Constraint(self.problem.T_reduced, rule = h_increasing)
+        self.problem.s_increase = pyo.Constraint(self.problem.T_reduced, rule = s_increasing)
+        
 class FluidModel():
 
     def __init__(self, data, solution):
