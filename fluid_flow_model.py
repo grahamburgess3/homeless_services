@@ -103,7 +103,7 @@ class FluidFlowModel():
         None
 
         """
-        print('start analysis')
+
         # Reset current values for Q lengths
         self.n_t = [] # number in system over time (Expected val)
         self.unsh_t = [] # number unsheltered over time (Expected val)

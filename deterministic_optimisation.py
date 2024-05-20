@@ -19,7 +19,6 @@ class Problem():
     
         # Levels
         self.problem.T = pyo.RangeSet(0, horizon-1)
-        self.problem.T_reduced = pyo.RangeSet(0, horizon-2)
         
         # Variables
         self.problem.h = Var(self.problem.T, domain=pyo.NonNegativeReals)
@@ -52,17 +51,18 @@ class Phi(Problem):
         self.problem.s_base = pyo.Constraint(self.problem.T,rule=min_shelter_build)
 
         # Objective function
-        self.problem.OBJ = pyo.Objective(rule=objective_function)        
+        self.problem.OBJ = pyo.Objective(rule=objective_function)
 
-class PhiShape(Phi):
+    def add_housing_increase(self, h_increase):
+        self.problem.T_housing = pyo.RangeSet(0, self.horizon-2)
+        self.problem.h_increase = pyo.Constraint(self.problem.T_housing, rule = h_increase)
+            
+    def add_shelter_increase_decrease(self, shelter_mode, s_increase, s_decrease):
+        self.problem.T_shelter_first = pyo.RangeSet(0, shelter_mode-1)
+        self.problem.T_shelter_second = pyo.RangeSet(shelter_mode, self.horizon-2)
+        self.problem.s_increase = pyo.Constraint(self.problem.T_shelter_first, rule = s_increase)
+        self.problem.s_decrease = pyo.Constraint(self.problem.T_shelter_second, rule = s_decrease)
 
-    def __init__(self, data, timestep, horizon, budget, costs_accomm, baseline_build, budget_constraint, min_house_build, min_shelter_build, h_increasing, s_increasing, objective_function):
-        super(PhiShape, self).__init__(data, timestep, horizon, budget, costs_accomm, baseline_build, budget_constraint, min_house_build, min_shelter_build, objective_function)
-
-        # add shape constraints
-        self.problem.h_increase = pyo.Constraint(self.problem.T_reduced, rule = h_increasing)
-        self.problem.s_increase = pyo.Constraint(self.problem.T_reduced, rule = s_increasing)
-        
 class FluidModel():
 
     def __init__(self, data, solution):
