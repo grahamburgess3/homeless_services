@@ -26,6 +26,7 @@ class FluidFlowModel():
         self.n_t = [] # number in system over time (Expected val)
         self.unsh_t = [] # number unsheltered over time (Expected val)
         self.sh_t = [] # number sheltered over time (Expected val)
+        self.h_t = [] # number housed over time (Expected val)
         self.n_var_t = [] # Var[num in system] over time
         self.unsh_var_t = [] # Var[num unsheltered] over time
         self.n_sq_t = [] # E[(num in system)^2] over time
@@ -77,6 +78,7 @@ class FluidFlowModel():
         n = self.n0 + fluid_in - fluid_out
         unsh = n - houses - shelters
         sh = shelters
+        h = houses
 
         # calculate queue lengths (variance)
         n_var = fluid_in + fluid_out
@@ -88,7 +90,7 @@ class FluidFlowModel():
         sh_sq = sh**2
         
         # return
-        return n, unsh, sh, n_var, unsh_var, n_sq, unsh_sq, sh_sq
+        return n, unsh, sh, h, n_var, unsh_var, n_sq, unsh_sq, sh_sq
 
     def analyse(self, T):
         """
@@ -108,6 +110,7 @@ class FluidFlowModel():
         self.n_t = [] # number in system over time (Expected val)
         self.unsh_t = [] # number unsheltered over time (Expected val)
         self.sh_t = [] # number sheltered over time (Expected val)
+        self.h_t = [] # number housed over time (Expected val)
         self.n_var_t = [] # Var[num in system] over time
         self.unsh_var_t = [] # Var[num unsheltered] over time
         self.n_sq_t = [] # E[(num in system)^2] over time
@@ -118,6 +121,7 @@ class FluidFlowModel():
         self.n_t.append(self.n0)
         self.unsh_t.append(self.n0 - self.h0 - self.s0)
         self.sh_t.append(self.s0)
+        self.h_t.append(self.h0)
         self.n_var_t.append(0)
         self.unsh_var_t.append(0)
         self.n_sq_t.append(self.n0**2)
@@ -127,10 +131,11 @@ class FluidFlowModel():
         # Set remaining values for Q lengths, for t in T
         # (not include first element of T which should be t=0 and already accounted for
         for t in T[1:len(T)]:
-            n, unsh, sh, n_var, unsh_var, n_sq, unsh_sq, sh_sq = self.evaluate_queue_size(t)
+            n, unsh, sh, h, n_var, unsh_var, n_sq, unsh_sq, sh_sq = self.evaluate_queue_size(t)
             self.n_t.append(n)
             self.unsh_t.append(unsh)
             self.sh_t.append(sh)
+            self.h_t.append(h)
             self.n_var_t.append(n_var)
             self.unsh_var_t.append(unsh_var)
             self.n_sq_t.append(n_sq)

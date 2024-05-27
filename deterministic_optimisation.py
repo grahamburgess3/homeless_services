@@ -18,6 +18,9 @@ def budget_constraint(problem):
         costs += problem.s[t] * problem.costs_accomm['shelter']
     return costs <= problem.budget
 
+def annual_budget_constraint(problem,n):
+    return problem.h[n] * problem.costs_accomm['housing'] + problem.s[n] * problem.costs_accomm['shelter'] <= problem.annual_budget[n]
+
 def min_house_build(problem,n):
     return problem.h[n]>=problem.baseline_build
 
@@ -68,11 +71,21 @@ def run_model(problem):
     fluid_model.analyse(problem.horizon, problem.timestep)
     return(fluid_model)
 
-def get_linear_weight_func(m, horizon, timestep):
+def get_linear_weight_func_int1(m, horizon, timestep):
+    ' weight function which integrates to one'
     T = horizon/timestep
     w1max = 2/(T**2)
     w1 = m*w1max
     w0 = (1/T) - ((w1*T)/2)
+    w = [i*w1 + w0 for i in range(int(horizon/timestep))]
+    return(w)
+
+def get_linear_weight_func(m, horizon, timestep):
+    ' weight function which increases to a maximum which is level of unweighted avg'
+    T = horizon/timestep
+    w1max = 1/(T**2)
+    w1 = m*w1max
+    w0 = (1/T) - w1*T
     w = [i*w1 + w0 for i in range(int(horizon/timestep))]
     return(w)
     
@@ -135,6 +148,14 @@ class Problem():
         print('Proportion of surplus budget spent on shelter: ' + '{:.0%}'.format(surp_prop_s) + ': ' + str(round(extra_shelters,2)) + ' extra shelters.')
         print('Optimal objective val: ' + str(round(self.instance.OBJ(),2)))
 
+    def print_results_phi5(self):
+        print('------- Optimal solution -------')
+        print('Number of housing units to build annually: ' + str([round(i,2) for i in self.h_opt]))
+        print('Number of shelter units to build annually: ' + str([round(i,2) for i in self.s_opt]))
+        print('Proportion of annual budget spent on housing: ' + str(['{:.0%}'.format((self.h_opt[i]*self.problem.costs_accomm['housing'])/(self.problem.annual_budget[i])) for i in range(len(self.h_opt))]))
+        print('Proportion of annual budget spent on shelter: ' + str(['{:.0%}'.format((self.s_opt[i]*self.problem.costs_accomm['shelter'])/(self.problem.annual_budget[i])) for i in range(len(self.s_opt))]))
+        print('Optimal objective val: ' + str(round(self.instance.OBJ(),2)))
+    
     def plot_opt(self):
         # run model at optimal
         solution = {'housing' : self.h_opt, 'shelter' : self.s_opt}
@@ -200,20 +221,26 @@ class Phi(Problem):
         self.problem.data = {key: data[key] for key in data.keys() & {'initial_capacity', 'initial_demand', 'service_mean', 'arrival_rates'}}
         self.problem.timestep = modeling_options['timestep']
         self.problem.selected_model = modeling_options['model']
-        
-        # Budget constraint
         self.problem.budget = data['budget']
         self.problem.costs_accomm = data['costs_accomm']
-        self.problem.BUDGET = pyo.Constraint(rule=budget_constraint)
-
-        # Baseline build constraints
         self.problem.baseline_build = data['baseline_build']
-        self.problem.h_base = pyo.Constraint(self.problem.T,rule=min_house_build)
-        self.problem.s_base = pyo.Constraint(self.problem.T,rule=min_shelter_build)
+        self.problem.c = c
 
         # Objective function
-        self.problem.c = c
         self.problem.OBJ = pyo.Objective(rule=self.objective_funcs[obj])
+
+    def add_total_budget_constraint(self):
+        # Budget constraint
+        self.problem.BUDGET = pyo.Constraint(rule=budget_constraint)
+
+    def add_annual_budget_constraint(self, proportions):
+        self.problem.annual_budget = [self.problem.budget*p for p in proportions]
+        self.problem.BUDGET = pyo.Constraint(self.problem.T, rule=annual_budget_constraint)
+    
+    def add_baseline_build_constraint(self):
+        # Baseline build constraints
+        self.problem.h_base = pyo.Constraint(self.problem.T,rule=min_house_build)
+        self.problem.s_base = pyo.Constraint(self.problem.T,rule=min_shelter_build)
 
     def add_housing_increase(self):
         self.problem.T_housing = pyo.RangeSet(0, self.problem.horizon-2)
