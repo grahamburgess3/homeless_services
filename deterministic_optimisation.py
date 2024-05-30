@@ -9,6 +9,7 @@ import numpy as np
 
 # Internal imports
 import fluid_flow_model as fl
+import queueing_model as qm
 
 # constraint funcs
 def budget_constraint(problem):
@@ -218,7 +219,7 @@ class Phi(Problem):
         super(Phi, self).__init__(modeling_options)
 
         # Set up model
-        self.problem.data = {key: data[key] for key in data.keys() & {'initial_capacity', 'initial_demand', 'service_mean', 'arrival_rates'}}
+        self.problem.data = data
         self.problem.timestep = modeling_options['timestep']
         self.problem.selected_model = modeling_options['model']
         self.problem.budget = data['budget']
@@ -260,3 +261,19 @@ class FluidModel():
     def analyse(self, horizon, timestep):
         self.T = [i*timestep for i in range(int(horizon/timestep))]
         self.model.analyse(self.T)
+
+class AnalyticalQueueModel():
+
+    def __init__(self, data, solution):
+        self.model = qm.queue(data['arrival_rates'],
+                              data['service_mean'],
+                              data['initial_capacity'], 
+                              solution,
+                              data['initial_demand'],
+                              data['max_in_system'],
+                              data['time_btwn_changes_in_build_rate'],
+                              data['time_btwn_building'])
+    def analyse(self, horizon, timestep):
+        self.model.model_dynamics(horizon,
+                                  timestep*365)
+        self.model.unsh_t = self.model.num_unsheltered

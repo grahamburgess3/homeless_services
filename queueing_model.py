@@ -13,6 +13,7 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+import pyomo.environ as pyo
 
 class queue(object):
     """
@@ -40,6 +41,8 @@ class queue(object):
         self.num_queue = None # expected val at each time t
         self.num_unsheltered = None # expected val at each time t
         self.num_sheltered = None # expected val at each time t
+        self.h_t = None # number of houses at time t
+        self.sh_t = None # number of shelters at time t
         self.num_unsheltered_avg = None
         self.num_sheltered_avg = None
         self.annual_arrival_rate = annual_arrival_rate
@@ -47,8 +50,10 @@ class queue(object):
         self.servers_initial = initial_capacity['housing']
         self.shelter_initial= initial_capacity['shelter']
         self.num_build_points_btwn_changes = round(time_btwn_changes_in_build_rate/time_btwn_building)
-        self.server_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['housing']], self.num_build_points_btwn_changes)
-        self.shelter_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['shelter']], self.num_build_points_btwn_changes)
+        # self.server_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['housing']], self.num_build_points_btwn_changes)
+        # self.shelter_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['shelter']], self.num_build_points_btwn_changes)
+        self.server_build_rate = build_rates['housing']
+        self.shelter_build_rate = build_rates['shelter']
         self.build_frequency_weeks = round(time_btwn_building*365/7)
         self.num_in_system_initial = num_in_system_initial
         self.max_in_system = max_in_system
@@ -94,7 +99,7 @@ class queue(object):
 
     def num_serve(self, t):
         """
-        returns number of servers at time t
+        returns weighted avg number of servers between time t and time t + 1 days
 
         Parameters
         ----------
@@ -106,34 +111,78 @@ class queue(object):
         num_serve: num servers at time t.
 
         """
-        
-        num_serve = {'before' : self.servers_initial, 'after' : None}
-        
-        days_passed = t*365
-        build_freq_days = self.build_frequency_weeks*7
 
-        # Get the number of new build points (if the number of days that has passed is an integer # of the build_freq_days, then add one to num_builds so the builds happen at exactly the start of every period.
+        num_serve = {'before' : 0, 'after' : 0}
+        n = self.servers_initial
         
-        num_builds = math.ceil(days_passed/build_freq_days)
+        # add complete years
+        yrs = math.floor(t) # number of years passed
+        for yr in range(yrs):
+            n += self.server_build_rate[yr]
             
-        for i in range(num_builds):
-            num_serve['before'] += self.server_build_rate[i]
+        # add fractional year
+        n += (t % 1) * self.server_build_rate[yrs]
 
-        if (days_passed/build_freq_days) % 1 == 0:
-            num_serve['after'] = num_serve['before'] + self.server_build_rate[num_builds]
-        else:
-            num_serve['after'] = num_serve['before']
+        num_serve['before'] = pyo.floor(n)
+        num_serve['after'] = pyo.floor(n)
+            
+        return num_serve
+
+    def num_serve_wtd_avg(self, t):
+        """
+        returns weighted avg number of servers between time t and time t + 1 days
+
+        Parameters
+        ----------
+        t : float
+            time in years.
+
+        Returns
+        -------
+        num_serve: num servers at time t.
+
+        """
+
+        num_serve = {'before' : 0, 'after' : 0}
+        n = self.servers_initial
+        
+        # add complete years
+        yrs = math.floor(t) # number of years passed
+        for yr in range(yrs):
+            n += self.server_build_rate[yr]
+            
+        # add fractional year
+        n += (t % 1) * self.server_build_rate[yrs]
+
+        # how big is the half-built house?
+        half_built_house = n - pyo.floor(n)
+        
+        # round to integer
+        n = pyo.floor(n)
+        num_serve['before'] = n
+        
+        # construct weighted avg
+        weight_avg = 0
+        T = 0
+        while T < 1:
+            time_til_next_build = (1-half_built_house)/(self.server_build_rate[yrs]/365)
+            weight_avg += n * min(1-T,time_til_next_build)
+            T += time_til_next_build
+            n += 1
+            half_built_house = 0
+        
+        num_serve['after'] = weight_avg
             
         return num_serve
 
     def num_shelt(self, t):
         """
-        returns number of shelters at time t
+        returns integer number of shelters at time t
 
         Parameters
         ----------
         t : float
-            time.
+            time in years.
 
         Returns
         -------
@@ -141,22 +190,20 @@ class queue(object):
 
         """
         
-        num_shelt = {'before': self.shelter_initial, 'after' : None}
+        n = self.shelter_initial
         
-        days_passed = t*365
-        build_freq_days = self.build_frequency_weeks*7
-
-        # Get the number of new build points (if the number of days that has passed is an integer # of the build_freq_days, then add one to num_builds so the builds happen at exactly the start of every period.
-
-        num_builds = math.ceil(days_passed/build_freq_days)
-        for i in range(num_builds):
-            num_shelt['before'] += self.shelter_build_rate[i]
-
-        if (days_passed/build_freq_days) % 1 == 0:
-            num_shelt['after'] = num_shelt['before'] + self.shelter_build_rate[num_builds]
-        else:
-            num_shelt['after'] = num_shelt['before']
+        # add complete years
+        yrs = math.floor(t) # number of years passed
+        for yr in range(yrs):
+            n += self.shelter_build_rate[yr]
+            
+        # add fractional year
+        n += (t % 1) * self.shelter_build_rate[yrs]
         
+        # round to integer
+        n = pyo.floor(n)
+        num_shelt = n
+                    
         return num_shelt
 
     def model_dynamics(self, Y, d):
@@ -187,11 +234,11 @@ class queue(object):
         self.p = [[0 for i in range(T)] for j in range(N+1)]
         self.p[n_0][0] = 1 # enforce state at time 0
         self.p_q = [[0 for i in range(T)] for j in range(N+1)]
-        self.p_q[max(0, n_0 - self.num_serve(0)['before'])][0] = 1 # enforce state at time 0
+        self.p_q[max(0, n_0 - self.servers_initial)][0] = 1 # enforce state at time 0
         self.p_unsh = [[0 for i in range(T)] for j in range(N+1)]
-        self.p_unsh[max(0, n_0 - self.num_serve(0)['before'] - self.num_shelt(0)['before'])][0] = 1 # enforce state at time 0
+        self.p_unsh[max(0, n_0 - self.servers_initial - self.shelter_initial)][0] = 1 # enforce state at time 0
         self.p_sh = [[0 for i in range(T)] for j in range(N+1)]
-        self.p_sh[min(max(0, n_0 - self.num_serve(0)['before']),self.num_shelt(0)['before'])][0] = 1
+        self.p_sh[min(max(0, n_0 - self.servers_initial), self.shelter_initial)][0] = 1
         
         # init m, number of busy servers in each state
         m = [0 for i in range(N+1)]
@@ -201,18 +248,22 @@ class queue(object):
         self.num_queue = [0 for i in range(T)]        
         self.num_unsheltered = [0 for i in range(T)]
         self.num_sheltered = [0 for i in range(T)]
+        self.h_t = [0 for i in range(T)]
+        self.sh_t = [0 for i in range(T)]
         self.num_unsheltered_avg = 0 # average over time
         self.num_sheltered_avg = 0 # avg over time
         
         self.num_sys[0] = n_0
-        self.num_queue[0] = max(0, n_0 - self.num_serve(0)['before'])
-        self.num_unsheltered[0] = max(0, n_0 - self.num_serve(0)['before'] - self.num_shelt(0)['before'])
+        self.num_queue[0] = max(0, n_0 - self.servers_initial)
+        self.num_unsheltered[0] = max(0, n_0 - self.servers_initial - self.shelter_initial)
         self.num_sheltered[0] = self.num_queue[0] - self.num_unsheltered[0]
+        self.h_t[0] = self.servers_initial
+        self.sh_t[0] = self.shelter_initial
         
         # numerical integration - loop through t
         for t in range(1,T):
             
-            # arrival/service rates and number servers at prev timestep
+            # arrival/service rates and number servers after timestep
             lmbda = self.arr_rate((t-1)*d) 
             mu = self.serve_rate((t-1)*d) 
             s = self.num_serve((t-1)*d)['after']
@@ -235,7 +286,9 @@ class queue(object):
             
             # number of servers and shelters at current timestep
             s = self.num_serve(t*d)['before']
-            shelt = self.num_shelt(t*d)['before']
+            shelt = self.num_shelt(t*d)
+            self.h_t[t] = s
+            self.sh_t[t] = shelt
             
             for n in range(N+1):                
                 # expected values for outputs
