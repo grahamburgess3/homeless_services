@@ -64,8 +64,10 @@ We can therefore introduce $\Phi_1$ which is identical to $\Phi_0$ except for an
 %
 where the $y(\boldsymbol{h},\boldsymbol{s})$ is the average over time of the sum of the expected unsheltered and sheltered queue lengths: 
 \begin{align*}
-  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh(t; \boldsymbol{h},\boldsymbol{s})] dt + \frac{1}{T} \int_0^T n_{\boldsymbol{s}}(t) dt
+  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh(t; \boldsymbol{h},\boldsymbol{s})] dt + \frac{w}{T} \int_0^T n_{\boldsymbol{s}}(t) dt
 \end{align*}
+%
+where $w$ between $0$ and $1$ is the weight we place on the sheltered queue penalty.  \newline
 %
 \textbf{Comments:} the effect of the second term in the objective function is to penalise the building of shelters. We would still expect an optimal solution to spend surplus budget all in the first year, and either all on shelter, or all on housing. We have here tipped the balance in favour of housing by introducing a penalty for building shelters. 
 
@@ -93,7 +95,7 @@ We can therefore introduce $\Phi_2$ which is identical to $\Phi_1$ except for sq
 where the $y(\boldsymbol{h},\boldsymbol{s})$ is the average over time of the sum of the expected squared queue lengths:
 
 \begin{align*}
-  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh^2(t; \boldsymbol{h},\boldsymbol{s})] dt + \frac{1}{T} \int_0^T n_{\boldsymbol{s}}^2(t) dt
+  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh^2(t; \boldsymbol{h},\boldsymbol{s})] dt + \frac{w}{T} \int_0^T n_{\boldsymbol{s}}^2(t) dt
 \end{align*}
 %
 where we have that:
@@ -132,7 +134,7 @@ We can therefore introduce $\Phi_3$ which is has the same objective function as 
 %
 where the $y(\boldsymbol{h},\boldsymbol{s})$ is the average over time of the sum of the expected squared queue lengths: 
 \begin{align*}
-  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh^2(t; \boldsymbol{h},\boldsymbol{s})] dt + \int_0^T n_{\boldsymbol{s}}^2(t) dt
+  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh^2(t; \boldsymbol{h},\boldsymbol{s})] dt + \frac{w}{T} \int_0^T n_{\boldsymbol{s}}^2(t) dt
 \end{align*}
 
 \textbf{Comments:} this formulation ensures that total budget is spread out over the time horizon, specifically in a way which is set by the user (i.e. monotonicity). It should be noted that the user must set the annual budgets $C_t$. This choice is likely to be an important determining factor in the nature of the optimal solution. 
