@@ -62,14 +62,14 @@ def y4(problem):
     " objective function for problem Phi4"
     fluid_model = run_model(problem)
     avg_unsh_2 = sum(fluid_model.model.unsh_sq_t)/len(fluid_model.model.unsh_sq_t)
-    weight_avg_sh_2 = sum([fluid_model.model.sh_sq_t[i]*problem.c[i] for i in range(int(problem.horizon/problem.timestep))])
+    weight_avg_sh_2 = sum([fluid_model.model.sh_sq_t[i]*problem.c[i] for i in range(int(problem.horizon_model/problem.timestep))])
     return(avg_unsh_2 + weight_avg_sh_2)
     
 # helper functions
 def run_model(problem):
     solution = {'housing' : problem.h, 'shelter' : problem.s}
-    fluid_model = problem.selected_model(problem.data, solution)
-    fluid_model.analyse(problem.horizon, problem.timestep)
+    fluid_model = problem.selected_model(problem.data, problem.horizon_decision, problem.timestep, solution)
+    fluid_model.analyse(problem.horizon_model, problem.timestep)
     return(fluid_model)
 
 def get_linear_weight_func_int1(m, horizon, timestep):
@@ -115,10 +115,11 @@ class Problem():
         self.problem = pyo.AbstractModel()
 
         # Attributes
-        self.problem.horizon = modeling_options['horizon']
+        self.problem.horizon_model = modeling_options['horizon_model']
+        self.problem.horizon_decision = modeling_options['horizon_decision']
         
         # Levels
-        self.problem.T = pyo.RangeSet(0, self.problem.horizon-1)
+        self.problem.T = pyo.RangeSet(0, self.problem.horizon_decision-1)
         
         # Variables
         self.problem.h = Var(self.problem.T, domain=pyo.NonNegativeReals)
@@ -128,11 +129,11 @@ class Problem():
         self.opt=SolverFactory(solver)
         self.instance=self.problem.create_instance()
         self.results=self.opt.solve(self.instance)
-        self.h_opt=[self.instance.h[i].value for i in range(self.problem.horizon)]
-        self.s_opt=[self.instance.s[i].value for i in range(self.problem.horizon)]
+        self.h_opt=[self.instance.h[i].value for i in range(self.problem.horizon_decision)]
+        self.s_opt=[self.instance.s[i].value for i in range(self.problem.horizon_decision)]
 
     def print_results(self):
-        surplus_budget = self.problem.budget - self.problem.horizon*self.problem.baseline_build*(self.problem.costs_accomm['housing']+self.problem.costs_accomm['shelter'])
+        surplus_budget = self.problem.budget - self.problem.horizon_decision*self.problem.baseline_build*(self.problem.costs_accomm['housing']+self.problem.costs_accomm['shelter'])
         extra_houses = sum([n - self.problem.baseline_build for n in self.h_opt])
         extra_housing_spending = extra_houses*self.problem.costs_accomm['housing']
         surp_prop_h = extra_housing_spending/surplus_budget
@@ -160,11 +161,11 @@ class Problem():
     def plot_opt(self):
         # run model at optimal
         solution = {'housing' : self.h_opt, 'shelter' : self.s_opt}
-        model = self.problem.selected_model(self.problem.data, solution)
-        model.analyse(self.problem.horizon, self.problem.timestep)
+        model = self.problem.selected_model(self.problem.data, self.problem.horizon_decision, self.problem.timestep, solution)
+        model.analyse(self.problem.horizon_model, self.problem.timestep)
 
         # general plotting
-        x = math.floor(self.problem.horizon*365)/365
+        x = math.floor(self.problem.horizon_model*365)/365
         fig, ax = plt.subplots(1,2, figsize=(12, 5))
         ymax = max(model.model.h_t + model.model.sh_t + model.model.unsh_t)
         
@@ -193,14 +194,14 @@ class Problem():
     def plot_obj_curve(self, n):
 
         # get data
-        surp = self.problem.budget - self.problem.horizon*self.problem.baseline_build*(self.problem.costs_accomm['housing']+self.problem.costs_accomm['shelter'])
+        surp = self.problem.budget - self.problem.horizon_decision*self.problem.baseline_build*(self.problem.costs_accomm['housing']+self.problem.costs_accomm['shelter'])
         out = []
         for i in range(n+1):
-            solution = {'housing' : [self.problem.baseline_build]*self.problem.horizon, 'shelter' : [self.problem.baseline_build]*self.problem.horizon}
+            solution = {'housing' : [self.problem.baseline_build]*self.problem.horizon_decision, 'shelter' : [self.problem.baseline_build]*self.problem.horizon_decision}
             solution['housing'][0] += ((i/n)*surp)/self.problem.costs_accomm['housing']
             solution['shelter'][0] += ((1-i/n) * surp)/self.problem.costs_accomm['shelter']
-            model = self.problem.selected_model(self.problem.data, solution)
-            model.analyse(self.problem.horizon, self.problem.timestep)
+            model = self.problem.selected_model(self.problem.data, self.problem.horizon_decision, self.problem.timestep, solution)
+            model.analyse(self.problem.horizon_model, self.problem.timestep)
             avg_unsh_2 = sum(model.model.unsh_sq_t)/len(model.model.unsh_sq_t)
             avg_sh_2 = sum(model.model.sh_sq_t)/len(model.model.sh_sq_t)
             out.append(avg_unsh_2 + (self.problem.c * avg_sh_2))
@@ -244,19 +245,19 @@ class Phi(Problem):
         self.problem.s_base = pyo.Constraint(self.problem.T,rule=min_shelter_build)
 
     def add_housing_increase(self):
-        self.problem.T_housing = pyo.RangeSet(0, self.problem.horizon-2)
+        self.problem.T_housing = pyo.RangeSet(0, self.problem.horizon_decision-2)
         self.problem.h_increase = pyo.Constraint(self.problem.T_housing, rule = h_up)
             
     def add_shelter_increase_decrease(self, shelter_mode):
         self.problem.T_shelter_first = pyo.RangeSet(0, shelter_mode-2)
-        self.problem.T_shelter_second = pyo.RangeSet(shelter_mode-1, self.problem.horizon-2)
+        self.problem.T_shelter_second = pyo.RangeSet(shelter_mode-1, self.problem.horizon_decision-2)
         self.problem.s_increase = pyo.Constraint(self.problem.T_shelter_first, rule = s_up)
         self.problem.s_decrease = pyo.Constraint(self.problem.T_shelter_second, rule = s_down)
 
 class FluidModel():
 
-    def __init__(self, data, solution):
-        self.model = fl.FluidFlowModel(data, solution)
+    def __init__(self, data, horizon, timestep, solution):
+        self.model = fl.FluidFlowModel(data, horizon, timestep, solution)
         
     def analyse(self, horizon, timestep):
         self.T = [i*timestep for i in range(int(horizon/timestep))]

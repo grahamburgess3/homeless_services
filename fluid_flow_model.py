@@ -2,7 +2,7 @@ import math
 
 class FluidFlowModel():
 
-    def __init__(self, data, solution):
+    def __init__(self, data, horizon, timestep, solution):
         """
         Initialise instance of fluid flow model - continuous approximation of M(t)/M/s(t) model
         
@@ -23,6 +23,8 @@ class FluidFlowModel():
         self.lambda_t = data['arrival_rates']
         self.h = solution['housing']
         self.s = solution['shelter']
+        self.horizon_decision = horizon
+        self.timestep = timestep
         self.n_t = [] # number in system over time (Expected val)
         self.unsh_t = [] # number unsheltered over time (Expected val)
         self.sh_t = [] # number sheltered over time (Expected val)
@@ -53,26 +55,41 @@ class FluidFlowModel():
         sh_sq : E[(number sheltered at time t)^2]  
 
         """
-
+        
         # init quantities
         fluid_in = 0
         fluid_out = 0
         houses = self.h0
         shelters = self.s0
 
+        # how much beyond decision horizon to model
+        diff = t - (self.horizon_decision)
+        # print('t: ' + str(t) + ', diff: ' + str(diff))
+        t_temp = min(t,self.horizon_decision-self.timestep)
+        
         # add complete years
-        yrs = math.floor(t) # number of years passed
-        for yr in range(yrs):
+        T = math.floor(t_temp) # number of years passed
+        for yr in range(T):
             fluid_in += self.lambda_t[yr]
             fluid_out += self.mu0 * (self.h0 + sum([self.h[i] for i in range(yr)]) + self.h[yr]/2)
             houses += self.h[yr]
             shelters += self.s[yr]
             
         # add fractional year
-        fluid_in += (t % 1) * self.lambda_t[yrs]
-        fluid_out += (t % 1) * self.mu0 * (self.h0 + sum([self.h[i] for i in range(yrs)]) + (t % 1) * self.h[yrs]/2)
-        houses += (t % 1) * self.h[yrs]
-        shelters += (t % 1) * self.s[yrs]
+        fluid_in += (t_temp % 1) * self.lambda_t[T]
+        fluid_out += (t_temp % 1) * self.mu0 * (self.h0 + sum([self.h[i] for i in range(T)]) + (t_temp % 1) * self.h[T]/2)
+        houses += (t_temp % 1) * self.h[T]
+        shelters += (t_temp % 1) * self.s[T]
+
+        if diff > 0:
+            T = math.floor(diff) # number of years passed
+            for yr in range(T):
+                fluid_in += self.lambda_t[yr+self.horizon_decision]
+                fluid_out += self.mu0 * (self.h0 + sum([self.h[i] for i in range(self.horizon_decision)]))
+                
+            # add fractional year
+            fluid_in += (diff % 1) * self.lambda_t[self.horizon_decision + T]
+            fluid_out += (diff % 1) * self.mu0 * (self.h0 + sum([self.h[i] for i in range(self.horizon_decision)])) 
 
         # calculate queue lengths (expected values)
         n = self.n0 + fluid_in - fluid_out
