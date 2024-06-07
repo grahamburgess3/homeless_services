@@ -11,105 +11,75 @@ import numpy as np
 import fluid_flow_model as fl
 import queueing_model as qm
 
-# constraint funcs
-def budget_constraint(problem):
-    costs=0
-    for t in problem.T:
-        costs += problem.h[t] * problem.costs_accomm['housing']
-        costs += problem.s[t] * problem.costs_accomm['shelter']
-    return costs <= problem.budget
+class FluidModel():
 
-def annual_budget_constraint(problem,n):
-    return problem.h[n] * problem.costs_accomm['housing'] + problem.s[n] * problem.costs_accomm['shelter'] <= problem.annual_budget[n]
+    def __init__(self, data, horizon, timestep, max_in_system, solution):
+        self.model = fl.FluidFlowModel(data, horizon, timestep, solution)
+        
+    def analyse(self, horizon, timestep):
+        self.T = [i*timestep for i in range(int(horizon/timestep))]
+        self.model.analyse(self.T)
+        self.model.num_sys = self.model.n_t
 
-def min_house_build(problem,n):
-    return problem.h[n]>=problem.baseline_build
+class AnalyticalQueueModel():
 
-def min_shelter_build(problem,n):
-    return problem.s[n]>=problem.baseline_build
-
-def h_up(problem,n):
-    return (problem.h[n+1] >= problem.h[n])
-
-def s_up(problem,n):
-    return (problem.s[n+1] >= problem.s[n])
-
-def s_down(problem,n):
-    return (problem.s[n+1] <= problem.s[n])
-
+    def __init__(self, data, horizon, timestep, max_in_system, solution):
+        self.model = qm.queue(data['arrival_rates'], data['service_mean'], data['initial_capacity'], solution, data['initial_demand'], max_in_system)
+        
+    def analyse(self, horizon, timestep):
+        self.model.model_dynamics(horizon,
+                                  timestep*365)
+        
 # objective functions    
 def y0(problem):
     " objective function for problem Phi0 "
-    fluid_model = run_model(problem)
-    avg_unsh = sum(fluid_model.model.unsh_t)/len(fluid_model.model.unsh_t)
+    model = run_model(problem)
+    avg_unsh = sum(model.model.unsh_t)/len(model.model.unsh_t)
     return(avg_unsh)
 
 def y1(problem):
     " objective function for problem Phi1 "
-    fluid_model = run_model(problem)
-    avg_unsh = sum(fluid_model.model.unsh_t)/len(fluid_model.model.unsh_t)
-    avg_sh = sum(fluid_model.model.sh_t)/len(fluid_model.model.sh_t)
+    model = run_model(problem)
+    avg_unsh = sum(model.model.unsh_t)/len(model.model.unsh_t)
+    avg_sh = sum(model.model.sh_t)/len(model.model.sh_t)
     return(avg_unsh + (problem.c * avg_sh))
 
 def y2(problem):
     " objective function for problem Phi2 and Phi3 "
-    fluid_model = run_model(problem)
-    avg_unsh_2 = sum(fluid_model.model.unsh_sq_t)/len(fluid_model.model.unsh_sq_t)
-    avg_sh_2 = sum(fluid_model.model.sh_sq_t)/len(fluid_model.model.sh_sq_t)
+    model = run_model(problem)
+    avg_unsh_2 = sum(model.model.unsh_sq_t)/len(model.model.unsh_sq_t)
+    avg_sh_2 = sum(model.model.sh_sq_t)/len(model.model.sh_sq_t)
     return(avg_unsh_2 + (problem.c * avg_sh_2))
 
 def y4(problem):
-    " objective function for problem Phi4"
-    fluid_model = run_model(problem)
-    avg_unsh_2 = sum(fluid_model.model.unsh_sq_t)/len(fluid_model.model.unsh_sq_t)
-    weight_avg_sh_2 = sum([fluid_model.model.sh_sq_t[i]*problem.c[i] for i in range(int(problem.horizon_model/problem.timestep))])
+    " objective function for problem Phi4 and Phi5"
+    model = run_model(problem)
+    avg_unsh_2 = sum(model.model.unsh_sq_t)/len(model.model.unsh_sq_t)
+    weight_avg_sh_2 = sum([model.model.sh_sq_t[i]*problem.c[i] for i in range(int(problem.horizon_model/problem.timestep))])
     return(avg_unsh_2 + weight_avg_sh_2)
-    
-# helper functions
-def run_model(problem):
-    solution = {'housing' : problem.h, 'shelter' : problem.s}
-    fluid_model = problem.selected_model(problem.data, problem.horizon_decision, problem.timestep, solution)
-    fluid_model.analyse(problem.horizon_model, problem.timestep)
-    return(fluid_model)
 
-def get_linear_weight_func_int1(m, horizon, timestep):
-    ' weight function which integrates to one'
-    T = horizon/timestep
-    w1max = 2/(T**2)
-    w1 = m*w1max
-    w0 = (1/T) - ((w1*T)/2)
-    w = [i*w1 + w0 for i in range(int(horizon/timestep))]
-    return(w)
+def y6(problem):
+    " objective function for problem Phi6"
+    model = run_model(problem)
+    return(model.model.y)
 
-def get_linear_weight_func(m, horizon, timestep):
-    ' weight function which increases to a maximum which is level of unweighted avg'
-    T = horizon/timestep
-    w1max = 1/(T**2)
-    w1 = m*w1max
-    w0 = (1/T) - w1*T
-    w = [i*w1 + w0 for i in range(int(horizon/timestep))]
-    return(w)
-    
-def plot_weight_func(w, horizon, timestep):
-    x = list(np.arange(0,horizon,timestep))
-    w = [i*365 for i in w]
-    fig, ax = plt.subplots()
-    ax.plot(x,w)
-    ax.set_ylim(bottom=0)
-    ax.set(xlabel='time (yrs)', ylabel='weight',
-           title='weight of penalty on n_shelters^2')
-    ax.grid()
-    plt.show()
+def y7(problem):
+    " objective function for problem Phi6"
+    model = run_model(problem)
+    return(model.model.h_2 + 0.1*model.model.num_sys_2)
 
-class Problem():
+class Phi():
 
     objective_funcs = {'phi0' : y0,
                        'phi1' : y1,
                        'phi2' : y2,
                        'phi3' : y2,
-                       'phi4' : y4}
-    
-    def __init__(self, modeling_options):
+                       'phi4' : y4,
+                       'phi5' : y4,
+                       'phi6' : y6,
+                       'phi7' : y7}
+
+    def __init__(self, data, modeling_options, obj, c=1, q_model_options = {'bigM' : 0, 'max_in_system' : 0}):
         
         # Create Abstract Model
         self.problem = pyo.AbstractModel()
@@ -117,13 +87,62 @@ class Problem():
         # Attributes
         self.problem.horizon_model = modeling_options['horizon_model']
         self.problem.horizon_decision = modeling_options['horizon_decision']
+        self.problem.timestep = modeling_options['timestep']
+        self.problem.selected_model = modeling_options['model']
+        self.problem.M = q_model_options['bigM']
+        self.problem.max_in_system = q_model_options['max_in_system']
+        self.problem.data = data
+        self.problem.budget = data['budget']
+        self.problem.costs_accomm = data['costs_accomm']
+        self.problem.baseline_build = data['baseline_build']
+        self.problem.c = c
         
         # Levels
         self.problem.T = pyo.RangeSet(0, self.problem.horizon_decision-1)
+        self.problem.dT = pyo.Set(initialize = range(int(round(self.problem.horizon_model / modeling_options['timestep'],0))))
+        self.problem.n = pyo.Set(initialize = range(self.problem.max_in_system))
+        self.problem.dT_n = pyo.Set(initialize = self.problem.dT*self.problem.n)
         
         # Variables
         self.problem.h = Var(self.problem.T, domain=pyo.NonNegativeReals)
         self.problem.s = Var(self.problem.T, domain=pyo.NonNegativeReals)
+        self.problem.y = Var(self.problem.dT_n, domain=pyo.Binary)
+        self.problem.m = Var(self.problem.dT_n, domain = pyo.NonNegativeReals)
+
+        # Objective function
+        self.problem.OBJ = pyo.Objective(rule=self.objective_funcs[obj])
+
+    def add_total_budget_constraint(self):
+        self.problem.BUDGET = pyo.Constraint(rule=budget_constraint)
+
+    def add_annual_budget_constraint(self, proportions):
+        self.problem.annual_budget = [self.problem.budget*p for p in proportions]
+        self.problem.BUDGET = pyo.Constraint(self.problem.T, rule=annual_budget_constraint)
+    
+    def add_baseline_build_constraint(self):
+        self.problem.h_base = pyo.Constraint(self.problem.T,rule=min_house_build)
+        self.problem.s_base = pyo.Constraint(self.problem.T,rule=min_shelter_build)
+
+    def add_housing_increase(self):
+        self.problem.T_housing = pyo.RangeSet(0, self.problem.horizon_decision-2)
+        self.problem.h_increase = pyo.Constraint(self.problem.T_housing, rule = h_up)
+            
+    def add_shelter_increase_decrease(self, shelter_mode):
+        self.problem.T_shelter_first = pyo.RangeSet(0, shelter_mode-2)
+        self.problem.T_shelter_second = pyo.RangeSet(shelter_mode-1, self.problem.horizon_decision-2)
+        self.problem.s_increase = pyo.Constraint(self.problem.T_shelter_first, rule = s_up)
+        self.problem.s_decrease = pyo.Constraint(self.problem.T_shelter_second, rule = s_down)
+
+    def add_queue_model_constraints(self):
+        self.problem.m_lessthan_n = pyo.Constraint(self.problem.dT, self.problem.n, rule = m_lessthan_n)
+        self.problem.m_lessthan_s = pyo.Constraint(self.problem.dT, self.problem.n, rule = m_lessthan_s)
+        self.problem.m_morethan_n = pyo.Constraint(self.problem.dT, self.problem.n, rule = m_morethan_n)
+        self.problem.m_morethan_s = pyo.Constraint(self.problem.dT, self.problem.n, rule = m_morethan_s)
+
+    def add_no_build_constraints(self):
+        self.problem.s_build = pyo.Constraint(self.problem.T,rule=no_shelter_build)
+        self.problem.T_minus_1 = pyo.RangeSet(1, self.problem.horizon_decision-1)
+        self.problem.h_build = pyo.Constraint(self.problem.T_minus_1,rule=no_housing_build)
 
     def solve(self, solver):
         self.opt=SolverFactory(solver)
@@ -161,7 +180,7 @@ class Problem():
     def plot_opt(self):
         # run model at optimal
         solution = {'housing' : self.h_opt, 'shelter' : self.s_opt}
-        model = self.problem.selected_model(self.problem.data, self.problem.horizon_decision, self.problem.timestep, solution)
+        model = self.problem.selected_model(self.problem.data, self.problem.horizon_decision, self.problem.timestep, self.problem.max_in_system, solution)
         model.analyse(self.problem.horizon_model, self.problem.timestep)
 
         # general plotting
@@ -200,7 +219,7 @@ class Problem():
             solution = {'housing' : [self.problem.baseline_build]*self.problem.horizon_decision, 'shelter' : [self.problem.baseline_build]*self.problem.horizon_decision}
             solution['housing'][0] += ((i/n)*surp)/self.problem.costs_accomm['housing']
             solution['shelter'][0] += ((1-i/n) * surp)/self.problem.costs_accomm['shelter']
-            model = self.problem.selected_model(self.problem.data, self.problem.horizon_decision, self.problem.timestep, solution)
+            model = self.problem.selected_model(self.problem.data, self.problem.horizon_decision, self.problem.timestep, self.max_in_system, solution)
             model.analyse(self.problem.horizon_model, self.problem.timestep)
             avg_unsh_2 = sum(model.model.unsh_sq_t)/len(model.model.unsh_sq_t)
             avg_sh_2 = sum(model.model.sh_sq_t)/len(model.model.sh_sq_t)
@@ -214,67 +233,182 @@ class Problem():
                title='Objective function for different solutions')
         plt.show()
 
-class Phi(Problem):
+class Phi0(Phi):
+    def __init__(self, data, modeling_options, obj):
+        super(Phi0, self).__init__(data, modeling_options, obj)
+        self.add_total_budget_constraint()
+        self.add_baseline_build_constraint()
 
-    def __init__(self, data, modeling_options, obj, c=1):
-        super(Phi, self).__init__(modeling_options)
+    def solve(self, solver):
+        super(Phi0, self).solve(solver)
+        self.print_results()
+        self.plot_opt()
 
-        # Set up model
-        self.problem.data = data
-        self.problem.timestep = modeling_options['timestep']
-        self.problem.selected_model = modeling_options['model']
-        self.problem.budget = data['budget']
-        self.problem.costs_accomm = data['costs_accomm']
-        self.problem.baseline_build = data['baseline_build']
-        self.problem.c = c
+class Phi1(Phi):
+    def __init__(self, data, modeling_options, obj, c):
+        super(Phi1, self).__init__(data, modeling_options, obj, c)
+        self.add_total_budget_constraint()
+        self.add_baseline_build_constraint()
 
-        # Objective function
-        self.problem.OBJ = pyo.Objective(rule=self.objective_funcs[obj])
+    def solve(self, solver):
+        super(Phi1, self).solve(solver)
+        self.print_results()
+        self.plot_opt()
 
-    def add_total_budget_constraint(self):
-        # Budget constraint
-        self.problem.BUDGET = pyo.Constraint(rule=budget_constraint)
+class Phi2(Phi1):
+    def __init__(self, data, modeling_options, obj, c):
+        super(Phi2, self).__init__(data, modeling_options, obj, c)
 
-    def add_annual_budget_constraint(self, proportions):
-        self.problem.annual_budget = [self.problem.budget*p for p in proportions]
-        self.problem.BUDGET = pyo.Constraint(self.problem.T, rule=annual_budget_constraint)
+    def solve(self, solver):
+        super(Phi2, self).solve(solver)
+
+class Phi3(Phi1):
+    def __init__(self, data, modeling_options, obj, c, shelter_mode):
+        super(Phi3, self).__init__(data, modeling_options, obj, c)
+        self.add_housing_increase()
+        self.add_shelter_increase_decrease(shelter_mode) 
+
+    def solve(self, solver):
+        super(Phi3, self).solve(solver)
+
+class Phi4(Phi3):
+    def __init__(self, data, modeling_options, obj, c, shelter_mode):
+        super(Phi4, self).__init__(data, modeling_options, obj, c, shelter_mode)
+
+class Phi5(Phi):
+    def __init__(self, data, modeling_options, obj, c, budget_props):
+        super(Phi5, self).__init__(data, modeling_options, obj, c)
+        self.add_annual_budget_constraint(budget_props)
+
+    def solve(self, solver):
+        super(Phi5, self).solve(solver)
+        self.print_results_phi5()
+        self.plot_opt()
+
+class Phi6(Phi):
+    def __init__(self, data, modeling_options, obj, q_model_options):
+        super(Phi6, self).__init__(data, modeling_options, obj, q_model_options = q_model_options)
+        self.add_total_budget_constraint()
+        self.add_no_build_constraints() # ensure no shelter is built at all, and housing only built in year 1. 
+
+    def solve(self, solver):
+        super(Phi6, self).solve(solver)
+        self.print_results()
+
+class Phi7(Phi6):
+    def __init__(self, data, modeling_options, obj, q_model_options):
+        super(Phi6, self).__init__(data, modeling_options, obj, q_model_options = q_model_options)
+
+    def solve(self, solver):
+        super(Phi6, self).solve(solver)
+
+# constraint funcs
+def budget_constraint(problem):
+    costs=0
+    for t in problem.T:
+        costs += problem.h[t] * problem.costs_accomm['housing']
+        costs += problem.s[t] * problem.costs_accomm['shelter']
+    return costs <= problem.budget
+
+def annual_budget_constraint(problem,n):
+    return problem.h[n] * problem.costs_accomm['housing'] + problem.s[n] * problem.costs_accomm['shelter'] <= problem.annual_budget[n]
+
+def min_house_build(problem,n):
+    return problem.h[n]>=problem.baseline_build
+
+def min_shelter_build(problem,n):
+    return problem.s[n]>=problem.baseline_build
+
+def no_shelter_build(problem,n):
+    return problem.s[n] == 0
+
+def no_housing_build(problem,n):
+    return problem.h[n] == 0
+
+def h_up(problem,n):
+    return (problem.h[n+1] >= problem.h[n])
+
+def s_up(problem,n):
+    return (problem.s[n+1] >= problem.s[n])
+
+def s_down(problem,n):
+    return (problem.s[n+1] <= problem.s[n])
+
+def m_lessthan_n(problem, t, n):
+    return problem.m[t][n] <= n
+
+def m_lessthan_s(problem, t, n):
+    return problem.m[t][n] <= num_serve(problem, t)
+
+def m_morethan_n(problem, t, n):
+    return problem.m[t][n] >= n - problem.M*(1-problem.y)
+
+def m_morethan_s(problem, t, n):
+    return problem.m[t][n] >= num_serve(problem, t) - problem.M*problem.y
     
-    def add_baseline_build_constraint(self):
-        # Baseline build constraints
-        self.problem.h_base = pyo.Constraint(self.problem.T,rule=min_house_build)
-        self.problem.s_base = pyo.Constraint(self.problem.T,rule=min_shelter_build)
+# helper functions
+def run_model(problem):
+    solution = {'housing' : problem.h, 'shelter' : problem.s}
+    model = problem.selected_model(problem.data, problem.horizon_decision, problem.timestep, problem.max_in_system, solution)
+    model.analyse(problem.horizon_model, problem.timestep)
+    return(model)
 
-    def add_housing_increase(self):
-        self.problem.T_housing = pyo.RangeSet(0, self.problem.horizon_decision-2)
-        self.problem.h_increase = pyo.Constraint(self.problem.T_housing, rule = h_up)
-            
-    def add_shelter_increase_decrease(self, shelter_mode):
-        self.problem.T_shelter_first = pyo.RangeSet(0, shelter_mode-2)
-        self.problem.T_shelter_second = pyo.RangeSet(shelter_mode-1, self.problem.horizon_decision-2)
-        self.problem.s_increase = pyo.Constraint(self.problem.T_shelter_first, rule = s_up)
-        self.problem.s_decrease = pyo.Constraint(self.problem.T_shelter_second, rule = s_down)
+def num_serve(problem, t):
+    """
+    returns number of servers at time t days
 
-class FluidModel():
+    Parameters
+    ----------
+    t : float
+        time in days.
 
-    def __init__(self, data, horizon, timestep, solution):
-        self.model = fl.FluidFlowModel(data, horizon, timestep, solution)
+    Returns
+    -------
+    num_serve: num servers at time t.
+
+    """
+
+    t = t*problem.timestep # time in years
+    num_serve = 0
+    n = problem.data['initial_capacity']['housing']
+    
+    # add complete years
+    yrs = math.floor(t) # number of years passed
+    for yr in range(yrs):
+        n += problem.h[yr]
         
-    def analyse(self, horizon, timestep):
-        self.T = [i*timestep for i in range(int(horizon/timestep))]
-        self.model.analyse(self.T)
+    # add fractional year
+    n += (t % 1) * problem.h[yrs]
 
-class AnalyticalQueueModel():
+    n = pyo.floor(n)
+        
+    return n
 
-    def __init__(self, data, solution):
-        self.model = qm.queue(data['arrival_rates'],
-                              data['service_mean'],
-                              data['initial_capacity'], 
-                              solution,
-                              data['initial_demand'],
-                              data['max_in_system'],
-                              data['time_btwn_changes_in_build_rate'],
-                              data['time_btwn_building'])
-    def analyse(self, horizon, timestep):
-        self.model.model_dynamics(horizon,
-                                  timestep*365)
-        self.model.unsh_t = self.model.num_unsheltered
+def get_linear_weight_func_int1(m, horizon, timestep):
+    ' weight function which integrates to one'
+    T = horizon/timestep
+    w1max = 2/(T**2)
+    w1 = m*w1max
+    w0 = (1/T) - ((w1*T)/2)
+    w = [i*w1 + w0 for i in range(int(horizon/timestep))]
+    return(w)
+
+def get_linear_weight_func(m, horizon, timestep):
+    ' weight function which increases to a maximum which is level of unweighted avg'
+    T = horizon/timestep
+    w1max = 1/(T**2)
+    w1 = m*w1max
+    w0 = (1/T) - w1*T
+    w = [i*w1 + w0 for i in range(int(horizon/timestep))]
+    return(w)
+    
+def plot_weight_func(w, horizon, timestep):
+    x = list(np.arange(0,horizon,timestep))
+    w = [i*365 for i in w]
+    fig, ax = plt.subplots()
+    ax.plot(x,w)
+    ax.set_ylim(bottom=0)
+    ax.set(xlabel='time (yrs)', ylabel='weight',
+           title='weight of penalty on n_shelters^2')
+    ax.grid()
+    plt.show()
