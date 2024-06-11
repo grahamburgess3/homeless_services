@@ -33,39 +33,53 @@ class AnalyticalQueueModel():
 # objective functions    
 def y0(problem):
     " objective function for problem Phi0 "
-    model = run_model(problem)
+    solution = {'housing' : problem.h, 'shelter' : problem.s}
+    model = run_model(problem, solution)
     avg_unsh = sum(model.model.unsh_t)/len(model.model.unsh_t)
     return(avg_unsh)
 
 def y1(problem):
     " objective function for problem Phi1 "
-    model = run_model(problem)
+    solution = {'housing' : problem.h, 'shelter' : problem.s}
+    model = run_model(problem, solution)
     avg_unsh = sum(model.model.unsh_t)/len(model.model.unsh_t)
     avg_sh = sum(model.model.sh_t)/len(model.model.sh_t)
     return(avg_unsh + (problem.c * avg_sh))
 
 def y2(problem):
     " objective function for problem Phi2 and Phi3 "
-    model = run_model(problem)
+    solution = {'housing' : problem.h, 'shelter' : problem.s}
+    model = run_model(problem, solution)
     avg_unsh_2 = sum(model.model.unsh_sq_t)/len(model.model.unsh_sq_t)
     avg_sh_2 = sum(model.model.sh_sq_t)/len(model.model.sh_sq_t)
     return(avg_unsh_2 + (problem.c * avg_sh_2))
 
 def y4(problem):
-    " objective function for problem Phi4 and Phi5"
-    model = run_model(problem)
+    " objective function for problem Phi4"
+    solution = {'housing' : problem.h, 'shelter' : problem.s_positive}
+    model = run_model(problem, solution)
+    avg_unsh_2 = sum(model.model.unsh_sq_t)/len(model.model.unsh_sq_t)
+    weight_avg_sh_2 = sum([model.model.sh_sq_t[i]*problem.c[i] for i in range(int(problem.horizon_model/problem.timestep))])
+    return(avg_unsh_2 + weight_avg_sh_2)
+
+def y5(problem):
+    " objective function for problem Phi4"
+    solution = {'housing' : problem.h, 'shelter' : problem.s}
+    model = run_model(problem, solution)
     avg_unsh_2 = sum(model.model.unsh_sq_t)/len(model.model.unsh_sq_t)
     weight_avg_sh_2 = sum([model.model.sh_sq_t[i]*problem.c[i] for i in range(int(problem.horizon_model/problem.timestep))])
     return(avg_unsh_2 + weight_avg_sh_2)
 
 def y6(problem):
     " objective function for problem Phi6"
-    model = run_model(problem)
+    solution = {'housing' : problem.h, 'shelter' : problem.s}
+    model = run_model(problem, solution)
     return(model.model.y)
 
 def y7(problem):
     " objective function for problem Phi6"
-    model = run_model(problem)
+    solution = {'housing' : problem.h, 'shelter' : problem.s}
+    model = run_model(problem, solution)
     return(model.model.h_2 + 0.1*model.model.num_sys_2)
 
 class Phi():
@@ -75,7 +89,7 @@ class Phi():
                        'phi2' : y2,
                        'phi3' : y2,
                        'phi4' : y4,
-                       'phi5' : y4,
+                       'phi5' : y5,
                        'phi6' : y6,
                        'phi7' : y7}
 
@@ -99,15 +113,11 @@ class Phi():
         
         # Levels
         self.problem.T = pyo.RangeSet(0, self.problem.horizon_decision-1)
-        self.problem.dT = pyo.Set(initialize = range(int(round(self.problem.horizon_model / modeling_options['timestep'],0))))
-        self.problem.n = pyo.Set(initialize = range(self.problem.max_in_system))
-        self.problem.dT_n = pyo.Set(initialize = self.problem.dT*self.problem.n)
         
         # Variables
         self.problem.h = Var(self.problem.T, domain=pyo.NonNegativeReals)
-        self.problem.s = Var(self.problem.T, domain=pyo.NonNegativeReals)
-        self.problem.y = Var(self.problem.dT_n, domain=pyo.Binary)
-        self.problem.m = Var(self.problem.dT_n, domain = pyo.NonNegativeReals)
+        self.problem.s = Var(self.problem.T, domain=pyo.Reals)
+        self.problem.s_positive = Var(self.problem.T, domain=pyo.NonNegativeReals)
 
         # Objective function
         self.problem.OBJ = pyo.Objective(rule=self.objective_funcs[obj])
@@ -128,11 +138,21 @@ class Phi():
         self.problem.h_increase = pyo.Constraint(self.problem.T_housing, rule = h_up)
             
     def add_shelter_increase_decrease(self, shelter_mode):
-        self.problem.T_shelter_first = pyo.RangeSet(0, shelter_mode-2)
-        self.problem.T_shelter_second = pyo.RangeSet(shelter_mode-1, self.problem.horizon_decision-2)
+        self.problem.T_shelter_first = pyo.RangeSet(0, shelter_mode-1)
+        self.problem.T_shelter_second = pyo.RangeSet(shelter_mode, self.problem.horizon_decision-2)
         self.problem.s_increase = pyo.Constraint(self.problem.T_shelter_first, rule = s_up)
         self.problem.s_decrease = pyo.Constraint(self.problem.T_shelter_second, rule = s_down)
 
+    def add_shelter_positive_negative(self, shelter_mode):
+        self.problem.T_shelter_positive = pyo.RangeSet(0, shelter_mode-1)
+        self.problem.T_shelter_incr = pyo.RangeSet(0, shelter_mode-2)
+        self.problem.T_shelter_negative = pyo.RangeSet(shelter_mode, self.problem.horizon_decision-1)
+        self.problem.s_positive = pyo.Constraint(self.problem.T_shelter_positive, rule = s_plus)
+        self.problem.s_increase = pyo.Constraint(self.problem.T_shelter_incr, rule = s_up)
+        self.problem.s_negative = pyo.Constraint(self.problem.T_shelter_negative, rule = s_minus)
+        self.problem.s_not_too_negative = pyo.Constraint(self.problem.T_shelter_negative, rule = s_not_too_minus)
+        self.problem.budget_checked_annually = pyo.Constraint(self.problem.T, rule = budget_constraint_checked_annually)
+    
     def add_queue_model_constraints(self):
         self.problem.m_lessthan_n = pyo.Constraint(self.problem.dT, self.problem.n, rule = m_lessthan_n)
         self.problem.m_lessthan_s = pyo.Constraint(self.problem.dT, self.problem.n, rule = m_lessthan_s)
@@ -169,45 +189,43 @@ class Phi():
         print('Proportion of surplus budget spent on shelter: ' + '{:.0%}'.format(surp_prop_s) + ': ' + str(round(extra_shelters,2)) + ' extra shelters.')
         print('Optimal objective val: ' + str(round(self.instance.OBJ(),2)))
 
-    def print_results_phi5(self):
+    def print_results_phi3(self):
         print('------- Optimal solution -------')
         print('Number of housing units to build annually: ' + str([round(i,2) for i in self.h_opt]))
         print('Number of shelter units to build annually: ' + str([round(i,2) for i in self.s_opt]))
-        print('Proportion of annual budget spent on housing: ' + str(['{:.0%}'.format((self.h_opt[i]*self.problem.costs_accomm['housing'])/(self.problem.annual_budget[i])) for i in range(len(self.h_opt))]))
-        print('Proportion of annual budget spent on shelter: ' + str(['{:.0%}'.format((self.s_opt[i]*self.problem.costs_accomm['shelter'])/(self.problem.annual_budget[i])) for i in range(len(self.s_opt))]))
+        print('Proportion of total budget spent on housing: ' + str(['{:.0%}'.format((self.h_opt[i]*self.problem.costs_accomm['housing'])/(self.problem.budget)) for i in range(len(self.h_opt))]))
+        print('Proportion of total budget spent on shelter: ' + str(['{:.0%}'.format((self.s_opt[i]*self.problem.costs_accomm['shelter'])/(self.problem.budget)) for i in range(len(self.s_opt))]))
         print('Optimal objective val: ' + str(round(self.instance.OBJ(),2)))
     
-    def plot_opt(self):
+    def print_results_phi4(self):
+        print('------- Optimal solution -------')
+        print('Number of housing units to build annually: ' + str([round(i,2) for i in self.h_opt]))
+        print('Number of shelter units to build annually: ' + str([round(i,2) for i in self.s_positive_opt]))
+        print('Proportion of annual budget spent on housing: ' + str(['{:.0%}'.format((self.h_opt[i]*self.problem.costs_accomm['housing'])/(self.problem.annual_budget[i])) for i in range(len(self.h_opt))]))
+        print('Proportion of annual budget spent on shelter: ' + str(['{:.0%}'.format((self.s_positive_opt[i]*self.problem.costs_accomm['shelter'])/(self.problem.annual_budget[i])) for i in range(len(self.s_positive_opt))]))
+        print('Optimal objective val: ' + str(round(self.instance.OBJ(),2)))
+    
+    def plot_opt(self, solution):
         # run model at optimal
-        solution = {'housing' : self.h_opt, 'shelter' : self.s_opt}
         model = self.problem.selected_model(self.problem.data, self.problem.horizon_decision, self.problem.timestep, self.problem.max_in_system, solution)
         model.analyse(self.problem.horizon_model, self.problem.timestep)
 
         # general plotting
         x = math.floor(self.problem.horizon_model*365)/365
-        fig, ax = plt.subplots(1,2, figsize=(12, 5))
+        fig, ax = plt.subplots()
         ymax = max(model.model.h_t + model.model.sh_t + model.model.unsh_t)
         
         # plot optimal solution
-        ax[0].plot(np.arange(0,x,1/365), model.model.h_t, color = 'blue')
-        ax[0].plot(np.arange(0,x,1/365), model.model.sh_t, color = 'green')
-        ax[0].set(xlabel='time (yrs)', ylabel='# units',
-               title='Accommodation stock for optimal solution')
-        ax[0].legend(["houses", "shelters"], loc="lower right")
-        ax[0].grid()
-        ax[0].set_ylim(0,ymax*1.05)
-
-        # plot objective function for optimal solution
-        ax[1].plot(np.arange(0,x,1/365), model.model.sh_t, color = 'green')
-        ax[1].plot(np.arange(0,x,1/365), model.model.unsh_t, color = 'red')
-        ax[1].set(xlabel='time (yrs)', ylabel='# in queue',
-               title='Expected number in queue')
-        ax[1].legend(["sheltered", "unsheltered"], loc="lower right")
-        ax[1].grid()
-        ax[1].set_ylim(0,ymax*1.05)
+        ax.plot(np.arange(0,x,1/365), model.model.h_t, color = 'green')
+        ax.plot(np.arange(0,x,1/365), model.model.sh_t, color = 'orange')
+        ax.plot(np.arange(0,x,1/365), model.model.unsh_t, color = 'red')
+        ax.set(xlabel='time (yrs)', ylabel='Number of people',
+               title='Number of people housed/sheltered/unsheltered')
+        ax.legend(["housed", "sheltered", "unsheltered"], loc="lower right")
+        ax.grid()
+        ax.set_ylim(0,ymax*1.05)
         
         # general
-        fig.subplots_adjust(wspace = 0.5)
         plt.show()
 
     def plot_obj_curve(self, n):
@@ -242,7 +260,8 @@ class Phi0(Phi):
     def solve(self, solver):
         super(Phi0, self).solve(solver)
         self.print_results()
-        self.plot_opt()
+        solution = {'housing' : self.h_opt, 'shelter' : self.s_opt}
+        self.plot_opt(solution)
 
 class Phi1(Phi):
     def __init__(self, data, modeling_options, obj, c):
@@ -253,7 +272,8 @@ class Phi1(Phi):
     def solve(self, solver):
         super(Phi1, self).solve(solver)
         self.print_results()
-        self.plot_opt()
+        solution = {'housing' : self.h_opt, 'shelter' : self.s_opt}
+        self.plot_opt(solution)
 
 class Phi2(Phi1):
     def __init__(self, data, modeling_options, obj, c):
@@ -262,32 +282,47 @@ class Phi2(Phi1):
     def solve(self, solver):
         super(Phi2, self).solve(solver)
 
-class Phi3(Phi1):
+class Phi3(Phi):
     def __init__(self, data, modeling_options, obj, c, shelter_mode):
         super(Phi3, self).__init__(data, modeling_options, obj, c)
+        self.problem.del_component(self.problem.s_positive)
+        self.add_total_budget_constraint()
         self.add_housing_increase()
-        self.add_shelter_increase_decrease(shelter_mode) 
-
+        self.add_shelter_positive_negative(shelter_mode) 
+    
     def solve(self, solver):
         super(Phi3, self).solve(solver)
+        self.print_results_phi3()
+        solution = {'housing' : self.h_opt, 'shelter' : self.s_opt}
+        self.plot_opt(solution)
 
-class Phi4(Phi3):
-    def __init__(self, data, modeling_options, obj, c, shelter_mode):
-        super(Phi4, self).__init__(data, modeling_options, obj, c, shelter_mode)
-
-class Phi5(Phi):
+class Phi4(Phi):
     def __init__(self, data, modeling_options, obj, c, budget_props):
-        super(Phi5, self).__init__(data, modeling_options, obj, c)
+        super(Phi4, self).__init__(data, modeling_options, obj, c)
         self.add_annual_budget_constraint(budget_props)
 
     def solve(self, solver):
+        super(Phi4, self).solve(solver)
+        self.s_positive_opt=[self.instance.s_positive[i].value for i in range(self.problem.horizon_decision)]
+        self.print_results_phi4()
+        solution = {'housing' : self.h_opt, 'shelter' : self.s_positive_opt}
+        self.plot_opt(solution)
+
+class Phi5(Phi3):
+    def __init__(self, data, modeling_options, obj, c, shelter_mode):
+        super(Phi5, self).__init__(data, modeling_options, obj, c, shelter_mode)
+    
+    def solve(self, solver):
         super(Phi5, self).solve(solver)
-        self.print_results_phi5()
-        self.plot_opt()
 
 class Phi6(Phi):
     def __init__(self, data, modeling_options, obj, q_model_options):
         super(Phi6, self).__init__(data, modeling_options, obj, q_model_options = q_model_options)
+        self.problem.dT = pyo.Set(initialize = range(int(round(self.problem.horizon_model / modeling_options['timestep'],0))))
+        self.problem.n = pyo.Set(initialize = range(self.problem.max_in_system))
+        self.problem.dT_n = pyo.Set(initialize = self.problem.dT*self.problem.n)
+        self.problem.y = Var(self.problem.dT_n, domain=pyo.Binary)
+        self.problem.m = Var(self.problem.dT_n, domain = pyo.NonNegativeReals)
         self.add_total_budget_constraint()
         self.add_no_build_constraints() # ensure no shelter is built at all, and housing only built in year 1. 
 
@@ -310,8 +345,11 @@ def budget_constraint(problem):
         costs += problem.s[t] * problem.costs_accomm['shelter']
     return costs <= problem.budget
 
+def budget_constraint_checked_annually(problem,n):
+    return sum([problem.h[t] * problem.costs_accomm['housing'] + problem.s[t] * problem.costs_accomm['shelter'] for t in range(n+1)]) <= problem.budget
+
 def annual_budget_constraint(problem,n):
-    return problem.h[n] * problem.costs_accomm['housing'] + problem.s[n] * problem.costs_accomm['shelter'] <= problem.annual_budget[n]
+    return problem.h[n] * problem.costs_accomm['housing'] + problem.s_positive[n] * problem.costs_accomm['shelter'] <= problem.annual_budget[n]
 
 def min_house_build(problem,n):
     return problem.h[n]>=problem.baseline_build
@@ -334,6 +372,16 @@ def s_up(problem,n):
 def s_down(problem,n):
     return (problem.s[n+1] <= problem.s[n])
 
+def s_plus(problem,n):
+    return (problem.s[n] >= 0)
+
+def s_minus(problem,n):
+    return (problem.s[n] <= 0)
+
+def s_not_too_minus(problem,n):
+    stock = problem.data['initial_capacity']['shelter'] + sum([problem.s[t] for t in range(n)])
+    return (problem.s[n] >= -stock)
+
 def m_lessthan_n(problem, t, n):
     return problem.m[t][n] <= n
 
@@ -347,8 +395,7 @@ def m_morethan_s(problem, t, n):
     return problem.m[t][n] >= num_serve(problem, t) - problem.M*problem.y
     
 # helper functions
-def run_model(problem):
-    solution = {'housing' : problem.h, 'shelter' : problem.s}
+def run_model(problem, solution):
     model = problem.selected_model(problem.data, problem.horizon_decision, problem.timestep, problem.max_in_system, solution)
     model.analyse(problem.horizon_model, problem.timestep)
     return(model)
