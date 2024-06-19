@@ -219,9 +219,9 @@ class Phi():
         ax.plot(np.arange(0,x,1/365), model.model.h_t, color = 'green')
         ax.plot(np.arange(0,x,1/365), model.model.sh_t, color = 'orange')
         ax.plot(np.arange(0,x,1/365), model.model.unsh_t, color = 'red')
-        ax.set(xlabel='time (yrs)', ylabel='Number of people',
+        ax.set(xlabel='Time (yrs)', ylabel='Number of people',
                title='Number of people housed/sheltered/unsheltered')
-        ax.legend(["housed", "sheltered", "unsheltered"], loc="lower right")
+        ax.legend(["$h_t$", "$s_t$", "$u_t$"], loc="lower right")
         ax.grid()
         ax.set_ylim(0,ymax*1.05)
         

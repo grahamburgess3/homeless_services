@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % Required for margin formatting
+\usepackage[skip=10pt]{parskip} % Required to add space between paragraphs and remove indents
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+\usepackage{enumitem} % Required to remove spacing between items in lists
+
+\title{Optimisation formulations - brainstorming}
+\author{Graham Burgess}
+\date{February 2024}
+
+\begin{document}
+%
+\maketitle
+\section{Introduction}
+%
+We start with the formulation $\Phi_0$ detailed below (as discussed on 15th Feb 2024). This formulation minimises a deterministic objective function subject to annual baseline building constraints and a total budget constraint. \par
+%
+Let $T \in Z^{+}$ be a fixed horizon over which to model queue behaviour and to make building decisions. \par
+%
+Let vectors $\boldsymbol{h} = \{h_t \hspace{0.2cm} \forall t \in {1,...,T}\}$ and $\boldsymbol{s} = \{s_t \hspace{0.2cm} \forall t \in {1,...,T}\}$ denote annual house and shelter building rates, respectively. For simplicity we say that housing/shelter building rates are constant within each year. We can therefore consider $h(t) = \boldsymbol{h}$ and $s(t) = \boldsymbol{s}$ to be step functions. \par
+%
+Let $c_{h} = 1$ be the cost of increasing $h_t$ by one, for any $t$. \par
+%
+Let $c_{s}$ be the cost of increasing $s_t$ by one, for any $t$. \par
+%
+Let $C$ be a total budget for building housing and shelter \par
+%
+Let $B$ be a baseline minimum annual house/shetler building rate \par
+%
+Let $y(\boldsymbol{h},\boldsymbol{s})$ be a deterministic objective function, evaluated using the fluid flow model. \par
+%
+\begin{align*}
+        & \Phi_0 = \min_{\boldsymbol{h},\boldsymbol{s}} \hspace{0.2cm} y(\boldsymbol{h},\boldsymbol{s}) \\
+        & \hspace{0.7cm} \text{ s.t. } \sum_{t=1}^{T} c_{h}h_{t} + c_{s}s_{t} \leq C \\
+        & \hspace{1.5cm} h_t, s_t \geq B \hspace{0.2cm} \forall t \in \{1, ..., T\}
+\end{align*}
+%
+where the objective function is the average over time of the expected unsheltered queue length. 
+\begin{align*}
+  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh(t; \boldsymbol{h},\boldsymbol{s})] dt
+\end{align*}
+where $\mathbb{E}[unsh(t;\boldsymbol{h},\boldsymbol{s})]$ is the expected unsheltered queue at time $t$, as evaluated with the fluid flow model. When we set $C$ to be sufficiently large, this effectively amounts to enforcing the building of $B$ shelters and $B$ houses each year and allowing the surplus budget to spent at any time on either housing or shelter. What we find with this formulation is that we prefer to spend this surplus in the first year and we either spend this surplus all on housing, or all on shelter. The preference depends on $c_s$, which dicates how many shelters we can build with our budget and on $\mu_0$ which is a parameter of the deterministic model indicating the service rate at each housing unit. \par
+%
+This formulation does not yet capture all of the interesting features of the problem - we now introduce four possible extensions to this formulation. \newpage
+
+\section{Including the length of the sheltered queue}
+
+\textbf{Motivation:} we would like to capture the fact that a large sheltered population is undesirable.
+
+\textbf{Suggested formulation:} here we include the length of the sheltered queue in the objective function. As discussed previously, when using the fluid model we are assuming that the unsheltered queue never vanishes, and in this case the length of the sheltered queue at time $t$ will simply be the number of shelters at time $t$, which we denote $n_{\boldsymbol{s}}(t)$. Remember that:
+\begin{align*}
+  n_{\boldsymbol{s}}(t) = \int_0^t s(t) dt
+\end{align*}
+where $s(t)=\boldsymbol{s}$ is a step function giving the rate of building shelters in each year  $t \in \{1, ..., T\}$. \par
+%
+We can therefore introduce $\Phi_1$ which is identical to $\Phi_0$ except for an extra term in the objective function $y(\boldsymbol{h},\boldsymbol{s})$: 
+
+\begin{align*}
+        & \Phi_1 = \min_{\boldsymbol{h},\boldsymbol{s}} \hspace{0.2cm} y(\boldsymbol{h},\boldsymbol{s}) \\
+        & \hspace{0.7cm} \text{ s.t. } \sum_{t=1}^{T} c_{h}h_{t} + c_{s}s_{t} \leq C \\
+        & \hspace{1.5cm} h_t, s_t \geq B \hspace{0.2cm} \forall t \in \{1, ..., T\}
+\end{align*}
+%
+where the $y(\boldsymbol{h},\boldsymbol{s})$ is the average over time of the sum of the expected unsheltered and sheltered queue lengths: 
+\begin{align*}
+  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh(t; \boldsymbol{h},\boldsymbol{s})] dt + \frac{1}{T} \int_0^T n_{\boldsymbol{s}}(t) dt
+\end{align*}
+%
+\textbf{Comments:} the effect of the second term in the objective function is to penalise the building of shelters. We would still expect an optimal solution to spend surplus budget all in the first year, and either all on shelter, or all on housing. We have here tipped the balance in favour of housing by introducing a penalty for building shelters. 
+
+\newpage
+
+\section{Squared queue lengths}
+
+\textbf{Motivation:} we would like to discourage the spending of all surplus budget on one type of accommodation (either housing or shelter) as clearly in practice a balance is sought. We also recognise that large queues are not only undesirable in themselves, but can also lead to increased future service rates (as conditions for customers worsen). \par
+%
+\textbf{Suggested formulation:} here we square the expected length of the unsheltered queue and square the penalty term on the building of shelters. Minimising the sum of these squared terms will encourage a balance between building shelter and building housing.
+%
+\begin{itemize}[noitemsep]
+\item \textbf{Shelter} quickly reduces the unsheltered queue but at the cost of a large \textbf{sheltered} population.
+\item \textbf{Housing} gives long-term relief to the system, but with an initial large \textbf{unsheltered} population. 
+\end{itemize}
+%
+We can therefore introduce $\Phi_2$ which is identical to $\Phi_1$ except for squared terms in the objective function $y(\boldsymbol{h},\boldsymbol{s})$: 
+
+\begin{align*}
+        & \Phi_2 = \min_{\boldsymbol{h},\boldsymbol{s}} \hspace{0.2cm} y(\boldsymbol{h},\boldsymbol{s}) \\
+        & \hspace{0.7cm} \text{ s.t. } \sum_{t=1}^{T} c_{h}h_{t} + c_{s}s_{t} \leq C \\
+        & \hspace{1.5cm} h_t, s_t \geq B \hspace{0.2cm} \forall t \in \{1, ..., T\}
+\end{align*}
+%
+where the $y(\boldsymbol{h},\boldsymbol{s})$ is the average over time of the sum of the expected squared queue lengths:
+
+\begin{align*}
+  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh^2(t; \boldsymbol{h},\boldsymbol{s})] dt + \frac{1}{T} \int_0^T n_{\boldsymbol{s}}^2(t) dt
+\end{align*}
+%
+where we have that:
+ 
+\begin{align*}
+  \mathbb{E}[unsh(t; \boldsymbol{h},\boldsymbol{s})^2] = \mathbb{E}[unsh(t; \boldsymbol{h},\boldsymbol{s})]^2 + \text{Var}[unsh(t; \boldsymbol{h},\boldsymbol{s})].
+\end{align*}
+%
+\textbf{Comments:} The effect of the first term in the objective function is to penalise an extreme reliance on housing which is slow to reduce the size of the unsheltered queue. The second term penalises the extreme reliance on shelter. We would still expect an optimal solution to spend surplus budget all in the first year. However, we would expect that spending the surplus budget on a mixture of housing and shelter will optimise this objective function. 
+%
+\newpage
+
+\section{Alternative budget and building constraints}
+
+\textbf{Motivation:} we would like to impose more realistic constraints on when the total budget can be spent and how budget for shelter/housing can be spread over time. These constraints should reflect the fact that:
+%
+\begin{itemize}[noitemsep]
+\item Funds are typically allocated annually (i.e. you can't spend all of your long-term budget in one year)
+\item Funds \emph{may} be expected to increase in later years, especially if it can be shown that a plan is working
+\item Housing typically takes longer to build or to aquire than shelter
+  \item Satisfactory `shapes' to the building functions are desirable (e.g. always increasing / only peaking once over the planning horizon)
+\end{itemize}
+%
+\textbf{Suggested formulation:} here we introduce $C_t \hspace{0.1cm} \forall t \in \{1, ..., T\}$ which represent separate budgets for each year. We introduce shape constraints on $h(t)$ which enforce strictly increasing monotonicity. We introduce shape constraints on $s(t)$ which enforce strictly increasing monotonicity before a single mode $\hat{t}$ (where $1 < \hat{t} < T$), and strictly decreasing monotonicity after $\hat{t}$. \par
+%
+We can therefore introduce $\Phi_3$ which is has the same objective function as $\Phi_2$ but has a different set of constraints: 
+
+\begin{align*}
+        & \Phi_3 = \min_{\boldsymbol{h},\boldsymbol{s}} \hspace{0.2cm} y(\boldsymbol{h},\boldsymbol{s}) \\
+        & \hspace{1cm} \text{ s.t. } c_{h}h_{t} + c_{s}s_{t} \leq C_t \hspace{0.2cm} \forall t \in \{1, ..., T\} \\
+        & \hspace{1.8cm} h_t > h_{t-1} \hspace{1.2cm} \forall t \in \{2, ..., T\} \\
+        & \hspace{1.8cm} s_t > s_{t-1} \hspace{1.2cm} \forall t \in \{2, ..., \hat{t}\} \\
+        & \hspace{1.8cm} s_t < s_{t-1} \hspace{1.2cm} \forall t \in \{\hat{t}+1, ..., T\} \\
+        & \hspace{1.8cm} h_t, s_t \geq B \hspace{1.2cm} \forall t \in \{1, ..., T\}
+\end{align*}
+%
+where the $y(\boldsymbol{h},\boldsymbol{s})$ is the average over time of the sum of the expected squared queue lengths: 
+\begin{align*}
+  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh^2(t; \boldsymbol{h},\boldsymbol{s})] dt + \int_0^T n_{\boldsymbol{s}}^2(t) dt
+\end{align*}
+
+\textbf{Comments:} this formulation ensures that total budget is spread out over the time horizon, specifically in a way which is set by the user (i.e. monotonicity). It should be noted that the user must set the annual budgets $C_t$. This choice is likely to be an important determining factor in the nature of the optimal solution. 
+
+\newpage
+
+\section{Time-dependent weighting of queue lengths}
+
+\textbf{Motivation:} we would like to recognise that while an unsheltered population is never acceptable, a sheltered population is acceptable as a short-term measure, but not in the long term. \par 
+%
+\textbf{Suggested formulation:} here we introduce a weighting to the squared penalty term on shelter. This weighting is a function of time, representing the tolerance for shelter in the short term. \par
+%
+We can therefore introduce $\Phi_4$ which is similar to $\Phi_3$. We keep the annual budgets, but we drop the shape constraints. In place of the shape constraints, we place a weighted average over time of the squared penalty term on shelter in $y(\boldsymbol{h},\boldsymbol{s})$: 
+
+\begin{align*}
+        & \Phi_3 = \min_{\boldsymbol{h},\boldsymbol{s}} \hspace{0.2cm} y(\boldsymbol{h},\boldsymbol{s}) \\
+        & \hspace{1cm} \text{ s.t. } c_{h}h_{t} + c_{s}s_{t} \leq C_t \hspace{0.2cm} \forall t \in \{1, ..., T\} \\
+        & \hspace{1.8cm} h_t, s_t \geq B \hspace{1.2cm} \forall t \in \{1, ..., T\}
+\end{align*}
+%
+where the $y(\boldsymbol{h},\boldsymbol{s})$ is the average over time of the sum of the expected squared queue lengths: 
+\begin{align*}
+  y(\boldsymbol{h},\boldsymbol{s}) = \frac{1}{T} \int_0^T \mathbb{E}[unsh^2(t; \boldsymbol{h},\boldsymbol{s})] dt + \int_0^T w(t) n_{\boldsymbol{s}}^2(t) dt
+\end{align*}
+%
+where $w(t)$ is a linear function of time: 
+%
+\begin{align*}
+  w(t) = w_0 + w_1 t\\
+  w_0 \geq 0 \\
+  w_1 > 0
+  \end{align*}
+and we require:
+%
+\begin{align*}
+\int_0^T w(t) dt = 1
+\end{align*}
+which means: 
+% 
+\begin{align*}
+w_0T + w_1\frac{T^2}{2} = 1
+\end{align*}
+so for a given gradient $w_1$, we require: 
+\begin{align*}
+w_0 = \frac{1}{T} - \frac{w_1T}{2}.
+\end{align*}
+Given $w_0 \geq 0$, for a given horizon $T$, there is an upper bound on the choice of $w_1$. \par
+%
+\textbf{Comments:} The annual budgets ensure the building is spread out over the time horizon. The squared terms in the objective function encourage a mix of housing/shelter to be built each year, but the weighted average in the second term of the objective function gives more tolerance to the extreme reliance on shelter at an early stage, compared to later stages.
+
+\end{document}
