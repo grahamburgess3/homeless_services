@@ -1,8 +1,9 @@
 import math
+import numpy as np
 
 class FluidFlowModel():
 
-    def __init__(self, data, horizon, timestep, solution):
+    def __init__(self, data, solution, T_a, T_b):
         """
         Initialise instance of fluid flow model - continuous approximation of M(t)/M/s(t) model
         
@@ -16,26 +17,26 @@ class FluidFlowModel():
         None
 
         """
-        self.n0 = data['initial_demand']
-        self.h0 = data['initial_capacity']['housing']
-        self.s0 = data['initial_capacity']['shelter']
-        self.mu0 = 1/data['service_mean']['housing']
-        self.lambda_t = data['arrival_rates']
-        self.h = solution['housing']
-        self.s = solution['shelter']
-        self.horizon_decision = horizon
-        self.timestep = timestep
-        self.n_t = [] # number in system over time (Expected val)
-        self.unsh_t = [] # number unsheltered over time (Expected val)
-        self.sh_t = [] # number sheltered over time (Expected val)
-        self.h_t = [] # number housed over time (Expected val)
-        self.n_sq_t = [] # E[(num in system)^2] over time
-        self.unsh_sq_t = [] # E[(num unsheltered)^2] over time
-        self.sh_sq_t = [] # E[(num sheltered)^2] over time
-        
+        self.X_0 = data['initial_demand']
+        self.h_0 = data['initial_capacity']['housing']
+        self.s_0 = data['initial_capacity']['shelter']        
+        self.h = self.get_daily_capacity(self.h_0, solution['housing'], T_a, T_b)
+        self.s = self.get_daily_capacity(self.s_0, solution['shelter'], T_a, T_b)
+        self.s_sq = [x**2 for x in self.s] # E[(num sheltered)^2] over time
+        self.u = [self.X_0 - self.h_0 - self.s_0] # number unsheltered over time (Expected val)
+        self.u_sq = [self.u[0]**2] # E[(num unsheltered)^2] over time
+        self.mu0 = 1/(data['service_mean']['housing']*365)
+        self.lambda_t = list(np.repeat(data['arrival_rates'],365))
+
+    def get_daily_capacity(self, init, solution, T_a, T_b):
+        annual = [init] + list(solution)
+        diffs = list(np.repeat([(annual[i+1] - annual[i])/365 for i in range(int(T_a/365))],365))
+        daily = [init + sum(diffs[0:i]) for i in range(1,len(diffs)+1)] + [list(solution)[-1]]*T_b
+        return daily
+                           
     def evaluate_queue_size(self, t):
         """
-        Evaluate expected number in system and number unsheltered at time t (and Var(x) and x^2)
+        Evaluate expected number unsheltered at time t
         
         Parameters
         ----------
@@ -43,73 +44,23 @@ class FluidFlowModel():
 
         Returns
         -------
-        n : float : E[number in system at time t]
         unsh : float : E[number unsheltered at time t]
-        sh : float : E[number sheltered at time t]
-        h : float : E[number housed at time t]
-        n_sq : float : E[(number in system at time t)^2]  
-        unsh_sq : E[(number unsheltered at time t)^2]  
-        sh_sq : E[(number sheltered at time t)^2]  
 
         """
-        
-        # init quantities
-        fluid_in = 0
-        fluid_out = 0
-        houses = self.h0
-        shelters = self.s0
 
-        # how much beyond decision horizon to model
-        diff = t - (self.horizon_decision)
-        t_temp = min(t,self.horizon_decision) # to start by modelling up to decision horizon
-        
-        # add complete years
-        T = math.floor(t_temp) # number of years passed
-        for yr in range(T):
-            fluid_in += self.lambda_t[yr]
-            fluid_out += self.mu0 * (self.h0 + sum([self.h[i] for i in range(yr)]) + self.h[yr]/2)
-            houses += self.h[yr]
-            shelters += self.s[yr]
-            
-        # add fractional year
-        if (t_temp % 1 > 0):
-            fluid_in += (t_temp % 1) * self.lambda_t[T]
-            fluid_out += (t_temp % 1) * self.mu0 * (self.h0 + sum([self.h[i] for i in range(T)]) + (t_temp % 1) * self.h[T]/2)
-            houses += (t_temp % 1) * self.h[T]
-            shelters += (t_temp % 1) * self.s[T]
-
-        # model beyond the decision horizon
-        if diff > 0:
-            T = math.floor(diff) # number of years passed
-            for yr in range(T):
-                fluid_in += self.lambda_t[yr+self.horizon_decision]
-                fluid_out += self.mu0 * (self.h0 + sum([self.h[i] for i in range(self.horizon_decision)]))
-                
-            # add fractional year
-            fluid_in += (diff % 1) * self.lambda_t[self.horizon_decision + T]
-            fluid_out += (diff % 1) * self.mu0 * (self.h0 + sum([self.h[i] for i in range(self.horizon_decision)])) 
-
-        # calculate queue lengths (expected values)
-        n = self.n0 + fluid_in - fluid_out
-        unsh = n - houses - shelters
-        sh = shelters
-        h = houses
-
-        # calculate squared queue lengths (expected vals)
-        n_sq = n**2
-        unsh_sq = unsh**2
-        sh_sq = sh**2
+        # compute u_t
+        u_t = self.X_0 + sum(self.lambda_t[0:t]) - sum(self.h[0:t])*self.mu0 - self.h[t] - self.s[t]
         
         # return
-        return n, unsh, sh, h, n_sq, unsh_sq, sh_sq
+        return u_t
 
     def analyse(self, T):
         """
-        Reset and evaluate Q performance measures for all times in T
+        Evaluate Q performance measures for all times in T
         
         Parameters
         ----------
-        T : list[float] : times (in units of years) to evaluate queue size
+        T : list[float] : times (in units of days) to evaluate queue size
 
         Returns
         -------
@@ -117,32 +68,7 @@ class FluidFlowModel():
 
         """
 
-        # Reset current values for Q lengths
-        self.n_t = [] # number in system over time (Expected val)
-        self.unsh_t = [] # number unsheltered over time (Expected val)
-        self.sh_t = [] # number sheltered over time (Expected val)
-        self.h_t = [] # number housed over time (Expected val)
-        self.n_sq_t = [] # E[(num in system)^2] over time
-        self.unsh_sq_t = [] # E[(num unsheltered)^2] over time
-        self.sh_sq_t = [] # E[(num sheltered)^2] over time
-
-        # Set starting values for Q lengths
-        self.n_t.append(self.n0)
-        self.unsh_t.append(self.n0 - self.h0 - self.s0)
-        self.sh_t.append(self.s0)
-        self.h_t.append(self.h0)
-        self.n_sq_t.append(self.n0**2)
-        self.unsh_sq_t.append(self.unsh_t[0]**2)
-        self.sh_sq_t.append(self.sh_t[0]**2)
-
-        # Set remaining values for Q lengths, for t in T
-        # (not include first element of T which should be t=0 and already accounted for
         for t in T[1:len(T)]:
-            n, unsh, sh, h, n_sq, unsh_sq, sh_sq = self.evaluate_queue_size(t)
-            self.n_t.append(n)
-            self.unsh_t.append(unsh)
-            self.sh_t.append(sh)
-            self.h_t.append(h)
-            self.n_sq_t.append(n_sq)
-            self.unsh_sq_t.append(unsh_sq)
-            self.sh_sq_t.append(sh_sq)
+            unsh = self.evaluate_queue_size(t)
+            self.u.append(unsh)
+            self.u_sq.append(unsh**2)
