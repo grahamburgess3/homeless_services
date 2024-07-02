@@ -1,3 +1,5 @@
+#### NOTE: This contains a range of objective functions, and the ability to use the queueing model in optimisation, see the psor-paper-housing repo for a cleaner version with just 3 objective functions using the fluid model
+
 # Imports
 from __future__ import division
 import pyomo.environ as pyo
