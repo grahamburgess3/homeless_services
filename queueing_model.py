@@ -13,13 +13,29 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+import pyomo.environ as pyo
 
 class queue(object):
     """
     A queue to be modelled with numerical integration
+
+    ##### Changes to the M(t)/M/H(t) queueing model
+
+    Here $H(t)$ refers to the number of houses over time. We have changed this $H(t)$ function in order to make it more appropriate for this analysis. 
+    
+    Previously, $H(t)$ reflected the fact that every 2 months, an integer number of houses were built, and that bi-monthly build rate was constant within each year, but could change from year to year. Therefore, an annual build rate had to be a multiple of six and if it wasn't, the build rate was rounded down to the nearest six. The same was the case for the build rate for shelters. This is not suitable for this deterministic optimisation since for continuous-valued build functions, subsets of solutions will have the same objective value, which is not suitable for a solver which uses some gradient information. 
+    
+    We now construct $H(t)$ so that at at any time $t$, based on continuous-valued annual build rates, we calculate the number of whole houses ready for use at time $t$, and that dictates the total service rate until time $t + \Delta t$. For example, if we start with 20 houses and the annual house build rate is 40/year, then at time t = 60 days, we have $h(t=60) = \lfloor 20 + \frac{40}{365} * 60 \rfloor = 26$. We do the same for the number of shelters $s(t)$ at any time $t$. 
+    
+    This brings the queueing model further away from the simulation model, and more in line with the fluid model. However, it is not quite the same as the fluid model, since in the fluid model, a fraction of a house can contribute to an increased service rate. 
+    
+    The response $y(\boldsymbol{h},\boldsymbol{s})$ where $\boldsymbol{h},\boldsymbol{s}$ are the house and shelter annual build rates, respectively, using this amended queueing model will still be a step function, since an infinitessimally small change to the build rate functions will leave the number of houses and shelters, $H(t)$ and $S(t) \hspace{0.2cm} \forall t \in \{1, 1 + \Delta t, ... , T\}$ unchanged. It therefore remains to be seen whether this setup is suitable for the deterministic optimisation formulation. 
+    
+    **NOTE**: it  does not make sense to allow $H(t)$ and $S(t)$ to take non-integer values for time $t \in \{1, 1 + \Delta t, ... , T\}$, because our state space $n \in \{1, 2, ..., N\}$ where $n$ is the number of people in the system, takes integer values. 
+    
     """
     
-    def __init__(self, annual_arrival_rate, mean_service_time, initial_capacity, build_rates, num_in_system_initial, max_in_system, time_btwn_changes_in_build_rate, time_btwn_building):
+    def __init__(self, annual_arrival_rate, mean_service_time, initial_capacity, build_rates, num_in_system_initial, max_in_system):
         """
         Initialise instance of queue
         Note: there are no hardcoded elements in this class (apart from obvious things like the number of days in a week) but care should be taken if adapting some of the inputs, as detailed below: 
@@ -40,19 +56,23 @@ class queue(object):
         self.num_queue = None # expected val at each time t
         self.num_unsheltered = None # expected val at each time t
         self.num_sheltered = None # expected val at each time t
+        self.h_t = None # number of houses at time t
+        self.sh_t = None # number of shelters at time t
         self.num_unsheltered_avg = None
         self.num_sheltered_avg = None
         self.annual_arrival_rate = annual_arrival_rate
         self.mean_service_time = mean_service_time['housing']
         self.servers_initial = initial_capacity['housing']
         self.shelter_initial= initial_capacity['shelter']
-        self.num_build_points_btwn_changes = round(time_btwn_changes_in_build_rate/time_btwn_building)
-        self.server_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['housing']], self.num_build_points_btwn_changes)
-        self.shelter_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['shelter']], self.num_build_points_btwn_changes)
-        self.build_frequency_weeks = round(time_btwn_building*365/7)
+        # self.num_build_points_btwn_changes = round(time_btwn_changes_in_build_rate/time_btwn_building)
+        # self.server_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['housing']], self.num_build_points_btwn_changes)
+        # self.shelter_build_rate = np.repeat([int(i / self.num_build_points_btwn_changes) for i in build_rates['shelter']], self.num_build_points_btwn_changes)
+        self.server_build_rate = build_rates['housing']
+        self.shelter_build_rate = build_rates['shelter']
+        # self.build_frequency_weeks = round(time_btwn_building*365/7)
         self.num_in_system_initial = num_in_system_initial
         self.max_in_system = max_in_system
-        
+        #self.m = m # number of busy servers in state n at time t
 
     def arr_rate(self, t):
         """
@@ -94,7 +114,7 @@ class queue(object):
 
     def num_serve(self, t):
         """
-        returns number of servers at time t
+        returns weighted avg number of servers between time t and time t + 1 days
 
         Parameters
         ----------
@@ -106,34 +126,78 @@ class queue(object):
         num_serve: num servers at time t.
 
         """
-        
-        num_serve = {'before' : self.servers_initial, 'after' : None}
-        
-        days_passed = t*365
-        build_freq_days = self.build_frequency_weeks*7
 
-        # Get the number of new build points (if the number of days that has passed is an integer # of the build_freq_days, then add one to num_builds so the builds happen at exactly the start of every period.
+        num_serve = {'before' : 0, 'after' : 0}
+        n = self.servers_initial
         
-        num_builds = math.ceil(days_passed/build_freq_days)
+        # add complete years
+        yrs = math.floor(t) # number of years passed
+        for yr in range(yrs):
+            n += self.server_build_rate[yr]
             
-        for i in range(num_builds):
-            num_serve['before'] += self.server_build_rate[i]
+        # add fractional year
+        n += (t % 1) * self.server_build_rate[yrs]
 
-        if (days_passed/build_freq_days) % 1 == 0:
-            num_serve['after'] = num_serve['before'] + self.server_build_rate[num_builds]
-        else:
-            num_serve['after'] = num_serve['before']
+        num_serve['before'] = pyo.floor(n)
+        num_serve['after'] = pyo.floor(n)
+            
+        return num_serve
+
+    def num_serve_wtd_avg(self, t):
+        """
+        returns weighted avg number of servers between time t and time t + 1 days
+
+        Parameters
+        ----------
+        t : float
+            time in years.
+
+        Returns
+        -------
+        num_serve: num servers at time t.
+
+        """
+
+        num_serve = {'before' : 0, 'after' : 0}
+        n = self.servers_initial
+        
+        # add complete years
+        yrs = math.floor(t) # number of years passed
+        for yr in range(yrs):
+            n += self.server_build_rate[yr]
+            
+        # add fractional year
+        n += (t % 1) * self.server_build_rate[yrs]
+
+        # how big is the half-built house?
+        half_built_house = n - pyo.floor(n)
+        
+        # round to integer
+        n = pyo.floor(n)
+        num_serve['before'] = n
+        
+        # construct weighted avg
+        weight_avg = 0
+        T = 0
+        while T < 1:
+            time_til_next_build = (1-half_built_house)/(self.server_build_rate[yrs]/365)
+            weight_avg += n * min(1-T,time_til_next_build)
+            T += time_til_next_build
+            n += 1
+            half_built_house = 0
+        
+        num_serve['after'] = weight_avg
             
         return num_serve
 
     def num_shelt(self, t):
         """
-        returns number of shelters at time t
+        returns integer number of shelters at time t
 
         Parameters
         ----------
         t : float
-            time.
+            time in years.
 
         Returns
         -------
@@ -141,22 +205,20 @@ class queue(object):
 
         """
         
-        num_shelt = {'before': self.shelter_initial, 'after' : None}
+        n = self.shelter_initial
         
-        days_passed = t*365
-        build_freq_days = self.build_frequency_weeks*7
-
-        # Get the number of new build points (if the number of days that has passed is an integer # of the build_freq_days, then add one to num_builds so the builds happen at exactly the start of every period.
-
-        num_builds = math.ceil(days_passed/build_freq_days)
-        for i in range(num_builds):
-            num_shelt['before'] += self.shelter_build_rate[i]
-
-        if (days_passed/build_freq_days) % 1 == 0:
-            num_shelt['after'] = num_shelt['before'] + self.shelter_build_rate[num_builds]
-        else:
-            num_shelt['after'] = num_shelt['before']
+        # add complete years
+        yrs = math.floor(t) # number of years passed
+        for yr in range(yrs):
+            n += self.shelter_build_rate[yr]
+            
+        # add fractional year
+        n += (t % 1) * self.shelter_build_rate[yrs]
         
+        # round to integer
+        n = pyo.floor(n)
+        num_shelt = n
+                    
         return num_shelt
 
     def model_dynamics(self, Y, d):
@@ -187,74 +249,75 @@ class queue(object):
         self.p = [[0 for i in range(T)] for j in range(N+1)]
         self.p[n_0][0] = 1 # enforce state at time 0
         self.p_q = [[0 for i in range(T)] for j in range(N+1)]
-        self.p_q[max(0, n_0 - self.num_serve(0)['before'])][0] = 1 # enforce state at time 0
+        self.p_q[max(0, n_0 - self.servers_initial)][0] = 1 # enforce state at time 0
         self.p_unsh = [[0 for i in range(T)] for j in range(N+1)]
-        self.p_unsh[max(0, n_0 - self.num_serve(0)['before'] - self.num_shelt(0)['before'])][0] = 1 # enforce state at time 0
+        self.p_unsh[max(0, n_0 - self.servers_initial - self.shelter_initial)][0] = 1 # enforce state at time 0
         self.p_sh = [[0 for i in range(T)] for j in range(N+1)]
-        self.p_sh[min(max(0, n_0 - self.num_serve(0)['before']),self.num_shelt(0)['before'])][0] = 1
-        
-        # init m, number of busy servers in each state
-        m = [0 for i in range(N+1)]
+        self.p_sh[min(max(0, n_0 - self.servers_initial), self.shelter_initial)][0] = 1
         
         # init outputs
         self.num_sys = [0 for i in range(T)]
         self.num_queue = [0 for i in range(T)]        
         self.num_unsheltered = [0 for i in range(T)]
         self.num_sheltered = [0 for i in range(T)]
+        self.h_t = [0 for i in range(T)]
+        self.sh_t = [0 for i in range(T)]
         self.num_unsheltered_avg = 0 # average over time
         self.num_sheltered_avg = 0 # avg over time
         
         self.num_sys[0] = n_0
-        self.num_queue[0] = max(0, n_0 - self.num_serve(0)['before'])
-        self.num_unsheltered[0] = max(0, n_0 - self.num_serve(0)['before'] - self.num_shelt(0)['before'])
+        self.num_queue[0] = max(0, n_0 - self.servers_initial)
+        self.num_unsheltered[0] = max(0, n_0 - self.servers_initial - self.shelter_initial)
         self.num_sheltered[0] = self.num_queue[0] - self.num_unsheltered[0]
+        self.h_t[0] = self.servers_initial
+        self.sh_t[0] = self.shelter_initial
         
         # numerical integration - loop through t
         for t in range(1,T):
             
-            # arrival/service rates and number servers at prev timestep
+            # arrival/service rates and number servers after timestep
             lmbda = self.arr_rate((t-1)*d) 
             mu = self.serve_rate((t-1)*d) 
             s = self.num_serve((t-1)*d)['after']
-            
-            # number of busy servers
-            m[1] = min(1,s)
-            m[N] = min(N,s)
+
+            m = [s for i in range(N+1)]
             
             # prob of being in state 0 or (N-1)
             self.p[0][t] = (self.p[0][t-1] * (1-lmbda*d)) + (self.p[1][t-1] * (mu*m[1]*d))
             self.p[N][t] = (self.p[N][t-1] * (1-mu*m[N]*d)) + (self.p[N-1][t-1] * (lmbda*d))
             
             # loop through each state n
-            for n in range(1,N):
-                # number of servers busy in next state     
-                m[n+1] = min(n+1,s) 
-                
+            for n in range(1,N):           
                 # prob of being in other states
                 self.p[n][t] = (self.p[n-1][t-1] * lmbda*d) + (self.p[n][t-1] * (1-lmbda*d-mu*m[n]*d)) + (self.p[n+1][t-1] * (mu*m[n+1]*d))
             
             # number of servers and shelters at current timestep
             s = self.num_serve(t*d)['before']
-            shelt = self.num_shelt(t*d)['before']
+            shelt = self.num_shelt(t*d)
+            self.h_t[t] = s
+            self.sh_t[t] = shelt
             
             for n in range(N+1):                
                 # expected values for outputs
                 self.num_sys[t] += n * self.p[n][t]
-                extra_queue = max(0,n-s) * self.p[n][t]
-                self.num_queue[t] += extra_queue
-                extra_unsheltered = max(0,n-s-shelt) * self.p[n][t]
-                self.num_unsheltered[t] += extra_unsheltered
-                extra_sheltered = extra_queue - extra_unsheltered
-                self.num_sheltered[t] += extra_sheltered
+                #extra_queue = max(0,n-s) * self.p[n][t]
+                #self.num_queue[t] += extra_queue
+                #extra_unsheltered = max(0,n-s-shelt) * self.p[n][t]
+                #self.num_unsheltered[t] += extra_unsheltered
+                #extra_sheltered = extra_queue - extra_unsheltered
+                #self.num_sheltered[t] += extra_sheltered
                 
                 # probs of number in q and unsheltered
-                self.p_q[max(0,n-s)][t] += self.p[n][t]
-                self.p_unsh[max(0,n-s-shelt)][t] += self.p[n][t]
-                self.p_sh[min(max(0,n-s),shelt)][t] += self.p[n][t]
+                #self.p_q[max(0,n-s)][t] += self.p[n][t]
+                #self.p_unsh[max(0,n-s-shelt)][t] += self.p[n][t]
+                #self.p_sh[min(max(0,n-s),shelt)][t] += self.p[n][t]
                 
         # average over time of the expected value of number unshelterd - add up to point t
-        self.num_unsheltered_avg = sum(self.num_unsheltered)/len(self.num_unsheltered)
-        self.num_sheltered_avg = sum(self.num_sheltered)/len(self.num_sheltered)
+        #self.num_unsheltered_avg = sum(self.num_unsheltered)/len(self.num_unsheltered)
+        #self.num_sheltered_avg = sum(self.num_sheltered)/len(self.num_sheltered)
+        self.y = (self.server_build_rate[0] - 25)**2
+        self.num_sys_2 = self.num_sys[T-1]**2
+        self.h_2 = self.server_build_rate[0]**2
                 
 def mms_steadystate(lmbda, s, mu):
     """
