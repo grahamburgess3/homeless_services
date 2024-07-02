@@ -1,3 +1,5 @@
+#### NOTE: This is the cleanest way of computing the size of the unsheltered Q at some time t using the fluid model. This is, however, different from that used in the PSOR paper since in that version it had to be compatible with the IPOPT solver in Pyomo, and the below is not (due to making a list with the Pyomo Indexed Var, and due to using functions within numpy)
+
 import math
 import numpy as np
 
