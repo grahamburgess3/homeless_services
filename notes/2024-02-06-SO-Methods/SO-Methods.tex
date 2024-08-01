@@ -93,6 +93,14 @@ If the algorithm gets stuck in the wrong area (due to simulation noise) because 
 
 \subsection{GMRF}
 
+Model execution is too slow to model even a fraction of the optimal solutions. Ranking and selection typically simulate all and then reach some guarantee of PCS (frequentist). Adaptive Random Search if its impossible to simulate everything. this paper looks for R+S style guarantees with an efficient search, learning the spatial correlations along the way. Multi-resolution framework: region-level learning and solution-level learning.
+
+The precision matrix is the inverse of the covariance matrix for a random vector. The diagonals are 'conditional precisions' - i.e. the inverse of the conditional variances (the variances given knowledge of all other elements of the random vector). The non-diagonal elements are 'conditional covariance' - i.e. the covariance given knowledge of all other elements of random vector and can be normalised to 'conditional correlation'. Can accept these meanings of the precision matrix intuitively, but have not studied a proof.
+
+The neighbourhood structure of a graph can define the non-zero entries of a precision matrix. The authors introduce parameters $\boldsymbol{\theta}$ where $\theta_0$ is the conditional precision of each solution and $\theta_j$ is the conditional correlation if two solutions differ by one unit in the $j$th dimension. This means response surfaces can change more rapidly in one direction compared to another. $\boldsymbol{\theta}$ entries are all between zero and one, we want positive correlations but should be below one. These parameters are estimated with MLE.
+
+So $\boldsymbol{y}$ is a vector of objective function values (one entry for each solution) and $\boldsymbol{y}$ is unknown but we model it as a realisation of a GMRF as defined. Interestd in the conditional distribution of the GMRF given the simulation output at the design points (feasible solutions which have been simulated). Given a vector of sample means at the design points, they prove a conditional distribution of the GMRf. 
+
 \subsection{RSM in a discrete setting}
 
 Response Surface Optimization with Discrete Variables (2004)
