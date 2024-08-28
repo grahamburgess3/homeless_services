@@ -2,6 +2,7 @@
 
 import math
 import numpy as np
+import matplotlib.pyplot as plt
 
 class FluidFlowModel():
 
@@ -74,3 +75,22 @@ class FluidFlowModel():
             unsh = self.evaluate_queue_size(t)
             self.u.append(unsh)
             self.u_sq.append(unsh**2)
+
+    def plot(self, horizon):
+        # general plotting
+        fig, ax = plt.subplots()
+        ymax = max(self.h + self.s + self.u)
+        
+        # plot solution
+        x = [t/365 for t in range(horizon)]
+        ax.plot(x, self.h, color = 'green')
+        ax.plot(x, self.s, color = 'orange')
+        ax.plot(x, self.u, color = 'red')
+        ax.set(xlabel='t (yrs)', ylabel='Number of people',
+               title='Number of people housed/sheltered/unsheltered')
+        ax.legend(["$h_t$", "$s_t$", "$u_t$"], loc="upper left")
+        ax.grid()
+        ax.set_ylim(0,ymax*1.05)
+        
+        # general
+        plt.show()
