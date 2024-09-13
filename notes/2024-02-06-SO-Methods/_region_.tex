@@ -1,0 +1,27 @@
+\message{ !name(SO-Methods.tex)}\documentclass{article}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+
+\title{SO methods}
+\author{Graham Burgess}
+\date{February 2024}
+
+\begin{document}
+
+\message{ !name(SO-Methods.tex) !offset(96) }
+ given the data is estimated, using estimates of parameters within the matrix. The computationally expensive bit is inverting the conditional precision matrix. But because it is sparse (due to neighbourhood structre and Markov property and due to the diagonal nature of the intrinsic noise matrix) and because only a small number of matrix elements are actually needed for the computation, matrix techniques which exploit these characteristics can be used. \newline
+
+The convergence of this algorithm to the optimal solution as the number of sim reps goes to inf is based on the proof that with probability one, every solution will be simulated infinitely often given this algorithm.  \newline
+
+A regional level approachis also given where there are GMRFs where each node corresponds to a region of the solution space, and there are also within-region solution-level GMRFs. This type of approaches is considered helpful for a problem with low dimensionality but a very large number of solutions. \newline
+
+\subsubsection{Extenstions to GMRF}
+
+
+
+
+\message{ !name(SO-Methods.tex) !offset(134) }
+
+\end{document}

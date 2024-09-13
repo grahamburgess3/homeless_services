@@ -97,9 +97,9 @@ Model execution is too slow to model even a fraction of the optimal solutions. R
 
 The precision matrix is the inverse of the covariance matrix for a random vector. The diagonals are 'conditional precisions' - i.e. the inverse of the conditional variances (the variances given knowledge of all other elements of the random vector). The non-diagonal elements are 'conditional covariance' - i.e. the covariance given knowledge of all other elements of random vector and can be normalised to 'conditional correlation'. \textbf{Unfinished: } Can accept these meanings of the precision matrix intuitively, but have not studied a proof. \newline
 
-The neighbourhood structure of a graph can define the non-zero entries of a precision matrix. The authors introduce parameters $\boldsymbol{\theta}$ where $\theta_0$ is the conditional precision of each solution and $\theta_j$ is the conditional correlation if two solutions differ by one unit in the $j$th dimension. This means response surfaces can change more rapidly in one direction compared to another. $\boldsymbol{\theta}$ entries are all between zero and one, we want positive correlations but should be below one. These parameters are estimated with MLE. \newline
+The neighbourhood structure of a graph can define the non-zero entries of a precision matrix. The authors introduce parameters $\boldsymbol{\theta}$ where $\theta_0$ is the conditional precision of each solution and $\theta_j$ is the conditional correlation if two solutions differ by one unit in the $j$th dimension. This means response surfaces can change more rapidly in one direction compared to another. $\boldsymbol{\theta}$ entries are all between zero and one, we want positive correlations but should be below one. These parameters are estimated with MLE and the initial simulation output, using profile log likelihood. \newline
 
-So $\boldsymbol{y}$ is true objective function (objective function is the expectation random $Y$). $\boldsymbol{y}$ is unknown but we model it as $\mathbb{Y}$, a realisation of a GMRF as defined. What we observe is realisations of $Y$ which is modelled as the GMRF + noise. We obtain sample means which we also model as GMRF + noise. This latter noise is modelled as Gaussian with diagonal precision matrix if CRN not used. Interested in the conditional distribution of $\mathbb{Y}$ given the simulation output at the design points (feasible solutions which have been simulated). Given a vector of sample means at the design points, the authors prove a conditional distribution of $\mathbb{Y}$. \newline
+So random vector $Y$ is unknown, $\boldsymbol{y}=\mathbb{E}[Y]$ is true objective function. $\boldsymbol{y}$ is also unknown but we model it as $\mathbb{Y}$, a realisation of a GMRF as defined. What we observe is $y$ + noise which is modelled as another GMRF: $\mathbb{Y}^{\epsilon} = \mathbb{Y} + \epsilon$. The noise is modelled as Gaussian with diagonal precision matrix if CRN not used. Interested in the conditional distribution of $\mathbb{Y}$ given the simulation output at the design points (feasible solutions which have been simulated). Given a vector of sample means at the design points, the authors prove a conditional distribution of $\mathbb{Y}$. They do this by first writing out the joint distribution of $(y_1,y_2,y_2^{\epsilon})$ where subscript $2$ and $1$ represent solutions which have and have not been simulated, respectively.\newline
 
 Optimisation performed using Complete Expected Improvement which averages over the both full conditional joint distribution of $\mathbb{Y}$ and the simulation noise. EI estimates the optimality gap given the current data (Knowledge gradient looks at the predictive distribution from simulating other solutions more and picks that which predicts the best improvement - useful when more simulation is expensive and you want to see if its worth it. \newline
 
@@ -113,6 +113,25 @@ The convergence of this algorithm to the optimal solution as the number of sim r
 
 A regional level approachis also given where there are GMRFs where each node corresponds to a region of the solution space, and there are also within-region solution-level GMRFs. This type of approaches is considered helpful for a problem with low dimensionality but a very large number of solutions. \newline
 
+\subsubsection{Extenstions to GMRF}
+
+There are several new algorithms which extend GMIA in one way or another. Examples include projected GMIA (pGMIA) (Li and Song), rapid GMIA (rGIA) (Mark Semelhago) and additive GMIA (aGMIA) (Harun) - these mostly address computational challenges e.g. in matrix computation.
+
+\subsubsection{Multi Fidelity GMRF}
+
+There is also a paper on using multi fidelity models within the GMRF framework. Rough outline of the features of this approach:
+
+\begin{itemize}
+\item Graph duplicated for each low fidelity model used, to represent the low fidelity responses. Each 'layer' connected to high fidelity 'layer' with an edge (i.e. conditional correlation) but no edges between solutions in a layer 
+\item Different constant $\mu_i$ used as the 'initial' prior information for each model $i$ (each 'layer' in the graph), but the constant still appears to be the same across each solution for a model. This constant 'estimated' using the initial simulation output from a selection of solutions - not clear how this is estimated. Perhaps this prior can be bet
+\item Additional parameters ($\rho$) (which must be estimated using MLE) to indicate the conditional correlation of each solution so its counterpart in the other low fidelity models. This is the means by which information from the low fidelity can influence the search of the algorithm.
+\item The precision matrix at each iteration of the routine is updated to incorporate the additional 'precision' which is brought about from the extra high-fidelity simulation which has been performed. This effectively reduces the conditional correlation between a solution and its low-fidelity coutnerparts, and increases the conditional correlation between solution neighbours on the high-fidelity 'layer'.
+\item The authors then have a theorem (without proof) which gives the conditional distribution for the GMRF at iteration $t$, which is equivalent to the conditional distribution given in the origianl GMRF paper but there is an additional term which accounts for the additional information from the low fidelity model(s). It is supposed that this term goes to zero as more and more high fidelity simulations are performed.
+\item Their algorithm is what you might expect. They have to update the precision matrix at each iteration because it incorporates the changing conditional precisions as more simulation is performed.
+\item They compare their algorithm to GMIA and also to a version where the model the error between high and low fidelities with a GMRF.
+\end{itemize}
+
+My overall thoughts are that they have some good ideas but I think there could be better ways of incorporating the information from lower fidelity models most efficiently. For example, they still have flat priors for each model. They also have to recalculate the precision matrix at each iteration which presumably is costly. 
 
 \subsection{RSM in a discrete setting}
 
