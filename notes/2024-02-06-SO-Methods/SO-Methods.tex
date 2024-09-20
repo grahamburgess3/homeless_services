@@ -103,7 +103,9 @@ The neighbourhood structure of a graph can define the non-zero entries of a prec
 
 So random vector $Y$ is unknown, $\boldsymbol{y}=\mathbb{E}[Y]$ is true objective function. $\boldsymbol{y}$ is also unknown but we model it as $\mathbb{Y}$, a realisation of a GMRF as defined. What we observe is $y$ + noise which is modelled as another GMRF: $\mathbb{Y}^{\epsilon} = \mathbb{Y} + \epsilon$. The noise is modelled as Gaussian with diagonal precision matrix if CRN not used. Interested in the conditional distribution of $\mathbb{Y}$ given the simulation output at the design points (feasible solutions which have been simulated). Given a vector of sample means at the design points, the authors prove a conditional distribution of $\mathbb{Y}$. They do this by first writing out the joint distribution of $(y_1,y_2,y_2^{\epsilon})$ where subscript $2$ and $1$ represent solutions which have and have not been simulated, respectively.\newline
 
-Optimisation performed using Complete Expected Improvement which averages over the both full conditional joint distribution of $\mathbb{Y}$ and the simulation noise. EI estimates the optimality gap given the current data (Knowledge gradient looks at the predictive distribution from simulating other solutions more and picks that which predicts the best improvement - useful when more simulation is expensive and you want to see if its worth it. \newline
+Optimisation performed using Complete Expected Improvement which averages over the both full conditional joint distribution of $\mathbb{Y}$ and the simulation noise. EI estimates the optimality gap given the current data (Knowledge gradient looks at the predictive distribution from simulating other solutions more and picks that which predicts the best improvement - useful when more simulation is expensive and you want to see if its worth it. The notion of EI comes from Jones et al and the idea is possible improvements (since the objective value at different points is unknown) are weighted by the prob density at these opints. In original EI for deterministic models, the difference between current best (with known value) and new point was modelled as normal rv, in our problem the current best is also rv, but the difference is still a normal rv. The closed form expression for EI comes from translating the expected vallue into an integration and doing integration by parts. \newline
+
+SKO by Huang 2006 also discusses efficient black box estimation with sequential kriging, and their second paper in 2006 discusses a multi fidelity version where they introduce augmented EI which considers the fidelity level of the proposed point using $\alpha_1$ (correlation between two fidelities - accounts for reduction in reward if lower fidelity model used), $\alpha_2$ (accounts for diminishing returns for extra replicates as prediction becomes more accurate with model of proposed fidelity) $\alpha_3$ (the ratio of the cost between the proposed system and the hightest fidelity system). \newline
 
 \textbf{Question: } Claim is that the average is over the full conditional joint dist of $\mathbb{Y}$ and the simulation noise, but isn't the latter incorporated into the former in the conditional distribution of the former? Is the simulation noise maybe also explicitly acknowledged because the CEI takes a difference between two random variables (obj val at current best and add proposed)? \newline
 
@@ -117,11 +119,29 @@ A regional level approachis also given where there are GMRFs where each node cor
 
 \subsubsection{Extenstions to GMRF}
 
-There are several new algorithms which extend GMIA in one way or another. Examples include projected GMIA (pGMIA) (Li and Song), rapid GMIA (rGIA) (Mark Semelhago) and additive GMIA (aGMIA) (Harun) - these mostly address computational challenges e.g. in matrix computation.
+There are several new algorithms which extend GMIA in one way or another. Examples include projected GMIA (pGMIA) (Li and Song), rapid GMIA (rGIA) (Mark Semelhago) and additive GMIA (aGMIA) (Harun) - these mostly address computational challenges e.g. in matrix computation. \newline
+
+*Projected GMIA*: The computational cost of inferences increases exponentially with number of dimensions in GMIA. pGMIA (and pGMIA+) seems similar to the multi-resolution GMIA proposed in the original GMRF paper, however pGMIA exploits the depdence between layers since there is dependence due to averaging. But basically it collapses dimensions by taking an average. It then does a region layer search and a solution layer search when deciding where to sample next. It bascailly 'projects' the solution space onto a lower dimensional space. \newline
+
+*Rapid GMIA*: Infrequent evaluations of full conditional dist with rapid learning on a smaller subset of solution space. Effectively at each iteration, a subset of promising solutions (ranked by sample means) are selected and only the conditional distributions for these solutions is updated while searching for a good next solution to evaluate. \newline
+
+*Additive GMIA* Computational cost of posterior update increases quadratically with the number of feasible solutions. Decompose the prior into additive form as an approx. 
+
+*iGMRFs*. Problems with original parameterisation of the precision matrix and estimating the parameterrs wiht MLE:
+
+\begin{itemize}
+\item positive-definiteness must be checked for every allowable combination of param vals
+\item small param values lead to a mean-reverting GMRF. (see paper for nice example of this)
+  \item further more: interepretation of $\theta$s is different for feasible points in the interior and on the boundary of the feasible region. (again, see paper for nice example)
+\end{itemize}
+
+First order iGMRFs are suitable when we have prior belief about the structure of the precision but do not have a prior belief about the mean. They are invariant to the addition of a constant. 
 
 \subsubsection{Multi Fidelity GMRF}
 
 There is also a paper on using multi fidelity models within the GMRF framework. Rough outline of the features of this approach:
+
+Assume no heirarchy in the models of different fidelity. Assume computational cost is negligible of low fidelity models. Assume already know the low fidelity evaluations for entire solution space.
 
 \begin{itemize}
 \item Graph duplicated for each low fidelity model used, to represent the low fidelity responses. Each 'layer' connected to high fidelity 'layer' with an edge (i.e. conditional correlation) but no edges between solutions in a layer 

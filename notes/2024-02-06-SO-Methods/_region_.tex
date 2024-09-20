@@ -10,83 +10,8 @@
 
 \begin{document}
 
-\message{ !name(SO-Methods.tex) !offset(88) }
-The neighbourhood structure of a graph can define the non-zero entries of a precision matrix. The authors introduce parameters $\boldsymbol{\theta}$ where $\theta_0$ is the conditional precision of each solution and $\theta_j$ is the conditional correlation if two solutions differ by one unit in the $j$th dimension. This means response surfaces can change more rapidly in one direction compared to another. $\boldsymbol{\theta}$ entries are all between zero and one, we want positive correlations but should be below one. These parameters are estimated with MLE and the initial simulation output, using profile log likelihood. \newline
-
-So random vector $Y$ is unknown, $\boldsymbol{y}=\mathbb{E}[Y]$ is true objective function. $\boldsymbol{y}$ is also unknown but we model it as $\mathbb{Y}$, a realisation of a GMRF as defined. What we observe is $y$ + noise which is modelled as another GMRF: $\mathbb{Y}^{\epsilon} = \mathbb{Y} + \epsilon$. The noise is modelled as Gaussian with diagonal precision matrix if CRN not used. Interested in the conditional distribution of $\mathbb{Y}$ given the simulation output at the design points (feasible solutions which have been simulated). Given a vector of sample means at the design points, the authors prove a conditional distribution of $\mathbb{Y}$. They do this by first writing out the joint distribution of $(y_1,y_2,y_2^{\epsilon})$ where subscript $2$ and $1$ represent solutions which have and have not been simulated, respectively.\newline
-
-Optimisation performed using Complete Expected Improvement which averages over the both full conditional joint distribution of $\mathbb{Y}$ and the simulation noise. EI estimates the optimality gap given the current data (Knowledge gradient looks at the predictive distribution from simulating other solutions more and picks that which predicts the best improvement - useful when more simulation is expensive and you want to see if its worth it. \newline
-
-\textbf{Question: } Claim is that the average is over the full conditional joint dist of $\mathbb{Y}$ and the simulation noise, but isn't the latter incorporated into the former in the conditional distribution of the former? Is the simulation noise maybe also explicitly acknowledged because the CEI takes a difference between two random variables (obj val at current best and add proposed)? \newline
-
-The solution-level algorithm is what I'd expect, except interesting to note that after the candidate solution is found which maximises the CEI, extra simulation budget is expended on \emph{both} that solution \emph{and} the current best, before proceeding. \newline
-
-At each computation of the CEI (note: this computation is needed for n-1 solutions at every iteration of the algorithm) - the conditional distribution $\mathbb{Y}$ given the data is estimated, using estimates of parameters within the matrix. The computationally expensive bit is inverting the conditional precision matrix. But because it is sparse (due to neighbourhood structre and Markov property and due to the diagonal nature of the intrinsic noise matrix) and because only a small number of matrix elements are actually needed for the computation, matrix techniques which exploit these characteristics can be used. \newline
-
-The convergence of this algorithm to the optimal solution as the number of sim reps goes to inf is based on the proof that with probability one, every solution will be simulated infinitely often given this algorithm.  \newline
-
-A regional level approachis also given where there are GMRFs where each node corresponds to a region of the solution space, and there are also within-region solution-level GMRFs. This type of approaches is considered helpful for a problem with low dimensionality but a very large number of solutions. \newline
-
-\subsubsection{Extenstions to GMRF}
-
-There are several new algorithms which extend GMIA in one way or another. Examples include projected GMIA (pGMIA) (Li and Song), rapid GMIA (rGIA) (Mark Semelhago) and additive GMIA (aGMIA) (Harun) - these mostly address computational challenges e.g. in matrix computation.
-
-\subsubsection{Multi Fidelity GMRF}
-
-There is also a paper on using multi fidelity models within the GMRF framework. Rough outline of the features of this approach:
-
-\begin{itemize}
-\item Graph duplicated for each low fidelity model used, to represent the low fidelity responses. Each 'layer' connected to high fidelity 'layer' with an edge (i.e. conditional correlation) but no edges between solutions in a layer 
-\item Different constant $\mu_i$ used as the 'initial' prior information for each model $i$ (each 'layer' in the graph), but the constant still appears to be the same across each solution for a model. This constant 'estimated' using the initial simulation output from a selection of solutions - not clear how this is estimated. Perhaps this prior can be bet
-\item Additional parameters ($\rho$) (which must be estimated using MLE) to indicate the conditional correlation of each solution so its counterpart in the other low fidelity models. This is the means by which information from the low fidelity can influence the search of the algorithm.
-\item The precision matrix at each iteration of the routine is updated to incorporate the additional 'precision' which is brought about from the extra high-fidelity simulation which has been performed. This effectively reduces the conditional correlation between a solution and its low-fidelity coutnerparts, and increases the conditional correlation between solution neighbours on the high-fidelity 'layer'.
-\item The authors then have a theorem (without proof) which gives the conditional distribution for the GMRF at iteration $t$, which is equivalent to the conditional distribution given in the origianl GMRF paper but there is an additional term which accounts for the additional information from the low fidelity model(s). It is supposed that this term goes to zero as more and more high fidelity simulations are performed.
-\item Their algorithm is what you might expect. They have to update the precision matrix at each iteration because it incorporates the changing conditional precisions as more simulation is performed.
-\item They compare their algorithm to GMIA and also to a version where the model the error between high and low fidelities with a GMRF.
-\end{itemize}
-
-My overall thoughts are that they have some good ideas but I think there could be better ways of incorporating the information from lower fidelity models most efficiently. For example, they still have flat priors for each model. They also have to recalculate the precision matrix at each iteration which presumably is costly. 
-
-\subsection{RSM in a discrete setting}
-
-Response Surface Optimization with Discrete Variables (2004)
-
-\section{Continuous decision variables}
-
-\subsection{Sample Average Approximation}
-
-``A Guide to Sample-Average Approximation'' - Kim, Ragu, Shane Henderson
-Multi-dimensional newsvendor problem analysis shows that differentiability and expectation are interchangeable. The true function and the sample problem have the same nice properties of smoothness and concavity. So then - sufficiently large N -> effectively concave and deterministic opt can be used to find optimum.
-
-We can say that SAA is appropriate for a problem if there is a structure to the sample average function which allows a nice deterministic optimisation solver to be used, and that the true function can be said to share that same structure.
-
-\subsubsection{Infinite dimension SO problems - (function decisions) - approx with SAA}
-
-Singham et al. 
-
-\subsubsection{Retrospective framework}
-
-How this differs from SAA
-
-\subsection{Stochastic Approximation}
-
-\subsection{Meta-modelling}
-
-\subsubsection{Trust-region methods}
-
-\subsubsection{Response Surface Methodology}
-
-STRONG
-
-\subsubsection{Global meta models}
-
-BO
-
-\subsubsection{Multi-fidelity models}
-
-A simulation-based optimization algorithm for dynamic large-scale urban transportation problems - Osorio and Chong 2018 \newline
-
-Zirui Cao et al. CLUSTER-BASED SAMPLING ALLOCATION FOR MULTI-FIDELITY SIMULATION OPTIMIZATION (WSC 2023)
+\message{ !name(SO-Methods.tex) !offset(94) }
+$\alpha_2$
+\message{ !name(SO-Methods.tex) !offset(164) }
 
 \end{document}
-\message{ !name(SO-Methods.tex) !offset(-92) }

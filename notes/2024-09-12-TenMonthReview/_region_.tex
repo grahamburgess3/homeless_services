@@ -4,17 +4,84 @@
 \usepackage{amsmath} % Required for flexibility in mathematical equations
 \usepackage{amssymb} % Required for certain math symbols e.g. E[.]
 
-\title{Modelling and optimising the housing of homeless populations}
+\title{Modelling and optimising the housing of homeless populations: ten month PhD review}
 \author{Graham Burgess}
 \date{September 2024}
 
 \begin{document}
 
-\message{ !name(TenMonthReview.tex) !offset(11) }
+\message{ !name(TenMonthReview.tex) !offset(-3) }
 
 
-\subsection{Modelling and optimisation in healthcare}
-\subsection{Modeling of homeless care settings}
-\message{ !name(TenMonthReview.tex) !offset(36) }
+\maketitle
+
+\section{Introduction}
+
+\begin{itemize}
+\item Homelessness in San Francisco Bay Area
+\item Resources available: housing and shelter
+\item Objectives and trade-offs
+\item Constraints including time-dependent shape constraints
+\item Models available (stochastic simulation, $M_t$/$M$/$h_t$ queue, fluid flow model)
+\end{itemize}
+
+\section{Literature Review}
+
+\subsection{Modelling and optimisation in healthcare settings}
+
+
+
+\subsection{Modelling and optimisation in homeless care settings}
+
+For example simulation modelling of shelter for runaway homeless youths (\cite{kaya2022discrete}).
+
+\subsection{Simulation optimisation (SO)}
+
+\subsubsection{Overview of SO methods}
+
+\begin{itemize}
+\item Discrete SO (ranking and selection, random search, integer-ordered methods)
+\item Continuous SO (sample average approximation, stochastic approximation, meta modelling)
+\end{itemize}
+
+\subsubsection{Multi fidelity SO methods}
+
+\begin{itemize}
+\item From deterministic optimisation to simulation optimisation
+\item Ordinal transformation with optimal sampling
+\item Modelling the error of a low-fidelity model
+\begin{itemize}
+\item Polynomial error terms
+\item Gaussian Process error terms
+\end{itemize}
+\end{itemize}
+
+\section{Deterministic optimisation with low-fidelity model}
+
+\begin{itemize}
+\item Fluid flow model
+\item Optimisation formulations
+\item Numerical results
+\item Further work on optimisation formulations
+\end{itemize}
+
+\section{Discussion of uncertainty}
+
+\begin{itemize}
+\item Stochastic uncertainty
+\item Input model uncertainty
+\end{itemize}
+\section{Potential contributions in multi fidelity SO}
+
+\begin{itemize}
+\item Using low-fidelity models to quickly compute gradients in RSPLINE/DSA
+\item Adding prior information to GMRF using low-fidelity model
+  \item Modelling errors of the low fidelity model using GMRF
+\end{itemize}
+\section{Conclusion}
+
+\bibliography{TenMonthReview.bib}
+\bibliographystyle{apalike}
 
 \end{document}
+\message{ !name(TenMonthReview.tex) !offset(-87) }
