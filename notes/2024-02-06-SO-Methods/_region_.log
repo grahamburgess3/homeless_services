@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  19 SEP 2024 16:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  23 SEP 2024 17:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -156,44 +156,1192 @@ No auxiliary output files.
 
 Preview: Fontsize 10pt
 Preview: PDFoutput 1
-)  !name(SO-Methods.tex) !offset(94) 
-./_region_.tex:14: Preview: Snippet 1 started.
-<-><->
-      
-l.14 $
-      \alpha_2$
-Not a real error.
-
-LaTeX Font Info:    Trying to load font information for U+msa on input line 14.
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+)  !name(SO-Methods.tex) !offset(-3) 
+LaTeX Font Info:    Trying to load font information for U+msa on input line 16.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 14.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 16.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Preview: Tightpage -32891 -32891 32891 32891
-./_region_.tex:14: Preview: Snippet 1 ended.(282168+98303x713238).
+./_region_.tex:18: Preview: Snippet 1 started.
 <-><->
       
-l.14 $\alpha_2$
-               
+l.18 \section
+             {Introduction}
 Not a real error.
 
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]  !name(SO-Methods.tex) !offset(164)  ) 
+Preview: Tightpage -32891 -32891 32891 32891
+./_region_.tex:18: Preview: Snippet 1 ended.(655359+0x22609920).
+<-><->
+      
+l.18 \section{Introduction}
+                           
+Not a real error.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+]
+./_region_.tex:61: Preview: Snippet 2 started.
+<-><->
+      
+l.61 \section
+             {Integer ordered decision variables}
+Not a real error.
+
+./_region_.tex:61: Preview: Snippet 2 ended.(655359+183500x22609920).
+<-><->
+      
+l.61 \section{Integer ordered decision variables}
+                                                 
+Not a real error.
+
+[2
+
+]
+./_region_.tex:65: Preview: Snippet 3 started.
+<-><->
+      
+l.65 \subsection
+                {Discrete Stochastic Approximation}
+Not a real error.
+
+./_region_.tex:65: Preview: Snippet 3 ended.(546132+152916x22609920).
+<-><->
+      
+l.65 ...section{Discrete Stochastic Approximation}
+                                                  
+Not a real error.
+
+[3
+
+]
+./_region_.tex:67: Preview: Snippet 4 started.
+<-><->
+      
+l.67 ...tive function on the discrete space (say $
+                                                  f$) is extended to the con...
+Not a real error.
+
+./_region_.tex:67: Preview: Snippet 4 ended.(455111+127431x391398).
+<-><->
+      
+l.67 ...ve function on the discrete space (say $f$
+                                                  ) is extended to the conti...
+Not a real error.
+
+[4]
+./_region_.tex:67: Preview: Snippet 5 started.
+<-><->
+      
+l.67 ...is extended to the continuous space (say $
+                                                  \tilde{f}$) and SA is perf...
+Not a real error.
+
+./_region_.tex:67: Preview: Snippet 5 ended.(610631+127431x391398).
+<-><->
+      
+l.67 ...d to the continuous space (say $\tilde{f}$
+                                                  ) and SA is performed on t...
+Not a real error.
+
+[5]
+./_region_.tex:70: Preview: Snippet 6 started.
+<-><->
+      
+l.70 ...e linear interpolation between points in $
+                                                  f$ is performed to constru...
+Not a real error.
+
+./_region_.tex:70: Preview: Snippet 6 ended.(455111+127431x391398).
+<-><->
+      
+l.70 ...linear interpolation between points in $f$
+                                                   is performed to construct...
+Not a real error.
+
+[6]
+./_region_.tex:70: Preview: Snippet 7 started.
+<-><->
+      
+l.70 ... points in $f$ is performed to construct $
+                                                  \tilde{f}$. Then, followin...
+Not a real error.
+
+./_region_.tex:70: Preview: Snippet 7 ended.(610631+127431x391398).
+<-><->
+      
+l.70 ... $f$ is performed to construct $\tilde{f}$
+                                                  . Then, following an initi...
+Not a real error.
+
+[7]
+./_region_.tex:70: Preview: Snippet 8 started.
+<-><->
+      
+l.70 ...de{f}$. Then, following an initial guess $
+                                                  \theta_0$ of the minimiser...
+Not a real error.
+
+./_region_.tex:70: Preview: Snippet 8 ended.(455111+98303x601658).
+<-><->
+      
+l.70 ...hen, following an initial guess $\theta_0$
+                                                   of the minimiser of $\til...
+Not a real error.
+
+[8]
+./_region_.tex:70: Preview: Snippet 9 started.
+<-><->
+      
+l.70 ...ial guess $\theta_0$ of the minimiser of $
+                                                  \tilde{f}$, gradient desce...
+Not a real error.
+
+./_region_.tex:70: Preview: Snippet 9 ended.(610631+127431x391398).
+<-><->
+      
+l.70 ...$\theta_0$ of the minimiser of $\tilde{f}$
+                                                  , gradient descent steps a...
+Not a real error.
+
+[9]
+./_region_.tex:70: Preview: Snippet 10 started.
+<-><->
+      
+l.70 ...ion of the integer points either side of $
+                                                  \theta_0$. The step sizes ...
+Not a real error.
+
+./_region_.tex:70: Preview: Snippet 10 ended.(455111+98303x601658).
+<-><->
+      
+l.70 ...e integer points either side of $\theta_0$
+                                                  . The step sizes are a seq...
+Not a real error.
+
+[10]
+./_region_.tex:72: Preview: Snippet 11 started.
+<-><->
+      
+l.72 When $
+           d>1$, the extension from $f$ to $\tilde{f}$ for $d>1$ is done by ...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 11 ended.(455111+25623x1542593).
+<-><->
+      
+l.72 When $d>1$
+               , the extension from $f$ to $\tilde{f}$ for $d>1$ is done by ...
+Not a real error.
+
+[11]
+./_region_.tex:72: Preview: Snippet 12 started.
+<-><->
+      
+l.72 When $d>1$, the extension from $
+                                     f$ to $\tilde{f}$ for $d>1$ is done by ...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 12 ended.(455111+127431x391398).
+<-><->
+      
+l.72 When $d>1$, the extension from $f$
+                                        to $\tilde{f}$ for $d>1$ is done by ...
+Not a real error.
+
+[12]
+./_region_.tex:72: Preview: Snippet 13 started.
+<-><->
+      
+l.72 When $d>1$, the extension from $f$ to $
+                                            \tilde{f}$ for $d>1$ is done by ...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 13 ended.(610631+127431x391398).
+<-><->
+      
+l.72 ...>1$, the extension from $f$ to $\tilde{f}$
+                                                   for $d>1$ is done by part...
+Not a real error.
+
+[13]
+./_region_.tex:72: Preview: Snippet 14 started.
+<-><->
+      
+l.72 ...he extension from $f$ to $\tilde{f}$ for $
+                                                  d>1$ is done by partitioni...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 14 ended.(455111+25623x1542593).
+<-><->
+      
+l.72 ...xtension from $f$ to $\tilde{f}$ for $d>1$
+                                                   is done by partitioning t...
+Not a real error.
+
+[14]
+./_region_.tex:72: Preview: Snippet 15 started.
+<-><->
+      
+l.72 ...the convex hulls in the collection. Then $
+                                                  \tilde{f}$ is constructed ...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 15 ended.(610631+127431x391398).
+<-><->
+      
+l.72 ... hulls in the collection. Then $\tilde{f}$
+                                                   is constructed as a linea...
+Not a real error.
+
+[15]
+./_region_.tex:72: Preview: Snippet 16 started.
+<-><->
+      
+l.72 ...s constructed as a linear combination of $
+                                                  f$ at all points on the su...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 16 ended.(455111+127431x391398).
+<-><->
+      
+l.72 ...constructed as a linear combination of $f$
+                                                   at all points on the surr...
+Not a real error.
+
+[16]
+./_region_.tex:72: Preview: Snippet 17 started.
+<-><->
+      
+l.72 ... multiple replications of simulation) of $
+                                                  f$ at the points on the co...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 17 ended.(455111+127431x391398).
+<-><->
+      
+l.72 ...ultiple replications of simulation) of $f$
+                                                   at the points on the conv...
+Not a real error.
+
+[17]
+./_region_.tex:72: Preview: Snippet 18 started.
+<-><->
+      
+l.72 ...modularity of the objective function (or $
+                                                  L^{\text{sharp}}$-convex) ...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 18 ended.(556402+0x1731341).
+<-><->
+      
+l.72 ... objective function (or $L^{\text{sharp}}$
+                                                  -convex) (as defined in th...
+Not a real error.
+
+[18]
+./_region_.tex:72: Preview: Snippet 19 started.
+<-><->
+      
+l.72 ...his algorithm, sinc for multimodular (or $
+                                                  L^{\text{sharp}}$-convex) ...
+Not a real error.
+
+./_region_.tex:72: Preview: Snippet 19 ended.(556402+0x1731341).
+<-><->
+      
+l.72 ...nc for multimodular (or $L^{\text{sharp}}$
+                                                  -convex) functions, the ex...
+Not a real error.
+
+[19]
+./_region_.tex:74: Preview: Snippet 20 started.
+<-><->
+      
+l.74 Step-size at iteration $
+                             n$ is of the form $a/(b+n)$ where $a$ and $b$ a...
+Not a real error.
+
+./_region_.tex:74: Preview: Snippet 20 ended.(282168+0x393370).
+<-><->
+      
+l.74 Step-size at iteration $n$
+                                is of the form $a/(b+n)$ where $a$ and $b$ a...
+Not a real error.
+
+[20]
+./_region_.tex:74: Preview: Snippet 21 started.
+<-><->
+      
+l.74 Step-size at iteration $n$ is of the form $
+                                                a/(b+n)$ where $a$ and $b$ a...
+Not a real error.
+
+./_region_.tex:74: Preview: Snippet 21 ended.(491520+163840x2659441).
+<-><->
+      
+l.74 ... at iteration $n$ is of the form $a/(b+n)$
+                                                   where $a$ and $b$ are pos...
+Not a real error.
+
+[21]
+./_region_.tex:74: Preview: Snippet 22 started.
+<-><->
+      
+l.74 ...ation $n$ is of the form $a/(b+n)$ where $
+                                                  a$ and $b$ are positive co...
+Not a real error.
+
+./_region_.tex:74: Preview: Snippet 22 ended.(282168+0x346416).
+<-><->
+      
+l.74 ...ion $n$ is of the form $a/(b+n)$ where $a$
+                                                   and $b$ are positive cons...
+Not a real error.
+
+[22]
+./_region_.tex:74: Preview: Snippet 23 started.
+<-><->
+      
+l.74 ...$ is of the form $a/(b+n)$ where $a$ and $
+                                                  b$ are positive constants....
+Not a real error.
+
+./_region_.tex:74: Preview: Snippet 23 ended.(455111+0x281258).
+<-><->
+      
+l.74 ...is of the form $a/(b+n)$ where $a$ and $b$
+                                                   are positive constants. $...
+Not a real error.
+
+[23]
+./_region_.tex:74: Preview: Snippet 24 started.
+<-><->
+      
+l.74 ...here $a$ and $b$ are positive constants. $
+                                                  b$ is chosen as the total ...
+Not a real error.
+
+./_region_.tex:74: Preview: Snippet 24 ended.(455111+0x281258).
+<-><->
+      
+l.74 ...re $a$ and $b$ are positive constants. $b$
+                                                   is chosen as the total nu...
+Not a real error.
+
+[24]
+./_region_.tex:74: Preview: Snippet 25 started.
+<-><->
+      
+l.74 ...en as the total number of iterations and $
+                                                  a$ is selected by the user...
+Not a real error.
+
+./_region_.tex:74: Preview: Snippet 25 ended.(282168+0x346416).
+<-><->
+      
+l.74 ... as the total number of iterations and $a$
+                                                   is selected by the user b...
+Not a real error.
+
+[25]
+./_region_.tex:76: Preview: Snippet 26 started.
+<-><->
+      
+l.76 \subsection
+                {R-SPLINE}
+Not a real error.
+
+./_region_.tex:76: Preview: Snippet 26 ended.(539580+0x22609920).
+<-><->
+      
+l.76 \subsection{R-SPLINE}
+                          
+Not a real error.
+
+[26
+
+]
+./_region_.tex:86: Preview: Snippet 27 started.
+<-><->
+      
+l.86 \subsection
+                {COMPASS}
+Not a real error.
+
+./_region_.tex:86: Preview: Snippet 27 ended.(539580+0x22609920).
+<-><->
+      
+l.86 \subsection{COMPASS}
+                         
+Not a real error.
+
+[27
+
+]
+./_region_.tex:97: Preview: Snippet 28 started.
+<-><->
+      
+l.97 \subsection
+                {GMRF}
+Not a real error.
+
+./_region_.tex:97: Preview: Snippet 28 ended.(539580+0x22609920).
+<-><->
+      
+l.97 \subsection{GMRF}
+                      
+Not a real error.
+
+[28
+
+]
+./_region_.tex:101: Preview: Snippet 29 started.
+<-><->
+      
+l.101 ...ition of conditional independence (i.e. $
+                                                  \pi(x_i,x_j,x_{\{-ij\}}) \...
+Not a real error.
+
+./_region_.tex:101: Preview: Snippet 29 ended.(491520+233018x12527770).
+<-><->
+      
+l.101 ...pto f(x_i,x_{\{-ij\}})g(x_j,x_{\{-ij\}})$
+                                                  ) which holds when $Q_{ij}...
+Not a real error.
+
+[29]
+./_region_.tex:101: Preview: Snippet 30 started.
+<-><->
+      
+l.101 ...})g(x_j,x_{\{-ij\}})$) which holds when $
+                                                  Q_{ij}=0$. \newline
+Not a real error.
+
+./_region_.tex:101: Preview: Snippet 30 ended.(447828+187504x2181145).
+<-><->
+      
+l.101 ..._{\{-ij\}})$) which holds when $Q_{ij}=0$
+                                                  . \newline
+Not a real error.
+
+[30]
+./_region_.tex:103: Preview: Snippet 31 started.
+<-><->
+      
+l.103 ... involving the conditional distribution $
+                                                  \pi(x_A|x_B)$. With fairly...
+Not a real error.
+
+./_region_.tex:103: Preview: Snippet 31 ended.(491520+163840x2715949).
+<-><->
+      
+l.103 ...e conditional distribution $\pi(x_A|x_B)$
+                                                  . With fairly basic matrix...
+Not a real error.
+
+[31]
+./_region_.tex:103: Preview: Snippet 32 started.
+<-><->
+      
+l.103 ...ibution, one can derive expressions for $
+                                                  \mathbb{E}(x_i|x_{-i}), \t...
+Not a real error.
+
+./_region_.tex:103: Preview: Snippet 32 ended.(491520+163840x6587132).
+<-><->
+      
+l.103 ...{E}(x_i|x_{-i}), \text{Prec}(x_i|x_{-i})$
+                                                   and $\text{Corr}(x_i,x_j|...
+Not a real error.
+
+[32]
+./_region_.tex:103: Preview: Snippet 33 started.
+<-><->
+      
+l.103 ...i|x_{-i}), \text{Prec}(x_i|x_{-i})$ and $
+                                                  \text{Corr}(x_i,x_j|x_{-ij...
+Not a real error.
+
+./_region_.tex:103: Preview: Snippet 33 ended.(491520+187504x4786560).
+<-><->
+      
+l.103 ...{-i})$ and $\text{Corr}(x_i,x_j|x_{-ij})$
+                                                  . The latter being: $\text...
+Not a real error.
+
+[33]
+./_region_.tex:103: Preview: Snippet 34 started.
+<-><->
+      
+l.103 ...r}(x_i,x_j|x_{-ij})$. The latter being: $
+                                                  \text{Corr}(x_i,x_j|x_{-ij...
+Not a real error.
+
+./_region_.tex:103: Preview: Snippet 34 ended.(581889+187504x10770227).
+<-><->
+      
+l.103 ...|x_{-ij}) = -Q_{ij}/(Q_{ii}Q_{jj})^{1/2}$
+                                                  . \newline
+Not a real error.
+
+[34]
+./_region_.tex:105: Preview: Snippet 35 started.
+<-><->
+      
+l.105 ...atrix. The authors introduce parameters $
+                                                  \boldsymbol{\theta}$ where...
+Not a real error.
+
+./_region_.tex:105: Preview: Snippet 35 ended.(455111+0x389118).
+<-><->
+      
+l.105 ...ntroduce parameters $\boldsymbol{\theta}$
+                                                   where $\theta_0$ is the c...
+Not a real error.
+
+[35]
+./_region_.tex:105: Preview: Snippet 36 started.
+<-><->
+      
+l.105 ... parameters $\boldsymbol{\theta}$ where $
+                                                  \theta_0$ is the condition...
+Not a real error.
+
+./_region_.tex:105: Preview: Snippet 36 ended.(455111+98303x601658).
+<-><->
+      
+l.105 ...rs $\boldsymbol{\theta}$ where $\theta_0$
+                                                   is the conditional precis...
+Not a real error.
+
+[36]
+./_region_.tex:105: Preview: Snippet 37 started.
+<-><->
+      
+l.105 ...ditional precision of each solution and $
+                                                  \theta_j$ is the condition...
+Not a real error.
+
+./_region_.tex:105: Preview: Snippet 37 ended.(455111+187504x583795).
+<-><->
+      
+l.105 ...precision of each solution and $\theta_j$
+                                                   is the conditional correl...
+Not a real error.
+
+[37]
+./_region_.tex:105: Preview: Snippet 38 started.
+<-><->
+      
+l.105 ...two solutions differ by one unit in the $
+                                                  j$th dimension. This means...
+Not a real error.
+
+./_region_.tex:105: Preview: Snippet 38 ended.(432226+127431x307396).
+<-><->
+      
+l.105 ...o solutions differ by one unit in the $j$
+                                                  th dimension. This means r...
+Not a real error.
+
+[38]
+./_region_.tex:105: Preview: Snippet 39 started.
+<-><->
+      
+l.105 ...y in one direction compared to another. $
+                                                  \boldsymbol{\theta}$ entri...
+Not a real error.
+
+./_region_.tex:105: Preview: Snippet 39 ended.(455111+0x389118).
+<-><->
+      
+l.105 ...ompared to another. $\boldsymbol{\theta}$
+                                                   entries are all between z...
+Not a real error.
+
+[39]
+./_region_.tex:107: Preview: Snippet 40 started.
+<-><->
+      
+l.107 So random vector $
+                        Y$ is unknown, $\boldsymbol{y}=\mathbb{E}[Y]$ is tru...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 40 ended.(447828+0x526109).
+<-><->
+      
+l.107 So random vector $Y$
+                           is unknown, $\boldsymbol{y}=\mathbb{E}[Y]$ is tru...
+Not a real error.
+
+[40]
+./_region_.tex:107: Preview: Snippet 41 started.
+<-><->
+      
+l.107 So random vector $Y$ is unknown, $
+                                        \boldsymbol{y}=\mathbb{E}[Y]$ is tru...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 41 ended.(491520+163840x2612029).
+<-><->
+      
+l.107 ...s unknown, $\boldsymbol{y}=\mathbb{E}[Y]$
+                                                   is true objective functio...
+Not a real error.
+
+[41]
+./_region_.tex:107: Preview: Snippet 42 started.
+<-><->
+      
+l.107 ...thbb{E}[Y]$ is true objective function. $
+                                                  \boldsymbol{y}$ is also un...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 42 ended.(291271+127431x411116).
+<-><->
+      
+l.107 ...true objective function. $\boldsymbol{y}$
+                                                   is also unknown but we mo...
+Not a real error.
+
+[42]
+./_region_.tex:107: Preview: Snippet 43 started.
+<-><->
+      
+l.107 ...{y}$ is also unknown but we model it as $
+                                                  \mathbb{Y}$, a realisation...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 43 ended.(451470+0x473316).
+<-><->
+      
+l.107 ...o unknown but we model it as $\mathbb{Y}$
+                                                  , a realisation of a GMRF ...
+Not a real error.
+
+[43]
+./_region_.tex:107: Preview: Snippet 44 started.
+<-><->
+      
+l.107 ...f a GMRF as defined. What we observe is $
+                                                  y$ + noise which is modell...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 44 ended.(282168+127431x344824).
+<-><->
+      
+l.107 ...a GMRF as defined. What we observe is $y$
+                                                   + noise which is modelled...
+Not a real error.
+
+[44]
+./_region_.tex:107: Preview: Snippet 45 started.
+<-><->
+      
+l.107 ...oise which is modelled as another GMRF: $
+                                                  \mathbb{Y}^{\epsilon} = \m...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 45 ended.(451470+54613x3138640).
+<-><->
+      
+l.107 ...bb{Y}^{\epsilon} = \mathbb{Y} + \epsilon$
+                                                  . The noise is modelled as...
+Not a real error.
+
+[45]
+./_region_.tex:107: Preview: Snippet 46 started.
+<-><->
+      
+l.107 ...sted in the conditional distribution of $
+                                                  \mathbb{Y}$ given the simu...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 46 ended.(451470+0x473316).
+<-><->
+      
+l.107 ... conditional distribution of $\mathbb{Y}$
+                                                   given the simulation outp...
+Not a real error.
+
+[46]
+./_region_.tex:107: Preview: Snippet 47 started.
+<-><->
+      
+l.107 ...ors prove a conditional distribution of $
+                                                  \mathbb{Y}$. They do this ...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 47 ended.(451470+0x473316).
+<-><->
+      
+l.107 ... conditional distribution of $\mathbb{Y}$
+                                                  . They do this by first wr...
+Not a real error.
+
+[47]
+./_region_.tex:107: Preview: Snippet 48 started.
+<-><->
+      
+l.107 ...t writing out the joint distribution of $
+                                                  (y_1,y_2,y_2^{\epsilon})$ ...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 48 ended.(491520+163840x2938206).
+<-><->
+      
+l.107 ...istribution of $(y_1,y_2,y_2^{\epsilon})$
+                                                   where subscript $2$ and $...
+Not a real error.
+
+[48]
+./_region_.tex:107: Preview: Snippet 49 started.
+<-><->
+      
+l.107 ..._1,y_2,y_2^{\epsilon})$ where subscript $
+                                                  2$ and $1$ represent solut...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 49 ended.(422343+0x327681).
+<-><->
+      
+l.107 ...,y_2,y_2^{\epsilon})$ where subscript $2$
+                                                   and $1$ represent solutio...
+Not a real error.
+
+[49]
+./_region_.tex:107: Preview: Snippet 50 started.
+<-><->
+      
+l.107 ..._2^{\epsilon})$ where subscript $2$ and $
+                                                  1$ represent solutions whi...
+Not a real error.
+
+./_region_.tex:107: Preview: Snippet 50 ended.(422343+0x327681).
+<-><->
+      
+l.107 ...^{\epsilon})$ where subscript $2$ and $1$
+                                                   represent solutions which...
+Not a real error.
+
+[50]
+./_region_.tex:109: Preview: Snippet 51 started.
+<-><->
+      
+l.109 ... full conditional joint distribution of $
+                                                  \mathbb{Y}$ and the simula...
+Not a real error.
+
+./_region_.tex:109: Preview: Snippet 51 ended.(451470+0x473316).
+<-><->
+      
+l.109 ...tional joint distribution of $\mathbb{Y}$
+                                                   and the simulation noise....
+Not a real error.
+
+[51]
+./_region_.tex:111: Preview: Snippet 52 started.
+<-><->
+      
+l.111 ...elity level of the proposed point using $
+                                                  \alpha_1$ (correlation bet...
+Not a real error.
+
+./_region_.tex:111: Preview: Snippet 52 ended.(282168+98303x713238).
+<-><->
+      
+l.111 ...el of the proposed point using $\alpha_1$
+                                                   (correlation between two ...
+Not a real error.
+
+[52]
+./_region_.tex:111: Preview: Snippet 53 started.
+<-><->
+      
+l.111 ...n reward if lower fidelity model used), $
+                                                  \alpha_2$ (accounts for di...
+Not a real error.
+
+./_region_.tex:111: Preview: Snippet 53 ended.(282168+98303x713238).
+<-><->
+      
+l.111 ...if lower fidelity model used), $\alpha_2$
+                                                   (accounts for diminishing...
+Not a real error.
+
+[53]
+./_region_.tex:111: Preview: Snippet 54 started.
+<-><->
+      
+l.111 ...curate with model of proposed fidelity) $
+                                                  \alpha_3$ (the ratio of th...
+Not a real error.
+
+./_region_.tex:111: Preview: Snippet 54 ended.(282168+98303x713238).
+<-><->
+      
+l.111 ...th model of proposed fidelity) $\alpha_3$
+                                                   (the ratio of the cost be...
+Not a real error.
+
+[54]
+./_region_.tex:113: Preview: Snippet 55 started.
+<-><->
+      
+l.113 ...over the full conditional joint dist of $
+                                                  \mathbb{Y}$ and the simula...
+Not a real error.
+
+./_region_.tex:113: Preview: Snippet 55 ended.(451470+0x473316).
+<-><->
+      
+l.113 ...ll conditional joint dist of $\mathbb{Y}$
+                                                   and the simulation noise,...
+Not a real error.
+
+[55]
+./_region_.tex:117: Preview: Snippet 56 started.
+<-><->
+      
+l.117 ...gorithm) - the conditional distribution $
+                                                  \mathbb{Y}$ given the data...
+Not a real error.
+
+./_region_.tex:117: Preview: Snippet 56 ended.(451470+0x473316).
+<-><->
+      
+l.117 ...the conditional distribution $\mathbb{Y}$
+                                                   given the data is estimat...
+Not a real error.
+
+[56]
+./_region_.tex:123: Preview: Snippet 57 started.
+<-><->
+      
+l.123 \subsubsection
+                    {Extenstions to GMRF}
+Not a real error.
+
+./_region_.tex:123: Preview: Snippet 57 ended.(455111+0x22609920).
+<-><->
+      
+l.123 \subsubsection{Extenstions to GMRF}
+                                         
+Not a real error.
+
+[57
+
+]
+./_region_.tex:131: Preview: Snippet 58 started.
+<-><->
+      
+l.131 ...ons ordered by their CEIs. Then the the $
+                                                  \bar{Q}$
+Not a real error.
+
+./_region_.tex:131: Preview: Snippet 58 ended.(537758+127431x518098).
+<-><->
+      
+l.131 ...red by their CEIs. Then the the $\bar{Q}$
+                                                  
+Not a real error.
+
+[58]
+./_region_.tex:140: Preview: Snippet 59 started.
+<-><->
+      
+l.140   \item further more: interepretation of $
+                                                \theta$s is different for fe...
+Not a real error.
+
+./_region_.tex:140: Preview: Snippet 59 ended.(455111+0x325860).
+<-><->
+      
+l.140 ...further more: interepretation of $\theta$
+                                                  s is different for feasibl...
+Not a real error.
+
+[59]
+./_region_.tex:145: Preview: Snippet 60 started.
+<-><->
+      
+l.145 \subsubsection
+                    {Multi Fidelity GMRF}
+Not a real error.
+
+./_region_.tex:145: Preview: Snippet 60 ended.(455111+127431x22609920).
+<-><->
+      
+l.145 \subsubsection{Multi Fidelity GMRF}
+                                         
+Not a real error.
+
+[60
+
+]
+./_region_.tex:153: Preview: Snippet 61 started.
+<-><->
+      
+l.153 \item Different constant $
+                                \mu_i$ used as the 'initial' prior informati...
+Not a real error.
+
+./_region_.tex:153: Preview: Snippet 61 ended.(282168+127431x613074).
+<-><->
+      
+l.153 \item Different constant $\mu_i$
+                                       used as the 'initial' prior informati...
+Not a real error.
+
+[61]
+./_region_.tex:153: Preview: Snippet 62 started.
+<-><->
+      
+l.153 ...itial' prior information for each model $
+                                                  i$ (each 'layer' in the gr...
+Not a real error.
+
+./_region_.tex:153: Preview: Snippet 62 ended.(432226+0x225780).
+<-><->
+      
+l.153 ...ial' prior information for each model $i$
+                                                   (each 'layer' in the grap...
+Not a real error.
+
+[62]
+./_region_.tex:154: Preview: Snippet 63 started.
+<-><->
+      
+l.154 \item Additional parameters ($
+                                    \rho$) (which must be estimated using ML...
+Not a real error.
+
+./_region_.tex:154: Preview: Snippet 63 ended.(282168+127431x338831).
+<-><->
+      
+l.154 \item Additional parameters ($\rho$
+                                         ) (which must be estimated using ML...
+Not a real error.
+
+[63]
+./_region_.tex:156: Preview: Snippet 64 started.
+<-><->
+      
+l.156 ... distribution for the GMRF at iteration $
+                                                  t$, which is equivalent to...
+Not a real error.
+
+./_region_.tex:156: Preview: Snippet 64 ended.(403098+0x236658).
+<-><->
+      
+l.156 ...istribution for the GMRF at iteration $t$
+                                                  , which is equivalent to t...
+Not a real error.
+
+[64]
+./_region_.tex:163: Preview: Snippet 65 started.
+<-><->
+      
+l.163 \subsection
+                 {RSM in a discrete setting}
+Not a real error.
+
+./_region_.tex:163: Preview: Snippet 65 ended.(546132+152916x22609920).
+<-><->
+      
+l.163 \subsection{RSM in a discrete setting}
+                                            
+Not a real error.
+
+[65
+
+]
+./_region_.tex:167: Preview: Snippet 66 started.
+<-><->
+      
+l.167 \section
+              {Continuous decision variables}
+Not a real error.
+
+./_region_.tex:167: Preview: Snippet 66 ended.(655359+0x22609920).
+<-><->
+      
+l.167 \section{Continuous decision variables}
+                                             
+Not a real error.
+
+[66
+
+]
+./_region_.tex:169: Preview: Snippet 67 started.
+<-><->
+      
+l.169 \subsection
+                 {Sample Average Approximation}
+Not a real error.
+
+./_region_.tex:169: Preview: Snippet 67 ended.(546132+152916x22609920).
+<-><->
+      
+l.169 \subsection{Sample Average Approximation}
+                                               
+Not a real error.
+
+[67
+
+]
+./_region_.tex:176: Preview: Snippet 68 started.
+<-><->
+      
+l.176 \subsubsection
+                    {Infinite dimension SO problems - (function decisions) -...
+Not a real error.
+
+./_region_.tex:176: Preview: Snippet 68 ended.(1277952+0x22609920).
+<-><->
+      
+l.176 ...- (function decisions) - approx with SAA}
+                                                  
+Not a real error.
+
+[68
+
+]
+./_region_.tex:180: Preview: Snippet 69 started.
+<-><->
+      
+l.180 \subsubsection
+                    {Retrospective framework}
+Not a real error.
+
+./_region_.tex:180: Preview: Snippet 69 ended.(455111+127431x22609920).
+<-><->
+      
+l.180 \subsubsection{Retrospective framework}
+                                             
+Not a real error.
+
+[69
+
+]
+./_region_.tex:184: Preview: Snippet 70 started.
+<-><->
+      
+l.184 \subsection
+                 {Stochastic Approximation}
+Not a real error.
+
+./_region_.tex:184: Preview: Snippet 70 ended.(546132+152916x22609920).
+<-><->
+      
+l.184 \subsection{Stochastic Approximation}
+                                           
+Not a real error.
+
+[70
+
+]
+./_region_.tex:186: Preview: Snippet 71 started.
+<-><->
+      
+l.186 \subsection
+                 {Meta-modelling}
+Not a real error.
+
+./_region_.tex:186: Preview: Snippet 71 ended.(546132+152916x22609920).
+<-><->
+      
+l.186 \subsection{Meta-modelling}
+                                 
+Not a real error.
+
+[71
+
+]
+./_region_.tex:188: Preview: Snippet 72 started.
+<-><->
+      
+l.188 \subsubsection
+                    {Trust-region methods}
+Not a real error.
+
+./_region_.tex:188: Preview: Snippet 72 ended.(455111+127431x22609920).
+<-><->
+      
+l.188 \subsubsection{Trust-region methods}
+                                          
+Not a real error.
+
+[72
+
+]
+./_region_.tex:190: Preview: Snippet 73 started.
+<-><->
+      
+l.190 \subsubsection
+                    {Response Surface Methodology}
+Not a real error.
+
+./_region_.tex:190: Preview: Snippet 73 ended.(455111+127431x22609920).
+<-><->
+      
+l.190 \subsubsection{Response Surface Methodology}
+                                                  
+Not a real error.
+
+[73
+
+]
+./_region_.tex:194: Preview: Snippet 74 started.
+<-><->
+      
+l.194 \subsubsection
+                    {Global meta models}
+Not a real error.
+
+./_region_.tex:194: Preview: Snippet 74 ended.(455111+0x22609920).
+<-><->
+      
+l.194 \subsubsection{Global meta models}
+                                        
+Not a real error.
+
+[74
+
+]
+./_region_.tex:198: Preview: Snippet 75 started.
+<-><->
+      
+l.198 \subsubsection
+                    {Multi-fidelity models}
+Not a real error.
+
+./_region_.tex:198: Preview: Snippet 75 ended.(455111+127431x22609920).
+<-><->
+      
+l.198 \subsubsection{Multi-fidelity models}
+                                           
+Not a real error.
+
+[75
+
+] ) 
 Here is how much of TeX's memory you used:
- 2661 strings out of 480247
- 38932 string characters out of 5896151
- 318102 words of memory out of 5000000
- 20604 multiletter control sequences out of 15000+600000
- 470958 words of font info for 36 fonts, out of 8000000 for 9000
+ 2716 strings out of 480247
+ 39532 string characters out of 5896151
+ 325102 words of memory out of 5000000
+ 20638 multiletter control sequences out of 15000+600000
+ 479906 words of font info for 68 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 56i,4n,62p,506b,122s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb>
-Output written on _region_.pdf (1 page, 17033 bytes).
+ 56i,8n,62p,1473b,233s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on _region_.pdf (75 pages, 121609 bytes).
 PDF statistics:
- 18 PDF objects out of 1000 (max. 8388607)
- 10 compressed objects within 1 object stream
+ 297 PDF objects out of 1000 (max. 8388607)
+ 198 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
