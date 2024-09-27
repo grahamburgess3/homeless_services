@@ -1,0 +1,83 @@
+\begin{thebibliography}{}
+
+\bibitem[Argyris et~al., 2022]{argyris2022fair}
+Argyris, N., Karsu, {\"O}., and Yavuz, M. (2022).
+\newblock Fair resource allocation: Using welfare-based dominance constraints.
+\newblock {\em European journal of operational research}, 297(2):560--578.
+
+\bibitem[Chong and Osorio, 2018]{chong2018simulation}
+Chong, L. and Osorio, C. (2018).
+\newblock A simulation-based optimization algorithm for dynamic large-scale
+  urban transportation problems.
+\newblock {\em Transportation Science}, 52(3):637--656.
+
+\bibitem[Huang et~al., 2006]{huang2006sequential}
+Huang, D., Allen, T.~T., Notz, W.~I., and Miller, R.~A. (2006).
+\newblock Sequential kriging optimization using multiple-fidelity evaluations.
+\newblock {\em Structural and Multidisciplinary Optimization}, 32:369--382.
+
+\bibitem[Jian and Henderson, 2015]{jian2015introduction}
+Jian, N. and Henderson, S.~G. (2015).
+\newblock An introduction to simulation optimization.
+\newblock In {\em 2015 winter simulation conference (wsc)}, pages 1780--1794.
+  IEEE.
+
+\bibitem[Kaya et~al., 2022a]{kaya2022improving}
+Kaya, Y.~B., Maass, K.~L., Dimas, G.~L., Konrad, R., Trapp, A.~C., and Dank, M.
+  (2022a).
+\newblock Improving access to housing and supportive services for runaway and
+  homeless youth: Reducing vulnerability to human trafficking in new york city.
+\newblock {\em IISE Transactions}, pages 1--15.
+
+\bibitem[Kaya et~al., 2022b]{kaya2022discrete}
+Kaya, Y.~B., Mantell, S., Maass, K.~L., Konrad, R., Trapp, A.~C., Dimas, G.~L.,
+  and Dank, M. (2022b).
+\newblock Discrete event simulation to evaluate shelter capacity expansion
+  options for lgbtq+ homeless youth.
+\newblock In {\em 2022 Winter Simulation Conference (WSC)}, pages 1033--1044.
+  IEEE.
+
+\bibitem[L.~Salemi et~al., 2019]{l2019gaussian}
+L.~Salemi, P., Song, E., Nelson, B.~L., and Staum, J. (2019).
+\newblock Gaussian markov random fields for discrete optimization via
+  simulation: Framework and algorithms.
+\newblock {\em Operations Research}, 67(1):250--266.
+
+\bibitem[Lim, 2012]{lim2012stochastic}
+Lim, E. (2012).
+\newblock Stochastic approximation over multidimensional discrete sets with
+  applications to inventory systems and admission control of queueing networks.
+\newblock {\em ACM Transactions on Modeling and Computer Simulation (TOMACS)},
+  22(4):1--23.
+
+\bibitem[Singham et~al., 2023]{singham2023discrete}
+Singham, D.~I., Lucky, J., and Reinauer, S. (2023).
+\newblock Discrete-event simulation modeling for housing of homeless
+  populations.
+\newblock {\em Plos one}, 18(4):e0284336.
+
+\bibitem[Wang et~al., 2013]{wang2013integer}
+Wang, H., Pasupathy, R., and Schmeiser, B.~W. (2013).
+\newblock Integer-ordered simulation optimization using r-spline: Retrospective
+  search with piecewise-linear interpolation and neighborhood enumeration.
+\newblock {\em ACM Transactions on Modeling and Computer Simulation (TOMACS)},
+  23(3):1--24.
+
+\bibitem[Wood, 2022]{wood2022supporting}
+Wood, R.~M. (2022).
+\newblock Supporting {Covid-19} elective recovery through scalable wait list
+  modelling: Specialty-level application to all hospitals in england.
+\newblock {\em Health Care Management Science}, 25(4):521--525.
+
+\bibitem[Worthington, 1991]{worthington1991hospital}
+Worthington, D. (1991).
+\newblock Hospital waiting list management models.
+\newblock {\em Journal of the Operational Research Society}, 42(10):833--843.
+
+\bibitem[Xu et~al., 2016]{xu2016mo2tos}
+Xu, J., Zhang, S., Huang, E., Chen, C.-H., Lee, L.~H., and Celik, N. (2016).
+\newblock Mo2tos: Multi-fidelity optimization with ordinal transformation and
+  optimal sampling.
+\newblock {\em Asia-Pacific Journal of Operational Research}, 33(03):1650017.
+
+\end{thebibliography}

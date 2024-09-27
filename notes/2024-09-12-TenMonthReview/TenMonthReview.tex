@@ -3,7 +3,8 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{amsmath} % Required for flexibility in mathematical equations
 \usepackage{amssymb} % Required for certain math symbols e.g. E[.]
-\usepackage{natbib} % Required for citations and bibliography
+\usepackage{natbib} % Required for bibliography and citations
+\usepackage{enumitem} % Required to remove gap between items in list
 
 \title{Modelling and optimising the housing of homeless populations: ten month PhD review}
 \author{Graham Burgess}
@@ -13,72 +14,96 @@
 
 \maketitle
 
+\begin{abstract}
+Modelling and optimisation are popular tools for supporting resourcing and capacity decisions in healthcare and homeless settings. We show how deterministic optimisation with a fluid flow model can support long-term capacity planning for a homeless care setting in the San Francisco Bay Area, California. Models of multi fidelity, including stochastic simulation, are available in this setting, and the solution space is integer-ordered. We therefore explore both multi fidelity and integer-ordered simulation optimisation methods and discuss potential research contributions at the intersection of these active fields of research.
+\end{abstract}
+
 \section{Introduction}
 
-\begin{itemize}
+Homelessness is a growing problem faced by communities worldwide. An example is Alameda County in the San Francisco Bay area, California, where approximately $8000$ people experienced homelessness in $2021$ alone. Decision makers within these communities typically have some leverage over how relevant resources are allocated to help alleviate homelessnes, and operational research (OR) methods offer helpful tools to support these decisions. Modelling the flow of people through the homeless care system can help in understanding the dynamics of the system where homelessness is observed. We will discuss several relevant models in this report. Optimisation can guide decision makers towards a plan which will make good use of their resources. The application of OR methods to the management of homeless care settings is not widely studied in the academic literature. However, similarities can be drawn with the management of hospital waiting lists, which have been studied extensively. A hospital waiting list forms when demand for healthcare exceeds supply and is another common problem faced in public sectors worldwide. \newline
+
+Optimisation seeks to maximise or minimise some performance measure by finding a feasible solution which performs the best across a (potentially infinite) set of alternatives. To do this, one needs a model to measure the performance of a solution, and the quality of the model affects the quality of the subsequent optimisation. In our homeless care setting, the most accurate model of the system is a high-fidelity stochastic simulation model. In this case, one can only estimate the performance of a solution and the subsequent optimisation falls in the realm of simulation optimisation (SO). There are different SO methods for different types of problem (which we later discuss) but the issue of limited computational resources pervades all SO methods. This issue stems from from the fact that a stochastic simulation is typically computationally expensive to run, and many simulation replications are required to be confident of a solution's performance, given the associated uncertainty. \newline
+
+As is common in queueing systems, lower fidelity models such as analytical queueing models offer a computationally cheaper alternative to stochastic simulation. The drawback is that these models are typically less accurate, given the necessary assumptions which must be made. If one only uses a low-fidelity deterministic model to evaluate the performance of a solution, optimisation falls in the realm of deterministic optimisation. Performing this deterministic optimisation can be a helpful first step towards a SO framework. Furthermore, multi-fidelity simulation optimisation enables low-fidelity models to be used alongside high fideltiy stocahstic simulation in order to more efficiently find optimal solutions. \newline
+
+This document is organised as follows: in Section \ref{lit-rev} we briefly review relevant literature on modelling and optimisation in healthcare and homeless care settings. We also review relevant SO methods including multi-fidelity SO. In Section \ref{models} we introduce three models of multi-fidelity which we have developed of the homeless care system in Alameda County, California. In Section \ref{do} we introduce an optimisation formualation which addresses the 
+
+\begin{itemize}[noitemsep]
 \item Homelessness in San Francisco Bay Area
 \item Resources available: housing and shelter
 \item Objectives and trade-offs
 \item Constraints including time-dependent shape constraints
-\item Models available (stochastic simulation, $M_t$/$M$/$h_t$ queue, fluid flow model)
+\item Models available (stochastic simulation, $M_t$/$M$/$h_t$ queue, fluid flow)
 \end{itemize}
 
-\section{Literature Review}
+\section{Literature Review} \label{lit-rev}
 
 \subsection{Modelling and optimisation in healthcare settings}
 
-
+Modelling hospital waiting lists using stochastic simulation e.g. \cite{wood2022supporting} and using stocks and flows e.g. \cite{worthington1991hospital}. Optimisation such as \cite{argyris2022fair} who balance efficiency and fairness in healthcare provision. 
 
 \subsection{Modelling and optimisation in homeless care settings}
 
-For example simulation modelling of shelter for runaway homeless youths (\cite{kaya2022discrete}).
+Simulation modelling of homeless care system in Alameda County \citep{singham2023discrete} and of shelters for runaway homeless youths (RHYs) \citep{kaya2022discrete}. Optimisation such as \cite{kaya2022improving} who minimise the cost of matching demand with supply for RHYs who require beds and support services.
 
 \subsection{Simulation optimisation (SO)}
 
 \subsubsection{Overview of SO methods}
 
-\begin{itemize}
-\item Discrete SO (ranking and selection, random search, integer-ordered methods)
-\item Continuous SO (sample average approximation, stochastic approximation, meta modelling)
+\begin{itemize}[noitemsep]
+\item Discrete SO: ranking \& selection, adaptive random search, integer-ordered.
+\item Continuous SO: sample average approx, stochastic approx, meta models.
+\end{itemize}
+
+\subsubsection{Integer-ordered SO methods}
+\begin{itemize} [noitemsep]
+    \item Retrospective search with piecewise-linear interpolation and neighborhood enumeration (R-SPLINE) \citep{wang2013integer}.
+    \item Discrete Stochastic Approximation \citep{lim2012stochastic}
+    \item Gaussian Markov Random Fields \citep{l2019gaussian}
 \end{itemize}
 
 \subsubsection{Multi fidelity SO methods}
 
-\begin{itemize}
-\item From deterministic optimisation to simulation optimisation
-\item Ordinal transformation with optimal sampling
+\begin{itemize}[noitemsep]
+\item Using deterministic optimisation results to begin simulation optimisation e.g. \cite{jian2015introduction}.
+\item Ordinal transformation with optimal sampling \citep{xu2016mo2tos}.
 \item Modelling the error of a low-fidelity model
-\begin{itemize}
-\item Polynomial error terms
-\item Gaussian Process error terms
+\begin{itemize}[noitemsep]
+\item Polynomial error terms e.g. \cite{chong2018simulation}.
+\item Gaussian Process error terms e.g. \cite{huang2006sequential}.
 \end{itemize}
 \end{itemize}
 
-\section{Deterministic optimisation with low-fidelity model}
+\section{Models of multi-fidelity} \label{models}
 
-\begin{itemize}
+\section{Deterministic optimisation with low-fidelity model} \label{do}
+
+\begin{itemize}[noitemsep]
 \item Fluid flow model
 \item Optimisation formulations
 \item Numerical results
-\item Further work on optimisation formulations
 \end{itemize}
 
-\section{Discussion of uncertainty}
+\section{Discussion of uncertainty} \label{uncert}
 
-\begin{itemize}
-\item Stochastic uncertainty
-\item Input model uncertainty
+\begin{itemize}[noitemsep]
+\item Stochastic uncertainty in homeless care problem (arrival/service processes).
+\item Input model uncertainty: good input models for today cannot reliably predict future events.
 \end{itemize}
-\section{Potential contributions in multi fidelity SO}
 
-\begin{itemize}
-\item Using low-fidelity models to quickly compute gradients in RSPLINE/DSA
-\item Adding prior information to GMRF using low-fidelity model
-  \item Modelling errors of the low fidelity model using GMRF
+\section{Potential contributions at intersection of integer-ordered and multi fidelity SO} \label{mfso}
+
+\begin{itemize}[noitemsep]
+\item Using low-fidelity models to quickly compute gradients in RSPLINE/DSA.
+\item Adding prior information to GMRF using low-fidelity model.
+\item Modelling errors of low fidelity models using GMRF.
 \end{itemize}
-\section{Conclusion}
+
+\section{Conclusion}\label{conc}
+
+\newpage
 
 \bibliographystyle{apalike}
-\bibliography{TenMonthReview}
+\bibliography{bibliography.bib}
 
 \end{document}

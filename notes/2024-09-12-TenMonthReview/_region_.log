@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  16 SEP 2024 16:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  27 SEP 2024 13:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -101,39 +101,66 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+)) (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip52
+\bibsep=\skip53
+LaTeX Info: Redefining \cite on input line 694.
+
+
+/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty:795: LaTeX Error: Command \makeindex undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.795 \renewcommand\makeindex
+                             {\NAT@makeindex
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+\c@NAT@ctr=\count271
+) (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip54
+\enit@outerparindent=\dimen150
+\enit@toks=\toks22
+\enit@inbox=\box52
+\enit@count@id=\count272
+\enitdp@description=\count273
+) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count271
-\l__pdf_internal_box=\box52
+\l__color_backend_stack_int=\count274
+\l__pdf_internal_box=\box53
 )
 No file _region_.aux.
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count272
-\scratchdimen=\dimen150
-\scratchbox=\box53
-\nofMPsegments=\count273
-\nofMParguments=\count274
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count275
-\MPscratchDim=\dimen151
-\MPnumerator=\count276
-\makeMPintoPDFobject=\count277
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count275
+\scratchdimen=\dimen151
+\scratchbox=\box54
+\nofMPsegments=\count276
+\nofMParguments=\count277
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count278
+\MPscratchDim=\dimen152
+\MPnumerator=\count279
+\makeMPintoPDFobject=\count280
+\everyMPtoPDFconversion=\toks24
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -142,283 +169,33 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/preview.sty
 Package: preview 2023/01/17 13.2 (AUCTeX/preview-latex)
  (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/prtightpage.def
-\PreviewBorder=\dimen152
+\PreviewBorder=\dimen153
 ) (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/prauctex.def
 No auxiliary output files.
 
 
-\hbadness=\count278
-\hfuzz=\dimen153
+\hbadness=\count281
+\hfuzz=\dimen154
 (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/prauctex.cfg)) (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/prfootnotes.def)
-\pr@snippet=\count279
-\pr@box=\box54
-\pr@output=\toks24
+\pr@snippet=\count282
+\pr@box=\box55
+\pr@output=\toks25
 
 Preview: Fontsize 10pt
 Preview: PDFoutput 1
-)  !name(TenMonthReview.tex) !offset(-3) 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 16.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 16.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-./_region_.tex:18: Preview: Snippet 1 started.
-<-><->
-      
-l.18 \section
-             {Introduction}
-Not a real error.
-
-Preview: Tightpage -32891 -32891 32891 32891
-./_region_.tex:18: Preview: Snippet 1 ended.(655359+0x22609920).
-<-><->
-      
-l.18 \section{Introduction}
-                           
-Not a real error.
-
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
-]
-./_region_.tex:25: Preview: Snippet 2 started.
-<-><->
-      
-l.25 ...Models available (stochastic simulation, $
-                                                  M_t$/$M$/$h_t$ queue, flui...
-Not a real error.
-
-./_region_.tex:25: Preview: Snippet 2 ended.(447828+98303x866533).
-<-><->
-      
-l.25 ...ls available (stochastic simulation, $M_t$
-                                                  /$M$/$h_t$ queue, fluid fl...
-Not a real error.
-
-[2]
-./_region_.tex:25: Preview: Snippet 3 started.
-<-><->
-      
-l.25 ... available (stochastic simulation, $M_t$/$
-                                                  M$/$h_t$ queue, fluid flow...
-Not a real error.
-
-./_region_.tex:25: Preview: Snippet 3 ended.(447828+0x707242).
-<-><->
-      
-l.25 ...vailable (stochastic simulation, $M_t$/$M$
-                                                  /$h_t$ queue, fluid flow m...
-Not a real error.
-
-[3]
-./_region_.tex:25: Preview: Snippet 4 started.
-<-><->
-      
-l.25 ...ilable (stochastic simulation, $M_t$/$M$/$
-                                                  h_t$ queue, fluid flow model)
-Not a real error.
-
-./_region_.tex:25: Preview: Snippet 4 ended.(455111+98303x608333).
-<-><->
-      
-l.25 ...le (stochastic simulation, $M_t$/$M$/$h_t$
-                                                   queue, fluid flow model)
-Not a real error.
-
-[4]
-./_region_.tex:28: Preview: Snippet 5 started.
-<-><->
-      
-l.28 \section
-             {Literature Review}
-Not a real error.
-
-./_region_.tex:28: Preview: Snippet 5 ended.(655359+0x22609920).
-<-><->
-      
-l.28 \section{Literature Review}
-                                
-Not a real error.
-
-[5
-
-]
-./_region_.tex:30: Preview: Snippet 6 started.
-<-><->
-      
-l.30 \subsection
-                {Modelling and optimisation in healthcare settings}
-Not a real error.
-
-./_region_.tex:30: Preview: Snippet 6 ended.(546132+152916x22609920).
-<-><->
-      
-l.30 ...g and optimisation in healthcare settings}
-                                                  
-Not a real error.
-
-[6
-
-]
-./_region_.tex:34: Preview: Snippet 7 started.
-<-><->
-      
-l.34 \subsection
-                {Modelling and optimisation in homeless care settings}
-Not a real error.
-
-./_region_.tex:34: Preview: Snippet 7 ended.(546132+152916x22609920).
-<-><->
-      
-l.34 ...nd optimisation in homeless care settings}
-                                                  
-Not a real error.
-
-[7
-
-]
-
-LaTeX Warning: Citation `kaya2022discrete' on page 1 undefined on input line 36.
-
-./_region_.tex:38: Preview: Snippet 8 started.
-<-><->
-      
-l.38 \subsection
-                {Simulation optimisation (SO)}
-Not a real error.
-
-./_region_.tex:38: Preview: Snippet 8 ended.(589824+196608x22609920).
-<-><->
-      
-l.38 \subsection{Simulation optimisation (SO)}
-                                              
-Not a real error.
-
-[8
-
-]
-./_region_.tex:40: Preview: Snippet 9 started.
-<-><->
-      
-l.40 \subsubsection
-                   {Overview of SO methods}
-Not a real error.
-
-./_region_.tex:40: Preview: Snippet 9 ended.(455111+0x22609920).
-<-><->
-      
-l.40 \subsubsection{Overview of SO methods}
-                                           
-Not a real error.
-
-[9
-
-]
-./_region_.tex:47: Preview: Snippet 10 started.
-<-><->
-      
-l.47 \subsubsection
-                   {Multi fidelity SO methods}
-Not a real error.
-
-./_region_.tex:47: Preview: Snippet 10 ended.(455111+127431x22609920).
-<-><->
-      
-l.47 \subsubsection{Multi fidelity SO methods}
-                                              
-Not a real error.
-
-[10
-
-]
-./_region_.tex:59: Preview: Snippet 11 started.
-<-><->
-      
-l.59 \section
-             {Deterministic optimisation with low-fidelity model}
-Not a real error.
-
-./_region_.tex:59: Preview: Snippet 11 ended.(1835007+0x22609920).
-<-><->
-      
-l.59 ...stic optimisation with low-fidelity model}
-                                                  
-Not a real error.
-
-[11
-
-]
-./_region_.tex:68: Preview: Snippet 12 started.
-<-><->
-      
-l.68 \section
-             {Discussion of uncertainty}
-Not a real error.
-
-./_region_.tex:68: Preview: Snippet 12 ended.(655359+183500x22609920).
-<-><->
-      
-l.68 \section{Discussion of uncertainty}
-                                        
-Not a real error.
-
-[12
-
-]
-./_region_.tex:74: Preview: Snippet 13 started.
-<-><->
-      
-l.74 \section
-             {Potential contributions in multi fidelity SO}
-Not a real error.
-
-./_region_.tex:74: Preview: Snippet 13 ended.(655359+183500x22609920).
-<-><->
-      
-l.74 ...ential contributions in multi fidelity SO}
-                                                  
-Not a real error.
-
-[13
-
-]
-./_region_.tex:81: Preview: Snippet 14 started.
-<-><->
-      
-l.81 \section
-             {Conclusion}
-Not a real error.
-
-./_region_.tex:81: Preview: Snippet 14 ended.(655359+0x22609920).
-<-><->
-      
-l.81 \section{Conclusion}
-                         
-Not a real error.
-
-[14
-
-]
-No file _region_.bbl.
-
-LaTeX Warning: There were undefined references.
-
- ) 
+)  !name(TenMonthReview.tex) !offset(68)   !name(TenMonthReview.tex) !offset(87)  ) 
 Here is how much of TeX's memory you used:
- 2702 strings out of 480247
- 39386 string characters out of 5896151
- 323175 words of memory out of 5000000
- 20631 multiletter control sequences out of 15000+600000
- 477457 words of font info for 60 fonts, out of 8000000 for 9000
+ 3314 strings out of 480247
+ 48699 string characters out of 5896151
+ 332601 words of memory out of 5000000
+ 21263 multiletter control sequences out of 15000+600000
+ 469594 words of font info for 29 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 56i,6n,62p,506b,220s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
-Output written on _region_.pdf (14 pages, 49728 bytes).
+ 56i,5n,62p,506b,165s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+No pages of output.
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
+ 0 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
