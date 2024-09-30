@@ -5,7 +5,8 @@
 \usepackage{amssymb} % Required for certain math symbols e.g. E[.]
 \usepackage{natbib} % Required for bibliography and citations
 \usepackage{enumitem} % Required to remove gap between items in list
-\usepackage{tikz}
+\usepackage{tikz} % Required to build tikz diagrams
+\usepackage{xcolor} % to access colors in tikz diags
 
 \title{Modelling and optimising the housing of homeless populations: ten month PhD review}
 \author{Graham Burgess}
@@ -29,7 +30,7 @@ The most accurate model of this queueing system is a high-fidelity stochastic si
 
 As is common in queueing systems, lower fidelity models such as analytical queueing models offer a computationally cheaper alternative to stochastic simulation. They also offer helpful alternative perspectives on the dynamics of a queueing system. The drawback is that these models are typically less accurate, given the necessary assumptions which must be made. If one only uses a low-fidelity deterministic model to evaluate the performance of a solution, optimisation falls in the realm of deterministic optimisation. Performing this deterministic optimisation can be a helpful first step in the decision-making process. However, there is more we can do with our low fidelity models. Multi-fidelity simulation optimisation (MFSO) enables low-fidelity models to be used alongside high fideltiy stocahstic simulation in a SO algorithm which reduces the computational burden and therefore enables an optimal solution to be found more efficiently. Novel MFSO methods will be the main topic of this PhD research. \newline
 
-This document is organised as follows: in Section \ref{lit-rev} we briefly review relevant literature on modelling and optimisation in homeless care settings and healthcare settings. There are many similarities between these two and the latter is more widely studied in the literature. We also review relevant SO methods including MFSO. In Sections \ref{models} and \ref{do} we discuss the main content of the PhD research to date. Section \ref{models} introduces three models of multi-fidelity for homeless care systems. Section \ref{do} introduces an optimisation formualation which addresses the time-varying capacity planning problem and we solve this problem in a determinsitc setting. In Section \ref{uncert} we discuss how different types of uncertainty affect our decision-making process, and this discussion motivates the need for simulation optimisation. In Section \ref{mfso} we discuss relevant interesting gaps in the current MFSO literature which the remainder of this PhD research seeks to address.
+This document is organised as follows: in Section \ref{lit-rev} we briefly review relevant literature on modelling and optimisation in homeless care settings and healthcare settings. There are many similarities between these two areas but the latter is more widely studied in the literature. We also review relevant SO methods including MFSO. In Sections \ref{models} and \ref{do} we discuss the main content of the PhD research to date. Section \ref{models} introduces three models of multi-fidelity for homeless care systems. Section \ref{do} introduces an optimisation formualation which addresses the time-varying capacity planning problem and we solve this problem in a determinsitc setting. In Section \ref{uncert} we discuss how different types of uncertainty affect our decision-making process, and this discussion motivates the need for simulation optimisation. In Section \ref{mfso} we discuss relevant interesting gaps in the current MFSO literature which the remainder of this PhD research seeks to address.
 
 \section{Literature Review} \label{lit-rev}
 
@@ -72,7 +73,11 @@ Simulation modelling of homeless care system in Alameda County \citep{singham202
 
 \section{Models of multi-fidelity} \label{models}
 
-Here we introduce three models for homeless care systems from low- to high-fidelity. Our low-fidelity model is a fluid flow model, which assumes housing servers are always busy and treats flow in and out of the system like a liquid with a continuous-valued volume. Our medium-fidelity model is an $M_t/M/h_t$ queueing model which relaxes the server-always-busy assumption. We incorporate stochasticity and using a Markov chain analysis we can compute the expected number of people housed, sheltered and unsheltered at some point in time, given initial conditions. Our high-fidelity model is a discrete-event simulation model. Here, as well as caputuring stochasticity we are able to model additional real-world processes such as the conversion of shelter to housing, delays between houses being vacated and re-occupied by others and non-Markovian service time distributions. We now discuss each model in turn.
+Here we introduce three models which we have developed for homeless care systems from low- to high-fidelity. Our low-fidelity model is a fluid flow model, which assumes housing servers are always busy and treats flow in and out of the system like a liquid with a continuous-valued volume. Our medium-fidelity model is an $M_t/M/h_t$ queueing model which relaxes the server-always-busy assumption. We incorporate stochasticity and using a Markov chain analysis we can compute the expected number of people housed, sheltered and unsheltered at some point in time, given initial conditions. Our high-fidelity model is a discrete-event simulation model. Here, as well as caputuring stochasticity we are able to model additional real-world processes such as the conversion of shelter to housing, delays between houses being vacated and re-occupied by others and non-Markovian service time distributions. We now discuss each model in turn. \newline
+
+\subsection{Fluid flow model} \label{fluid-model}
+
+In an overloaded queueing system such as the homeless care system in Alameda County, it is reasonable to assume that housing servers are always busy. With this assumption, the service process becomes independent of the arrival process and it is then straightforward to separately compute the number of arrivals and service completions, given arrival and service rates, which may be non-stationary. We here split the queue for housing into a sheltered and an unsheltered part, as illustrated in Figure \ref{fig:simple-q}. 
 
 \tikzstyle{server} = [rectangle, rounded corners, minimum width=0cm, minimum height=1cm,text centered, draw=black, fill=teal!30]
 \tikzstyle{empty} = [rectangle, draw=none, fill=none]
@@ -92,11 +97,7 @@ Here we introduce three models for homeless care systems from low- to high-fidel
   \end{center}
 \end{figure}
 
-Figure \ref{fig:simple-q} illustrates a simple queueing system which we model with a fluid flow model.
-
-This section introduces a fluid flow queueing model which tracks the number of housed, sheltered, and unsheltered clients over time.   The two main inputs to the model are a changing arrival rate over time, and a housing service rate which changes as housing is built.  Additionally, the amount of shelter space available to support the queue for housing may change over time.  This models the dynamics in Figure \ref{fig:simple-q}.  Due to the current large queue for housing and continued inability for housing rates to keep up with arrivals to the system, the assumption that the servers will always be busy is not only reasonable, but significant enough to negate the usual assumptions of steady-state queueing behavior where the servers are idle with some positive probability.
-
-In our fluid flow model we ignore the randomness in the arrival process and the service process for homeless people entering and leaving the homeless response system. Instead we assume that ``fluid" flows into the system continuously at a rate $\lambda(t)$ and flows out at  rate $\mu(t) = \mu_{0}h(t)$ where $\mu_{0}$ is the service rate of a single housing unit and $h(t)$ is the continuous-valued number of houses at time $t$. Given the initial number of people in the system $X_0$, at time $t$ we can calculate the subsequent number of people in the system, $X(t)$, as
+We would like to track the number of housed, sheltered, and unsheltered people over time.   The two main inputs to the model are a changing arrival rate over time, and a housing service rate which changes as housing is built.  Additionally, the amount of shelter space available to support the queue for housing may change over time. We ignore the randomness in the arrival process and the service process for homeless people entering and leaving the homeless care system. Instead we assume that ``fluid" flows into the system continuously at a rate $\lambda(t)$ and flows out at  rate $\mu(t) = \mu_{0}h(t)$ where $\mu_{0}$ is the service rate of a single housing unit and $h(t)$ is the continuous-valued number of houses at time $t$. Given the initial number of people in the system $X_0$, at time $t$ we can calculate the subsequent number of people in the system, $X(t)$, as
 %
 \begin{equation*} \label{x_t}
 X(t) = X_0 + \int_{0}^{t} \lambda(t) dt - \int_{0}^{t} \mu_0 h(t) dt.
@@ -110,9 +111,9 @@ u(t) & = X(t) - h(t) - s(t) \\
 \label{u_t}
 \end{align}
 %
-where we assume that capacities $h(t)$ and $s(t)$ are sufficiently small compared to the given arrival rate $\lambda(t)$ so that these resources are always full, and the use of a fluid flow model remains appropriate. In other words, the number of people housed and the number in shelter are the same as the housing and shelter capacities $h(t)$ and $s(t)$, respectively. In reality, there may be some friction in the system in that housing may be idle while units are experiencing turnover and the next person in the queue is being located, but this time can be incorporated into the service time distribution.
+where we assume that capacities $h(t)$ and $s(t)$ are sufficiently small compared to the given arrival rate $\lambda(t)$ so that these resources are always full, and the use of a fluid flow model remains appropriate. In other words, the number of people housed and the number in shelter are the same as the housing and shelter capacities $h(t)$ and $s(t)$, respectively. In reality, there may be some friction in the system in that housing may be idle while units are experiencing turnover and the next person in the queue is being located, but this time can be incorporated into the service time distribution. \newline
 
-When analyzing the dynamics of the fluid flow model over a modeling horizon, we discretize time into days. We now let $\lambda_d, h^D_d, s^D_d$ and $u_d$ for all $d \in \{1,...,D\}$ be the discretized equivalents of $\lambda(t), h(t), s(t)$ and $u(t)$, respectively, where $D$ is the modeling horizon in days and is used as a superscript where we must later distinguish between daily and annual capacities. In order to evaluate our various objective functions (which we describe in Section \ref{do}) we typically approximate (\ref{u_t}) with the sum 
+When analyzing the dynamics of the fluid flow model over a modeling horizon, we discretize time into days. We now let $\lambda_d, h^D_d, s^D_d$ and $u_d$ for all $d \in \{1,...,D\}$ be the discretized equivalents of $\lambda(t), h(t), s(t)$ and $u(t)$, respectively, where $D$ is the modeling horizon in days and is used as a superscript where we must later distinguish between daily and annual capacities. In order to evaluate an objective functions (which we describe in Section \ref{do}) we approximate (\ref{u_t}) with the sum 
 %
 \begin{align} \label{u_t_discrete}
 u_d & = X_0 + \sum_{d'=1}^{d} \lambda_{d'} \delta t - \sum_{d'=1}^{d} \mu_0 h^D_{d'} \delta t - h^D_d - s^D_d, 
@@ -126,7 +127,7 @@ where $\mu_0$ is the daily service rate of a single housing unit and the stepsiz
     \label{fig:ut-illustrative}
 \end{figure}
 
-Figure \ref{fig:ut-illustrative} shows an example of how one might come close to reaching functional zero in five years.  The level of housing investment steadily increases over time.  There is some initial increase in shelter, though in general there is less investment in shelter over the long term than in housing.  The unsheltered population is stabilized and then eventually decreases approaching zero.  The arrival rates $\lambda_d$ are projected based on a current estimate of 10/day, along with the assumption that arrivals will increase in the coming years due to repercussions of COVID-19.  Eventually, prevention methods will take effect and the arrival rate will hopefully decline \citep{hometogether2022}. The daily service rate $\mu_0$ is equivalent to the mean of a triangular distribution with lower limit $0 \text{ weeks}$, upper limit $400 \text{ weeks}$ and mode $300 \text{ weeks}$. 
+Figure \ref{fig:ut-illustrative} shows an example of how one might come close to reaching zero unsheltered homelessness in five years.  The level of housing investment steadily increases over time.  There is some initial increase in shelter, though in general there is less investment in shelter over the long term than in housing.  The unsheltered population is stabilized and then eventually decreases approaching zero.  The arrival rates $\lambda_d$ are projected based on a current estimate of 10/day, along with the assumption that arrivals will increase in the coming years due to repercussions of COVID-19.  Eventually, prevention methods will take effect and the arrival rate will hopefully decline \citep{hometogether2022}. The daily service rate $\mu_0$ is equivalent to the mean of a triangular distribution with lower limit $0 \text{ weeks}$, upper limit $400 \text{ weeks}$ and mode $300 \text{ weeks}$. \newline
 
 In Section \ref{do} we will evaluate (\ref{u_t_discrete}) using annual housing and shelter capacity vectors $\boldsymbol{h} = \{h_t \hspace{0.1cm} \forall t \in 0,...,T\}$ and $\boldsymbol{s} = \{s_t \hspace{0.1cm} \forall t \in 0,...,T\}$ where $T$ is a time horizon in years. In this case we assume that any annual increase or decrease in capacity is spread evenly throughout the year, and (\ref{u_t_discrete}) becomes
 %
@@ -146,6 +147,59 @@ and
 s^D_d(\boldsymbol{s}) & = s_{\lfloor{\frac{d}{365}}\rfloor} + \frac{d-\lfloor\frac{d}{365}\rfloor}{365}(s_{\lceil{\frac{d}{365}}\rceil}-s_{\lfloor{\frac{d}{365}}\rfloor}).
 \end{align}
 %
+This fluid flow model has the advantage of being computationally cheap to run. It is also flexible to incorporate certain real-world system complexities. For example, we could model heterogeneous customer groups in different compartments with different arrival rates, servers and service rates. We could also incorporate re-entries to the system by applying a discount factor to the third term in Equation \ref{u_t_discrete_h_s_dependent}.
+
+\subsection{$M_t/M/h_t$ queueing model}
+With an $M_t/M/h_t$ queueing model we are still modelling the system as illustrated in Figure \ref{fig:simple-q} but we no longer treat arrivals and departures as a fluid, but as individual people. We introduce stochasticity and would like to compute the probability of their being any number of people in the system throughout the time horizon. In doing so we allow a non-zero probability of their being $0$ people in the system, thus relaxing the server-always-busy asumptions we made with the fluid model.
+
+Given the memoryless property of the exponential inter-arrival and service times in an $M_t/M/h_t$ queue, we can discretise time and treat this queue as a discrete-time Markov chain where the state space represents the number of people in the system and some large but finite $N$ is the largest possible state. With sufficiently small time intervals of length $\Delta t$, we can assume that within each interval the arrival rate is constant, the number of servers is constant and at most one state change can occur. Therefore, if we know the initial probabilities $p_n(t=0)$ of being in all states $n \in \{0,1,...,N\}$ then for all times $t \in \{0, \Delta t,...,T\}$, we can calculate the probability $p_n(t + \Delta t)$ as: 
+% 
+\begin{align*}
+  p_n(t+\Delta t) = & \hspace{0.1cm} p_{n}(t)[1-\lambda(t)\Delta t-\mu_0 m_n(t) \Delta t] \\
+                    & + p_{n+1}(t)[\mu_0 m_{n+1}(t) \Delta t] \\
+                    & + p_{n-1}(t)[\lambda(t) \Delta t] \\
+                    & + \hspace{0.1cm} o(\Delta t) \hspace{1cm} 1 \leq n \leq N-1
+\end{align*}
+% 
+\begin{align*}
+  p_0(t+\Delta t) = & \hspace{0.1cm} p_{0}(t)[1-\lambda(t)\Delta t] \\
+                    & + p_{1}(t)[\mu_0 m_{1}(t) \Delta t] \\
+                    & + \hspace{0.1cm} o(\Delta t)
+\end{align*}
+% 
+\begin{align*}
+  p_N(t+\Delta t) = & \hspace{0.1cm} p_{N}(t)[1-\mu_0 m_N(t) \Delta t] \\
+                    & + p_{N-1}(t)[\lambda(t) \Delta t] \\
+                    & + \hspace{0.1cm} o(\Delta t)
+\end{align*}
+% 
+where $\lambda(t)$ is the arrival rate at time $t$, $\mu_0$ is the service rate of a single housing server and $m_n(t) = \min(n,h(t))$ is the number of busy housing servers when the system is in state $n$ at time $t$. The bias in the results introduced by using constant values in each time interval for $\lambda(t)$ and $h(t)$ vanishes as $\Delta t \to 0$. The probabilities $p_n(t)$ can then be analysed to estimate the expected number of people in the system and the expected number of people in the unsheltered and sheltered parts of the queue. \newline
+
+This model is more computationally costly than the fluid flow model, but still cheap compared to a discrete-event simulation model. We have introduced stochasticity and allowed housing servers to be empty with some positive probability, but we are still limited in what real-world complexity we can model. Our choice of distribution for inter-arrival times and service times is also limited to the exponential distribution. 
+
+\subsection{Discrete-event simulation model} \label{DES}
+
+\tikzstyle{server_s} = [rectangle, rounded corners, minimum width=0.5cm, minimum height=1cm,text centered, draw=black, fill=gray!30]
+\tikzstyle{server_h} = [rectangle, rounded corners, minimum width=0.5cm, minimum height=1cm,text centered, draw=black, fill=teal!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}
+      \node (start) [empty, align=center] {};
+      \node (shelter) [server_s, right of=start, xshift=3cm] {Shelter};
+      \node (housing) [server_h, right of=shelter, xshift=2.5cm] {Housing};
+      \node (end) [empty, right of=housing, xshift=1.4cm, align=center] {};
+      \draw [arrow] (start) -- node [above] {Unsheltered} (shelter);
+      \draw [arrow] (shelter) -- node [above] {Zero buffer}(housing);
+      \draw [arrow] (housing) -- node [above] {}(end);
+      \draw [arrow] (housing) to [out=210,in=330] node [below] {Partial re-entry}(shelter);
+    \end{tikzpicture}
+    \caption{Tandem queueing system with re-entries} \label{fig:des-q}
+  \end{center}
+\end{figure}
+
+        
 \section{Deterministic optimisation with low-fidelity model} \label{do}
 
 \begin{itemize}[noitemsep]
