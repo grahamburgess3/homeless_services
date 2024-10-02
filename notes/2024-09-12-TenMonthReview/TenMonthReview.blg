@@ -3,46 +3,48 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: TenMonthReview.aux
 The style file: apalike.bst
 Database file #1: bibliography.bib
+Warning--entry type for "RICActionPlan" isn't style-file defined
+--line 145 of file bibliography.bib
 Warning--empty note in hometogether2022
-You've used 14 entries,
+You've used 15 entries,
             1935 wiz_defined-function locations,
-            568 strings with 6766 characters,
-and the built_in function-call counts, 6243 in all, are:
-= -- 623
-> -- 258
-< -- 9
-+ -- 93
-- -- 88
-* -- 547
-:= -- 1060
-add.period$ -- 43
-call.type$ -- 14
-change.case$ -- 114
-chr.to.int$ -- 13
-cite$ -- 15
-duplicate$ -- 226
-empty$ -- 429
-format.name$ -- 106
-if$ -- 1227
+            573 strings with 6894 characters,
+and the built_in function-call counts, 6479 in all, are:
+= -- 647
+> -- 265
+< -- 10
++ -- 95
+- -- 90
+* -- 562
+:= -- 1107
+add.period$ -- 45
+call.type$ -- 15
+change.case$ -- 120
+chr.to.int$ -- 14
+cite$ -- 16
+duplicate$ -- 236
+empty$ -- 444
+format.name$ -- 109
+if$ -- 1270
 int.to.chr$ -- 2
 int.to.str$ -- 0
 missing$ -- 13
-newline$ -- 72
-num.names$ -- 42
-pop$ -- 92
+newline$ -- 76
+num.names$ -- 45
+pop$ -- 96
 preamble$ -- 1
-purify$ -- 114
+purify$ -- 120
 quote$ -- 0
-skip$ -- 178
+skip$ -- 187
 stack$ -- 0
-substring$ -- 498
+substring$ -- 510
 swap$ -- 40
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 84
+type$ -- 90
 warning$ -- 1
-while$ -- 55
+while$ -- 57
 width$ -- 0
-write$ -- 183
-(There was 1 warning)
+write$ -- 193
+(There were 2 warnings)

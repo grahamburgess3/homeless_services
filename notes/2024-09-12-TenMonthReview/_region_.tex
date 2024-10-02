@@ -1,5 +1,7 @@
-\message{ !name(TenMonthReview.tex)}\documentclass{article}
+\message{ !name(TenMonthReview.tex)}\documentclass[12pt,a4paper]{article}
 
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % to set up page formatting
+\usepackage[skip=10pt]{parskip} % spacing in between paragraphs
 \usepackage{graphicx} % Required for inserting images
 \usepackage{amsmath} % Required for flexibility in mathematical equations
 \usepackage{amssymb} % Required for certain math symbols e.g. E[.]
@@ -14,8 +16,22 @@
 
 \begin{document}
 
-\message{ !name(TenMonthReview.tex) !offset(158) }
-$h(t)$ vanishes as 
-\message{ !name(TenMonthReview.tex) !offset(209) }
+\message{ !name(TenMonthReview.tex) !offset(180) }
+\begin{figure}
+  \begin{center}
+    \begin{tikzpicture}
+      \node (start) [empty, align=center] {};
+      \node (shelter) [server_s, right of=start, xshift=3cm] {Shelter};
+      \node (housing) [server_h, right of=shelter, xshift=3cm] {Housing};
+      \node (end) [empty, right of=housing, xshift=1.4cm, align=center] {};
+      \draw [arrow] (start) -- node [above] {Unsheltered} (shelter);
+      \draw [arrow] (shelter) -- node [above] {Zero buffer}(housing);
+      \draw [arrow] (housing) -- node [above] {}(end);
+      \draw [arrow] (housing) to [out=210,in=330] node [below] {Partial re-entry}(shelter);
+    \end{tikzpicture}
+    \caption{Tandem queueing system with re-entries} \label{fig:des-q}
+  \end{center}
+\end{figure}
+\message{ !name(TenMonthReview.tex) !offset(208) }
 
 \end{document}
