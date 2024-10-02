@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  2 OCT 2024 15:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  2 OCT 2024 16:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -696,58 +696,62 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 21.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-<u_t_example.png, id=158, 425.6703pt x 330.2739pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
+<u_t_example.png, id=165, 425.6703pt x 330.2739pt>
 File: u_t_example.png Graphic file (type png)
 <use u_t_example.png>
-Package pdftex.def Info: u_t_example.png  used on input line 130.
+Package pdftex.def Info: u_t_example.png  used on input line 134.
 (pdftex.def)             Requested size: 340.5367pt x 264.21945pt.
- [4] [5 <./u_t_example.png>]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 157.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 157.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 157.
+(hyperref)                removing `math shift' on input line 161.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 157.
+(hyperref)                removing `subscript' on input line 161.
 
-[6] [7] [8] [9]
-<phi2-opt.png, id=245, 419.166pt x 330.2739pt>
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 161.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 161.
+
+[6 <./u_t_example.png>] [7] [8] [9] [10]
+<phi2-opt.png, id=249, 419.166pt x 330.2739pt>
 File: phi2-opt.png Graphic file (type png)
 <use phi2-opt.png>
-Package pdftex.def Info: phi2-opt.png  used on input line 309.
+Package pdftex.def Info: phi2-opt.png  used on input line 315.
 (pdftex.def)             Requested size: 335.33325pt x 264.21945pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<results_comparison.png, id=246, 482.55281pt x 63.98906pt>
+<results_comparison.png, id=250, 482.55281pt x 63.98906pt>
 File: results_comparison.png Graphic file (type png)
 <use results_comparison.png>
-Package pdftex.def Info: results_comparison.png  used on input line 317.
+Package pdftex.def Info: results_comparison.png  used on input line 323.
 (pdftex.def)             Requested size: 386.04276pt x 51.1913pt.
-[10] [11 <./phi2-opt.png> <./results_comparison.png>]
-Overfull \hbox (17.68881pt too wide) in paragraph at lines 343--343
+[11] [12 <./phi2-opt.png> <./results_comparison.png>] [13] [14]
+Overfull \hbox (17.68881pt too wide) in paragraph at lines 356--356
 []\OT1/cmr/bx/n/17.28 Potential con-tri-bu-tions at in-ter-sec-tion of integer-
 ordered
  []
 
-[12] [13] (./TenMonthReview.bbl [14]) [15] (./TenMonthReview.aux)
+[15] [16] (./TenMonthReview.bbl [17]) [18] (./TenMonthReview.aux)
 Package rerunfilecheck Info: File `TenMonthReview.out' has not changed.
 (rerunfilecheck)             Checksum: B4FE9BF249F78F2CC159F8C21E62D729;4018.
  ) 
 Here is how much of TeX's memory you used:
- 21602 strings out of 480247
- 396998 string characters out of 5896151
- 670227 words of memory out of 5000000
+ 21605 strings out of 480247
+ 397019 string characters out of 5896151
+ 671239 words of memory out of 5000000
  39120 multiletter control sequences out of 15000+600000
  481776 words of font info for 74 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -771,10 +775,10 @@ are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TenMonthReview.pdf (15 pages, 321625 bytes).
+Output written on TenMonthReview.pdf (18 pages, 324956 bytes).
 PDF statistics:
- 383 PDF objects out of 1000 (max. 8388607)
- 317 compressed objects within 4 object streams
- 66 named destinations out of 1000 (max. 500000)
+ 398 PDF objects out of 1000 (max. 8388607)
+ 329 compressed objects within 4 object streams
+ 69 named destinations out of 1000 (max. 500000)
  180 words of extra memory for PDF output out of 10000 (max. 10000000)
 

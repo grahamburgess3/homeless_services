@@ -34,7 +34,9 @@ The most accurate model of this queueing system is a high-fidelity stochastic si
 As is common in queueing systems, lower fidelity models such as analytical queueing models offer a computationally cheaper alternative to stochastic simulation. They also offer helpful alternative perspectives on the dynamics of a queueing system. The drawback is that these models are typically less accurate, given the necessary assumptions which must be made. If one only uses a low-fidelity deterministic model to evaluate the performance of a solution, optimisation falls in the realm of deterministic optimisation. Performing this deterministic optimisation can be a helpful first step in the decision-making process. However, there is more we can do with our low fidelity models. Multi-fidelity simulation optimisation (MFSO) enables low-fidelity models to be used alongside high fideltiy stocahstic simulation in a SO algorithm which reduces the computational burden and therefore enables an optimal solution to be found more efficiently. Novel MFSO methods will be the main topic of this PhD research.
 
 This document is organised as follows: in Section \ref{lit-rev} we briefly review relevant literature on modelling and optimisation in homeless care settings and healthcare settings. There are many similarities between these two areas but the latter is more widely studied in the literature. We also review relevant SO methods including MFSO. In Sections \ref{models} and \ref{do} we discuss the main content of the PhD research to date. Section \ref{models} introduces three models of multi-fidelity for homeless care systems. Section \ref{do} introduces an optimisation formualation which addresses the time-varying capacity planning problem and we solve this problem in a determinsitc setting. In Section \ref{uncert} we discuss how different types of uncertainty affect our decision-making process, and this discussion motivates the need for simulation optimisation. In Section \ref{mfso} we discuss relevant interesting gaps in the current MFSO literature which the remainder of this PhD research seeks to address.
-%
+
+\newpage
+
 \section{Literature Review} \label{lit-rev}
 
 \subsection{Modelling and optimisation in healthcare settings}
@@ -73,6 +75,8 @@ Simulation modelling of homeless care system in Alameda County \citep{singham202
 \end{itemize}
 \item Multi-fidelity Expensive Black Box (Mf-EBB) Optimisation
 \end{itemize}
+
+\newpage
 
 \section{Models of multi-fidelity} \label{models}
 
@@ -215,6 +219,8 @@ We have developed a DES model of our homelessness care system, which is a Python
 
 While this is still a relatively simple DES model, it provides the framework for us to add many more system complexities should we so desire. For example, we could model the non-zero time needed to occupy a house with a new resident following the departure of its previous resident. We could also model the process of conversion of shelter to housing, which is a strategy proposed by Alameda County to improve services in the long term. We thus treat our DES model as a high-fidelity model, capable of the highest level of modelling accuracy, in comparison to our low- and medium-fidelity models, albeit at a computational cost.
 
+\newpage
+
 \section{Deterministic optimisation with low-fidelity model} \label{do}
 %
 In this section, we will present an optimization formulation applied to our deterministic fluid flow model. This formulation will optimise the levels of housing and shelter to be built over time, and the objective function will attempt to minimise the unsheltered and sheltered population over the modelling horizon. Aside from the obvious need for cost constraints, we improve the real-world feasibility of our solutions by incorporating policy-based shape constraints on the housing and shelter capacities, which are a function of time. For example, though it would better from a queueing standpoint to spend all financial resources upfront, the reality is that investment from the taxpayer will likely ramp up over a period of years. Furthermore, though their is political appetite for the use of emergency shelter in the short term, this is not seen as a sustainable long-term solution, so we introduce a unimodal shape constraint on the shelter capacity function.
@@ -331,14 +337,21 @@ While housing is the primary resource and is modeled as the main server system, 
 
 There are many opportunities for alternative formulations.  Smoothness constraints on the unimodal shelter capacity function may give more practical solutions that appear reasonable to constituents. Further constraints to control the decommissioning of shelter may also be appropriate. A bi-objective formulation would likely give further insight into the trade-off between short-term relief to the system via shelter and long-term relief via housing. Alternatively, a goal programming formulation which penalised deviations from a time-dependent goal on the unsheltered population would be interesting to explore.
 
-We have here performed deterministic optimisation using a low-fidelity fluid flow model. This has enabled us to develop and explore an optimisation formulation which captures the key objectives, trade offs and constraints. It has also enabled us to quickly get a feel for the nature of good solutions to the time-dependent capacity planning problem using a simple model. The natural next step is to develop a stochastic optimization model to account for parameter uncertainty. 
+We have here performed deterministic optimisation using a low-fidelity fluid flow model. This has enabled us to develop and explore an optimisation formulation which captures the key objectives, trade offs and constraints. It has also enabled us to quickly get a feel for the nature of good solutions to the time-dependent capacity planning problem using a simple model. The natural next step is to develop a stochastic optimization model to account for parameter uncertainty.
+
+\newpage
 
 \section{Discussion of uncertainty} \label{uncert}
 
-\begin{itemize}[noitemsep]
-\item Stochastic uncertainty in homeless care problem (arrival/service processes).
-\item Input model uncertainty: good input models for today cannot reliably predict future events.
-\end{itemize}
+Our optimisation in Section \ref{do} assumes that we know the future arrival rates of homeless people into the homeless care system, and that we know their service times in housing. The fluid flow model projects forward the resulting unsheltered queue based on these exact quantities. In reality, actual inter-arrival times (or service times) are realisations of some unknown true distribution which we can only estimate using information available to us. Even if we knew the true distributions, we would not know what the next inter-arrival time (or service time) would be, due to the random nature of these processes. It is important that we consider these aspects of uncertainty as we move forward to consider simulation optimisation.
+
+As discussed in Section \ref{models}, a stochastic simulation model offers a high-fidelity model of the homeless care system. It incorporates the stochasticity in inter-arrival and service times, and it allows us to capture certain important real-world complexities, such as the conversion of shelter to housing. There are two types of uncertainty in stochastic simulation: input uncertainty and stochastic uncertainty. Input uncertainty arises from not knowing the true input models for, say, inter-arrival and service times. Stochastic uncertainty arises from only ever simulating a finite amount of random variates from the input models used. The latter can be mitigated by performing many simulation replications. The former is typically mitigated by bootstrapping from the data used to fit the input models, to fit new input models which can be used to generate new random variates in new simulation replications.
+
+Simulation optimisation suffers from both input uncertainty and stochastic uncertainty as a direct result of using stochastic simulation to model the performance of a solution. The main focus of this PhD research, at least initially, will be multi-fidelity simulation optimisation where we do not consider the effects of input uncertainty. I.e. we assume that we know the true distributions for inter-arrival times and service times. We do, of course, consider stochastic uncertainty: i.e. given known input models, with a finite comptuational budget we can only estimate the performance of a solution. We will endeavour to use multi-fidelity models alongside stochastic simulation so as to identify optimal or close to optimal solutions in a computationally efficient way, given the inherent stochastic uncertainty.
+
+We do here acknowledge that for the homeless care system, there are extremely high levels of input uncertainty. Even if we fitted an input model for inter-arrival times using an extensive dataset of inter-arrival times of homeless people in recent years, we would still be highly uncertain of whether this model would accurately predict future inter-arrival times because the future is full of unknowns. It is simply impossible to predict future inter-arrival times because they are connected with many other events which are highly unpredictable, such as house prices, political decisions and global health and climate emergencies. Our decision to not consider input uncertainty is therefore not without due consideration. We anticipate that incorporating multi-fidelity models into simulation optimisation is challenging enough without input uncertainty. Once we have made progress with this, we will consider how our methodology could be adapted to consider input uncertainty. To this end, we may first consider simulation optimisation with high input uncertainty, without incorporating multi-fidelity models. This in itself is an active area of research.
+
+\newpage
 
 \section{Potential contributions at intersection of integer-ordered and multi fidelity SO} \label{mfso}
 
@@ -347,6 +360,8 @@ We have here performed deterministic optimisation using a low-fidelity fluid flo
 \item Adding prior information to GMRF using low-fidelity model.
 \item Modelling errors of low fidelity models using GMRF.
 \end{itemize}
+
+\newpage
 
 \section{Conclusion}\label{conc}
 
