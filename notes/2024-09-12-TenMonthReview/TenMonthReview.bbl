@@ -28,6 +28,12 @@ Huang, D., Allen, T.~T., Notz, W.~I., and Miller, R.~A. (2006).
 \newblock Sequential kriging optimization using multiple-fidelity evaluations.
 \newblock {\em Structural and Multidisciplinary Optimization}, 32:369--382.
 
+\bibitem[Izady and Worthington, 2012]{izady2012setting}
+Izady, N. and Worthington, D. (2012).
+\newblock {Setting Staffing Requirements for Time Dependent Queueing Networks:
+  The Case of Accident and Emergency Departments}.
+\newblock {\em European Journal of Operational Research}, 219(3):531--540.
+
 \bibitem[Jian and Henderson, 2015]{jian2015introduction}
 Jian, N. and Henderson, S.~G. (2015).
 \newblock An introduction to simulation optimization.
@@ -49,6 +55,15 @@ Kaya, Y.~B., Mantell, S., Maass, K.~L., Konrad, R., Trapp, A.~C., Dimas, G.~L.,
 \newblock In {\em 2022 Winter Simulation Conference (WSC)}, pages 1033--1044.
   IEEE.
 
+\bibitem[Konrad and Liu, 2023]{konrad2023achieving}
+Konrad, K. and Liu, Y. (2023).
+\newblock {Achieving Stable Service-Level Targets in Time-Varying Queueing
+  Systems: A Simulation-Based Offline Learning Staffing Algorithm}.
+\newblock In Corlu, C.~G., Hunter, S.~R., Lam, H., Onggo, B.~S., Shortle, J.,
+  and Biller, B., editors, {\em Proceedings of the 2023 Winter Simulation
+  Conference.}, pages 327--338, Piscataway, New Jersey. IEEE, {Institute of
+  Electrical and Electronics Engineers, Inc.}
+
 \bibitem[L.~Salemi et~al., 2019]{l2019gaussian}
 L.~Salemi, P., Song, E., Nelson, B.~L., and Staum, J. (2019).
 \newblock Gaussian markov random fields for discrete optimization via
@@ -61,6 +76,19 @@ Lim, E. (2012).
   applications to inventory systems and admission control of queueing networks.
 \newblock {\em ACM Transactions on Modeling and Computer Simulation (TOMACS)},
   22(4):1--23.
+
+\bibitem[Maass et~al., 2020]{maass2020optimizing}
+Maass, K.~L., Trapp, A.~C., and Konrad, R. (2020).
+\newblock Optimizing placement of residential shelters for human trafficking
+  survivors.
+\newblock {\em Socio-Economic Planning Sciences}, 70:100730.
+
+\bibitem[Miller et~al., 2022]{miller2022optimization}
+Miller, F., Kaya, Y.~B., Dimas, G.~L., Konrad, R., Maass, K.~L., Trapp, A.~C.,
+  et~al. (2022).
+\newblock On the optimization of benefit to cost ratios for public sector
+  decision making.
+\newblock {\em arXiv preprint arXiv:2212.04534}.
 
 \bibitem[{Regional Impact Council}, 2021]{RICActionPlan}
 {Regional Impact Council} (2021).
