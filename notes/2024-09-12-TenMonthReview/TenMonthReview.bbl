@@ -11,17 +11,23 @@ Chong, L. and Osorio, C. (2018).
   urban transportation problems.
 \newblock {\em Transportation Science}, 52(3):637--656.
 
-\bibitem[Desai et~al., 2008]{desai2008modelling}
-Desai, M.~S., Penn, M.~L., Brailsford, S., and Chipulu, M. (2008).
-\newblock Modelling of {Hampshire} adult services—gearing up for future
-  demands.
-\newblock {\em Health Care Management Science}, 11:167--176.
-
 \bibitem[El~Hage et~al., 2021]{el2021supporting}
 El~Hage, J., Gravitt, P., Ravel, J., Lahrichi, N., and Gralla, E. (2021).
 \newblock Supporting scale-up of {Covid-19 RT-PCR} testing processes with
   discrete event simulation.
 \newblock {\em PLoS One}, 16(7):e0255214.
+
+\bibitem[Green and Kolesar, 1991]{green1991pointwise}
+Green, L. and Kolesar, P. (1991).
+\newblock The pointwise stationary approximation for queues with nonstationary
+  arrivals.
+\newblock {\em Management Science}, 37(1):84--97.
+
+\bibitem[Green et~al., 1991]{green1991some}
+Green, L., Kolesar, P., and Svoronos, A. (1991).
+\newblock Some effects of nonstationarity on multiserver {Markovian} queueing
+  systems.
+\newblock {\em Operations Research}, 39(3):502--511.
 
 \bibitem[Huang et~al., 2006]{huang2006sequential}
 Huang, D., Allen, T.~T., Notz, W.~I., and Miller, R.~A. (2006).
@@ -33,6 +39,11 @@ Izady, N. and Worthington, D. (2012).
 \newblock {Setting Staffing Requirements for Time Dependent Queueing Networks:
   The Case of Accident and Emergency Departments}.
 \newblock {\em European Journal of Operational Research}, 219(3):531--540.
+
+\bibitem[Jennings et~al., 1996]{jennings1996server}
+Jennings, O.~B., Mandelbaum, A., Massey, W.~A., and Whitt, W. (1996).
+\newblock Server staffing to meet time-varying demand.
+\newblock {\em Management Science}, 42(10):1383--1394.
 
 \bibitem[Jian and Henderson, 2015]{jian2015introduction}
 Jian, N. and Henderson, S.~G. (2015).
@@ -90,6 +101,12 @@ Miller, F., Kaya, Y.~B., Dimas, G.~L., Konrad, R., Maass, K.~L., Trapp, A.~C.,
   decision making.
 \newblock {\em arXiv preprint arXiv:2212.04534}.
 
+\bibitem[{Oakland-Berkeley-Alameda County Continuum of Care}, 2021]{racial2021}
+{Oakland-Berkeley-Alameda County Continuum of Care} (2021).
+\newblock Centering racial equity in homelessness system design.
+\newblock
+  \url{https://everyonehome.org/wp-content/uploads/2021/02/2021-Centering-Racial-Equity-in-Homeless-System-Design-Full-Report-FINAL.pdf}.
+
 \bibitem[{Regional Impact Council}, 2021]{RICActionPlan}
 {Regional Impact Council} (2021).
 \newblock {Regional Action Plan: A Call to Action from the Regional Impact
@@ -114,12 +131,6 @@ Wang, H., Pasupathy, R., and Schmeiser, B.~W. (2013).
   search with piecewise-linear interpolation and neighborhood enumeration.
 \newblock {\em ACM Transactions on Modeling and Computer Simulation (TOMACS)},
   23(3):1--24.
-
-\bibitem[Weiss and McClain, 1987]{weiss1987administrative}
-Weiss, E.~N. and McClain, J.~O. (1987).
-\newblock Administrative days in acute care facilities: a queueing-analytic
-  approach.
-\newblock {\em Operations Research}, 35(1):35--44.
 
 \bibitem[Worthington, 1991]{worthington1991hospital}
 Worthington, D. (1991).
