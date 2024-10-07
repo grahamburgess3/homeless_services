@@ -61,21 +61,40 @@ Several studies have looked at capacity planning for services to support runaway
 
 \subsection{Simulation optimisation (SO)} \label{so}
 
+Simulation optimisation is not widely used in the management of healthcare or homeless care settings. This is likely due to the fact that decision-makers often face a small number of practical alternatives when considering capacity planning or would like to see how a plan fares under a small number of hypothetical scenarios. When stochastic simulation is used to model these alternatives, a simple comparison of simulation outputs is often helpful and sufficient, especially when there are multiple competing criteria to consider, such as performance and cost.
+
+SO is aimed at decision problems where there are a large number of alternative solutions so allocating substantial computational resource for simulation to each solution is not practical. SO methods offer intelligent systematic procedures to find optimal solutions efficiently using a finite computational budget for simulation. The time-varying capacity planning problem in homeless care settings does involve a large solution space since housing and shelter capacity may take a wide range of values year on year. In this PhD research we would like to explore to what extent novel efficient MFSO methods can give meaningful analytical support to decision makers in this setting. With this in mind, we now review current SO methods, in particular integer-order and multi-fidelity methods which have particular relevance to our problem. 
+
 \subsubsection{Overview of SO methods}
 
-\begin{itemize}[noitemsep]
-\item Discrete SO: ranking \& selection, adaptive random search, integer-ordered.
-\item Continuous SO: sample average approx, stochastic approx, meta models.
-\end{itemize}
+In SO, one is typically interested in solving the following optimisation problem: 
+%
+\begin{equation}\label{SO_general}
+    \min \theta(\boldsymbol{x}), \hspace{0.2cm} \boldsymbol{x} \in C
+\end{equation}
+%
+where $\theta(\boldsymbol{x})$ is the true cost of solution $\boldsymbol{x}$ which can only be estimated with stochastic simulation and $C$ is the set of feasible solutions, or the solution space. SO methods can be categorised into those which deal with discrete-valued solution spaces and those which deal with contiuous-valued solution spaces. Stricly speaking, the decision variables in our problem are discrete (the number of housing units or shelter units) however it can be convenient to approximate these variables as continuous-valued (as we do in Section \ref{do}) so here we discuss both discrete and continuous SO methods.
 
-\subsubsection{Integer-ordered SO methods}
+In discrete problems, with a sufficiently small number of feasible solutions, it may be realistic to simulate every solution at least once. In this case, \textbf{ranking and selection} (R\&S) methods are appropriate. Initially each solution is simulated a relatively small number of times, and then a decision is made iteratively about which solutions to discard and which to keep simulating. By the end of the procedure, one has a statistical guarantee on the probabilty that a solution within an `indifference zone' of the true best has been selected (in a frequentist setting).
+
+In discrete problems where it is not realistic to simulation every solution, \textbf{adaptive random search} (ARS) methods are appropriate. At each iteration, a set of feasible solutions is randomly selected for simulation (or further simulation) based on a probability distribution across the feasible region. The nature of the probability distribution is different for different ARS methods, but they informally exploit the idea that good solutions tend to be clustered together. ARS methods converge asymptotically to local or global optima (depending on the method) and rules are used to decide when to stop the procedure and return the sample best solution.
+
+In many discrete problems, including the homeless care problem, each decision variable is defined on an integer-ordered scale. \textbf{Integer-ordered} SO methods can exploit the spatial relationships between solutions when looking for a optimal solutions. Some integer-ordered methods work with gradients, while others use a neighbourhood structure. We discuss several key integer-ordered methods in Section \ref{int-ordered-so}. 
+
+We now briefly discuss several approaches for continuous problems. \textbf{Stochastic approximation} methods search across a continuous solution space for locally optimal solutions where the true cost $\theta(\boldsymbol{x})$ is continuous and differentiable in $\boldsymbol{x}$. If we can estimate the gradient $\nabla \theta(\boldsymbol{x})$ using simulation, then we can move along the gradient to a region where we expect better solutions. There are several methods for esimating the gradient, generally classified as `indirect' if they estimate an approximation of the gradient using simulation at points a small finite difference apart, or `direct' if they attempt to estimate the true gradient, by, for example, differentiating the simulation code itself. 
+
+In \textbf{sample average approximation} the optimisation problem is transformed to a deterministic problem by fixing the random numbers used in the stochastic simulation of each feasible solution. The goal is then to minimise the sample average objective function, whose optimal solution is a good approximation of the true optimal solution to the original problem provided the samples are big enough. Of course, one still has to perform the deterministic optimisation, but this can take advantage of some structural problems of the sample average problem such as convexity. 
+
+Finally, we discuss the use of \textbf{meta models} for continuous problems. Meta-model approaches capitalise on the low computational cost of an alternative model of the system in question. This meta model is used to aid the search for a local or global solution. Local meta models usually involve polynomial regression models which perform well locally but poorly over a large solution space. Gradients of the polynomial meta model are used in the search. Global meta models such as Gaussian process (GP) models, work well in low-dimensional settings where the cost of simulation is high. In Bayesian optimisation (BO), A GP prior distribution of the simulation output is placed over the entire feasible region. At each iteration in BO, a sampling decision is made to choose the solution with the best expected improvement on the current best solution and the posterior distribution is subsequently updated. In Section \ref{int-ordered-so} we discuss a discrete version of the GP approach. In \textbf{multi-fidelity simulation optimisation}, one or more low-fidelity meta models of the system are used to aid in the optimisation process. As we discuss in Section \ref{models}, in queueing systems multi-fidelity models are typically available subject to certain assumptions being made. 
+
+\subsubsection{Integer-ordered SO methods} \label{int-ordered-so}
 \begin{itemize} [noitemsep]
     \item Retrospective search with piecewise-linear interpolation and neighborhood enumeration (R-SPLINE) \citep{wang2013integer}.
     \item Discrete Stochastic Approximation \citep{lim2012stochastic}
     \item Gaussian Markov Random Fields \citep{l2019gaussian}
 \end{itemize}
 
-\subsubsection{Multi fidelity SO methods}
+\subsubsection{Multi-fidelity SO methods}
 
 \begin{itemize}[noitemsep]
 \item Using deterministic optimisation results to begin simulation optimisation e.g. \cite{jian2015introduction}.

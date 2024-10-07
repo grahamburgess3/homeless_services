@@ -1,10 +1,13 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  4 OCT 2024 14:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  7 OCT 2024 17:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**\nonstopmode\nofiles\PassOptionsToPackage{active,tightpage,auctex}{preview}\AtBeginDocument{\ifx\ifPreview\undefined\RequirePackage[displaymath,floats,graphics,textmath,sections,footnotes]{preview}[2004/11/05]\fi} \input \detokenize{ TenMonthReview.tex }
-(./TenMonthReview.tex (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+**TenMonthReview.tex
+(./TenMonthReview.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
 File: size12.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
@@ -20,14 +23,18 @@ File: size12.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
-) (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
-) (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
- (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2020/03/06 v1.0d TeX engine tests
 ))
 \Gm@cnth=\count193
@@ -42,28 +49,38 @@ Package: iftex 2020/03/06 v1.0d TeX engine tests
 \Gm@layouthoffset=\dimen145
 \Gm@layoutvoffset=\dimen146
 \Gm@dimlist=\toks17
-) (/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
- (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-)) (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count196
-)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
- (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen147
@@ -76,14 +93,17 @@ Package: amsmath 2021/10/15 v2.17l AMS math features
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
- (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks18
 \ex@=\dimen149
-)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen150
-) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2021/08/26 v2.02 operator names
 )
 \inf@bad=\count197
@@ -123,35 +143,26 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \mathdisplay@stack=\toks22
 LaTeX Info: Redefining \[ on input line 2938.
 LaTeX Info: Redefining \] on input line 2939.
-) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip52
 \bibsep=\skip53
 LaTeX Info: Redefining \cite on input line 694.
-
-
-/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty:795: LaTeX Error: Command \makeindex undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.795 \renewcommand\makeindex
-                             {\NAT@makeindex
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
 \c@NAT@ctr=\count275
-) (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \labelindent=\skip54
 \enit@outerparindent=\dimen158
@@ -159,23 +170,35 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@inbox=\box52
 \enit@count@id=\count276
 \enitdp@description=\count277
-) (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
 \pgfutil@everybye=\toks24
 \pgfutil@tempdima=\dimen159
 \pgfutil@tempdimb=\dimen160
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.t
+ex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
 \pgfutil@abb=\box53
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
 Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
 ))
 Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
- (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
 \pgfkeys@pathtoks=\toks25
 \pgfkeys@temptoks=\toks26
 
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
+ex
 \pgfkeys@tmptoks=\toks27
 ))
 \pgf@x=\dimen161
@@ -202,19 +225,27 @@ Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
 File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
 )
 Driver file for pgf: pgfsys-pdftex.def
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
 File: pgfsys-pdftex.def 2021/05/15 v3.1.9a (3.1.9a)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f
 File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
-))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex
 File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfsyssoftpath@smallbuffer@items=\count283
 \pgfsyssoftpath@bigbuffer@items=\count284
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex
 File: pgfsysprotocol.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
@@ -227,9 +258,14 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen171
 \pgfmath@count=\count285
 \pgfmath@box=\box54
@@ -237,10 +273,29 @@ Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
 \pgfmath@stack@operand=\toks32
 \pgfmath@stack@operation=\toks33
 )
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count286
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x
 File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@picminx=\dimen172
 \pgf@picmaxx=\dimen173
@@ -256,38 +311,56 @@ File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@yy=\dimen183
 \pgf@zx=\dimen184
 \pgf@zy=\dimen185
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex
 File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@path@lastx=\dimen186
 \pgf@path@lasty=\dimen187
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex
 File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@shorten@end@additional=\dimen188
 \pgf@shorten@start@additional=\dimen189
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x
 File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfpic=\box55
 \pgf@hbox=\box56
 \pgf@layerbox@main=\box57
 \pgf@picture@serial@count=\count287
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex
 File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgflinewidth=\dimen190
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex
 File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@pt@x=\dimen191
 \pgf@pt@y=\dimen192
 \pgf@pt@temp=\dimen193
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex
 File: pgfcoreobjects.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex
 File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x
 File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfarrowsep=\dimen194
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@max=\dimen195
 \pgf@sys@shading@range@num=\count288
@@ -295,39 +368,61 @@ File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex
 File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfexternal@startupbox=\box58
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x
 File: pgfcorelayers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex
 File: pgfcoretransparency.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex
 File: pgfcorepatterns.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
 File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfnodeparttextbox=\box59
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
+.sty
 Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@nodesepstart=\dimen196
 \pgf@nodesepend=\dimen197
-) (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
+.sty
 Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
-)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
-(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
 \pgffor@iter=\dimen198
 \pgffor@skip=\dimen199
 \pgffor@stack=\toks34
 \pgffor@toks=\toks35
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
+.code.tex
 File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@plot@mark@count=\count290
 \pgfplotmarksize=\dimen256
@@ -348,53 +443,70 @@ File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \tikznumberofchildren=\count292
 \tikznumberofcurrentchild=\count293
 \tikz@fig@count=\count294
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfmatrixcurrentrow=\count295
 \pgfmatrixcurrentcolumn=\count296
 \pgf@matrix@numberofcolumns=\count297
 )
 \tikz@expandcount=\count298
- (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-))) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
- (/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
 \@linkdim=\dimen265
 \Hy@linkcounter=\count299
 \Hy@pagecounter=\count300
- (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
-File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel languages
-) (/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel la
+nguages
+)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count301
- (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -407,16 +519,20 @@ Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4445.
 \c@Hy@tempcnt=\count302
- (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4804.
 \XeTeXLinkMargin=\dimen266
- (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
 ))
 \Fld@menulength=\count303
 \Field@Width=\dimen267
@@ -430,7 +546,8 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6101.
 Package hyperref Info: PDF/A mode OFF on input line 6106.
 LaTeX Info: Redefining \ref on input line 6146.
 LaTeX Info: Redefining \pageref on input line 6150.
- (/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
@@ -439,10 +556,13 @@ package with kernel methods
 \c@Hfootnote=\count306
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
- (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
- (/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
 with kernel methods
 )
 \Fld@listcount=\count307
@@ -450,17 +570,23 @@ with kernel methods
 
 (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
 )
 \Hy@SectionHShift=\skip55
-) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count309
 \l__pdf_internal_box=\box64
-) (./TenMonthReview.aux)
+)
+(./TenMonthReview.aux)
+\openout1 = `TenMonthReview.aux'.
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
 LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
@@ -529,16 +655,22 @@ LaTeX Font Info:    ... okay on input line 18.
 \everyMPtoPDFconversion=\toks37
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
 ))
 Package hyperref Info: Link coloring OFF on input line 18.
- (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
- (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count316
@@ -546,2394 +678,113 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 18.
 LaTeX Info: Redefining \pageref on input line 18.
 LaTeX Info: Redefining \nameref on input line 18.
- (./TenMonthReview.out) (./TenMonthReview.out) (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/preview.sty
-Package: preview 2023/01/17 13.2 (AUCTeX/preview-latex)
- (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/prtightpage.def
-\PreviewBorder=\dimen271
-) (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/prauctex.def
-No auxiliary output files.
 
+(./TenMonthReview.out) (./TenMonthReview.out)
+\@outlinefile=\write4
+\openout4 = `TenMonthReview.out'.
 
-\hbadness=\count317
-\hfuzz=\dimen272
-(/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/prauctex.cfg)) (/home/burges26/.emacs.d/elpa/auctex-13.2.1/latex/prfootnotes.def)
-\pr@snippet=\count318
-\pr@box=\box66
-\pr@output=\toks38
-
-Preview: Fontsize 12pt
-Preview: PDFoutput 1
-)
 LaTeX Font Info:    Trying to load font information for U+msa on input line 21.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 21.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-./TenMonthReview.tex:29: Preview: Snippet 1 started.
-<-><->
-      
-l.29 \item M(t)/M/s(t) -> $
-                           M_t/M/s_t$
-Not a real error.
+) [1
 
-Preview: Tightpage -32891 -32891 32891 32891
-./TenMonthReview.tex:29: Preview: Snippet 1 ended.(589824+196608x3087141).
-<-><->
-      
-l.29 \item M(t)/M/s(t) -> $M_t/M/s_t$
-                                     
-Not a real error.
-
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-./TenMonthReview.tex:30: Preview: Snippet 2 started.
-<-><->
-      
-l.30 \item Format of $
-                      \Phi$ formulation
-Not a real error.
-
-./TenMonthReview.tex:30: Preview: Snippet 2 ended.(537395+0x556140).
-<-><->
-      
-l.30 \item Format of $\Phi$
-                            formulation
-Not a real error.
-
-[2]
-./TenMonthReview.tex:34: Preview: Snippet 3 started.
-<-><->
-      
-l.34 \section
-             {Introduction}
-Not a real error.
-
-./TenMonthReview.tex:34: Preview: Snippet 3 ended.(786431+0x31699558).
-<-><->
-      
-l.34 \section{Introduction}
-                           
-Not a real error.
-
-[3
-
-]
-./TenMonthReview.tex:36: Preview: Snippet 4 started.
-<-><->
-      
-l.36 ...ay Area, California, where approximately $
-                                                  16,000$ people experienced...
-Not a real error.
-
-./TenMonthReview.tex:36: Preview: Snippet 4 ended.(506811+152916x2270070).
-<-><->
-      
-l.36 ..., California, where approximately $16,000$
-                                                   people experienced homele...
-Not a real error.
-
-[4]
-./TenMonthReview.tex:36: Preview: Snippet 5 started.
-<-><->
-      
-l.36 ...,000$ people experienced homelessness in $
-                                                  2021$ alone \citep{racial2...
-Not a real error.
-
-./TenMonthReview.tex:36: Preview: Snippet 5 ended.(506811+0x1540080).
-<-><->
-      
-l.36 ... people experienced homelessness in $2021$
-                                                   alone \citep{racial2021}....
-Not a real error.
-
-[5]
-./TenMonthReview.tex:48: Preview: Snippet 6 started.
-<-><->
-      
-l.48 \section
-             {Literature Review} \label{lit-rev}
-Not a real error.
-
-./TenMonthReview.tex:48: Preview: Snippet 6 ended.(786431+0x31699558).
-<-><->
-      
-l.48 \section{Literature Review}
-                                 \label{lit-rev}
-Not a real error.
-
-[6
-
-]
-./TenMonthReview.tex:50: Preview: Snippet 7 started.
-<-><->
-      
-l.50 \subsection
-                {Capacity planning in healthcare and homeless care settings}
-Not a real error.
-
-./TenMonthReview.tex:50: Preview: Snippet 7 ended.(655359+183500x31699558).
-<-><->
-      
-l.50 ... in healthcare and homeless care settings}
-                                                  
-Not a real error.
-
-[7
-
-]
-./TenMonthReview.tex:56: Preview: Snippet 8 started.
-<-><->
-      
-l.56 ...er} estimates the effective demand on an $
-                                                  M_t/M/s_t$ system at some ...
-Not a real error.
-
-./TenMonthReview.tex:56: Preview: Snippet 8 ended.(589824+196608x3087141).
-<-><->
-      
-l.56 ...tes the effective demand on an $M_t/M/s_t$
-                                                   system at some time $t$ u...
-Not a real error.
-
-[8]
-./TenMonthReview.tex:56: Preview: Snippet 9 started.
-<-><->
-      
-l.56 ...nd on an $M_t/M/s_t$ system at some time $
-                                                  t$ using the utilisation o...
-Not a real error.
-
-./TenMonthReview.tex:56: Preview: Snippet 9 ended.(483719+0x278070).
-<-><->
-      
-l.56 ... on an $M_t/M/s_t$ system at some time $t$
-                                                   using the utilisation of ...
-Not a real error.
-
-[9]
-./TenMonthReview.tex:56: Preview: Snippet 10 started.
-<-><->
-      
-l.56 ... using the utilisation of the equivalent $
-                                                  M_t/M/\infty$ queue. The r...
-Not a real error.
-
-./TenMonthReview.tex:56: Preview: Snippet 10 ended.(589824+196608x3276924).
-<-><->
-      
-l.56 ...ilisation of the equivalent $M_t/M/\infty$
-                                                   queue. The resulting time...
-Not a real error.
-
-[10]
-./TenMonthReview.tex:58: Preview: Snippet 11 started.
-<-><->
-      
-l.58 ... unsheltered homelessness to zero within $
-                                                  5$ years.
-Not a real error.
-
-./TenMonthReview.tex:58: Preview: Snippet 11 ended.(506811+0x385020).
-<-><->
-      
-l.58 ...nsheltered homelessness to zero within $5$
-                                                   years.
-Not a real error.
-
-[11]
-./TenMonthReview.tex:62: Preview: Snippet 12 started.
-<-><->
-      
-l.62 \subsection
-                {Simulation optimisation (SO)} \label{so}
-Not a real error.
-
-./TenMonthReview.tex:62: Preview: Snippet 12 ended.(707788+235929x31699558).
-<-><->
-      
-l.62 \subsection{Simulation optimisation (SO)}
-                                               \label{so}
-Not a real error.
-
-[12
-
-]
-./TenMonthReview.tex:64: Preview: Snippet 13 started.
-<-><->
-      
-l.64 \subsubsection
-                   {Overview of SO methods}
-Not a real error.
-
-./TenMonthReview.tex:64: Preview: Snippet 13 ended.(546132+0x31699558).
-<-><->
-      
-l.64 \subsubsection{Overview of SO methods}
-                                           
-Not a real error.
-
-[13
-
-]
-./TenMonthReview.tex:71: Preview: Snippet 14 started.
-<-><->
-      
-l.71 \subsubsection
-                   {Integer-ordered SO methods}
-Not a real error.
-
-./TenMonthReview.tex:71: Preview: Snippet 14 ended.(546132+152916x31699558).
-<-><->
-      
-l.71 \subsubsection{Integer-ordered SO methods}
-                                               
-Not a real error.
-
-[14
-
-]
-./TenMonthReview.tex:78: Preview: Snippet 15 started.
-<-><->
-      
-l.78 \subsubsection
-                   {Multi fidelity SO methods}
-Not a real error.
-
-./TenMonthReview.tex:78: Preview: Snippet 15 ended.(546132+152916x31699558).
-<-><->
-      
-l.78 \subsubsection{Multi fidelity SO methods}
-                                              
-Not a real error.
-
-[15
-
-]
-./TenMonthReview.tex:93: Preview: Snippet 16 started.
-<-><->
-      
-l.93 \section
-             {Models of multi fidelity} \label{models}
-Not a real error.
-
-./TenMonthReview.tex:93: Preview: Snippet 16 ended.(786431+220200x31699558).
-<-><->
-      
-l.93 \section{Models of multi fidelity}
-                                        \label{models}
-Not a real error.
-
-[16
-
-]
-./TenMonthReview.tex:95: Preview: Snippet 17 started.
-<-><->
-      
-l.95 ... volume. Our medium-fidelity model is an $
-                                                  M_t/M/h_t$ queueing model ...
-Not a real error.
-
-./TenMonthReview.tex:95: Preview: Snippet 17 ended.(589824+196608x3167694).
-<-><->
-      
-l.95 ...ur medium-fidelity model is an $M_t/M/h_t$
-                                                   queueing model which rela...
-Not a real error.
-
-[17]
-./TenMonthReview.tex:97: Preview: Snippet 18 started.
-<-><->
-      
-l.97 \subsection
-                {Fluid flow model} \label{fluid-model}
-Not a real error.
-
-./TenMonthReview.tex:97: Preview: Snippet 18 ended.(655359+0x31699558).
-<-><->
-      
-l.97 \subsection{Fluid flow model}
-                                   \label{fluid-model}
-Not a real error.
-
-[18
-
-]
-./TenMonthReview.tex:105: Preview: Snippet 19 started.
-<-><->
-      
-l.105 \begin{figure}
-                    
-Not a real error.
-
-./TenMonthReview.tex:118: Preview: Snippet 19 ended.(5514120+0x31699558).
-<-><->
-      
-l.118 \end{figure}
-                  
-Not a real error.
-
-[19
-
-
-]
-./TenMonthReview.tex:120: Preview: Snippet 20 started.
-<-><->
-      
-l.120 ... into the system continuously at a rate $
-                                                  \lambda(t)$ and flows out ...
-Not a real error.
-
-./TenMonthReview.tex:120: Preview: Snippet 20 ended.(589824+196608x1326180).
-<-><->
-      
-l.120 ...ystem continuously at a rate $\lambda(t)$
-                                                   and flows out at  rate $\...
-Not a real error.
-
-[20]
-./TenMonthReview.tex:120: Preview: Snippet 21 started.
-<-><->
-      
-l.120 ...ate $\lambda(t)$ and flows out at  rate $
-                                                  \mu(t) = \mu_{0}h(t)$ wher...
-Not a real error.
-
-./TenMonthReview.tex:120: Preview: Snippet 21 ended.(589824+196608x4470972).
-<-><->
-      
-l.120 ...flows out at  rate $\mu(t) = \mu_{0}h(t)$
-                                                   where $\mu_{0}$ is the se...
-Not a real error.
-
-[21]
-./TenMonthReview.tex:120: Preview: Snippet 22 started.
-<-><->
-      
-l.120 ...t at  rate $\mu(t) = \mu_{0}h(t)$ where $
-                                                  \mu_{0}$ is the service ra...
-Not a real error.
-
-./TenMonthReview.tex:120: Preview: Snippet 22 ended.(338603+152916x774599).
-<-><->
-      
-l.120 ...te $\mu(t) = \mu_{0}h(t)$ where $\mu_{0}$
-                                                   is the service rate of a ...
-Not a real error.
-
-[22]
-./TenMonthReview.tex:120: Preview: Snippet 23 started.
-<-><->
-      
-l.120 ...ice rate of a single housing server and $
-                                                  h(t)$ is the continuous-va...
-Not a real error.
-
-./TenMonthReview.tex:120: Preview: Snippet 23 ended.(589824+196608x1320264).
-<-><->
-      
-l.120 ...ate of a single housing server and $h(t)$
-                                                   is the continuous-valued ...
-Not a real error.
-
-[23]
-./TenMonthReview.tex:120: Preview: Snippet 24 started.
-<-><->
-      
-l.120 ...tinuous-valued number of houses at time $
-                                                  t$. Given the initial numb...
-Not a real error.
-
-./TenMonthReview.tex:120: Preview: Snippet 24 ended.(483719+0x278070).
-<-><->
-      
-l.120 ...nuous-valued number of houses at time $t$
-                                                  . Given the initial number...
-Not a real error.
-
-[24]
-./TenMonthReview.tex:120: Preview: Snippet 25 started.
-<-><->
-      
-l.120 ... initial number of people in the system $
-                                                  n_0$, at time $t$ we can c...
-Not a real error.
-
-./TenMonthReview.tex:120: Preview: Snippet 25 ended.(338603+117964x770957).
-<-><->
-      
-l.120 ...tial number of people in the system $n_0$
-                                                  , at time $t$ we can calcu...
-Not a real error.
-
-[25]
-./TenMonthReview.tex:120: Preview: Snippet 26 started.
-<-><->
-      
-l.120 ... of people in the system $n_0$, at time $
-                                                  t$ we can calculate the su...
-Not a real error.
-
-./TenMonthReview.tex:120: Preview: Snippet 26 ended.(483719+0x278070).
-<-><->
-      
-l.120 ...f people in the system $n_0$, at time $t$
-                                                   we can calculate the subs...
-Not a real error.
-
-[26]
-./TenMonthReview.tex:120: Preview: Snippet 27 started.
-<-><->
-      
-l.120 ...sequent number of people in the system, $
-                                                  n(t)$, as
-Not a real error.
-
-./TenMonthReview.tex:120: Preview: Snippet 27 ended.(589824+196608x1336647).
-<-><->
-      
-l.120 ...nt number of people in the system, $n(t)$
-                                                  , as
-Not a real error.
-
-[27]
-./TenMonthReview.tex:122: Preview: Snippet 28 started.
-<-><->
-      
-l.122 \begin{equation*}
-                        \label{x_t}
-Not a real error.
-
-./TenMonthReview.tex:124: Preview: Snippet 28 ended.(1895361+0x22023412).
-<-><->
-      
-l.124 \end{equation*}
-                     
-Not a real error.
-
-[28
-
-]
-./TenMonthReview.tex:126: Preview: Snippet 29 started.
-<-><->
-      
-l.126 ...ered and a sheltered part. We denote by $
-                                                  s(t)$ the continuous-value...
-Not a real error.
-
-./TenMonthReview.tex:126: Preview: Snippet 29 ended.(589824+196608x1239711).
-<-><->
-      
-l.126 ...and a sheltered part. We denote by $s(t)$
-                                                   the continuous-valued num...
-Not a real error.
-
-[29]
-./TenMonthReview.tex:126: Preview: Snippet 30 started.
-<-><->
-      
-l.126 ...nuous-valued number of shelters at time $
-                                                  t$. The size of the unshel...
-Not a real error.
-
-./TenMonthReview.tex:126: Preview: Snippet 30 ended.(483719+0x278070).
-<-><->
-      
-l.126 ...ous-valued number of shelters at time $t$
-                                                  . The size of the unshelte...
-Not a real error.
-
-[30]
-./TenMonthReview.tex:126: Preview: Snippet 31 started.
-<-><->
-      
-l.126 ... $t$. The size of the unsheltered queue $
-                                                  u(t)$ is then
-Not a real error.
-
-./TenMonthReview.tex:126: Preview: Snippet 31 ended.(589824+196608x1315257).
-<-><->
-      
-l.126 ... The size of the unsheltered queue $u(t)$
-                                                   is then
-Not a real error.
-
-[31]
-./TenMonthReview.tex:128: Preview: Snippet 32 started.
-<-><->
-      
-l.128 \begin{align}
-                   
-Not a real error.
-
-./TenMonthReview.tex:132: Preview: Snippet 32 ended.(3107776+0x31699558).
-<-><->
-      
-l.132 \end{align}
-                 
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 132.
-
-[32
-
-]
-./TenMonthReview.tex:134: Preview: Snippet 33 started.
-<-><->
-      
-l.134 where we assume that capacities $
-                                       h(t)$ and $s(t)$ are sufficiently sma...
-Not a real error.
-
-./TenMonthReview.tex:134: Preview: Snippet 33 ended.(589824+196608x1320264).
-<-><->
-      
-l.134 where we assume that capacities $h(t)$
-                                             and $s(t)$ are sufficiently sma...
-Not a real error.
-
-[33]
-./TenMonthReview.tex:134: Preview: Snippet 34 started.
-<-><->
-      
-l.134 where we assume that capacities $h(t)$ and $
-                                                  s(t)$ are sufficiently sma...
-Not a real error.
-
-./TenMonthReview.tex:134: Preview: Snippet 34 ended.(589824+196608x1239711).
-<-><->
-      
-l.134 ... assume that capacities $h(t)$ and $s(t)$
-                                                   are sufficiently small co...
-Not a real error.
-
-[34]
-./TenMonthReview.tex:134: Preview: Snippet 35 started.
-<-><->
-      
-l.134 ...mall compared to the given arrival rate $
-                                                  \lambda(t)$ so that these ...
-Not a real error.
-
-./TenMonthReview.tex:134: Preview: Snippet 35 ended.(589824+196608x1326180).
-<-><->
-      
-l.134 ...ed to the given arrival rate $\lambda(t)$
-                                                   so that these resources a...
-Not a real error.
-
-[35]
-./TenMonthReview.tex:134: Preview: Snippet 36 started.
-<-><->
-      
-l.134 ...e as the housing and shelter capacities $
-                                                  h(t)$ and $s(t)$, respecti...
-Not a real error.
-
-./TenMonthReview.tex:134: Preview: Snippet 36 ended.(589824+196608x1320264).
-<-><->
-      
-l.134 ...the housing and shelter capacities $h(t)$
-                                                   and $s(t)$, respectively....
-Not a real error.
-
-[36]
-./TenMonthReview.tex:134: Preview: Snippet 37 started.
-<-><->
-      
-l.134 ...using and shelter capacities $h(t)$ and $
-                                                  s(t)$, respectively. In re...
-Not a real error.
-
-./TenMonthReview.tex:134: Preview: Snippet 37 ended.(589824+196608x1239711).
-<-><->
-      
-l.134 ... and shelter capacities $h(t)$ and $s(t)$
-                                                  , respectively. In reality...
-Not a real error.
-
-[37]
-./TenMonthReview.tex:136: Preview: Snippet 38 started.
-<-><->
-      
-l.136 ...e discretise time into days. We now let $
-                                                  \lambda_d, h^D_d, s^D_d$ a...
-Not a real error.
-
-./TenMonthReview.tex:136: Preview: Snippet 38 ended.(643653+204523x3275029).
-<-><->
-      
-l.136 ...ays. We now let $\lambda_d, h^D_d, s^D_d$
-                                                   and $u_d$ for all $d \in ...
-Not a real error.
-
-[38]
-./TenMonthReview.tex:136: Preview: Snippet 39 started.
-<-><->
-      
-l.136 ...e now let $\lambda_d, h^D_d, s^D_d$ and $
-                                                  u_d$ for all $d \in \{1,.....
-Not a real error.
-
-./TenMonthReview.tex:136: Preview: Snippet 39 ended.(338603+117964x757667).
-<-><->
-      
-l.136 ...w let $\lambda_d, h^D_d, s^D_d$ and $u_d$
-                                                   for all $d \in \{1,...,D\...
-Not a real error.
-
-[39]
-./TenMonthReview.tex:136: Preview: Snippet 40 started.
-<-><->
-      
-l.136 ...mbda_d, h^D_d, s^D_d$ and $u_d$ for all $
-                                                  d \in \{1,...,D\}$ be the ...
-Not a real error.
-
-./TenMonthReview.tex:136: Preview: Snippet 40 ended.(589824+196608x4525156).
-<-><->
-      
-l.136 ..._d$ and $u_d$ for all $d \in \{1,...,D\}$
-                                                   be the discretised equiva...
-Not a real error.
-
-[40]
-./TenMonthReview.tex:136: Preview: Snippet 41 started.
-<-><->
-      
-l.136 ...,D\}$ be the discretised equivalents of $
-                                                  \lambda(t), h(t), s(t)$ an...
-Not a real error.
-
-./TenMonthReview.tex:136: Preview: Snippet 41 ended.(589824+196608x4576095).
-<-><->
-      
-l.136 ...d equivalents of $\lambda(t), h(t), s(t)$
-                                                   and $u(t)$, respectively,...
-Not a real error.
-
-[41]
-./TenMonthReview.tex:136: Preview: Snippet 42 started.
-<-><->
-      
-l.136 ...valents of $\lambda(t), h(t), s(t)$ and $
-                                                  u(t)$, respectively, where...
-Not a real error.
-
-./TenMonthReview.tex:136: Preview: Snippet 42 ended.(589824+196608x1315257).
-<-><->
-      
-l.136 ...ts of $\lambda(t), h(t), s(t)$ and $u(t)$
-                                                  , respectively, where $D$ ...
-Not a real error.
-
-[42]
-./TenMonthReview.tex:136: Preview: Snippet 43 started.
-<-><->
-      
-l.136 ..., s(t)$ and $u(t)$, respectively, where $
-                                                  D$ is the modeling horizon...
-Not a real error.
-
-./TenMonthReview.tex:136: Preview: Snippet 43 ended.(537395+0x660743).
-<-><->
-      
-l.136 ...s(t)$ and $u(t)$, respectively, where $D$
-                                                   is the modeling horizon i...
-Not a real error.
-
-[43]
-./TenMonthReview.tex:138: Preview: Snippet 44 started.
-<-><->
-      
-l.138 \begin{align}
-                    \label{u_t_discrete}
-Not a real error.
-
-./TenMonthReview.tex:140: Preview: Snippet 44 ended.(2435764+0x31699558).
-<-><->
-      
-l.140 \end{align}
-                 
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 140.
-
-[44
-
-]
-./TenMonthReview.tex:142: Preview: Snippet 45 started.
-<-><->
-      
-l.142 where $
-             \mu_0$ is the daily service rate of a single housing unit and t...
-Not a real error.
-
-./TenMonthReview.tex:142: Preview: Snippet 45 ended.(338603+152916x774599).
-<-><->
-      
-l.142 where $\mu_0$
-                    is the daily service rate of a single housing unit and t...
-Not a real error.
-
-[45]
-./TenMonthReview.tex:142: Preview: Snippet 46 started.
-<-><->
-      
-l.142 ... a single housing unit and the stepsize $
-                                                  \delta t = 1 \text{ day}$....
-Not a real error.
-
-./TenMonthReview.tex:142: Preview: Snippet 46 ended.(546132+152916x3523975).
-<-><->
-      
-l.142 ...d the stepsize $\delta t = 1 \text{ day}$
-                                                  . In Figure \ref{fig:ut-il...
-Not a real error.
-
-[46]
-./TenMonthReview.tex:142: Preview: Snippet 47 started.
-<-><->
-      
-l.142 ...illustrative example of the dynamics of $
-                                                  u_d$ given by our fluid fl...
-Not a real error.
-
-./TenMonthReview.tex:142: Preview: Snippet 47 ended.(338603+117964x757667).
-<-><->
-      
-l.142 ...strative example of the dynamics of $u_d$
-                                                   given by our fluid flow m...
-Not a real error.
-
-[47]
-./TenMonthReview.tex:142: Preview: Snippet 48 started.
-<-><->
-      
-l.142 ..., calibrated using realistic inputs for $
-                                                  n_0, \mu_0$ and $\lambda_d...
-Not a real error.
-
-./TenMonthReview.tex:142: Preview: Snippet 48 ended.(338603+152916x1890526).
-<-><->
-      
-l.142 ...d using realistic inputs for $n_0, \mu_0$
-                                                   and $\lambda_d, h^D_d, s^...
-Not a real error.
-
-[48]
-./TenMonthReview.tex:142: Preview: Snippet 49 started.
-<-><->
-      
-l.142 ...g realistic inputs for $n_0, \mu_0$ and $
-                                                  \lambda_d, h^D_d, s^D_d$ f...
-Not a real error.
-
-./TenMonthReview.tex:142: Preview: Snippet 49 ended.(643653+204523x3275029).
-<-><->
-      
-l.142 ...n_0, \mu_0$ and $\lambda_d, h^D_d, s^D_d$
-                                                   for all $d \in \{1,...,D\...
-Not a real error.
-
-[49]
-./TenMonthReview.tex:142: Preview: Snippet 50 started.
-<-><->
-      
-l.142 ...$ and $\lambda_d, h^D_d, s^D_d$ for all $
-                                                  d \in \{1,...,D\}$ which w...
-Not a real error.
-
-./TenMonthReview.tex:142: Preview: Snippet 50 ended.(589824+196608x4525156).
-<-><->
-      
-l.142 ...h^D_d, s^D_d$ for all $d \in \{1,...,D\}$
-                                                   which we take directly fr...
-Not a real error.
-
-[50]
-./TenMonthReview.tex:144: Preview: Snippet 51 started.
-<-><->
-      
-l.144 \begin{figure}
-                    [h!]%[ut-illustrative]
-Not a real error.
-
-<u_t_example.png, id=361, 425.6703pt x 330.2739pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7]
+<u_t_example.png, id=213, 425.6703pt x 330.2739pt>
 File: u_t_example.png Graphic file (type png)
 <use u_t_example.png>
-Package pdftex.def Info: u_t_example.png  used on input line 146.
+Package pdftex.def Info: u_t_example.png  used on input line 165.
 (pdftex.def)             Requested size: 340.5367pt x 264.21945pt.
-./TenMonthReview.tex:149: Preview: Snippet 51 ended.(20024706+0x31699558).
-<-><->
-      
-l.149 \end{figure}
-                  
-Not a real error.
 
-[51
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
- <./u_t_example.png>]
-./TenMonthReview.tex:151: Preview: Snippet 52 started.
-<-><->
-      
-l.151 ...es approaching zero.  The arrival rates $
-                                                  \lambda_d$ are projected b...
-Not a real error.
+[8]
 
-./TenMonthReview.tex:151: Preview: Snippet 52 ended.(546132+117964x768590).
-<-><->
-      
-l.151 ...hing zero.  The arrival rates $\lambda_d$
-                                                   are projected based on a ...
-Not a real error.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 192.
 
-[52]
-./TenMonthReview.tex:151: Preview: Snippet 53 started.
-<-><->
-      
-l.151 ...metogether2022}. The daily service rate $
-                                                  \mu_0$ is equivalent to th...
-Not a real error.
 
-./TenMonthReview.tex:151: Preview: Snippet 53 ended.(338603+152916x774599).
-<-><->
-      
-l.151 ...ther2022}. The daily service rate $\mu_0$
-                                                   is equivalent to the mean...
-Not a real error.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 192.
 
-[53]
-./TenMonthReview.tex:151: Preview: Snippet 54 started.
-<-><->
-      
-l.151 ...riangular distribution with lower limit $
-                                                  0 \text{ weeks}$, upper li...
-Not a real error.
 
-./TenMonthReview.tex:151: Preview: Snippet 54 ended.(546132+0x2571078).
-<-><->
-      
-l.151 ...bution with lower limit $0 \text{ weeks}$
-                                                  , upper limit $400 \text{ ...
-Not a real error.
+Overfull \hbox (17.6661pt too wide) in paragraph at lines 196--198
+[]\OT1/cmr/m/n/12 Given the mem-o-ry-less prop-erty of the ex-po-nen-tial inter
+-arrival and ser-vice times in an $\OML/cmm/m/it/12 M\OT1/cmr/m/n/12 (\OML/cmm/
+m/it/12 t\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 =M=h\OT1/cmr/m/n/12 (\OML/cmm/m/it/1
+2 t\OT1/cmr/m/n/12 )$
+ []
 
-[54]
-./TenMonthReview.tex:151: Preview: Snippet 55 started.
-<-><->
-      
-l.151 ...er limit $0 \text{ weeks}$, upper limit $
-                                                  400 \text{ weeks}$ and mod...
-Not a real error.
-
-./TenMonthReview.tex:151: Preview: Snippet 55 ended.(546132+0x3341118).
-<-><->
-      
-l.151 ... weeks}$, upper limit $400 \text{ weeks}$
-                                                   and mode $300 \text{ week...
-Not a real error.
-
-[55]
-./TenMonthReview.tex:151: Preview: Snippet 56 started.
-<-><->
-      
-l.151 ...pper limit $400 \text{ weeks}$ and mode $
-                                                  300 \text{ weeks}$.
-Not a real error.
-
-./TenMonthReview.tex:151: Preview: Snippet 56 ended.(546132+0x3341118).
-<-><->
-      
-l.151 ...ext{ weeks}$ and mode $300 \text{ weeks}$
-                                                  .
-Not a real error.
-
-[56]
-./TenMonthReview.tex:153: Preview: Snippet 57 started.
-<-><->
-      
-l.153 ...al housing and shelter capacity vectors $
-                                                  \boldsymbol{h} = \{h_t \hs...
-Not a real error.
-
-./TenMonthReview.tex:153: Preview: Snippet 57 ended.(589824+196608x7162057).
-<-><->
-      
-l.153 ...t \hspace{0.1cm} \forall t \in 0,...,T\}$
-                                                   and $\boldsymbol{s} = \{s...
-Not a real error.
-
-[57]
-./TenMonthReview.tex:153: Preview: Snippet 58 started.
-<-><->
-      
-l.153 ...ace{0.1cm} \forall t \in 0,...,T\}$ and $
-                                                  \boldsymbol{s} = \{s_t \hs...
-Not a real error.
-
-./TenMonthReview.tex:153: Preview: Snippet 58 ended.(589824+196608x6974282).
-<-><->
-      
-l.153 ...t \hspace{0.1cm} \forall t \in 0,...,T\}$
-                                                   where $T$ is a time horiz...
-Not a real error.
-
-[58]
-./TenMonthReview.tex:153: Preview: Snippet 59 started.
-<-><->
-      
-l.153 ...e{0.1cm} \forall t \in 0,...,T\}$ where $
-                                                  T$ is a time horizon in ye...
-Not a real error.
-
-./TenMonthReview.tex:153: Preview: Snippet 59 ended.(537395+0x558279).
-<-><->
-      
-l.153 ...0.1cm} \forall t \in 0,...,T\}$ where $T$
-                                                   is a time horizon in year...
-Not a real error.
-
-[59]
-./TenMonthReview.tex:155: Preview: Snippet 60 started.
-<-><->
-      
-l.155 \begin{align}
-                    \label{u_t_discrete_h_s_dependent}
-Not a real error.
-
-./TenMonthReview.tex:157: Preview: Snippet 60 ended.(2435764+0x31699558).
-<-><->
-      
-l.157 \end{align}
-                 
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 157.
-
-[60
-
-]
-./TenMonthReview.tex:161: Preview: Snippet 61 started.
-<-><->
-      
-l.161 \begin{align}
-                    \label{h_d}
-Not a real error.
-
-./TenMonthReview.tex:163: Preview: Snippet 61 ended.(1791084+0x31699558).
-<-><->
-      
-l.163 \end{align}
-                 
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 163.
-
-[61
-
-]
-./TenMonthReview.tex:167: Preview: Snippet 62 started.
-<-><->
-      
-l.167 \begin{align}
-                    \label{s_d}
-Not a real error.
-
-./TenMonthReview.tex:169: Preview: Snippet 62 ended.(1791084+0x31699558).
-<-><->
-      
-l.169 \end{align}
-                 
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 169.
-
-[62
-
-]
-./TenMonthReview.tex:173: Preview: Snippet 63 started.
-<-><->
-      
-l.173 \subsection
-                 {$M(t)/M/h(t)$ queueing model}
-Not a real error.
-
-./TenMonthReview.tex:173: Preview: Snippet 63 ended.(707788+235929x31699558).
-<-><->
-      
-l.173 \subsection{$M(t)/M/h(t)$ queueing model}
-                                               
-Not a real error.
-
-[63
-
-]
-./TenMonthReview.tex:175: Preview: Snippet 64 started.
-<-><->
-      
-l.175 With an $
-               M(t)/M/h(t)$ queueing model, where $h(t)$ is the time-depende...
-Not a real error.
-
-./TenMonthReview.tex:175: Preview: Snippet 64 ended.(589824+196608x4535962).
-<-><->
-      
-l.175 With an $M(t)/M/h(t)$
-                            queueing model, where $h(t)$ is the time-depende...
-Not a real error.
-
-[64]
-./TenMonthReview.tex:175: Preview: Snippet 65 started.
-<-><->
-      
-l.175 ... an $M(t)/M/h(t)$ queueing model, where $
-                                                  h(t)$ is the time-dependen...
-Not a real error.
-
-./TenMonthReview.tex:175: Preview: Snippet 65 ended.(589824+196608x1320264).
-<-><->
-      
-l.175 ...M(t)/M/h(t)$ queueing model, where $h(t)$
-                                                   is the time-dependent num...
-Not a real error.
-
-[65]
-./TenMonthReview.tex:175: Preview: Snippet 66 started.
-<-><->
-      
-l.175 ...w a non-zero probability of their being $
-                                                  0$ people in a housing ser...
-Not a real error.
-
-./TenMonthReview.tex:175: Preview: Snippet 66 ended.(506811+0x385020).
-<-><->
-      
-l.175 ...a non-zero probability of their being $0$
-                                                   people in a housing serve...
-Not a real error.
-
-[66]
-./TenMonthReview.tex:177: Preview: Snippet 67 started.
-<-><->
-      
-l.177 ...l inter-arrival and service times in an $
-                                                  M(t)/M/h(t)$ queue, we can...
-Not a real error.
-
-./TenMonthReview.tex:177: Preview: Snippet 67 ended.(589824+196608x4535962).
-<-><->
-      
-l.177 ...val and service times in an $M(t)/M/h(t)$
-                                                   queue, we can discretise ...
-Not a real error.
-
-[67]
-./TenMonthReview.tex:177: Preview: Snippet 68 started.
-<-><->
-      
-l.177 ...in the system and some large but finite $
-                                                  N$ is the largest possible...
-Not a real error.
-
-./TenMonthReview.tex:177: Preview: Snippet 68 ended.(537395+0x698774).
-<-><->
-      
-l.177 ... the system and some large but finite $N$
-                                                   is the largest possible n...
-Not a real error.
-
-[68]
-./TenMonthReview.tex:177: Preview: Snippet 69 started.
-<-><->
-      
-l.177 ...iciently small time intervals of length $
-                                                  \Delta t$, we can assume t...
-Not a real error.
-
-./TenMonthReview.tex:177: Preview: Snippet 69 ended.(537395+0x919770).
-<-><->
-      
-l.177 ...small time intervals of length $\Delta t$
-                                                  , we can assume that withi...
-Not a real error.
-
-[69]
-./TenMonthReview.tex:177: Preview: Snippet 70 started.
-<-><->
-      
-l.177 ...e, if we know the initial probabilities $
-                                                  p_n(t=0)$ of being in all ...
-Not a real error.
-
-./TenMonthReview.tex:177: Preview: Snippet 70 ended.(589824+196608x3055075).
-<-><->
-      
-l.177 ...know the initial probabilities $p_n(t=0)$
-                                                   of being in all states $n...
-Not a real error.
-
-[70]
-./TenMonthReview.tex:177: Preview: Snippet 71 started.
-<-><->
-      
-l.177 ...ities $p_n(t=0)$ of being in all states $
-                                                  n \in \{0,1,...,N\}$ then ...
-Not a real error.
-
-./TenMonthReview.tex:177: Preview: Snippet 71 ended.(589824+196608x5352704).
-<-><->
-      
-l.177 ...being in all states $n \in \{0,1,...,N\}$
-                                                   then for all times $t \in...
-Not a real error.
-
-[71]
-./TenMonthReview.tex:177: Preview: Snippet 72 started.
-<-><->
-      
-l.177 ...n \in \{0,1,...,N\}$ then for all times $
-                                                  t \in \{0, \Delta t,...,T-...
-Not a real error.
-
-./TenMonthReview.tex:177: Preview: Snippet 72 ended.(589824+196608x7446333).
-<-><->
-      
-l.177 ...es $t \in \{0, \Delta t,...,T-\Delta t\}$
-                                                  , we can calculate the pro...
-Not a real error.
-
-[72]
-./TenMonthReview.tex:177: Preview: Snippet 73 started.
-<-><->
-      
-l.177 ...\}$, we can calculate the probabilities $
-                                                  p_n(t + \Delta t)$ as:
-Not a real error.
-
-./TenMonthReview.tex:177: Preview: Snippet 73 ended.(589824+196608x3502445).
-<-><->
-      
-l.177 ...ate the probabilities $p_n(t + \Delta t)$
-                                                   as:
-Not a real error.
-
-[73]
-./TenMonthReview.tex:179: Preview: Snippet 74 started.
-<-><->
-      
-l.179 \begin{align*}
-                    
-Not a real error.
-
-./TenMonthReview.tex:184: Preview: Snippet 74 ended.(4390911+0x23218461).
-<-><->
-      
-l.184 \end{align*}
-                  
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 184.
-
-[74]
-./TenMonthReview.tex:186: Preview: Snippet 75 started.
-<-><->
-      
-l.186 \begin{align*}
-                    
-Not a real error.
-
-./TenMonthReview.tex:190: Preview: Snippet 75 ended.(3244031+0x21233564).
-<-><->
-      
-l.190 \end{align*}
-                  
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 190.
-
-[75]
-./TenMonthReview.tex:192: Preview: Snippet 76 started.
-<-><->
-      
-l.192 \begin{align*}
-                    
-Not a real error.
-
-./TenMonthReview.tex:196: Preview: Snippet 76 ended.(3244031+0x21854873).
-<-><->
-      
-l.196 \end{align*}
-                  
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 196.
-
-[76]
-./TenMonthReview.tex:198: Preview: Snippet 77 started.
-<-><->
-      
-l.198 where $
-             \lambda(t)$ is the arrival rate at time $t$, $\mu_0$ is the ser...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 77 ended.(589824+196608x1326180).
-<-><->
-      
-l.198 where $\lambda(t)$
-                         is the arrival rate at time $t$, $\mu_0$ is the ser...
-Not a real error.
-
-[77]
-./TenMonthReview.tex:198: Preview: Snippet 78 started.
-<-><->
-      
-l.198 ...\lambda(t)$ is the arrival rate at time $
-                                                  t$, $\mu_0$ is the service...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 78 ended.(483719+0x278070).
-<-><->
-      
-l.198 ...ambda(t)$ is the arrival rate at time $t$
-                                                  , $\mu_0$ is the service r...
-Not a real error.
-
-[78]
-./TenMonthReview.tex:198: Preview: Snippet 79 started.
-<-><->
-      
-l.198 ...da(t)$ is the arrival rate at time $t$, $
-                                                  \mu_0$ is the service rate...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 79 ended.(338603+152916x774599).
-<-><->
-      
-l.198 ... is the arrival rate at time $t$, $\mu_0$
-                                                   is the service rate of a ...
-Not a real error.
-
-[79]
-./TenMonthReview.tex:198: Preview: Snippet 80 started.
-<-><->
-      
-l.198 ...ice rate of a single housing server and $
-                                                  m_n(t) = \min(n,h(t))$ is ...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 80 ended.(589824+196608x6964346).
-<-><->
-      
-l.198 ...ousing server and $m_n(t) = \min(n,h(t))$
-                                                   is the number of busy hou...
-Not a real error.
-
-[80]
-./TenMonthReview.tex:198: Preview: Snippet 81 started.
-<-><->
-      
-l.198 ...ing servers when the system is in state $
-                                                  n$ at time $t$. The bias i...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 81 ended.(338603+0x459657).
-<-><->
-      
-l.198 ...g servers when the system is in state $n$
-                                                   at time $t$. The bias in ...
-Not a real error.
-
-[81]
-./TenMonthReview.tex:198: Preview: Snippet 82 started.
-<-><->
-      
-l.198 ...when the system is in state $n$ at time $
-                                                  t$. The bias in the result...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 82 ended.(483719+0x278070).
-<-><->
-      
-l.198 ...en the system is in state $n$ at time $t$
-                                                  . The bias in the results ...
-Not a real error.
-
-[82]
-./TenMonthReview.tex:198: Preview: Snippet 83 started.
-<-><->
-      
-l.198 ...nstant values in each time interval for $
-                                                  \lambda(t)$ and $h(t)$ van...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 83 ended.(589824+196608x1326180).
-<-><->
-      
-l.198 ...es in each time interval for $\lambda(t)$
-                                                   and $h(t)$ vanishes as $\...
-Not a real error.
-
-[83]
-./TenMonthReview.tex:198: Preview: Snippet 84 started.
-<-><->
-      
-l.198 ...each time interval for $\lambda(t)$ and $
-                                                  h(t)$ vanishes as $\Delta ...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 84 ended.(589824+196608x1320264).
-<-><->
-      
-l.198 ...time interval for $\lambda(t)$ and $h(t)$
-                                                   vanishes as $\Delta t \to...
-Not a real error.
-
-[84]
-./TenMonthReview.tex:198: Preview: Snippet 85 started.
-<-><->
-      
-l.198 ...for $\lambda(t)$ and $h(t)$ vanishes as $
-                                                  \Delta t \to 0$. The proba...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 85 ended.(537395+0x2528124).
-<-><->
-      
-l.198 ...$ and $h(t)$ vanishes as $\Delta t \to 0$
-                                                  . The probabilities $p_n(t...
-Not a real error.
-
-[85]
-./TenMonthReview.tex:198: Preview: Snippet 86 started.
-<-><->
-      
-l.198 ... as $\Delta t \to 0$. The probabilities $
-                                                  p_n(t)$ can then be analys...
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 86 ended.(589824+196608x1634235).
-<-><->
-      
-l.198 ...elta t \to 0$. The probabilities $p_n(t)$
-                                                   can then be analysed to e...
-Not a real error.
-
-[86]
-./TenMonthReview.tex:198: Preview: Snippet 87 started.
-<-><->
-      
-l.198 ...the expected number unsheltered at time $
-                                                  t$ is given by:
-Not a real error.
-
-./TenMonthReview.tex:198: Preview: Snippet 87 ended.(483719+0x278070).
-<-><->
-      
-l.198 ...e expected number unsheltered at time $t$
-                                                   is given by:
-Not a real error.
-
-[87]
-./TenMonthReview.tex:200: Preview: Snippet 88 started.
-<-><->
-      
-l.200 \begin{align}
-                    \label{u_t_mmt}
-Not a real error.
-
-./TenMonthReview.tex:202: Preview: Snippet 88 ended.(2402995+0x31699558).
-<-><->
-      
-l.202 \end{align}
-                 
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 202.
-
-[88
-
-]
-./TenMonthReview.tex:204: Preview: Snippet 89 started.
-<-><->
-      
-l.204 where $
-             s(t)$ is the time-dependent number of shelters. This model is m...
-Not a real error.
-
-./TenMonthReview.tex:204: Preview: Snippet 89 ended.(589824+196608x1239711).
-<-><->
-      
-l.204 where $s(t)$
-                   is the time-dependent number of shelters. This model is m...
-Not a real error.
-
-[89]
-./TenMonthReview.tex:206: Preview: Snippet 90 started.
-<-><->
-      
-l.206 \subsection
-                 {Discrete-event simulation model} \label{DES}
-Not a real error.
-
-./TenMonthReview.tex:206: Preview: Snippet 90 ended.(655359+0x31699558).
-<-><->
-      
-l.206 \subsection{Discrete-event simulation model}
-                                                   \label{DES}
-Not a real error.
-
-[90
-
-]
-./TenMonthReview.tex:208: Preview: Snippet 91 started.
-<-><->
-      
-l.208 ...ates stochasticity by using a stream of $
-                                                  \text{Uniform}(\text{min} ...
-Not a real error.
-
-./TenMonthReview.tex:208: Preview: Snippet 91 ended.(589824+196608x9282527).
-<-><->
-      
-l.208 ...Uniform}(\text{min} = 0, \text{max} = 1)$
-                                                   pseudo-random numbers to ...
-Not a real error.
-
-[91]
-./TenMonthReview.tex:216: Preview: Snippet 92 started.
-<-><->
-      
-l.216 \begin{figure}
-                    
-Not a real error.
-
-./TenMonthReview.tex:230: Preview: Snippet 92 ended.(5614126+0x31699558).
-<-><->
-      
-l.230 \end{figure}
-                  
-Not a real error.
-
-[92
-
-
-]
-./TenMonthReview.tex:236: Preview: Snippet 93 started.
-<-><->
-      
-l.236 \section
-              {Deterministic optimisation with low-fidelity model} \label{do}
-Not a real error.
-
-./TenMonthReview.tex:236: Preview: Snippet 93 ended.(786431+220200x31699558).
-<-><->
-      
-l.236 ...tic optimisation with low-fidelity model}
-                                                   \label{do}
-Not a real error.
-
-[93
-
-]
-./TenMonthReview.tex:240: Preview: Snippet 94 started.
-<-><->
-      
-l.240 \subsection
-                 {Optimisation formulation} \label{opt}
-Not a real error.
-
-./TenMonthReview.tex:240: Preview: Snippet 94 ended.(655359+183500x31699558).
-<-><->
-      
-l.240 \subsection{Optimisation formulation}
-                                            \label{opt}
-Not a real error.
-
-[94
-
-]
-./TenMonthReview.tex:245: Preview: Snippet 95 started.
-<-><->
-      
-l.245 \item Let subscript $
-                           d$ denote time in days and subscript $t$ denote t...
-Not a real error.
-
-./TenMonthReview.tex:245: Preview: Snippet 95 ended.(546132+0x400130).
-<-><->
-      
-l.245 \item Let subscript $d$
-                              denote time in days and subscript $t$ denote t...
-Not a real error.
-
-[95]
-./TenMonthReview.tex:245: Preview: Snippet 96 started.
-<-><->
-      
-l.245 ...t $d$ denote time in days and subscript $
-                                                  t$ denote time in years.
-Not a real error.
-
-./TenMonthReview.tex:245: Preview: Snippet 96 ended.(483719+0x278070).
-<-><->
-      
-l.245 ...$d$ denote time in days and subscript $t$
-                                                   denote time in years.
-Not a real error.
-
-[96]
-./TenMonthReview.tex:246: Preview: Snippet 97 started.
-<-><->
-      
-l.246 \item Let $
-                 T_a$ be the horizon (in years) over which we model the dyna...
-Not a real error.
-
-./TenMonthReview.tex:246: Preview: Snippet 97 ended.(537395+117964x779984).
-<-><->
-      
-l.246 \item Let $T_a$
-                      be the horizon (in years) over which we model the dyna...
-Not a real error.
-
-[97]
-./TenMonthReview.tex:246: Preview: Snippet 98 started.
-<-><->
-      
-l.246 ...g housing and shelter capacities, where $
-                                                  T_a \in \mathbb{N}$. %\LRL...
-Not a real error.
-
-./TenMonthReview.tex:246: Preview: Snippet 98 ended.(541764+117964x2309153).
-<-><->
-      
-l.246 ...er capacities, where $T_a \in \mathbb{N}$
-                                                  . %\LRL{Could use $\mathbb...
-Not a real error.
-
-[98]
-./TenMonthReview.tex:247: Preview: Snippet 99 started.
-<-><->
-      
-l.247 \item Let $
-                 T_b$ be the additional horizon (in years) over which we con...
-Not a real error.
-
-./TenMonthReview.tex:247: Preview: Snippet 99 ended.(537395+117964x722397).
-<-><->
-      
-l.247 \item Let $T_b$
-                      be the additional horizon (in years) over which we con...
-Not a real error.
-
-[99]
-./TenMonthReview.tex:247: Preview: Snippet 100 started.
-<-><->
-      
-l.247 ...ng housing or shelter capacities, where $
-                                                  T_b \in \mathbb{N}$. We do...
-Not a real error.
-
-./TenMonthReview.tex:247: Preview: Snippet 100 ended.(541764+117964x2251566).
-<-><->
-      
-l.247 ...er capacities, where $T_b \in \mathbb{N}$
-                                                  . We do this in order to a...
-Not a real error.
-
-[100]
-./TenMonthReview.tex:248: Preview: Snippet 101 started.
-<-><->
-      
-l.248 \item Let $
-                 D=(T_a+T_b)\times365$ be the total modeling horizon in days.
-Not a real error.
-
-./TenMonthReview.tex:248: Preview: Snippet 101 ended.(589824+196608x6862555).
-<-><->
-      
-l.248 \item Let $D=(T_a+T_b)\times365$
-                                       be the total modeling horizon in days.
-Not a real error.
-
-[101]
-./TenMonthReview.tex:249: Preview: Snippet 102 started.
-<-><->
-      
-l.249 \item The vectors $
-                         \boldsymbol{h} = \{h_t \hspace{0.1cm} \forall t \in...
-Not a real error.
-
-./TenMonthReview.tex:249: Preview: Snippet 102 ended.(589824+196608x9054599).
-<-><->
-      
-l.249 ...ace{0.1cm} \forall t \in 0,...,T_a+T_b\}$
-                                                   and $\boldsymbol{s} = \{s...
-Not a real error.
-
-[102]
-./TenMonthReview.tex:249: Preview: Snippet 103 started.
-<-><->
-      
-l.249 ...1cm} \forall t \in 0,...,T_a+T_b\}$ and $
-                                                  \boldsymbol{s} = \{s_t \hs...
-Not a real error.
-
-./TenMonthReview.tex:249: Preview: Snippet 103 ended.(589824+196608x8866824).
-<-><->
-      
-l.249 ...ace{0.1cm} \forall t \in 0,...,T_a+T_b\}$
-                                                   are the model decision va...
-Not a real error.
-
-[103]
-./TenMonthReview.tex:250: Preview: Snippet 104 started.
-<-><->
-      
-l.250 \item $
-             C$ is the total budget for building housing and shelter. \par
-Not a real error.
-
-./TenMonthReview.tex:250: Preview: Snippet 104 ended.(537395+0x607403).
-<-><->
-      
-l.250 \item $C$
-                is the total budget for building housing and shelter. \par
-Not a real error.
-
-[104]
-./TenMonthReview.tex:251: Preview: Snippet 105 started.
-<-><->
-      
-l.251 \item Let $
-                 c_h$ and $c_s$ be the costs of increasing $h_t$ and $s_t$, ...
-Not a real error.
-
-./TenMonthReview.tex:251: Preview: Snippet 105 ended.(338603+117964x685184).
-<-><->
-      
-l.251 \item Let $c_h$
-                      and $c_s$ be the costs of increasing $h_t$ and $s_t$, ...
-Not a real error.
-
-[105]
-./TenMonthReview.tex:251: Preview: Snippet 106 started.
-<-><->
-      
-l.251 \item Let $c_h$ and $
-                           c_s$ be the costs of increasing $h_t$ and $s_t$, ...
-Not a real error.
-
-./TenMonthReview.tex:251: Preview: Snippet 106 ended.(338603+117964x621771).
-<-><->
-      
-l.251 \item Let $c_h$ and $c_s$
-                                be the costs of increasing $h_t$ and $s_t$, ...
-Not a real error.
-
-[106]
-./TenMonthReview.tex:251: Preview: Snippet 107 started.
-<-><->
-      
-l.251 ...h$ and $c_s$ be the costs of increasing $
-                                                  h_t$ and $s_t$, respective...
-Not a real error.
-
-./TenMonthReview.tex:251: Preview: Snippet 107 ended.(546132+117964x677204).
-<-><->
-      
-l.251 ...nd $c_s$ be the costs of increasing $h_t$
-                                                   and $s_t$, respectively, ...
-Not a real error.
-
-[107]
-./TenMonthReview.tex:251: Preview: Snippet 108 started.
-<-><->
-      
-l.251 ...s$ be the costs of increasing $h_t$ and $
-                                                  s_t$, respectively, by 1, ...
-Not a real error.
-
-./TenMonthReview.tex:251: Preview: Snippet 108 ended.(338603+117964x596651).
-<-><->
-      
-l.251 ...e the costs of increasing $h_t$ and $s_t$
-                                                  , respectively, by 1, at a...
-Not a real error.
-
-[108]
-./TenMonthReview.tex:252: Preview: Snippet 109 started.
-<-><->
-      
-l.252 \item Let $
-                 H_0$ and $S_0$ be the initial housing and shelter capacitie...
-Not a real error.
-
-./TenMonthReview.tex:252: Preview: Snippet 109 ended.(537395+117964x949316).
-<-><->
-      
-l.252 \item Let $H_0$
-                      and $S_0$ be the initial housing and shelter capacitie...
-Not a real error.
-
-[109]
-./TenMonthReview.tex:252: Preview: Snippet 110 started.
-<-><->
-      
-l.252 \item Let $H_0$ and $
-                           S_0$ be the initial housing and shelter capacitie...
-Not a real error.
-
-./TenMonthReview.tex:252: Preview: Snippet 110 ended.(537395+117964x784885).
-<-><->
-      
-l.252 \item Let $H_0$ and $S_0$
-                                be the initial housing and shelter capacitie...
-Not a real error.
-
-[110]
-./TenMonthReview.tex:253: Preview: Snippet 111 started.
-<-><->
-      
-l.253 \item Define $
-                    w \in (0,1)$ as a weight between two objective terms whi...
-Not a real error.
-
-./TenMonthReview.tex:253: Preview: Snippet 111 ended.(589824+196608x3246732).
-<-><->
-      
-l.253 \item Define $w \in (0,1)$
-                                 as a weight between two objective terms whi...
-Not a real error.
-
-[111]
-./TenMonthReview.tex:256: Preview: Snippet 112 started.
-<-><->
-      
-l.256 Recall that $
-                   u_d$ and $s_d$ are the output of the fluid flow model rep...
-Not a real error.
-
-./TenMonthReview.tex:256: Preview: Snippet 112 ended.(338603+117964x757667).
-<-><->
-      
-l.256 Recall that $u_d$
-                        and $s_d$ are the output of the fluid flow model rep...
-Not a real error.
-
-[112]
-./TenMonthReview.tex:256: Preview: Snippet 113 started.
-<-><->
-      
-l.256 Recall that $u_d$ and $
-                             s_d$ are the output of the fluid flow model rep...
-Not a real error.
-
-./TenMonthReview.tex:256: Preview: Snippet 113 ended.(338603+117964x682121).
-<-><->
-      
-l.256 Recall that $u_d$ and $s_d$
-                                  are the output of the fluid flow model rep...
-Not a real error.
-
-[113]
-./TenMonthReview.tex:256: Preview: Snippet 114 started.
-<-><->
-      
-l.256 ...opulations each day, respectively.  Let $
-                                                  y(\boldsymbol{h},\boldsymb...
-Not a real error.
-
-./TenMonthReview.tex:256: Preview: Snippet 114 ended.(589824+196608x2290375).
-<-><->
-      
-l.256 ....  Let $y(\boldsymbol{h},\boldsymbol{s})$
-                                                   be a deterministic quadra...
-Not a real error.
-
-[114]
-./TenMonthReview.tex:258: Preview: Snippet 115 started.
-<-><->
-      
-l.258 \begin{align}
-                    \label{y}
-Not a real error.
-
-./TenMonthReview.tex:260: Preview: Snippet 115 ended.(2426297+0x31699558).
-<-><->
-      
-l.260 \end{align}
-                 
-Not a real error.
-
-
-LaTeX Warning: Command \pdfstringdef invalid in math mode on input line 260.
-
-[115
-
-]
-./TenMonthReview.tex:262: Preview: Snippet 116 started.
-<-><->
-      
-l.262 ...ase must stay the same or increase over $
-                                                  T_a$ to reflect the fact t...
-Not a real error.
-
-./TenMonthReview.tex:262: Preview: Snippet 116 ended.(537395+117964x779984).
-<-><->
-      
-l.262 ...must stay the same or increase over $T_a$
-                                                   to reflect the fact that ...
-Not a real error.
-
-[116]
-./TenMonthReview.tex:264: Preview: Snippet 117 started.
-<-><->
-      
-l.264 ...mplement this unimodality constraint on $
-                                                  s_t$, we introduce a mode ...
-Not a real error.
-
-./TenMonthReview.tex:264: Preview: Snippet 117 ended.(338603+117964x596651).
-<-><->
-      
-l.264 ...ment this unimodality constraint on $s_t$
-                                                  , we introduce a mode $T_c...
-Not a real error.
-
-[117]
-./TenMonthReview.tex:264: Preview: Snippet 118 started.
-<-><->
-      
-l.264 ...onstraint on $s_t$, we introduce a mode $
-                                                  T_c$ for the shelter capac...
-Not a real error.
-
-./TenMonthReview.tex:264: Preview: Snippet 118 ended.(537395+117964x725370).
-<-><->
-      
-l.264 ...raint on $s_t$, we introduce a mode $T_c$
-                                                   for the shelter capacity ...
-Not a real error.
-
-[118]
-./TenMonthReview.tex:264: Preview: Snippet 119 started.
-<-><->
-      
-l.264 ...lter capacity function over time, where $
-                                                  T_c \leq T_a$ and $T_c \in...
-Not a real error.
-
-./TenMonthReview.tex:264: Preview: Snippet 119 ended.(537395+117964x2553925).
-<-><->
-      
-l.264 ... function over time, where $T_c \leq T_a$
-                                                   and $T_c \in \mathbb{N}$....
-Not a real error.
-
-[119]
-./TenMonthReview.tex:264: Preview: Snippet 120 started.
-<-><->
-      
-l.264 ...ion over time, where $T_c \leq T_a$ and $
-                                                  T_c \in \mathbb{N}$. We en...
-Not a real error.
-
-./TenMonthReview.tex:264: Preview: Snippet 120 ended.(541764+117964x2254539).
-<-><->
-      
-l.264 ...e $T_c \leq T_a$ and $T_c \in \mathbb{N}$
-                                                  . We ensure that the shelt...
-Not a real error.
-
-[120]
-./TenMonthReview.tex:264: Preview: Snippet 121 started.
-<-><->
-      
-l.264 ...capacity monotonically increases before $
-                                                  T_c$ and monotonically dec...
-Not a real error.
-
-./TenMonthReview.tex:264: Preview: Snippet 121 ended.(537395+117964x725370).
-<-><->
-      
-l.264 ...city monotonically increases before $T_c$
-                                                   and monotonically decreas...
-Not a real error.
-
-[121]
-./TenMonthReview.tex:266: Preview: Snippet 122 started.
-<-><->
-      
-l.266 \begin{eqnarray}
-                      
-Not a real error.
-
-./TenMonthReview.tex:278: Preview: Snippet 122 ended.(12376187+0x31699558).
-<-><->
-      
-l.278 \end{eqnarray}
-                    
-Not a real error.
-
-[122
-
-
-
-
-
-
-
-
-
-
-
-]
-./TenMonthReview.tex:280: Preview: Snippet 123 started.
-<-><->
-      
-l.280 ... monotonically increases up to the mode $
-                                                  T_c$ and constraints (\ref...
-Not a real error.
-
-./TenMonthReview.tex:280: Preview: Snippet 123 ended.(537395+117964x725370).
-<-><->
-      
-l.280 ...otonically increases up to the mode $T_c$
-                                                   and constraints (\ref{p2c...
-Not a real error.
-
-[123]
-./TenMonthReview.tex:280: Preview: Snippet 124 started.
-<-><->
-      
-l.280 ...ints (\ref{p2c4}) and (\ref{p2c10}) fix $
-                                                  h_t$ and $s_t$ during the ...
-Not a real error.
-
-./TenMonthReview.tex:280: Preview: Snippet 124 ended.(546132+117964x677204).
-<-><->
-      
-l.280 ... (\ref{p2c4}) and (\ref{p2c10}) fix $h_t$
-                                                   and $s_t$ during the hori...
-Not a real error.
-
-[124]
-./TenMonthReview.tex:280: Preview: Snippet 125 started.
-<-><->
-      
-l.280 ...{p2c4}) and (\ref{p2c10}) fix $h_t$ and $
-                                                  s_t$ during the horizon $T...
-Not a real error.
-
-./TenMonthReview.tex:280: Preview: Snippet 125 ended.(338603+117964x596651).
-<-><->
-      
-l.280 ...4}) and (\ref{p2c10}) fix $h_t$ and $s_t$
-                                                   during the horizon $T_b$ ...
-Not a real error.
-
-[125]
-./TenMonthReview.tex:280: Preview: Snippet 126 started.
-<-><->
-      
-l.280 ... fix $h_t$ and $s_t$ during the horizon $
-                                                  T_b$ after the building ho...
-Not a real error.
-
-./TenMonthReview.tex:280: Preview: Snippet 126 ended.(537395+117964x722397).
-<-><->
-      
-l.280 ... $h_t$ and $s_t$ during the horizon $T_b$
-                                                   after the building horizo...
-Not a real error.
-
-[126]
-./TenMonthReview.tex:282: Preview: Snippet 127 started.
-<-><->
-      
-l.282 \subsection
-                 {Numerical results} \label{results}
-Not a real error.
-
-./TenMonthReview.tex:282: Preview: Snippet 127 ended.(655359+0x31699558).
-<-><->
-      
-l.282 \subsection{Numerical results}
-                                     \label{results}
-Not a real error.
-
-[127
-
-]
-./TenMonthReview.tex:284: Preview: Snippet 128 started.
-<-><->
-      
-l.284 ...rs we used when optimising formulations $
-                                                  \Phi$. These approximate v...
-Not a real error.
-
-./TenMonthReview.tex:284: Preview: Snippet 128 ended.(537395+0x556140).
-<-><->
-      
-l.284 ... used when optimising formulations $\Phi$
-                                                  . These approximate values...
-Not a real error.
-
-[128]
-./TenMonthReview.tex:284: Preview: Snippet 129 started.
-<-><->
-      
-l.284 ...d \cite{singham2023discrete}. We choose $
-                                                  w$ to be sufficiently high...
-Not a real error.
-
-./TenMonthReview.tex:284: Preview: Snippet 129 ended.(338603+0x571613).
-<-><->
-      
-l.284 ...\cite{singham2023discrete}. We choose $w$
-                                                   to be sufficiently high t...
-Not a real error.
-
-[129]
-./TenMonthReview.tex:284: Preview: Snippet 130 started.
-<-><->
-      
-l.284 ...he arrival rate of 10/day for the first $
-                                                  T_a$ years of the modeling...
-Not a real error.
-
-./TenMonthReview.tex:284: Preview: Snippet 130 ended.(537395+117964x779984).
-<-><->
-      
-l.284 ...rrival rate of 10/day for the first $T_a$
-                                                   years of the modeling hor...
-Not a real error.
-
-[130]
-./TenMonthReview.tex:286: Preview: Snippet 131 started.
-<-><->
-      
-l.286 \begin{table}
-                   
-Not a real error.
-
-./TenMonthReview.tex:321: Preview: Snippet 131 ended.(7884642+6726842x31699558).
-<-><->
-      
-l.321         \end{table}
-                         
-Not a real error.
-
-[131
-
-
-]
-./TenMonthReview.tex:323: Preview: Snippet 132 started.
-<-><->
-      
-l.323 ...el dynamics for the optimal solution to $
-                                                  \Phi$, which involves the ...
-Not a real error.
-
-./TenMonthReview.tex:323: Preview: Snippet 132 ended.(537395+0x556140).
-<-><->
-      
-l.323 ...namics for the optimal solution to $\Phi$
-                                                  , which involves the build...
-Not a real error.
-
-[132]
-./TenMonthReview.tex:325: Preview: Snippet 133 started.
-<-><->
-      
-l.325 \begin{figure}
-                    [h!]
-Not a real error.
-
-<phi2-opt.png, id=758, 419.166pt x 330.2739pt>
+[9 <./u_t_example.png>] [10] [11] [12] [13]
+<phi2-opt.png, id=293, 419.166pt x 330.2739pt>
 File: phi2-opt.png Graphic file (type png)
 <use phi2-opt.png>
-Package pdftex.def Info: phi2-opt.png  used on input line 327.
+Package pdftex.def Info: phi2-opt.png  used on input line 346.
 (pdftex.def)             Requested size: 335.33325pt x 264.21945pt.
-./TenMonthReview.tex:330: Preview: Snippet 133 ended.(19074434+0x31699558).
-<-><->
-      
-l.330 \end{figure}
-                  
-Not a real error.
-
-[133
 
 
- <./phi2-opt.png>]
-./TenMonthReview.tex:332: Preview: Snippet 134 started.
-<-><->
-      
-l.332 ...the fact that after the shelter mode at $
-                                                  t=3$ years, decommissionin...
-Not a real error.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-./TenMonthReview.tex:332: Preview: Snippet 134 ended.(506811+0x1698910).
-<-><->
-      
-l.332 ...fact that after the shelter mode at $t=3$
-                                                   years, decommissioning sh...
-Not a real error.
-
-[134]
-./TenMonthReview.tex:332: Preview: Snippet 135 started.
-<-><->
-      
-l.332 ...e that with this formulation, for every $
-                                                  3$ shelters decommissioned...
-Not a real error.
-
-./TenMonthReview.tex:332: Preview: Snippet 135 ended.(506811+0x385020).
-<-><->
-      
-l.332 ...that with this formulation, for every $3$
-                                                   shelters decommissioned, ...
-Not a real error.
-
-[135]
-./TenMonthReview.tex:332: Preview: Snippet 136 started.
-<-><->
-      
-l.332 ... for every $3$ shelters decommissioned, $
-                                                  1$ house may be acquired, ...
-Not a real error.
-
-./TenMonthReview.tex:332: Preview: Snippet 136 ended.(506811+0x385020).
-<-><->
-      
-l.332 ...or every $3$ shelters decommissioned, $1$
-                                                   house may be acquired, re...
-Not a real error.
-
-[136]
-./TenMonthReview.tex:332: Preview: Snippet 137 started.
-<-><->
-      
-l.332 ...$1$ house may be acquired, resulting in $
-                                                  2$ people immediately rejo...
-Not a real error.
-
-./TenMonthReview.tex:332: Preview: Snippet 137 ended.(506811+0x385020).
-<-><->
-      
-l.332 ...$ house may be acquired, resulting in $2$
-                                                   people immediately rejoin...
-Not a real error.
-
-[137]
-./TenMonthReview.tex:332: Preview: Snippet 138 started.
-<-><->
-      
-l.332 ...rable in practice and we see that after $
-                                                  5$ years the unsheltered q...
-Not a real error.
-
-./TenMonthReview.tex:332: Preview: Snippet 138 ended.(506811+0x385020).
-<-><->
-      
-l.332 ...ble in practice and we see that after $5$
-                                                   years the unsheltered que...
-Not a real error.
-
-[138]
-./TenMonthReview.tex:333: Preview: Snippet 139 started.
-<-><->
-      
-l.333 \begin{figure}
-                    [h!]
-Not a real error.
-
-<results_comparison.png, id=786, 482.55281pt x 63.98906pt>
+<results_comparison.png, id=294, 482.55281pt x 63.98906pt>
 File: results_comparison.png Graphic file (type png)
 <use results_comparison.png>
-Package pdftex.def Info: results_comparison.png  used on input line 335.
+Package pdftex.def Info: results_comparison.png  used on input line 354.
 (pdftex.def)             Requested size: 386.04276pt x 51.1913pt.
-./TenMonthReview.tex:338: Preview: Snippet 139 ended.(5157113+0x31699558).
-<-><->
-      
-l.338 \end{figure}
-                  
-Not a real error.
+[14] [15 <./phi2-opt.png> <./results_comparison.png>] [16] [17]
+Overfull \hbox (17.68881pt too wide) in paragraph at lines 387--387
+[]\OT1/cmr/bx/n/17.28 Potential con-tri-bu-tions at in-ter-sec-tion of integer-
+ordered
+ []
 
-[139
+[18] [19] (./TenMonthReview.bbl [20]
+Underfull \hbox (badness 10000) in paragraph at lines 105--109
+\OT1/cmtt/m/n/12 2021-[]Centering-[]Racial-[]Equity-[]in-[]Homeless-[]System-[]
+Design-[]Full-[]Report-[]FINAL .
+ []
 
-
- <./results_comparison.png>]
-./TenMonthReview.tex:340: Preview: Snippet 140 started.
-<-><->
-      
-l.340 ...ults} we detail the optimal solution to $
-                                                  \Phi$ in terms of the capa...
-Not a real error.
-
-./TenMonthReview.tex:340: Preview: Snippet 140 ended.(537395+0x556140).
-<-><->
-      
-l.340 ... we detail the optimal solution to $\Phi$
-                                                   in terms of the capacity ...
-Not a real error.
-
-[140]
-./TenMonthReview.tex:340: Preview: Snippet 141 started.
-<-><->
-      
-l.340 ...vestment in housing over time. In years $
-                                                  4$ and $5$ we see decommis...
-Not a real error.
-
-./TenMonthReview.tex:340: Preview: Snippet 141 ended.(506811+0x385020).
-<-><->
-      
-l.340 ...stment in housing over time. In years $4$
-                                                   and $5$ we see decommissi...
-Not a real error.
-
-[141]
-./TenMonthReview.tex:340: Preview: Snippet 142 started.
-<-><->
-      
-l.340 ... in housing over time. In years $4$ and $
-                                                  5$ we see decommissioning ...
-Not a real error.
-
-./TenMonthReview.tex:340: Preview: Snippet 142 ended.(506811+0x385020).
-<-><->
-      
-l.340 ...n housing over time. In years $4$ and $5$
-                                                   we see decommissioning of...
-Not a real error.
-
-[142]
-./TenMonthReview.tex:342: Preview: Snippet 143 started.
-<-><->
-      
-l.342 We solved this problem in $
-                                 0.759$ seconds using the IPOPT solver in Py...
-Not a real error.
-
-./TenMonthReview.tex:342: Preview: Snippet 143 ended.(506811+0x1753980).
-<-><->
-      
-l.342 We solved this problem in $0.759$
-                                        seconds using the IPOPT solver in Py...
-Not a real error.
-
-[143]
-./TenMonthReview.tex:344: Preview: Snippet 144 started.
-<-><->
-      
-l.344 \subsection
-                 {Determinsitic optimisation: discussion} \label{do-discuss}
-Not a real error.
-
-./TenMonthReview.tex:344: Preview: Snippet 144 ended.(655359+183500x31699558).
-<-><->
-      
-l.344 ...n{Determinsitic optimisation: discussion}
-                                                   \label{do-discuss}
-Not a real error.
-
-[144
-
-]
-./TenMonthReview.tex:356: Preview: Snippet 145 started.
-<-><->
-      
-l.356 \section
-              {Discussion of uncertainty} \label{uncert}
-Not a real error.
-
-./TenMonthReview.tex:356: Preview: Snippet 145 ended.(786431+220200x31699558).
-<-><->
-      
-l.356 \section{Discussion of uncertainty}
-                                          \label{uncert}
-Not a real error.
-
-[145
-
-]
-./TenMonthReview.tex:368: Preview: Snippet 146 started.
-<-><->
-      
-l.368 \section
-              {Potential contributions at intersection of integer-ordered an...
-Not a real error.
-
-./TenMonthReview.tex:368: Preview: Snippet 146 ended.(2228223+220200x31699558).
-<-><->
-      
-l.368 ...of integer-ordered and multi fidelity SO}
-                                                   \label{mfso}
-Not a real error.
-
-[146
-
-]
-./TenMonthReview.tex:378: Preview: Snippet 147 started.
-<-><->
-      
-l.378 \section
-              {Conclusion}\label{conc}
-Not a real error.
-
-./TenMonthReview.tex:378: Preview: Snippet 147 ended.(786431+0x31699558).
-<-><->
-      
-l.378 \section{Conclusion}
-                          \label{conc}
-Not a real error.
-
-[147
-
-] (./TenMonthReview.bbl
-./TenMonthReview.bbl:1: Preview: Snippet 148 started.
-<-><->
-      
-l.1 \begin{thebibliography}{}
-                             
-Not a real error.
-
-./TenMonthReview.bbl:1: Preview: Snippet 148 ended.(786431+0x31699558).
-<-><->
-      
-l.1 \begin{thebibliography}{}
-                             
-Not a real error.
-
-[148]) ) 
+) [21] (./TenMonthReview.aux)
+Package rerunfilecheck Info: File `TenMonthReview.out' has not changed.
+(rerunfilecheck)             Checksum: D4F634692B70AE7995A64E09D5868310;3765.
+ ) 
 Here is how much of TeX's memory you used:
- 21930 strings out of 480247
- 401184 string characters out of 5896151
- 664387 words of memory out of 5000000
- 39316 multiletter control sequences out of 15000+600000
+ 21644 strings out of 480247
+ 397853 string characters out of 5896151
+ 671751 words of memory out of 5000000
+ 39147 multiletter control sequences out of 15000+600000
  481945 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,14n,89p,1669b,917s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/symbols/msbm10.pfb>
-Output written on TenMonthReview.pdf (148 pages, 250144 bytes).
+ 84i,12n,89p,1418b,890s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/burges26/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.
+600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on TenMonthReview.pdf (21 pages, 342937 bytes).
 PDF statistics:
- 943 PDF objects out of 1000 (max. 8388607)
- 651 compressed objects within 7 object streams
- 182 named destinations out of 1000 (max. 500000)
+ 449 PDF objects out of 1000 (max. 8388607)
+ 377 compressed objects within 4 object streams
+ 80 named destinations out of 1000 (max. 500000)
  172 words of extra memory for PDF output out of 10000 (max. 10000000)
 
