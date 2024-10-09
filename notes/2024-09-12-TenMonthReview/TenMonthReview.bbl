@@ -119,6 +119,11 @@ Reynolds, J., Zeng, Z., Li, J., and Chiang, S.-Y. (2010).
 \newblock {\em International Journal of Health Care Quality Assurance},
   23(6):607--620.
 
+\bibitem[Rue and Held, 2005]{rue2005gaussian}
+Rue, H. and Held, L. (2005).
+\newblock {\em Gaussian Markov random fields: theory and applications}.
+\newblock Chapman and Hall/CRC.
+
 \bibitem[Singham et~al., 2023]{singham2023discrete}
 Singham, D.~I., Lucky, J., and Reinauer, S. (2023).
 \newblock Discrete-event simulation modeling for housing of homeless
