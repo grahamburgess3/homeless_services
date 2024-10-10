@@ -101,15 +101,20 @@ The basic outline of a SO algorithm with GMRFs, as detailed by \citet{l2019gauss
 
 \subsubsection{Multi-fidelity SO methods}
 
+As discussed in Section \ref{lit-review-so}, one approach to SO with meta modelling is to use models of multi fidelity in the search. In queueing systems, an analytical queueing model can act as a low-fidelity meta model, as we discuss further in Section \ref{models}. There are several established approaches for incorporating multi-fidelity models into SO, we now discuss three such approaches.
+
+One approach to incorporating multi-fidelity models into SO is to \textbf{perform a deterministic optimisation (DO) first} using a deterministic low-fidelity model. Informally, this helps develop a better understanding of the dynamics of the system in question and of the nature of good solutions. Formally, an optimial solution from a DO procedure can be used as a initial solution for a SO procedure, giving the latter a `head start'.
+
+This approach is explained by \cite{jian2015introduction} in the context of managing bicycle station capacity in a bicycle sharing system at the start of a morning rush hour. Their objective is to minimise customer disatisfaction due to full/empty stations. They first ignore randomness in arrivals and departures of bikes to and from stations and find simple rules of thumb for deciding on the morning capacity of a station depending on whether the station experiences net in-flow or net out-flow. This gives helpful intuition but has serious flaws from ignoring stochasticity, such as assigning no bikes to net in-flow stations. The authors then incorporate stochasticity by modelling the number of bikes at each station $i$ as an $M/M/1/r_i$ queue and including the expected number of full/empty stations in the objective function. This gives more intuitive solutions in situations where the fluid flow model would have preferred a full/empty station. Finally, they capture more system complexity using a discrete-event simulation model. They attempt to solve the resulting SO problem using a random search approach and find that by starting their search at the optimal solution from the queueing model optimisation, they find good solutions with less simulation effort.
+
+Another multi-fidelity modelling approach to SO is known as \textbf{multi-fidelity optimisation with ordinal transformation and optimal sampling} (MO2TOS) and was first proposed by \cite{xu2016mo2tos} and is appropriate for discrete problems. The idea is that low-fidelity evaluations of the entire multi-dimensional solution space can be used to `cheaply' transform solutions onto a new one-dimensional scale where they are ordered from good to bad. Grouping solutions based on their position in the transformed space results in lower group variances and higher inter-group distances than randomly grouping solutions without transformation. These characteristics enables the following optimal sampling scheme to more efficiently search for an optimal solution. The optimal sampling strategy is inherited from the well-known optimcal computing budget allocation rule (OCBA). Subsequent papers have improved the original MO2TOS method by, for example, applying clustering techniques to group solutions in the transformed space to further reduce group variances and further increase inter-group distances \citep{cao2023cluster}. The downside of MO2TOS-based methods is that all feasible solutions must be evaluated with the low fidelity model which may be problematic if the solution space is very large and/or the low-fidelity evaluation is not very cheap. 
+
 \begin{itemize}[noitemsep]
-\item Using deterministic optimisation results to begin simulation optimisation e.g. \cite{jian2015introduction}.
-\item Ordinal transformation with optimal sampling \citep{xu2016mo2tos}.
 \item Modelling the error of a low-fidelity model
 \begin{itemize}[noitemsep]
 \item Polynomial error terms e.g. \cite{chong2018simulation}.
 \item Gaussian Process error terms e.g. \cite{huang2006sequential}.
 \end{itemize}
-\item Multi-fidelity Expensive Black Box (Mf-EBB) Optimisation
 \end{itemize}
 
 \newpage

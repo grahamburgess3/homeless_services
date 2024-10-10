@@ -5,6 +5,13 @@
 \newblock {Home Together 2026 Community Plan: A 5-year Strategic Framework
   Centering Racial Equity to End Homelessness in Alameda County}.
 
+\bibitem[Cao et~al., 2023]{cao2023cluster}
+Cao, Z., Li, H., Chew, E.~P., Wang, H., and Tan, K.~C. (2023).
+\newblock Cluster-based sampling allocation for multi-fidelity simulation
+  optimization.
+\newblock In {\em 2023 Winter Simulation Conference (WSC)}, pages 3448--3459.
+  IEEE.
+
 \bibitem[Chong and Osorio, 2018]{chong2018simulation}
 Chong, L. and Osorio, C. (2018).
 \newblock A simulation-based optimization algorithm for dynamic large-scale
