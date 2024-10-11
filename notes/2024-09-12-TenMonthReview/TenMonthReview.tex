@@ -26,8 +26,6 @@ Modelling and optimisation are popular tools for supporting resourcing and capac
 To do:
 
 \begin{itemize}[noitemsep]
-\item Add more to GMRF bit (the benefits of GMRF and the derivatives thereof (maybe write out the conditional dist...)
-\item Add references for the general SO bit ?
 \item Final chapter (next moves)
 \item abstract?
 \item Read the whole thing through (does it flow nicely)
@@ -70,7 +68,7 @@ SO is aimed at decision problems where there are a large number of alternative s
 
 \subsubsection{Overview of SO methods}\label{lit-review-so}
 
-In SO, one is typically interested in solving the following optimisation problem: 
+In SO, as described by \cite{nelson2021foundations}, one is typically interested in solving the following optimisation problem: 
 %
 \begin{equation}\label{SO_general}
     \min \theta(\boldsymbol{x}), \hspace{0.2cm} \boldsymbol{x} \in C
@@ -78,7 +76,7 @@ In SO, one is typically interested in solving the following optimisation problem
 %
 where $\theta(\boldsymbol{x})$ is the true cost of solution $\boldsymbol{x}$ which can only be estimated with stochastic simulation and $C$ is the set of feasible solutions, or the solution space. SO methods can be categorised into those which deal with discrete-valued solution spaces and those which deal with contiuous-valued solution spaces. Here we discuss both categories since both are relevant for this research. 
 
-In discrete problems, with a sufficiently small number of feasible solutions, it may be realistic to simulate every solution at least once. In this case, \textbf{ranking and selection} (R\&S) methods are appropriate. Initially each solution is simulated a relatively small number of times, and then a decision is made iteratively about which solutions to discard and which to keep simulating. By the end of the procedure, one has a statistical guarantee on the probabilty that a solution within an `indifference zone' of the true best has been selected (in a frequentist setting).
+In discrete problems, with a sufficiently small number of feasible solutions, it may be realistic to simulate every solution at least once. In this case, \textbf{ranking and selection} (R\&S) methods appropriate. Initially each solution is simulated a relatively small number of times, and then a decision is made iteratively about which solutions to discard and which to keep simulating. By the end of the procedure, one has a statistical guarantee on the probabilty that a solution within an `indifference zone' of the true best has been selected (in a frequentist setting).
 
 In discrete problems where it is not realistic to simulation every solution, \textbf{adaptive random search} (ARS) methods are appropriate. At each iteration, a set of feasible solutions is randomly selected for simulation (or further simulation) based on a probability distribution across the feasible region. The nature of the probability distribution is different for different ARS methods, but they informally exploit the idea that good solutions tend to be clustered together. ARS methods converge asymptotically to local or global optima (depending on the method) and rules are used to decide when to stop the procedure and return the sample-best solution.
 
@@ -98,7 +96,7 @@ Another promising method for solving integer-ordered SO problems using gradient 
 
 In recent years, the use of \textbf{Gaussian Markov random fields} (GMRFs) \citep{l2019gaussian} for integer-ordered SO problems has become popular. GMRF-based methods can exploit spatial structure across a multi-dimensional solution space using a neighbourhood approach. A GMRF is a Gaussian random vector where each vector element models the objective function of a feasible solution. The GMRF is defined on an undirected graph comprised of nodes and edges. Each node corresponds to a feasible solution and the edges connecting nodes define the neighbourhood of each  solution. The Markov property holds if one can predict the objective function of any solution only with objective function information from the neighbourhood. That is, each random variable is conditionally independent of all random varialbes outside of the corresponding neighbourhood, conditional on the random variables in the neighbourhood. A GMRF is defined by its mean vector and precision matrix (inverse of the covariance matrix). Zeros in a precision matrix correspond to conditional independence between random variables, given all other random variables (see \cite{rue2005gaussian} for proof). Assuming that the neighbourhood of each solution is small compared to the total size of the solution space, the precision matrix will be sparse, simplifying computations within this framework. 
 
-\citet{l2019gaussian} introduce the Gaussian Markov improvement algorithm (GMIA). The conditional mean vector and precision matrix of the GMRF are updated as more information is collected via simulation. Following each update, a decision is made about where to simulate next using a complete expected improvement (CEI) criterion. The CEI criterion is similar to the expected improvement (EI) criterion discussed in Section \ref{lit-review-so}, but it treats both the objective function at the current best solution and that at each candidate solution as random variables. 
+\citet{l2019gaussian} introduce the Gaussian Markov improvement algorithm (GMIA). The conditional distribution for the GMRF (conditional on all previous simulation results) is updated as more simulation is performed. Following each update, a decision is made about where to simulate next using a complete expected improvement (CEI) criterion. The CEI criterion is similar to the expected improvement (EI) criterion discussed in Section \ref{lit-review-so}, but it treats both the objective function at the current best solution and that at each candidate solution as random variables. Once the maximum CEI across all candidate solutions is below some threshold $\delta$, the algorithm terminates and by using CEI to decide when to stop, one has similar statistical confidence on the selected best as is provided by indifference-zone R\&S (see Section \ref{lit-review-so}. The GMIA algorithm converges with probability $1$ to the globally optimal solution based on the fact that without the stopping rule, as the number of iterations goes to infinity, each solution will be simulated infinitely often.
 
 \subsubsection{Multi-fidelity SO methods}
 
@@ -371,7 +369,7 @@ While housing is the primary resource and is modeled as the main server system, 
 
 There are many opportunities for alternative formulations.  Smoothness constraints on the unimodal shelter capacity function may give more practical solutions that appear reasonable to constituents. Further constraints to control the decommissioning of shelter may also be appropriate. A bi-objective formulation would likely give further insight into the trade-off between short-term relief to the system via shelter and long-term relief via housing. Alternatively, a goal programming formulation which penalised deviations from a time-dependent goal on the unsheltered population would be interesting to explore.
 
-We have here performed deterministic optimisation using a low-fidelity fluid flow model. This has enabled us to develop and explore an optimisation formulation which captures the key objectives, trade-offs and constraints. It has also enabled us to quickly get a feel for the nature of good solutions to the time-dependent capacity planning problem using a simple model. The natural next step is to develop a stochastic optimisation model to account for parameter uncertainty.
+We have here performed deterministic optimisation using a low-fidelity fluid flow model. This has enabled us to develop and explore an optimisation formulation which captures the key objectives, trade-offs and constraints. It has also enabled us to quickly get a feel for the nature of good solutions to the time-dependent capacity planning problem using a simple model. The natural next step is to develop a simulation optimisation model which accounts for stochastic uncertainty.
 
 \newpage
 
@@ -389,11 +387,13 @@ We do here acknowledge that for the homeless care system, there are extremely hi
 
 \section{Potential contributions at intersection of integer-ordered and multi fidelity SO} \label{mfso}
 
-\begin{itemize}[noitemsep]
-\item Using low-fidelity models to quickly compute gradients in RSPLINE/DSA.
-\item Adding prior information to GMRF using low-fidelity model.
-\item Modelling errors of low fidelity models using GMRF.
-\end{itemize}
+The remainder of this PhD research will address current challenges at the intersection of integer-ordered and multi-fidelity SO. An integer-ordered SO approach is naturally applicable to the time-varying capacity planning problem in the homeless care setting since our decision variables are the numbers of housing/shelter units to open annually. Multi-fidelity methods are attractive given the availability of several suitable multi-fidelity models. We discuss below some initial ideas for contributing to the literature at the intersection of these active fields of research. 
+
+Gradient-based integer-ordered SO methods such as DSA and R-SPLINE expend substantial simulation effort in estimating gradients on the continuous domain. For a given point on the $d$-dimensional continuous domain, all $(d+1)$ integer points on the surrounding simplex must be simulated multiple times to estimate the gradient. This could be more efficient by using information from low-fidelity models when estimating the gradient. One could, for example, use solely a low-fidelity model for objective function estimation at points on the simplex. Alternatively one could use a meta-model definted as a combination of a low-fidelity model and an error term, using some simulation effort to fit this meta-model.
+
+GMRF-based integer-ordered SO methods are popular in the literature but do not typically use multi-fidelity model information. 
+
+Modelling errors of low fidelity models using GMRF.
 
 \newpage
 
