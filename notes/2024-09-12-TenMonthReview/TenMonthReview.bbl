@@ -88,6 +88,13 @@ L.~Salemi, P., Song, E., Nelson, B.~L., and Staum, J. (2019).
   simulation: Framework and algorithms.
 \newblock {\em Operations Research}, 67(1):250--266.
 
+\bibitem[Li et~al., 2022]{li2022multi}
+Li, D., Liu, H., Jin, X., Li, H., Chew, E.~P., Tan, K.~C., and Lin, Y.~H.
+  (2022).
+\newblock Multi-fidelity discrete optimization via simulation.
+\newblock In {\em 2022 Winter Simulation Conference (WSC)}, pages 3170--3181.
+  IEEE.
+
 \bibitem[Lim, 2012]{lim2012stochastic}
 Lim, E. (2012).
 \newblock Stochastic approximation over multidimensional discrete sets with
@@ -135,6 +142,12 @@ Reynolds, J., Zeng, Z., Li, J., and Chiang, S.-Y. (2010).
 Rue, H. and Held, L. (2005).
 \newblock {\em Gaussian Markov random fields: theory and applications}.
 \newblock Chapman and Hall/CRC.
+
+\bibitem[Semelhago et~al., 2021]{semelhago2021rapid}
+Semelhago, M., Nelson, B.~L., Song, E., and W{\"a}chter, A. (2021).
+\newblock Rapid discrete optimization via simulation with gaussian markov
+  random fields.
+\newblock {\em INFORMS Journal on Computing}, 33(3):915--930.
 
 \bibitem[Singham et~al., 2023]{singham2023discrete}
 Singham, D.~I., Lucky, J., and Reinauer, S. (2023).
