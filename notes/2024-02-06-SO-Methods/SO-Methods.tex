@@ -113,6 +113,15 @@ The solution-level algorithm is what I'd expect, except interesting to note that
 
 At each computation of the CEI (note: this computation is needed for n-1 solutions at every iteration of the algorithm) - the conditional distribution $\mathbb{Y}$ given the data is estimated, using estimates of parameters within the matrix. The computationally expensive bit is inverting the conditional precision matrix. But because it is sparse (due to neighbourhood structre and Markov property and due to the diagonal nature of the intrinsic noise matrix) and because only a small number of matrix elements are actually needed for the computation, matrix techniques which exploit these characteristics can be used. \newline
 
+The specifics of the sparse-matrix techniques are not detailed in this paper. But reference is made to the PARSIDO project, and the authors also say that 'general-purpose' sparse matrix methods are used for the purpose of giving a 'proof of concept' of the GMRF. \newline
+
+Computing the CEI:
+\begin{itemize}
+\item Original GMIA paper: not clear exactly, but nothing very smart - 'general purpose matlab methods' - papers which cite this paper say they do the $diag(\bar{Q}^{-1})$ with full backsolve of $\bar{Q}\bar{Q}^{-1}=1$ (which involves decomposition, then forward and backward substition, where you have to solve for a $n$x$n$ matrix with this method) and the specific column of $\bar{Q}^{-1}$ using a simpler backsolve (i.e. you solving for an $n$x$1$ column instead. $M^{t}$ is also cheap because it is solving for a $n$x1 vector not a $n$x$n$ matrix. 
+\item Takahashi: a way of computing a diagonal element without needing to compute the full inverse, but still lots of computations for large solution space.
+  \item Semelhago 2017: trick of only periodically computing $V^{t}(x)$, and estimating subsequent $M^{t+1}(x)$ using trick with Sherman-Morrison-Woodbury identity to make it cheap as only a small number of elements of $\hat{Q}$ change from iteration to iteration. Again exploiting that updating $M$ is cheap. They also have the idea of selecting top $q$ solutions at each iteration for further simulation. 
+\end{itemize}
+
 The convergence of this algorithm to the optimal solution as the number of sim reps goes to inf is based on the proof that with probability one, every solution will be simulated infinitely often given this algorithm.  \newline
 
 A regional level approachis also given where there are GMRFs where each node corresponds to a region of the solution space, and there are also within-region solution-level GMRFs. This type of approaches is considered helpful for a problem with low dimensionality but a very large number of solutions. \newline
@@ -120,6 +129,8 @@ A regional level approachis also given where there are GMRFs where each node cor
 \subsubsection{Extenstions to GMRF}
 
 There are several new algorithms which extend GMIA in one way or another. Examples include projected GMIA (pGMIA) (Li and Song), rapid GMIA (rGIA) (Mark Semelhago) and additive GMIA (aGMIA) (Harun) - these mostly address computational challenges e.g. in matrix computation. \newline
+
+*Computational Methods for GMRFS (Semelhago et al 2017 at WSC) - first up shows how the the backsolve method words using a LDL facorisation to compute the $C(x,\tilde{x})$ column of $\bar{Q}^{-1}$. The hard bit is then computing the diagonal of $\bar{Q}^{-1}$. This can also be tackled using a LDL factorisation: $\bar{Q}\bar{Q}^{-1}=1$, $\bar{Q} = LDL^{T}$, and this method is the approach of the original GMRF paper. Takahashi show a neat way of calculating specific diagonal elements of $\bar{Q}^{-1}$ with few calculations (Example of this given in this Semelhago paper.) Semelhago have approaches for improving the Takahashi approach still. It seems that Cholesky factorisation is expensive but it is a similar approach to LDL.
 
 *Projected GMIA*: The computational cost of inferences increases exponentially with number of dimensions in GMIA. pGMIA (and pGMIA+) seems similar to the multi-resolution GMIA proposed in the original GMRF paper, however pGMIA exploits the depdence between layers since there is dependence due to averaging. But basically it collapses dimensions by taking an average. It then does a region layer search and a solution layer search when deciding where to sample next. It bascailly 'projects' the solution space onto a lower dimensional space. \newline
 
