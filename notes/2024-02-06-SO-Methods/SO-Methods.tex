@@ -134,7 +134,9 @@ There are several new algorithms which extend GMIA in one way or another. Exampl
 
 *Projected GMIA*: The computational cost of inferences increases exponentially with number of dimensions in GMIA. pGMIA (and pGMIA+) seems similar to the multi-resolution GMIA proposed in the original GMRF paper, however pGMIA exploits the depdence between layers since there is dependence due to averaging. But basically it collapses dimensions by taking an average. It then does a region layer search and a solution layer search when deciding where to sample next. It bascailly 'projects' the solution space onto a lower dimensional space. \newline
 
-*Rapid GMIA*: Infrequent evaluations of full conditional dist with rapid learning on a smaller subset of solution space. Solutions in the subset need not be close to each other (key to the efficacy of the alg) Effectively at each iteration, a subset of promising solutions (ranked by sample means) are selected and only the conditional distributions for these solutions is updated while searching for a good next solution to evaluate. \newline
+*Rapid GMIA*: Infrequent evaluations of full conditional dist with rapid learning on a smaller subset of solution space. Solutions in the subset need not be close to each other (key to the efficacy of the alg) Effectively at each iteration, a subset of promising solutions (ranked by sample means) are selected and only the conditional distributions for these solutions is updated while searching for a good next solution to evaluate. The promising set would typically include solutions near the current best, solutions with promissing sample means and solutions in unexplored regions - this set would typically thne include solutsion from across the solution space - keeping it global. \newline
+
+Fewer diagonal elements of $\bar{Q}^{-1}$ are required, and no expensive Cholesky factorisation needed in rapid search steps - only a simple linear alg step. \newline
 
 The concept of a promising set is put together at the end of each gloabl search - i.e. the top n solutions ordered by their CEIs. Then the the $\bar{Q}$ matrix can be partitioned and the rapid search iteratively done only needing the small partition of this matrix relating to the search set. manipulation of dense $\Sigma$ is favoured over $Q$ here. There is then a stopping criterion for the rapid search - the authors propose stopping the rapid search when all of the CEIs for solutions in the search set are worse than the solution with the best CEI in the fixed set. The authors highlight several of the steps which are the most computationally expensive and specify how they tackle these expensive bits and how their partition leads to a significant saving compared to GMIA. I suppose there must be a (statistical) risk that when you collect new data in the search set but don't update the CEIs in the fixed set, the next solution you choose (based on CEIs in the search set) hasn't got the best global CEI. Can't see exactly if/where the authors address this issue.
 
@@ -170,6 +172,12 @@ Assume no heirarchy in the models of different fidelity. Assume computational co
 \end{itemize}
 
 My overall thoughts are that they have some good ideas but I think there could be better ways of incorporating the information from lower fidelity models most efficiently. For example, they still have flat priors for each model. They also have to recalculate the precision matrix at each iteration which presumably is costly. 
+
+\subsubsection{GIBBON}
+
+Information theortic BO seeks to reduce the uncertainty in the location of good areas of the search space, as measured by differential entropy. MAx-value entropy search (MES) reduces the uncertainty in the max value of the objecitve func, wheras other acquisition funcs (ES, PES) reduce uncert in location which is only possible in Euclidean search spaces and also requires expensive approximation schemes. But using MES in common BO extensions (like Multi fidelity BO - MUMBO) requires further approximations which are expensive.
+
+Shannon's entropy for discrete prob dists is $-\sum_{x} p_x log (p_x)$. Low prob things have small $p_x$ and extremely negative $log(p_x)$ and highly prob things have bigger $p_x$ and still negative but less negative $log(p_x)$. it turns out that the more spread out the distribution is, the higher this value, and the more precise the distribution is, the smaller Shannon's entropy. Differential entropy is the same on the continuous domain. 
 
 \subsection{RSM in a discrete setting}
 
