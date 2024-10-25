@@ -1,0 +1,34 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % to set up page formatting
+\usepackage[skip=10pt]{parskip} % spacing in between paragraphs
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+\usepackage{natbib} % Required for bibliography and citations
+\usepackage{enumitem} % Required to remove gap between items in list
+\usepackage{tikz} % Required to build tikz diagrams
+\usepackage{xcolor} % to access colors in tikz diags
+\usepackage{hyperref} % for web links
+
+\title{Modelling and optimising the housing of homeless populations: ten month PhD review}
+\author{Graham Burgess}
+\date{October 2024}
+
+\begin{document}
+%
+\maketitle
+%
+\section{Introduction}
+
+\section{Literature Review} \label{lit-rev}
+
+\section{Models of multi fidelity} \label{models}
+
+\section{Deterministic optimisation with low-fidelity model} \label{do}
+
+\section{Discussion of uncertainty} \label{uncert}
+
+\section{Potential research contributions} \label{mfso}
+
+\end{document}

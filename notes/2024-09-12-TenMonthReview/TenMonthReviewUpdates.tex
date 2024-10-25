@@ -1,0 +1,66 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % to set up page formatting
+\usepackage[skip=10pt]{parskip} % spacing in between paragraphs
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+\usepackage{natbib} % Required for bibliography and citations
+\usepackage{enumitem} % Required to remove gap between items in list
+\usepackage{tikz} % Required to build tikz diagrams
+\usepackage{xcolor} % to access colors in tikz diags
+\usepackage{hyperref} % for web links
+
+\title{Multi-fidelity modelling and optimisation for long-term capacity planning: ten month PhD review}
+\author{Graham Burgess}
+\date{November 2024}
+
+\begin{document}
+%
+\maketitle
+%
+
+In this document I outline ammendments to the initial draft, based on discussion on 22nd October, 2024 (not including all ammendments based on specific comments in feedback received by email). I also list some potential topics of conversation on 8th November, 2024. 
+
+\section{Introduction}
+%
+\begin{itemize}[noitemsep]
+\item Introduce the more general context of queueing models in long-term capacity planning, where the homeless care setting is one example. 
+\item Introduce the distinction between long and short service times when discussing examples of long-term capacity planning
+\end{itemize}
+%
+\section{Literature Review} \label{lit-rev}
+%
+\begin{itemize}[noitemsep]
+\item include discussion of recent JOS paper on long-term bed modelling critical care hosptial units
+\item include more references in Section 2.2.1 (Overview of SO methods)
+\item introduce problem of SO in queueing settings: bad solutions have high variance and are therefore difficult to eliminate
+\item include GMIA extensions rapid GMIA and multi-fidelity GMIA
+\item include discussion of current literature on multi-fidelity Bayesian optimisation.
+\end{itemize}
+%
+\section{Models of multi fidelity} \label{models}
+
+\section{Deterministic optimisation with low-fidelity model} \label{do}
+
+\section{Discussion of uncertainty} \label{uncert}
+%
+\begin{itemize}[noitemsep]
+\item re-introduce distinction between long and short service times: with long service times we are more interested in input uncertainty, and with short service times we are more interested in stochastic uncertainty.
+\item expand upon ideas for how input uncertainty could be incorporated into a future MFSO algorithm.
+\end{itemize}
+%
+\section{Potential research contributions} \label{mfso}
+\begin{itemize}
+\item Expand upon and emphasize the focus on incorporating structure into a MFSO algorithm. Knowledge of this structure comes from the fact that we are dealing with queueing problems.
+\end{itemize}
+%
+\underline{To discuss on 8th November, 2024:}
+\begin{itemize}[noitemsep]
+\item The proposed PhD problem is `artificial' in the sense that in reality public-section decision makers usually have a small number of potential plans for serious consideration. Discuss the implications of this reality on the proposed PhD direction.
+\item The proposed next steps addres rather technical challenges. Discuss whether tackling these issues is sufficient for a PhD.
+\item Do we really need the $M_t/M/h_t$ model if typically servers are always busy (idle servers crop up in complexities which only a simulation could handle)
+\item How could we incorporate `uncertainty over time' into the current DO formulation?
+\end{itemize}
+%
+\end{document}
