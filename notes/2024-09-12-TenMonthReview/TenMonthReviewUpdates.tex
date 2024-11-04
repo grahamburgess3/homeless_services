@@ -11,7 +11,7 @@
 \usepackage{xcolor} % to access colors in tikz diags
 \usepackage{hyperref} % for web links
 
-\title{Multi-fidelity modelling and optimisation for long-term capacity planning: ten month PhD review}
+\title{Multi-fidelity modelling and optimisation for long-term capacity planning: ten month PhD review (ammendments)}
 \author{Graham Burgess}
 \date{November 2024}
 
@@ -20,7 +20,7 @@
 \maketitle
 %
 
-In this document I outline ammendments to the initial draft, based on discussion on 22nd October, 2024 (not including all ammendments based on specific comments in feedback received by email). I also list some potential topics of conversation on 8th November, 2024. 
+In this document I outline proposed ammendments to the initial draft of the 10-month review document. These suggestions are based on our discussion on 22nd October. They do not include all the ammendments which follow on from feedback received by email. I also list some potential topics of conversation for Friday 8th November.
 
 \section{Introduction}
 %
@@ -32,35 +32,37 @@ In this document I outline ammendments to the initial draft, based on discussion
 \section{Literature Review} \label{lit-rev}
 %
 \begin{itemize}[noitemsep]
-\item include discussion of recent JOS paper on long-term bed modelling critical care hosptial units
+\item include discussion of recent JOS paper on long-term bed modelling for critical care hosptial units
 \item include more references in Section 2.2.1 (Overview of SO methods)
-\item introduce problem of SO in queueing settings: bad solutions have high variance and are therefore difficult to eliminate
-\item include GMIA extensions rapid GMIA and multi-fidelity GMIA
+\item include GMIA extensions rapid GMIA and multi-fidelity GMIA (previously disccussed in Section \ref{mfso}). 
 \item include discussion of current literature on multi-fidelity Bayesian optimisation.
 \end{itemize}
 %
 \section{Models of multi fidelity} \label{models}
 
+- 
+
 \section{Deterministic optimisation with low-fidelity model} \label{do}
+
+- 
 
 \section{Discussion of uncertainty} \label{uncert}
 %
 \begin{itemize}[noitemsep]
-\item re-introduce distinction between long and short service times: with long service times we are more interested in input uncertainty, and with short service times we are more interested in stochastic uncertainty.
+\item discuss differences between problems with long and short service times: with long service times we are more interested in input uncertainty, and with short service times we are more interested in stochastic uncertainty.
 \item expand upon ideas for how input uncertainty could be incorporated into a future MFSO algorithm.
+\item discuss problem of SO in queueing settings: bad solutions have high stochastic uncertainty and therefore take a lot of simulation effort to eliminate. 
 \end{itemize}
 %
 \section{Potential research contributions} \label{mfso}
 \begin{itemize}
-\item Expand upon and emphasize the focus on incorporating structure into a MFSO algorithm. Knowledge of this structure comes from the fact that we are dealing with queueing problems.
+\item Expand upon and emphasize the suggested focus: to develop efficient MFSO methods for long-term capacity planning problems. To do this by building upon current MFSO methods and integer-ordered SO methods by incorporating information about the structure of these problems which is available from low-fidelity queueing models. 
 \end{itemize}
 %
 \underline{To discuss on 8th November, 2024:}
 \begin{itemize}[noitemsep]
-\item The proposed PhD problem is `artificial' in the sense that in reality public-section decision makers usually have a small number of potential plans for serious consideration. Discuss the implications of this reality on the proposed PhD direction.
-\item The proposed next steps addres rather technical challenges. Discuss whether tackling these issues is sufficient for a PhD.
-\item Do we really need the $M_t/M/h_t$ model if typically servers are always busy (idle servers crop up in complexities which only a simulation could handle)
-\item How could we incorporate `uncertainty over time' into the current DO formulation?
+\item The proposed PhD problem is `artificial' in the sense that in reality public-sector decision makers usually have a small number of potential plans for serious consideration. Discuss the implications of this on the proposed PhD direction.
+\item The proposed next steps address rather technical challenges. Discuss whether this is sufficient for a PhD.
 \end{itemize}
 %
 \end{document}
