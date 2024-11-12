@@ -115,6 +115,11 @@ Miller, F., Kaya, Y.~B., Dimas, G.~L., Konrad, R., Maass, K.~L., Trapp, A.~C.,
   decision making.
 \newblock {\em arXiv preprint arXiv:2212.04534}.
 
+\bibitem[Moss et~al., 2021]{moss2021gibbon}
+Moss, H.~B., Leslie, D.~S., Gonzalez, J., and Rayson, P. (2021).
+\newblock Gibbon: General-purpose information-based bayesian optimisation.
+\newblock {\em Journal of Machine Learning Research}, 22(235):1--49.
+
 \bibitem[Nelson and Pei, 2021]{nelson2021foundations}
 Nelson, B. and Pei, L. (2021).
 \newblock {\em Foundations and methods of stochastic simulation}.
@@ -161,6 +166,12 @@ Wang, H., Pasupathy, R., and Schmeiser, B.~W. (2013).
   search with piecewise-linear interpolation and neighborhood enumeration.
 \newblock {\em ACM Transactions on Modeling and Computer Simulation (TOMACS)},
   23(3):1--24.
+
+\bibitem[Wang and Jegelka, 2017]{wang2017max}
+Wang, Z. and Jegelka, S. (2017).
+\newblock Max-value entropy search for efficient bayesian optimization.
+\newblock In {\em International Conference on Machine Learning}, pages
+  3627--3635. PMLR.
 
 \bibitem[Worthington, 1991]{worthington1991hospital}
 Worthington, D. (1991).
