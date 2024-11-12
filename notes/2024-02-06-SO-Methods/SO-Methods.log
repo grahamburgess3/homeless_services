@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  22 OCT 2024 17:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  12 NOV 2024 11:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -321,18 +321,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
  []
 
-[8] [9] [10] [11]
-Underfull \hbox (badness 10000) in paragraph at lines 219--220
+[8] [9] [10] [11] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
  []
 
 
-Overfull \hbox (12.36191pt too wide) in paragraph at lines 221--222
+Overfull \hbox (12.36191pt too wide) in paragraph at lines 253--254
 []\OT1/cmr/m/n/10 Zirui Cao et al. CLUSTER-BASED SAM-PLING AL-LO-CA-TION FOR MU
 LTI-
  []
 
-[12] (./SO-Methods.aux) ) 
+[13] (./SO-Methods.aux) ) 
 Here is how much of TeX's memory you used:
  2529 strings out of 480247
  36600 string characters out of 5896151
@@ -356,10 +356,10 @@ st/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts
 /public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/symbols/msbm10.pfb>
-Output written on SO-Methods.pdf (12 pages, 190837 bytes).
+Output written on SO-Methods.pdf (13 pages, 196313 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 74 compressed objects within 1 object stream
+ 123 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -179,6 +179,38 @@ Information theortic BO seeks to reduce the uncertainty in the location of good 
 
 Shannon's entropy for discrete prob dists is $-\sum_{x} p_x log (p_x)$. Low prob things have small $p_x$ and extremely negative $log(p_x)$ and highly prob things have bigger $p_x$ and still negative but less negative $log(p_x)$. it turns out that the more spread out the distribution is, the higher this value, and the more precise the distribution is, the smaller Shannon's entropy. Differential entropy is the same on the continuous domain. 
 
+\begin{itemize}
+ \item need a model and an acquisition func. 
+ \item the acquisition func may need an approximation scheme, and this needs to be cheap because its evaluated in many places
+ \item EI/KG/UCB are typical heuristic approaches to acq func. 
+ \item recenlty info-theoretic ideas aim to reduce uncertainty in location of good areas (ES,PES) , or reduce uncertainty in max value of obj function (not clear if we're mining or maxing) (MES) 
+ \item MES has chepaer approx scheme and is not limited to euclidean search spaces (as opposed to Es,Pes)
+ \item MES not general purpose because extensions for multi fid BO and batch BO require further approx schemes which do not inherit simplicity/cheap-ness of vanilla MEs.
+ \item extnestions to MES for general batch BO are not computationally efficient
+\end{itemize}
+
+\underline{The paper (section 2.1)}
+  \begin{itemize}
+  \item aim of bo: expensive to eva.uate func, direct resources to right places for efficient max
+  \item multi-task bo: also can choose accross a range of fidelities
+  \item batch-bo: need to assign multiple tasks in parallel
+  \item mes: measures the differential goemetry - the uncertainty in the max value of the obj func.
+  \item: mutual information measures the expected reduction inthis uncertainty.
+  \item: general purpose mes (gmes) is for general batch multi-fidelity bo and measures the utility of a batch of fidelity evaluations, wrt the joint mi.
+  \item: the gmes acquisition function (for a given location-fidelity pair)  basically measurese the expected change in the differential entropy, accrross the range of possible evaluation outcomes
+  \item one typically chooses the set of next observations which max the cost-weighted gmes acquisition func
+  \item the problem with this approach is the lack of closed form prob dist for $g^{*}$. this is needed for the diff entropy evaluation
+  \item noiselss MES: some simplifications lead to a closed form expression (dist of $y$ - Gaussian) (dist of $y_{z}|g^{*}$ - truncated Gaussian) and another where a monte carlo estimation is possible (dist of g*) - in general good but breaks down when the approxiatmisons don't makes sens. Crucial here is using a Gumbel dist to approximate the dist of $g^{*}$, from which an empirical sampling dist can be constructed for the expectation over $g^{*}$. 
+  \item MUMBO has a different acquisition function - general works well like vanilla mes, but due to lack of closed form distributions, still struggles with compuational complexity. This is because the $y_{z}|g^{*}$ evaluations no longer follow a truncated Gaussian, so there's no closed form express as vanilla MES. Note: noiseless multi-fideltiy mes can be used in place of noisy single-fidelity mes where noise is considered the low fidelity evals (not sure I've got this quite right...)
+  \item in batch MES: the joint reduction of entropy of a batch of evaulations is expensive to evaluate
+  \item PES and ES are generally not as efficient becasue they look at the entropy of the $d-$dimensional location of the best value, rathern than the single dimensional $g^{*}$.
+  \item extensionso (for multi fidelity)  of standard acq funcs like EI and KG and UCB are also possible but perform less well. 
+  \end{itemize}
+
+  \underline{The gibbon bit}
+    The idea of gibbon is to use symmetry of the MI to now look at the reduction in entropy from knowing the maximum $g^{*}$, which is defined as the information gain IG, so the $\alpha_{GMES}$ can then be defined as the expected IG, across the prob dist of $g^{*}$. The authors first prove an expression for the prob of the batch data given the max true value across the batch is less than some value m. This distribution contains the prob dist of a normal rv and cumulative dist - suggesting it is difficult to evaluate. The authors also fine an approx of the IG in the form of a lower bound. This is found using three standard information0theortic inequalities. Finally, the outer expectation over $g^{*}$ is done with a Gumbel dist and monte-carlos imulation 
+  
+
 \subsection{RSM in a discrete setting}
 
 Response Surface Optimization with Discrete Variables (2004)
