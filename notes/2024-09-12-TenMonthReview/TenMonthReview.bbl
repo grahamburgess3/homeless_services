@@ -5,6 +5,12 @@
 \newblock {Home Together 2026 Community Plan: A 5-year Strategic Framework
   Centering Racial Equity to End Homelessness in Alameda County}.
 
+\bibitem[Burgess et~al., 2024]{burgess2024time}
+Burgess, G., Singham, D.~I., and Rhodes-Leader, L. (2024).
+\newblock Time-varying capacity planning for designing large-scale homeless
+  care systems.
+\newblock {\em Under Review}.
+
 \bibitem[Cao et~al., 2023]{cao2023cluster}
 Cao, Z., Li, H., Chew, E.~P., Wang, H., and Tan, K.~C. (2023).
 \newblock Cluster-based sampling allocation for multi-fidelity simulation
@@ -88,6 +94,12 @@ L.~Salemi, P., Song, E., Nelson, B.~L., and Staum, J. (2019).
   simulation: Framework and algorithms.
 \newblock {\em Operations Research}, 67(1):250--266.
 
+\bibitem[Lentle et~al., 2024]{lentle2024using}
+Lentle, D., Sachser, V., Incze, E., Tako, A., Rostami-Tabar, B., Spencer, C.,
+  and Morgan, J. (2024).
+\newblock Using simulation for long-term bed modelling in critical care.
+\newblock {\em Journal of Simulation}, pages 1--17.
+
 \bibitem[Li et~al., 2022]{li2022multi}
 Li, D., Liu, H., Jin, X., Li, H., Chew, E.~P., Tan, K.~C., and Lin, Y.~H.
   (2022).
@@ -124,12 +136,6 @@ Moss, H.~B., Leslie, D.~S., Gonzalez, J., and Rayson, P. (2021).
 Nelson, B. and Pei, L. (2021).
 \newblock {\em Foundations and methods of stochastic simulation}.
 \newblock Springer.
-
-\bibitem[{Oakland-Berkeley-Alameda County Continuum of Care}, 2021]{racial2021}
-{Oakland-Berkeley-Alameda County Continuum of Care} (2021).
-\newblock Centering racial equity in homelessness system design.
-\newblock
-  \url{https://everyonehome.org/wp-content/uploads/2021/02/2021-Centering-Racial-Equity-in-Homeless-System-Design-Full-Report-FINAL.pdf}.
 
 \bibitem[{Regional Impact Council}, 2021]{RICActionPlan}
 {Regional Impact Council} (2021).

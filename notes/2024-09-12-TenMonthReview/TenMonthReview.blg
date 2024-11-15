@@ -6,45 +6,45 @@ Database file #1: bibliography.bib
 Warning--entry type for "RICActionPlan" isn't style-file defined
 --line 145 of file bibliography.bib
 Warning--empty note in hometogether2022
-You've used 30 entries,
+You've used 31 entries,
             1935 wiz_defined-function locations,
-            656 strings with 9929 characters,
-and the built_in function-call counts, 13544 in all, are:
-= -- 1343
-> -- 605
+            662 strings with 10090 characters,
+and the built_in function-call counts, 14212 in all, are:
+= -- 1402
+> -- 654
 < -- 20
-+ -- 213
-- -- 206
-* -- 1168
-:= -- 2296
-add.period$ -- 94
-call.type$ -- 30
-change.case$ -- 247
-chr.to.int$ -- 29
-cite$ -- 31
-duplicate$ -- 499
-empty$ -- 909
-format.name$ -- 252
-if$ -- 2682
++ -- 231
+- -- 224
+* -- 1231
+:= -- 2410
+add.period$ -- 97
+call.type$ -- 31
+change.case$ -- 261
+chr.to.int$ -- 30
+cite$ -- 32
+duplicate$ -- 521
+empty$ -- 944
+format.name$ -- 271
+if$ -- 2812
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 29
-newline$ -- 151
-num.names$ -- 92
-pop$ -- 219
+missing$ -- 31
+newline$ -- 156
+num.names$ -- 95
+pop$ -- 236
 preamble$ -- 1
-purify$ -- 249
+purify$ -- 263
 quote$ -- 0
-skip$ -- 393
+skip$ -- 410
 stack$ -- 0
-substring$ -- 1002
-swap$ -- 96
-text.length$ -- 7
+substring$ -- 1033
+swap$ -- 103
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 176
+type$ -- 182
 warning$ -- 1
-while$ -- 112
+while$ -- 117
 width$ -- 0
-write$ -- 390
+write$ -- 403
 (There were 2 warnings)
