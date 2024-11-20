@@ -18,6 +18,12 @@ Cao, Z., Li, H., Chew, E.~P., Wang, H., and Tan, K.~C. (2023).
 \newblock In {\em 2023 Winter Simulation Conference (WSC)}, pages 3448--3459.
   IEEE.
 
+\bibitem[Chen and Ryzhov, 2019]{chen2019complete}
+Chen, Y. and Ryzhov, I.~O. (2019).
+\newblock Complete expected improvement converges to an optimal budget
+  allocation.
+\newblock {\em Advances in Applied Probability}, 51(1):209--235.
+
 \bibitem[Chong and Osorio, 2018]{chong2018simulation}
 Chong, L. and Osorio, C. (2018).
 \newblock A simulation-based optimization algorithm for dynamic large-scale
@@ -29,6 +35,12 @@ El~Hage, J., Gravitt, P., Ravel, J., Lahrichi, N., and Gralla, E. (2021).
 \newblock Supporting scale-up of {Covid-19 RT-PCR} testing processes with
   discrete event simulation.
 \newblock {\em PLoS One}, 16(7):e0255214.
+
+\bibitem[Glynn and Juneja, 2004]{glynn2004large}
+Glynn, P. and Juneja, S. (2004).
+\newblock A large deviations perspective on ordinal optimization.
+\newblock In {\em Proceedings of the 2004 Winter Simulation Conference, 2004.},
+  volume~1. IEEE.
 
 \bibitem[Green and Kolesar, 1991]{green1991pointwise}
 Green, L. and Kolesar, P. (1991).
@@ -78,6 +90,13 @@ Kaya, Y.~B., Mantell, S., Maass, K.~L., Konrad, R., Trapp, A.~C., Dimas, G.~L.,
   options for lgbtq+ homeless youth.
 \newblock In {\em 2022 Winter Simulation Conference (WSC)}, pages 1033--1044.
   IEEE.
+
+\bibitem[Kim and Nelson, 2001]{kim2001fully}
+Kim, S.-H. and Nelson, B.~L. (2001).
+\newblock A fully sequential procedure for indifference-zone selection in
+  simulation.
+\newblock {\em ACM Transactions on Modeling and Computer Simulation (TOMACS)},
+  11(3):251--273.
 
 \bibitem[Konrad and Liu, 2023]{konrad2023achieving}
 Konrad, K. and Liu, Y. (2023).
@@ -183,6 +202,12 @@ Wang, Z. and Jegelka, S. (2017).
 Worthington, D. (1991).
 \newblock Hospital waiting list management models.
 \newblock {\em Journal of the Operational Research Society}, 42(10):833--843.
+
+\bibitem[Xu et~al., 2013]{xu2013adaptive}
+Xu, J., Nelson, B.~L., and Hong, L.~J. (2013).
+\newblock An adaptive hyperbox algorithm for high-dimensional discrete
+  optimization via simulation problems.
+\newblock {\em INFORMS Journal on Computing}, 25(1):133--146.
 
 \bibitem[Xu et~al., 2016]{xu2016mo2tos}
 Xu, J., Zhang, S., Huang, E., Chen, C.-H., Lee, L.~H., and Celik, N. (2016).
