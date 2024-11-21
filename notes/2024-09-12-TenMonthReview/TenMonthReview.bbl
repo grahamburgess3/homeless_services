@@ -5,6 +5,12 @@
 \newblock {Home Together 2026 Community Plan: A 5-year Strategic Framework
   Centering Racial Equity to End Homelessness in Alameda County}.
 
+\bibitem[Barton and Meckesheimer, 2006]{barton2006metamodel}
+Barton, R.~R. and Meckesheimer, M. (2006).
+\newblock Metamodel-based simulation optimization.
+\newblock {\em Handbooks in operations research and management science},
+  13:535--574.
+
 \bibitem[Burgess et~al., 2024]{burgess2024time}
 Burgess, G., Singham, D.~I., and Rhodes-Leader, L. (2024).
 \newblock Time-varying capacity planning for designing large-scale homeless
@@ -35,6 +41,18 @@ El~Hage, J., Gravitt, P., Ravel, J., Lahrichi, N., and Gralla, E. (2021).
 \newblock Supporting scale-up of {Covid-19 RT-PCR} testing processes with
   discrete event simulation.
 \newblock {\em PLoS One}, 16(7):e0255214.
+
+\bibitem[Frazier, 2018]{frazier2018bayesian}
+Frazier, P.~I. (2018).
+\newblock Bayesian optimization.
+\newblock In {\em Recent advances in optimization and modeling of contemporary
+  problems}, pages 255--278. INFORMS.
+
+\bibitem[Fu, 2006]{fu2006gradient}
+Fu, M.~C. (2006).
+\newblock Gradient estimation.
+\newblock {\em Handbooks in operations research and management science},
+  13:575--616.
 
 \bibitem[Glynn and Juneja, 2004]{glynn2004large}
 Glynn, P. and Juneja, S. (2004).
@@ -91,6 +109,11 @@ Kaya, Y.~B., Mantell, S., Maass, K.~L., Konrad, R., Trapp, A.~C., Dimas, G.~L.,
 \newblock In {\em 2022 Winter Simulation Conference (WSC)}, pages 1033--1044.
   IEEE.
 
+\bibitem[Kim et~al., 2015]{Kim2015}
+Kim, S., Pasupathy, R., and Henderson, S.~G. (2015).
+\newblock {\em A Guide to Sample Average Approximation}, pages 207--243.
+\newblock Springer New York, New York, NY.
+
 \bibitem[Kim and Nelson, 2001]{kim2001fully}
 Kim, S.-H. and Nelson, B.~L. (2001).
 \newblock A fully sequential procedure for indifference-zone selection in
@@ -106,12 +129,6 @@ Konrad, K. and Liu, Y. (2023).
   and Biller, B., editors, {\em Proceedings of the 2023 Winter Simulation
   Conference.}, pages 327--338, Piscataway, New Jersey. IEEE, {Institute of
   Electrical and Electronics Engineers, Inc.}
-
-\bibitem[L.~Salemi et~al., 2019]{l2019gaussian}
-L.~Salemi, P., Song, E., Nelson, B.~L., and Staum, J. (2019).
-\newblock Gaussian markov random fields for discrete optimization via
-  simulation: Framework and algorithms.
-\newblock {\em Operations Research}, 67(1):250--266.
 
 \bibitem[Lentle et~al., 2024]{lentle2024using}
 Lentle, D., Sachser, V., Incze, E., Tako, A., Rostami-Tabar, B., Spencer, C.,
@@ -172,6 +189,12 @@ Reynolds, J., Zeng, Z., Li, J., and Chiang, S.-Y. (2010).
 Rue, H. and Held, L. (2005).
 \newblock {\em Gaussian Markov random fields: theory and applications}.
 \newblock Chapman and Hall/CRC.
+
+\bibitem[Salemi et~al., 2019]{l2019gaussian}
+Salemi, P., Song, E., Nelson, B.~L., and Staum, J. (2019).
+\newblock Gaussian markov random fields for discrete optimization via
+  simulation: Framework and algorithms.
+\newblock {\em Operations Research}, 67(1):250--266.
 
 \bibitem[Semelhago et~al., 2021]{semelhago2021rapid}
 Semelhago, M., Nelson, B.~L., Song, E., and W{\"a}chter, A. (2021).
