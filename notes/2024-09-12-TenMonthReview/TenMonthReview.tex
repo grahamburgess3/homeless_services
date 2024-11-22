@@ -228,7 +228,7 @@ where $s_t$ is the time-dependent number of shelters. This model is more computa
 %
 \subsection{Discrete-event simulation model} \label{DES}
 %
-Discrete-event simulation (DES) is a form of stochastic simulation which models the evolution of a complex system according to a chronological event list which is updated throughout the simulation. DES is a powerful modeling tool given its ability to incorporate bespoke system complexities. It also naturally accomodates stochasticity by using a stream of $\text{Uniform}(\text{min} = 0, \text{max} = 1)$ pseudo-random numbers to drive the generation of random variates for model variables such as inter-arrival and service times. The drawback of DES is its computational cost which arises from the need to step through each event which occurs within the modelled system over the time horizon.
+Discrete-event simulation (DES) is a form of stochastic simulation which models the evolution of a complex system according to a chronological event list which is updated throughout the simulation. DES is a powerful modeling tool given its ability to incorporate bespoke system complexities. It also naturally accomodates stochasticity by using a stream of $\text{Uniform}(\text{min} = 0, \text{max} = 1)$ pseudo-random numbers to drive the generation of random variates for model variables such as inter-arrival and service times. A single run of a DES model can be computationally cheaper than that of an analytical queueing model such as our $M_t/M/h_t$ model. The former proceeds from event to event whereas the latter must proceed in small time steps. However, one must run a DES model many times to obtain an output distribution, which means using such a model is computationally expensive.
 
 We have developed a DES model of our homelessness care system, which is a Python version of the DES model of \cite{singham2023discrete}, built in Simio. In this model, shelter acts as a server, giving rise to a tandem queueing system, as illustrated in Figure \ref{fig:des-q}. A proportion of those leaving housing re-enter the system, as illustrated, and the exponential and triangle distributions are used for inter-arrival and housing service times, respectively. 
 %
@@ -246,7 +246,7 @@ We have developed a DES model of our homelessness care system, which is a Python
       \draw [arrow] (start) -- node [above] {Unsheltered} (shelter);
       \draw [arrow] (shelter) -- node [above] {Zero buffer}(housing);
       \draw [arrow] (housing) -- node [above] {}(end);
-      \draw [arrow] (housing) to [out=210,in=330] node [below] {Partial re-entry}(shelter);
+      \draw [arrow] (housing) to [out=265,in=195] node [below] {Partial re-entry}(shelter);
     \end{tikzpicture}
     \caption{Tandem queueing system with re-entries} \label{fig:des-q}
   \end{center}

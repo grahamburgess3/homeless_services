@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  21 NOV 2024 17:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  22 NOV 2024 10:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -745,10 +745,10 @@ Package rerunfilecheck Info: File `TenMonthReview.out' has not changed.
 (rerunfilecheck)             Checksum: 15213015202171E7E9C0DD17D9F24E38;3378.
  ) 
 Here is how much of TeX's memory you used:
- 21709 strings out of 480247
- 399252 string characters out of 5896151
- 672324 words of memory out of 5000000
- 39193 multiletter control sequences out of 15000+600000
+ 21708 strings out of 480247
+ 399232 string characters out of 5896151
+ 671324 words of memory out of 5000000
+ 39192 multiletter control sequences out of 15000+600000
  481337 words of font info for 73 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  84i,13n,89p,1742b,890s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -770,7 +770,7 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TenMonthReview.pdf (25 pages, 348101 bytes).
+Output written on TenMonthReview.pdf (25 pages, 348360 bytes).
 PDF statistics:
  525 PDF objects out of 1000 (max. 8388607)
  450 compressed objects within 5 object streams

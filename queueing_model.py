@@ -13,7 +13,7 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import numpy as np
-import pyomo.environ as pyo
+import pdb
 
 class queue(object):
     """
@@ -138,8 +138,8 @@ class queue(object):
         # add fractional year
         n += (t % 1) * self.server_build_rate[yrs]
 
-        num_serve['before'] = pyo.floor(n)
-        num_serve['after'] = pyo.floor(n)
+        num_serve['before'] = math.floor(n)
+        num_serve['after'] = math.floor(n)
             
         return num_serve
 
@@ -170,10 +170,10 @@ class queue(object):
         n += (t % 1) * self.server_build_rate[yrs]
 
         # how big is the half-built house?
-        half_built_house = n - pyo.floor(n)
+        half_built_house = n - math.floor(n)
         
         # round to integer
-        n = pyo.floor(n)
+        n = math.floor(n)
         num_serve['before'] = n
         
         # construct weighted avg
@@ -216,7 +216,7 @@ class queue(object):
         n += (t % 1) * self.shelter_build_rate[yrs]
         
         # round to integer
-        n = pyo.floor(n)
+        n = math.floor(n)
         num_shelt = n
                     
         return num_shelt
@@ -238,7 +238,6 @@ class queue(object):
         None.
 
         """
-        
         # set up 
         d = d/365 # timestep size in years
         T = int(Y/d) # number of time steps
@@ -300,17 +299,17 @@ class queue(object):
             for n in range(N+1):                
                 # expected values for outputs
                 self.num_sys[t] += n * self.p[n][t]
-                #extra_queue = max(0,n-s) * self.p[n][t]
-                #self.num_queue[t] += extra_queue
-                #extra_unsheltered = max(0,n-s-shelt) * self.p[n][t]
-                #self.num_unsheltered[t] += extra_unsheltered
-                #extra_sheltered = extra_queue - extra_unsheltered
-                #self.num_sheltered[t] += extra_sheltered
+                extra_queue = max(0,n-s) * self.p[n][t]
+                self.num_queue[t] += extra_queue
+                extra_unsheltered = max(0,n-s-shelt) * self.p[n][t]
+                self.num_unsheltered[t] += extra_unsheltered
+                extra_sheltered = extra_queue - extra_unsheltered
+                self.num_sheltered[t] += extra_sheltered
                 
                 # probs of number in q and unsheltered
-                #self.p_q[max(0,n-s)][t] += self.p[n][t]
-                #self.p_unsh[max(0,n-s-shelt)][t] += self.p[n][t]
-                #self.p_sh[min(max(0,n-s),shelt)][t] += self.p[n][t]
+                self.p_q[max(0,n-s)][t] += self.p[n][t]
+                self.p_unsh[max(0,n-s-shelt)][t] += self.p[n][t]
+                self.p_sh[min(max(0,n-s),shelt)][t] += self.p[n][t]
                 
         # average over time of the expected value of number unshelterd - add up to point t
         #self.num_unsheltered_avg = sum(self.num_unsheltered)/len(self.num_unsheltered)
@@ -600,6 +599,40 @@ def get_percentiles(decision_yr, T, percentiles, data, i, j):
         prob_cumulative = 0
         while looking_high:
             prob_cumulative += data[i][j][decision_yr][n][t]
+            if prob_cumulative > percentiles['low']:
+                if looking_low == True:
+                    percentiles_low[t] = n
+                    looking_low = False
+            if prob_cumulative > percentiles['high']:
+                percentiles_high[t] = n
+                looking_high = False
+            n += 1
+
+    out = {'low' : percentiles_low, 'high' : percentiles_high}
+    return out
+
+def get_percentiles_single_run(T, percentiles, data):
+    """
+    Parameters
+    ----------
+    T : int - time duration to analyse in days
+    percentiles : dict(int) - two percentiles (one high and one low) must be of form {'low': int, 'high' : int}
+    data : list - data on probabilities
+    
+    Returns
+    -------
+    out : dict(list) - percentiles of data in question
+    """
+    percentiles_high = [t for t in range(T)]
+    percentiles_low = [t for t in range(T)]
+
+    for t in range(T):
+        looking_high = True
+        looking_low = True
+        n = 0
+        prob_cumulative = 0
+        while looking_high:
+            prob_cumulative += data[n][t]
             if prob_cumulative > percentiles['low']:
                 if looking_low == True:
                     percentiles_low[t] = n
