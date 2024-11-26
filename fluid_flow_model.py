@@ -3,16 +3,17 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import pdb
 
 class FluidFlowModel():
 
-    def __init__(self, data, solution, T_a, T_b):
+    def __init__(self, data, solution):
         """
-        Initialise instance of fluid flow model - continuous approximation of M(t)/M/s(t) model
+        Initialise instance of fluid flow model
         
         Parameters
         ----------
-        data : dict : includes 'initial_demand', 'initial_capacity', 'service_mean', 'arrival_rates'
+        data : dict
         solution : dict(list) : includes annual build rates for 'housing' and 'shelter'
 
         Returns
@@ -20,21 +21,38 @@ class FluidFlowModel():
         None
 
         """
-        self.X_0 = data['initial_demand']
+        self.T_a = data['T_a'] # decision horizon (years)
+        self.T_b = data['T_b'] # extra modeling horizon (years)
+        self.X_0 = data['initial_demand'] 
         self.h_0 = data['initial_capacity']['housing']
         self.s_0 = data['initial_capacity']['shelter']        
-        self.h = self.get_daily_capacity(self.h_0, solution['housing'], T_a, T_b)
-        self.s = self.get_daily_capacity(self.s_0, solution['shelter'], T_a, T_b)
+        self.h = self.get_daily_capacity(self.h_0, solution['housing'])
+        self.s = self.get_daily_capacity(self.s_0, solution['shelter'])
         self.s_sq = [x**2 for x in self.s] # E[(num sheltered)^2] over time
         self.u = [self.X_0 - self.h_0 - self.s_0] # number unsheltered over time (Expected val)
         self.u_sq = [self.u[0]**2] # E[(num unsheltered)^2] over time
-        self.mu0 = 1/(data['service_mean']['housing']*365)
+        self.mu0 = 1/(data['service_mean']['housing']*365) # daily service rate for one housing server
         self.lambda_t = list(np.repeat(data['arrival_rates'],365))
 
-    def get_daily_capacity(self, init, solution, T_a, T_b):
+    def get_daily_capacity(self, init, solution):
+        """
+        Get Daily housing/shelter capacity (from annual capacity)
+        
+        Parameters
+        ----------
+        init : int : initial capacity
+        solution : list : annual capacity (housing or shelter)
+
+        Returns
+        -------
+        daily : list : daily capacity (housing or shelter)
+
+        """
         annual = [init] + list(solution)
-        diffs = list(np.repeat([(annual[i+1] - annual[i])/365 for i in range(int(T_a/365))],365))
-        daily = [init + sum(diffs[0:i]) for i in range(1,len(diffs)+1)] + [list(solution)[-1]]*T_b
+        diffs_annual = list(np.diff(annual))
+        diffs_daily = [x/365 for x in diffs_annual]
+        diffs = np.repeat(diffs_daily,365)
+        daily = [init + sum(diffs[0:i]) for i in range(1,len(diffs)+1)] + [list(solution)[-1]]*(self.T_b*365)
         return daily
                            
     def evaluate_queue_size(self, t):
@@ -43,54 +61,64 @@ class FluidFlowModel():
         
         Parameters
         ----------
-        t : float : time (in years) evaluate queue size
+        t : float : time (in days) evaluate queue size
 
         Returns
         -------
         unsh : float : E[number unsheltered at time t]
 
         """
-
-        # compute u_t
         u_t = self.X_0 + sum(self.lambda_t[0:t]) - sum(self.h[0:t])*self.mu0 - self.h[t] - self.s[t]
-        
-        # return
         return u_t
 
-    def analyse(self, T):
+    def analyse(self):
         """
-        Evaluate Q performance measures for all times in T
+        Evaluate Q performance measures (self.u and self.u_sq) for all times in modelling horizon
         
         Parameters
         ----------
-        T : list[float] : times (in units of days) to evaluate queue size
+        None
 
         Returns
         -------
         None
 
         """
-
+        T = [i for i in range((self.T_a+self.T_b)*365)]
         for t in T[1:len(T)]:
             unsh = self.evaluate_queue_size(t)
             self.u.append(unsh)
             self.u_sq.append(unsh**2)
 
-    def plot(self, horizon):
-        # general plotting
+    def plot(self):
+        """
+        Display Plot of solution performance
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        # general plotting setup
         fig, ax = plt.subplots()
         ymax = max(self.h + self.s + self.u)
         
         # plot solution
-        x = [t/365 for t in range(horizon)]
+        x = [i/365 for i in range((self.T_a+self.T_b)*365)]
         ax.plot(x, self.h, color = 'green')
         ax.plot(x, self.s, color = 'orange')
         ax.plot(x, self.u, color = 'red')
+
+        # formatting
         ax.set(xlabel='t (yrs)', ylabel='Number of people',
                title='Number of people housed/sheltered/unsheltered')
         ax.legend(["$h_t$", "$s_t$", "$u_t$"], loc="upper left")
         ax.grid()
         ax.set_ylim(0,ymax*1.05)
         
-        # general
+        # display
         plt.show()
