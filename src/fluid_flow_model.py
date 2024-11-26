@@ -3,6 +3,8 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import helper as hlp
+
 import pdb
 
 class FluidFlowModel():
@@ -26,34 +28,13 @@ class FluidFlowModel():
         self.X_0 = data['initial_demand'] 
         self.h_0 = data['initial_capacity']['housing']
         self.s_0 = data['initial_capacity']['shelter']        
-        self.h = self.get_daily_capacity(self.h_0, solution['housing'])
-        self.s = self.get_daily_capacity(self.s_0, solution['shelter'])
+        self.h = hlp.get_daily_capacity(self.T_b, self.h_0, solution['housing'])
+        self.s = hlp.get_daily_capacity(self.T_b, self.s_0, solution['shelter'])
         self.s_sq = [x**2 for x in self.s] # E[(num sheltered)^2] over time
         self.u = [self.X_0 - self.h_0 - self.s_0] # number unsheltered over time (Expected val)
         self.u_sq = [self.u[0]**2] # E[(num unsheltered)^2] over time
         self.mu0 = 1/(data['service_mean']['housing']*365) # daily service rate for one housing server
-        self.lambda_t = list(np.repeat(data['arrival_rates'],365))
-
-    def get_daily_capacity(self, init, solution):
-        """
-        Get Daily housing/shelter capacity (from annual capacity)
-        
-        Parameters
-        ----------
-        init : int : initial capacity
-        solution : list : annual capacity (housing or shelter)
-
-        Returns
-        -------
-        daily : list : daily capacity (housing or shelter)
-
-        """
-        annual = [init] + list(solution)
-        diffs_annual = list(np.diff(annual))
-        diffs_daily = [x/365 for x in diffs_annual]
-        diffs = np.repeat(diffs_daily,365)
-        daily = [init + sum(diffs[0:i]) for i in range(1,len(diffs)+1)] + [list(solution)[-1]]*(self.T_b*365)
-        return daily
+        self.lambda_t = list(np.repeat([x/365 for x in data['arrival_rates']],365))
                            
     def evaluate_queue_size(self, t):
         """
@@ -115,7 +96,7 @@ class FluidFlowModel():
 
         # formatting
         ax.set(xlabel='t (yrs)', ylabel='Number of people',
-               title='Number of people housed/sheltered/unsheltered')
+               title='Fluid flow model')
         ax.legend(["$h_t$", "$s_t$", "$u_t$"], loc="upper left")
         ax.grid()
         ax.set_ylim(0,ymax*1.05)
