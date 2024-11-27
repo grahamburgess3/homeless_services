@@ -95,7 +95,7 @@ class Queue(object):
         
         return serve_rate
 
-    def analyse(self):
+    def analyse(self, percentiles = {'low' : 0.1, 'high' : 0.9}):
         """
         Model the dynamics of the queue
         Assume 365 days in all years
@@ -190,6 +190,9 @@ class Queue(object):
         # average over time of the expected value of number unshelterd - add up to point t
         self.num_unsheltered_avg = sum(self.num_unsheltered)/len(self.num_unsheltered)
         self.num_sheltered_avg = sum(self.num_sheltered)/len(self.num_sheltered)
+
+        # percentiles for plotting
+        self.upc = self.get_percentiles(percentiles, self.p_unsh)
                 
     def plot(self, percentiles = {'low' : 0.1, 'high' : 0.9}):
         """
@@ -206,7 +209,6 @@ class Queue(object):
         """
 
         # get data
-        upc = self.get_percentiles(percentiles, self.p_unsh)
         x = [i/365 for i in range(self.T*365)]
 
         # setup
@@ -216,7 +218,7 @@ class Queue(object):
         ax.plot(x, self.h, color = 'green')
         ax.plot(x, self.s, color = 'orange')
         ax.plot(x,self.num_unsheltered, color = 'red')
-        ax.fill_between(x, upc['low'], upc['high'], facecolor = 'red', alpha = 0.3)
+        ax.fill_between(x, self.upc['low'], self.upc['high'], facecolor = 'red', alpha = 0.3)
         
         # formatting
         ax.set(xlabel='t (yrs)', ylabel='Number of people',

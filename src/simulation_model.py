@@ -430,7 +430,7 @@ class SimulationModel(object):
                 self.h = hlp.get_daily_capacity(data['T_b'], data['initial_capacity']['housing'], solution['housing'])
                 self.s = hlp.get_daily_capacity(data['T_b'], data['initial_capacity']['shelter'], solution['shelter'])
 
-        def analyse(self):
+        def analyse(self, percentile = 90):
                 """
                 Given a set of inputs and a random seed, simulate the system multiple times over a fixed period of simulation time
                 """
@@ -451,6 +451,9 @@ class SimulationModel(object):
                 end = datetime.now()
                 self.results['unsheltered_q_over_time'] = np.array(self.results['unsheltered_q_over_time']).T
                 self.results['time_taken'] = end-start
+                self.low = list(np.percentile(self.results['unsheltered_q_over_time'], 100-percentile, axis=1))
+                self.median = list(np.percentile(self.results['unsheltered_q_over_time'], 50, axis = 1))
+                self.high = list(np.percentile(self.results['unsheltered_q_over_time'], percentile, axis=1))
 
         def plot(self, percentile = 90):
                 """
@@ -468,14 +471,11 @@ class SimulationModel(object):
                 x = [i/365 for i in range(self.end_of_simulation*365)]
 
                 # y - axis
-                low = list(np.percentile(self.results['unsheltered_q_over_time'], 100-percentile, axis=1))
-                median = list(np.percentile(self.results['unsheltered_q_over_time'], 50, axis = 1))
-                high = list(np.percentile(self.results['unsheltered_q_over_time'], percentile, axis=1))
                 alpha = (100 - percentile) / 100
                 ax.plot(x, self.h, color = 'green')
                 ax.plot(x, self.s, color = 'orange')
-                ax.plot(x, median, color = 'red')
-                ax.fill_between(x, low, high, color='red', alpha=alpha)
+                ax.plot(x, self.median, color = 'red')
+                ax.fill_between(x, self.low, self.high, color='red', alpha=alpha)
                 ax.set(xlabel='t (yrs)', ylabel='Number of people', title='DES model')
                 ax.legend(["$h_t$", "$s_t$", "$u_t$"], loc="upper left")
                 ax.grid()
