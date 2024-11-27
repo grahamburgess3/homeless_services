@@ -3,6 +3,7 @@
  "initial_capacity": {"housing": 40, "shelter": 15},
  "initial_demand": 120,
  "service_mean": {"housing": 4.487179487179487, "shelter": 0.5},
+ "service_dist_triangle": {"low":0,"mid":6,"high":8},
  "arrival_rates": [36.55542857142857, 43.52022857142858, 47.76822857142857, 47.76822857142857, 43.12542857142857, 38.92062857142857],
  "solution": {"housing": [54.0, 79.2, 107.2, 147.1, 180.0], "shelter": [25, 32, 32, 32, 32]},
  "max_in_system":500,

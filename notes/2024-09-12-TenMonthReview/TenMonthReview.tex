@@ -162,7 +162,7 @@ u_d & = n_0 + \sum_{d'=1}^{d} \lambda_{d'} \delta t - \sum_{d'=1}^{d} \mu_0 h^D_
 %
 where $\mu_0$ is the daily service rate of a single housing unit and the stepsize $\delta t = 1 \text{ day}$.
 
-In Figure \ref{fig:ut-illustrative} we give an illustrative example of the dynamics of $u_d$ given by our fluid flow model, calibrated using realistic inputs for $n_0, \mu_0$ and $\lambda_d, h^D_d, s^D_d$ for all $d \in \{1,...,D\}$ which we take directly from \cite{singham2023discrete}. 
+In Figure \ref{fig:ut-illustrative}(a) we give an illustrative example of the dynamics of $u_d$ given by our fluid flow model, calibrated using realistic inputs for $n_0, \mu_0$ and $\lambda_d, h^D_d, s^D_d$ for all $d \in \{1,...,D\}$ which we take directly from \cite{singham2023discrete}. 
 %
 \begin{figure}[h!]%[ut-illustrative]
     \centering
@@ -224,7 +224,11 @@ where $\lambda_t$ is the arrival rate at time $t$, $\mu_0$ is the service rate o
 \mathbb{E}[u_t] & = \sum_{n=0}^{N} p^n_t \max(0,n-h_t-s_t), 
 \end{align}
 %
-where $s_t$ is the time-dependent number of shelters. This model is more computationally costly than the fluid flow model, but still cheap compared to a discrete-event simulation model. We have introduced stochasticity and allowed housing servers to be empty with some positive probability, but we are still limited in what real-world complexity we can model. Our choice of distribution for inter-arrival times and service times is also limited to the exponential distribution. 
+where $s_t$ is the time-dependent number of shelters.
+
+In Figure \ref{fig:ut-illustrative}(b) we illustrate our $M_t/M/h_t$ model of the homeless care system in Alameda County. We have used the same model inputs as we used with the fluid flow model. It can be seen that the expected size of the unsheltered population matches what we found using the fluid flow model. Our $M_t/M/h_t$ model also gives us distributional information on our outputs. For example, with the given inputs, we can see that there is a non-zero probability of the unsheltered population vanishing over the modelling horizon. 
+
+The $M_t/M/h_t$ model is more computationally costly than the fluid flow model, but still cheap compared to using a discrete-event simulation model. We have introduced stochasticity and allowed housing servers to be empty with some positive probability, but we are still limited in what real-world complexity we can model. Our choice of distribution for inter-arrival times and service times is also limited to the exponential distribution. 
 %
 \subsection{Discrete-event simulation model} \label{DES}
 %

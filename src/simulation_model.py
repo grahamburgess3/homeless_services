@@ -197,7 +197,7 @@ def get_arrival_rate(arrival_rates, t):
 
         return arr_rate
 
-def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand, warm_up_time, initial_capacity):
+def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_demand, warm_up_time, initial_capacity, service_dist):
         """
         Generate customer arrivals according to the initial demand and the future arrival rates and for each arrival generate a 'find_accommodation' process. Non-homogeneous Poisson arrivals. 
 
@@ -217,6 +217,9 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
            building time before new arrivals enter system
         initial_capacity : int
            number of houses/shetlers in system initially
+        service_dist : dict
+           Triangle dist params for housing service time distribution
+
 
         """
         # wait for warm up (while initial building taking place)
@@ -225,10 +228,10 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
         # generate arrivals for those initially in system (current demand)
         for i in range(initial_capacity['housing']):
                 c = Customer()
-                env.process(process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_up_time))
+                env.process(process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_up_time, service_dist))
         for i in range(max(initial_demand - initial_capacity['housing'], 0)):
                 c = Customer()
-                env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time))
+                env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time, service_dist))
 
         # generate arrivals with non-homogeneous Poisson process using 'thinning'
         arrival_rate_max = max(arrival_rates)
@@ -239,9 +242,9 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
             yield env.timeout(t)
             if U <= arrival_rate / arrival_rate_max:
                     c = Customer()
-                    env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time))
+                    env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time, service_dist))
         
-def process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_up_time):
+def process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_up_time, service_dist):
         """
         Using yield statements and store.get() functions, this process advances the simulation clock until desired accommodation is available. Shelter is not exited until Housing becomes available.
 
@@ -255,6 +258,8 @@ def process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_
            the stock of accommodation where the customer arrivals will go to look for accommodation
         service_mean : dict(float)
            the mean service time for stays in different types of accommodation
+        service_dist : dict
+           Triangle dist params for housing service time distribution
 
         """
         # Look for housing
@@ -264,10 +269,7 @@ def process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_
         accommodation_stock.update_stats(env.now-warm_up_time, accomm_type_next, -1)        
 
         # When found housing, spend time in housing
-        if service_mean[accomm_type_next] > 0:
-                time_in_accomm = random.expovariate(1/service_mean[accomm_type_next])
-        else:
-                time_in_accomm = 0
+        time_in_accomm = np.random.triangular(service_dist['low'], service_dist['mid'], service_dist['high'])
         yield env.timeout(time_in_accomm)
 
         # Finally, leave housing
@@ -278,9 +280,9 @@ def process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_
                 c.proceed = False
         else:
                 c.rand_re_entry = random.uniform(0,1)
-                env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time))
+                env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time, service_dist))
 
-def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time):
+def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time, service_dist):
         """
         Using yield statements and store.get() functions, this process advances the simulation clock until desired accommodation is available. Shelter is not exited until Housing becomes available.
 
@@ -294,6 +296,8 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_u
            the stock of accommodation where the customer arrivals will go to look for accommodation
         service_mean : dict(float)
            the mean service time for stays in different types of accommodation
+        service_dist : dict
+           Triangle dist params for housing service time distribution
 
         """
         while c.proceed == True:
@@ -316,10 +320,7 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_u
 
                 # When found housing, leave shelter and spend time in housing
                 accommodation_stock.store.put(shelter)
-                if service_mean[accomm_type_next] > 0:
-                        time_in_accomm = random.expovariate(1/service_mean[accomm_type_next])
-                else:
-                        time_in_accomm = 0
+                time_in_accomm = np.random.triangular(service_dist['low'], service_dist['mid'], service_dist['high'])
                 yield env.timeout(time_in_accomm)
 
                 # Finally, leave housing
@@ -402,6 +403,8 @@ class SimulationModel(object):
                 the initial amount of accommodation units to place in the store
                 service_mean : dict(float)
                 the mean service time for stays in different types of accommodation
+                service_dist : dict
+                Triangle dist params for housing service time distribution
                 arrival_rates : list
                 annual customer arrival rates
                 solution : dict(list)
@@ -418,6 +421,7 @@ class SimulationModel(object):
                 self.accomm_build_time = data['time_btwn_building']
                 self.capacity_initial = data['initial_capacity']
                 self.service_mean = data['service_mean']
+                self.service_dist = data['service_dist_triangle']
                 self.arrival_rates = data['arrival_rates']
                 self.solution = solution
                 self.initial_demand = data['initial_demand']
@@ -436,7 +440,7 @@ class SimulationModel(object):
                 for rep in range(self.number_reps):
                         env = simpy.Environment()
                         accommodation_stock = AccommodationStock(env, self.capacity_initial)
-                        env.process(gen_arrivals(env, accommodation_stock, self.service_mean, self.arrival_rates, self.initial_demand, self.warm_up_time, self.capacity_initial))
+                        env.process(gen_arrivals(env, accommodation_stock, self.service_mean, self.arrival_rates, self.initial_demand, self.warm_up_time, self.capacity_initial, self.service_dist))
                         env.process(gen_development_sched(env, accommodation_stock, self.accomm_build_time, self.warm_up_time, self.h, self.s))
                         env.run(until=self.end_of_simulation)
                         self.results['unsheltered_q_over_time'].append(np.array(pd.concat([pd.Series([self.initial_demand - self.capacity_initial['shelter']-self.capacity_initial['housing']]), pd.Series(accommodation_stock.data_queue_shelter[1:])])))
