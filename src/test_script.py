@@ -1,15 +1,25 @@
 import queueing_model as qm
 import fluid_flow_model as fl
+import simulation_model as sm
 import json
 
-data = {"T_a":5, "T_b":0, "initial_capacity": {"housing": 40, "shelter": 15}, "initial_demand": 120, "service_mean": {"housing": 4.487179487179487, "shelter": 0.0}, "arrival_rates": [x*365/100 for x in [10.01518590998043, 11.923350293542077, 13.08718590998043, 13.08718590998043, 11.815185909980432, 10.663185909980431]], "solution": {"housing": [x/100 for x in [5400.0, 7920.0, 10720.0, 14710.0, 18000.0]], "shelter": [x/100 for x in [2500, 3200, 3200, 3200, 3200]]}, "max_in_system":500, "delta_t":1}
-    
+# Data
+with open('../data/data.json') as json_file:
+    data = json.load(json_file)
+
 solution = data['solution']
 
+# Fluid
+f = fl.FluidFlowModel(data, solution)
+f.analyse()
+f.plot()
+
+# Queue
 q = qm.Queue(data, solution)
 q.analyse()
 q.plot()
 
-f = fl.FluidFlowModel(data, solution)
-f.analyse()
-f.plot()
+# DES
+s = sm.SimulationModel(data, solution)
+s.analyse()
+s.plot()

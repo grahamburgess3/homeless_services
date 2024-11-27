@@ -7,7 +7,7 @@ import helper as hlp
 
 import pdb
 
-class FluidFlowModel():
+class FluidFlowModel(object):
 
     def __init__(self, data, solution):
         """
