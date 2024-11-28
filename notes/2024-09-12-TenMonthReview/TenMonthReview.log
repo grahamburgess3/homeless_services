@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  28 NOV 2024 10:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  28 NOV 2024 12:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -698,7 +698,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6] [7] [8
 ] [9] [10]
-<u_t_example.png, id=276, 722.7pt x 216.81pt>
+[11]
+<u_t_example.png, id=289, 722.7pt x 216.81pt>
 File: u_t_example.png Graphic file (type png)
 <use u_t_example.png>
 Package pdftex.def Info: u_t_example.png  used on input line 189.
@@ -708,7 +709,6 @@ Overfull \hbox (22.18968pt too wide) in paragraph at lines 189--190
  [][] 
  []
 
-[11]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 194.
@@ -726,19 +726,19 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 194.
 
 [12 <./u_t_example.png>] [13] [14] [15] [16]
-<phi2-opt.png, id=354, 419.166pt x 330.2739pt>
+<phi2-opt.png, id=355, 419.166pt x 330.2739pt>
 File: phi2-opt.png Graphic file (type png)
 <use phi2-opt.png>
-Package pdftex.def Info: phi2-opt.png  used on input line 360.
+Package pdftex.def Info: phi2-opt.png  used on input line 362.
 (pdftex.def)             Requested size: 335.33325pt x 264.21945pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<results_comparison.png, id=355, 482.55281pt x 63.98906pt>
+<results_comparison.png, id=356, 482.55281pt x 63.98906pt>
 File: results_comparison.png Graphic file (type png)
 <use results_comparison.png>
-Package pdftex.def Info: results_comparison.png  used on input line 368.
+Package pdftex.def Info: results_comparison.png  used on input line 370.
 (pdftex.def)             Requested size: 386.04276pt x 51.1913pt.
 [17] [18 <./phi2-opt.png> <./results_comparison.png>] [19] [20] [21] [22]
 (./TenMonthReview.bbl [23] [24]) [25] (./TenMonthReview.aux)
@@ -748,7 +748,7 @@ Package rerunfilecheck Info: File `TenMonthReview.out' has not changed.
 Here is how much of TeX's memory you used:
  21709 strings out of 480247
  399264 string characters out of 5896151
- 672515 words of memory out of 5000000
+ 671515 words of memory out of 5000000
  39193 multiletter control sequences out of 15000+600000
  481337 words of font info for 73 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -771,10 +771,10 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TenMonthReview.pdf (25 pages, 357241 bytes).
+Output written on TenMonthReview.pdf (25 pages, 357684 bytes).
 PDF statistics:
- 522 PDF objects out of 1000 (max. 8388607)
- 447 compressed objects within 5 object streams
+ 523 PDF objects out of 1000 (max. 8388607)
+ 448 compressed objects within 5 object streams
  100 named destinations out of 1000 (max. 500000)
  164 words of extra memory for PDF output out of 10000 (max. 10000000)
 
