@@ -8,6 +8,8 @@ import pandas as pd
 from datetime import datetime
 import helper as hlp
 import pdb
+import scipy
+import random2 as random
 
 class Customer():
         """
@@ -269,7 +271,18 @@ def process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_
         accommodation_stock.update_stats(env.now-warm_up_time, accomm_type_next, -1)        
 
         # When found housing, spend time in housing
-        time_in_accomm = np.random.triangular(service_dist['low'], service_dist['mid'], service_dist['high'])
+        # sample x_0 from triangle dist: F(x_0) is in (0,1) and equivalent to random time already spent in service
+        # Sample x from the traingle dist and only keep if the x>=x_0
+        C = (service_dist['mid'] - service_dist['low']) / (service_dist['high'] - service_dist['low'])
+        loc = service_dist['low']
+        scale = service_dist['high'] - service_dist['low']
+        x_0 = scipy.stats.triang.rvs(C,loc,scale)
+        generating = True
+        while generating:
+                x = scipy.stats.triang.rvs(C,loc,scale)
+                if x >= x_0:
+                        time_in_accomm = x-x_0
+                        generating = False
         yield env.timeout(time_in_accomm)
 
         # Finally, leave housing
@@ -429,11 +442,13 @@ class SimulationModel(object):
                 self.prob_re_entry = data['reentry_rate']
                 self.h = hlp.get_daily_capacity(data['T_b'], data['initial_capacity']['housing'], solution['housing'])
                 self.s = hlp.get_daily_capacity(data['T_b'], data['initial_capacity']['shelter'], solution['shelter'])
+                self.seed = data['seed']
 
         def analyse(self, percentile = 90):
                 """
                 Given a set of inputs and a random seed, simulate the system multiple times over a fixed period of simulation time
                 """
+                random.seed(self.seed)
                 Customer.prob_re_entry = self.prob_re_entry
                 self.results = {'unsheltered_q_over_time' : [], 'unsheltered_q_avg' : [], 'time_taken' : 0}
                 start = datetime.now()

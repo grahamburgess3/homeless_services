@@ -58,3 +58,26 @@ for ax in axs.flat:
         
 # display
 plt.show()
+
+# Sample from triang dist if already in service
+import scipy
+import matplotlib.pyplot as plt
+
+X = []
+service_dist = {'low':0,'mid':6,'high':8}
+c = (service_dist['mid'] - service_dist['low']) / (service_dist['high'] - service_dist['low'])
+loc = service_dist['low']
+scale = service_dist['high'] - service_dist['low']
+x_0 = 4
+for i in range(10000):
+    generating = True
+    while generating:
+        x = scipy.stats.triang.rvs(c,loc,scale)
+        if x >= x_0:
+            time_in_accomm = x-x_0
+            generating = False
+    X.append(time_in_accomm)
+
+fig, ax = plt.subplots(1, 1)    
+ax.hist(X, density=True, bins='auto', histtype='stepfilled', alpha=0.2)
+plt.show()
