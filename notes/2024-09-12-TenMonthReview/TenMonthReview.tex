@@ -244,11 +244,11 @@ We have developed a DES model for homeless care systems, which is based upon the
 \item $17\%$ of those leaving housing re-enter the queue for shelter, reflecting estimates from Alameda County.
 \end{itemize}
 %
-To sample the remaining housing service time for a customer already in housing at the start of the simulation, we use the procedure outlined in Algorithm \ref{alg:triang}. We here assume that we do not know how long those currently in housing have already been in service.
+To sample the remaining housing service time for a customer already in housing at the start of the simulation, we use the procedure outlined in Algorithm \ref{alg:triang}. We here assume that we do not know how long those currently in housing have already been in service. We acknowledge that the Triangle distribution as used in line $3$ is not an accurate distribution of the times already spent in service. It will be insightful to explore alternative distributions for this step.
 
 \begin{algorithm}
 \caption{Sample a customer's remaining housing service time using Triangle distribution}\label{alg:triang}
-\begin{algorithmic}
+\begin{algorithmic}[1]
 
   \State Set Triangle distribution parameters: $a$, $b$, $c$
   \State Set $\text{Done} = \text{False}$
