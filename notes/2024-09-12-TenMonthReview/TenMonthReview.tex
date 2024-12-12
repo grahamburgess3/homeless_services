@@ -10,6 +10,8 @@
 \usepackage{tikz} % Required to build tikz diagrams
 \usepackage{xcolor} % to access colors in tikz diags
 \usepackage{hyperref} % for web links
+\usepackage{algorithm} % for algorithms
+\usepackage{algpseudocode} % for algorithmics
 
 \title{Multi-fidelity modelling and optimisation with applications in long-term public sector capacity planning: ten month PhD review}
 \author{Graham Burgess}
@@ -21,7 +23,7 @@
 %
 \section{Introduction}
 %
-Long-term capacity planning is a challenge for organisations worldwide, especially for public sector bodies who must meet basic public needs with tight financial budgets. Examples of such problems arise in housing, healthcare and prisons. In housing, decision makers must split their resources between emergency shelter and permanent social housing to alleviate homelessness. In healthcare, planners must balance the need for critical and non-critical care services when designing new hospitals. In prisons, capacity must be sufficient to avoid needing to release prisoners early but not so high as to risk costly unused capacity. 
+Long-term capacity planning is a challenge for organisations worldwide, especially for public sector bodies who must meet basic public needs with tight financial budgets. Examples of such problems arise in housing, healthcare and prisons. In housing, decision makers must split their resources between emergency shelter and permanent social housing to alleviate homelessness. In healthcare, planners must balance the need for critical and non-critical care services when designing new hospitals. In prisons, capacity must be sufficient to avoid needing to release prisoners early but not so high as to risk costly unused capacity.
 
 Operational research methods offer helpful tools to support such public sector decision-making. Optimisation helps by looking for a feasible solution which performs best across a set of alternative feasible solutions. To do this, a model of the system's performance is needed, and the quality of the model affects the quality of the subsequent optimisation results. The flow of people through public services can often be modelled as a queue. For example, in a homeless care system, individual clients arrive and if there is no space in shelter, they wait in an unsheltered queue. Once they are finished in shelter, they can only leave when housing becomes available. Once in housing they stay for some time before leaving for good or rejoining the queue for shelter. A solution for this system is a long-term capacity plan for housing and shelter.
 
@@ -242,7 +244,27 @@ We have developed a DES model for homeless care systems, which is based upon the
 \item $17\%$ of those leaving housing re-enter the queue for shelter, reflecting estimates from Alameda County.
 \end{itemize}
 %
-Sampling from the triangular distribution for those already in the queue. 
+To sample the remaining housing service time for a customer already in housing at the start of the simulation, we use the procedure outlined in Algorithm \ref{alg:triang}. We here assume that we do not know how long those currently in housing have already been in service.
+
+\begin{algorithm}
+\caption{Sample a customer's remaining housing service time using Triangle distribution}\label{alg:triang}
+\begin{algorithmic}
+
+  \State Set Triangle distribution parameters: $a$, $b$, $c$
+  \State Set $\text{Done} = \text{False}$
+\State Sample $x_0 \sim \text{Triangle}(a,b,c)$. This represents service time already completed.
+
+ \While{not Done}
+ \State Sample candidate $x \sim \text{Triangle}(a,b,c)$. This represents total service time.
+ \If{$x \geq x_0$}
+ \State $x_1 = x - x_0$. This represents remaining service time.
+ \State  Done = True
+ \EndIf
+ \EndWhile
+\State Return remaining service time $x_1$
+    
+\end{algorithmic}
+\end{algorithm}
 
  The DES model shows longer unsheltered queues than the lower-fidelity models. This is because our DES model includes a non-zero service time at shelter and a non-zero proportion of those leaving housing rejoining the queue for shelter. 
 %

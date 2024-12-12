@@ -1,5 +1,4 @@
 import simpy
-import random
 import math
 import collections
 import numpy as np
@@ -9,7 +8,6 @@ from datetime import datetime
 import helper as hlp
 import pdb
 import scipy
-import random2 as random
 
 class Customer():
         """
@@ -42,7 +40,7 @@ class Customer():
                 """
                 self.id = Customer.next_id
                 self.proceed = True
-                self.rand_re_entry = random.uniform(0,1)
+                self.rand_re_entry = np.random.uniform()
                 Customer.next_id += 1 # advance the class attribute accordingly
 
 class Accommodation():
@@ -239,8 +237,8 @@ def gen_arrivals(env, accommodation_stock, service_mean, arrival_rates, initial_
         arrival_rate_max = max(arrival_rates)
         while True:
             arrival_rate = get_arrival_rate(arrival_rates, env.now-warm_up_time)
-            U = random.uniform(0,1)
-            t = random.expovariate(arrival_rate_max)
+            U = np.random.uniform()
+            t = np.random.exponential(1/arrival_rate_max)
             yield env.timeout(t)
             if U <= arrival_rate / arrival_rate_max:
                     c = Customer()
@@ -292,7 +290,7 @@ def process_straight_to_housing(env, c, accommodation_stock, service_mean, warm_
         if c.rand_re_entry >= c.prob_re_entry:
                 c.proceed = False
         else:
-                c.rand_re_entry = random.uniform(0,1)
+                c.rand_re_entry = np.random.uniform()
                 env.process(process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time, service_dist))
 
 def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_up_time, service_dist):
@@ -320,7 +318,7 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_u
                 shelter = yield accommodation_stock.store.get(filter = lambda accomm: accomm.type == accomm_type)
                 accommodation_stock.update_stats(env.now-warm_up_time, accomm_type, -1)
                 if service_mean[accomm_type] > 0:
-                        time_in_accomm = random.expovariate(1/service_mean[accomm_type])
+                        time_in_accomm = np.random.exponential(service_mean[accomm_type])
                 else:
                         time_in_accomm = 0
                 yield env.timeout(time_in_accomm)
@@ -343,7 +341,7 @@ def process_find_accommodation(env, c, accommodation_stock, service_mean, warm_u
                 if c.rand_re_entry >= c.prob_re_entry:
                         c.proceed = False
                 else:
-                        c.rand_re_entry = random.uniform(0,1)
+                        c.rand_re_entry = np.random.uniform()
                         
 def gen_development_sched(env, accommodation_stock, accomm_build_time, warm_up_time, h, s):
         """
@@ -448,7 +446,7 @@ class SimulationModel(object):
                 """
                 Given a set of inputs and a random seed, simulate the system multiple times over a fixed period of simulation time
                 """
-                random.seed(self.seed)
+                np.random.seed(seed = self.seed)
                 Customer.prob_re_entry = self.prob_re_entry
                 self.results = {'unsheltered_q_over_time' : [], 'unsheltered_q_avg' : [], 'time_taken' : 0}
                 start = datetime.now()
