@@ -21,3 +21,18 @@ def get_daily_capacity(T_b, init, solution):
     diffs = np.repeat(diffs_daily,365)
     daily = [init + sum(diffs[0:i]) for i in range(1,len(diffs)+1)] + [list(solution)[-1]]*(T_b*365)
     return daily
+
+# triangular inverse cdf
+def ticdf(u,c):
+    if u<c:
+        return(np.sqrt(c*u))
+    else:
+        return(1-np.sqrt((1-u)*(1-c)))
+
+# now suppose we don't
+def sample_remaining_time(rng,c)
+    
+    u0 = rng.uniform(0,1)
+    U = rng.uniform(u0,1)
+    X = ticdf(U,c)
+    return(X)
