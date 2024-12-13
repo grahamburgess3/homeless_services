@@ -240,11 +240,11 @@ We have developed a DES model for homeless care systems, which is based upon the
 %
 \begin{itemize} [noitemsep]
 \item The service time at shelter is modelled as exponential with mean $3$ months, reflecting a short time in comparison to time spent in housing.
-\item A triangular distribution (lower limit $0$ years, upper limit $8$ years, mode $6$ years) is used to model the service time at housing. This bounded unimodal distribution was chosen by \cite{singham2023discrete} to ensure a realistic number of people left housing during the simulation horizon of $5$ years. 
+\item A Triangule distribution (lower limit $0$ years, upper limit $8$ years, mode $6$ years) is used to model the service time at housing. This bounded unimodal distribution was chosen by \cite{singham2023discrete} to ensure a realistic number of people left housing during the simulation horizon of $5$ years. 
 \item $17\%$ of those leaving housing re-enter the queue for shelter, reflecting estimates from Alameda County.
 \end{itemize}
 %
-To sample the remaining housing service time for a customer already in housing at the start of the simulation, we use the procedure outlined in Algorithm \ref{alg:triang}. We here assume that we do not know how long those currently in housing have already been in service. We acknowledge that the Triangle distribution as used in line $3$ is not an accurate distribution of the times already spent in service. It will be insightful to explore alternative distributions for this step.
+To sample the remaining housing service time for a customer already in housing at the start of the simulation, we use the procedure outlined in Algorithm \ref{alg:triang}. We here assume that we do not know how long those currently in housing have already been in service. We acknowledge that the Triangle distribution as used in line $3$ of Algorithm \ref{alg:triang} is a full service time distribution, not a partial service time distribution. It is therefore not an accurate distribution of the times already spent in service. It will be insightful to explore alternative distributions for this step.
 
 \begin{algorithm}
 \caption{Sample a customer's remaining housing service time using Triangle distribution}\label{alg:triang}
@@ -266,7 +266,7 @@ To sample the remaining housing service time for a customer already in housing a
 \end{algorithmic}
 \end{algorithm}
 
- The DES model shows longer unsheltered queues than the lower-fidelity models. This is because our DES model includes a non-zero service time at shelter and a non-zero proportion of those leaving housing rejoining the queue for shelter. 
+ The DES model shows longer unsheltered queues than the lower-fidelity models. This is largely because our DES model includes a non-zero proportion of those leaving housing rejoining the queue for shelter.
 %
 \tikzstyle{server_s} = [rectangle, rounded corners, minimum width=0.5cm, minimum height=1cm,text centered, draw=black, fill=gray!30]
 \tikzstyle{server_h} = [rectangle, rounded corners, minimum width=0.5cm, minimum height=1cm,text centered, draw=black, fill=teal!30]
