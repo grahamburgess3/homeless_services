@@ -1,0 +1,547 @@
+@inproceedings{kaya2022discrete,
+  title={Discrete Event Simulation to Evaluate Shelter Capacity Expansion Options for LGBTQ+ Homeless Youth},
+  author={Kaya, Yaren Bilge and Mantell, Sophia and Maass, Kayse Lee and Konrad, Renata and Trapp, Andrew C and Dimas, Geri L and Dank, Meredith},
+  booktitle={2022 Winter Simulation Conference (WSC)},
+  pages={1033--1044},
+  year={2022},
+  organization={IEEE}
+}
+
+@article{singham2023discrete,
+  title={Discrete-event simulation modeling for housing of homeless populations},
+  author={Singham, Dashi I and Lucky, Jennifer and Reinauer, Stephanie},
+  journal={Plos one},
+  volume={18},
+  number={4},
+  pages={e0284336},
+  year={2023},
+  publisher={Public Library of Science San Francisco, CA USA}
+}
+
+@article{wood2022supporting,
+  title={Supporting {Covid-19} elective recovery through scalable wait list modelling: Specialty-level application to all hospitals in England},
+  author={Wood, Richard M},
+  journal={Health Care Management Science},
+  volume={25},
+  number={4},
+  pages={521--525},
+  year={2022},
+  publisher={Springer}
+}
+
+@article{worthington1991hospital,
+  title={Hospital waiting list management models},
+  author={Worthington, David},
+  journal={Journal of the Operational Research Society},
+  volume={42},
+  number={10},
+  pages={833--843},
+  year={1991},
+  publisher={Taylor \& Francis}
+}
+
+@article{argyris2022fair,
+  title={Fair resource allocation: Using welfare-based dominance constraints},
+  author={Argyris, Nikolaos and Karsu, {\"O}zlem and Yavuz, Mirel},
+  journal={European journal of operational research},
+  volume={297},
+  number={2},
+  pages={560--578},
+  year={2022},
+  publisher={Elsevier}
+}
+
+@article{kaya2022improving,
+  title={Improving access to housing and supportive services for runaway and homeless youth: Reducing vulnerability to human trafficking in New York City},
+  author={Kaya, Yaren Bilge and Maass, Kayse Lee and Dimas, Geri L and Konrad, Renata and Trapp, Andrew C and Dank, Meredith},
+  journal={IISE Transactions},
+  pages={1--15},
+  year={2022},
+  publisher={Taylor \& Francis}
+}
+
+@article{wang2013integer,
+  title={Integer-ordered simulation optimization using R-SPLINE: Retrospective search with piecewise-linear interpolation and neighborhood enumeration},
+  author={Wang, Honggang and Pasupathy, Raghu and Schmeiser, Bruce W},
+  journal={ACM Transactions on Modeling and Computer Simulation (TOMACS)},
+  volume={23},
+  number={3},
+  pages={1--24},
+  year={2013},
+  publisher={ACM New York, NY, USA}
+}
+
+@article{lim2012stochastic,
+  title={Stochastic approximation over multidimensional discrete sets with applications to inventory systems and admission control of queueing networks},
+  author={Lim, Eunji},
+  journal={ACM Transactions on Modeling and Computer Simulation (TOMACS)},
+  volume={22},
+  number={4},
+  pages={1--23},
+  year={2012},
+  publisher={ACM New York, NY, USA}
+}
+
+@article{l2019gaussian,
+  title={Gaussian Markov random fields for discrete optimization via simulation: Framework and algorithms},
+  author={Salemi, Peter and Song, Eunhye and Nelson, Barry L and Staum, Jeremy},
+  journal={Operations Research},
+  volume={67},
+  number={1},
+  pages={250--266},
+  year={2019},
+  publisher={INFORMS}
+}
+
+@inproceedings{jian2015introduction,
+  title={An introduction to simulation optimization},
+  author={Jian, Nanjing and Henderson, Shane G},
+  booktitle={2015 winter simulation conference (wsc)},
+  pages={1780--1794},
+  year={2015},
+  organization={IEEE}
+}
+
+@article{xu2016mo2tos,
+  title={Mo2tos: Multi-fidelity optimization with ordinal transformation and optimal sampling},
+  author={Xu, Jie and Zhang, Si and Huang, Edward and Chen, Chun-Hung and Lee, Loo Hay and Celik, Nurcin},
+  journal={Asia-Pacific Journal of Operational Research},
+  volume={33},
+  number={03},
+  pages={1650017},
+  year={2016},
+  publisher={World Scientific}
+}
+
+@article{chong2018simulation,
+  title={A simulation-based optimization algorithm for dynamic large-scale urban transportation problems},
+  author={Chong, Linsen and Osorio, Carolina},
+  journal={Transportation Science},
+  volume={52},
+  number={3},
+  pages={637--656},
+  year={2018},
+  publisher={INFORMS}
+}
+
+@article{huang2006sequential,
+  title={Sequential kriging optimization using multiple-fidelity evaluations},
+  author={Huang, Deng and Allen, Theodore T and Notz, William I and Miller, R Allen},
+  journal={Structural and Multidisciplinary Optimization},
+  volume={32},
+  pages={369--382},
+  year={2006},
+  publisher={Springer}
+}
+
+@unpublished{hometogether2022,
+	author = {{Alameda County}},
+	date-added = {2024-06-02 12:48:36 -0700},
+	date-modified = {2024-06-02 12:52:32 -0700},
+	month = {April},
+	title = {{Home Together 2026 Community Plan: A 5-year Strategic Framework Centering Racial Equity to End Homelessness in Alameda County}},
+	year = {2022}}
+
+@url{RICActionPlan,
+	author = {{Regional Impact Council}},
+	date-added = {2024-06-10 12:39:13 -0700},
+	date-modified = {2024-06-26 09:26:37 -0700},
+	lastchecked = {June 26, 2024},
+	title = {{Regional Action Plan: A Call to Action from the Regional Impact Council}},
+	url = {https://www.allhomeca.org/wp-content/themes/allhome/library/images/plan/210413_Regional_Action_Plan_Final.pdf},
+	urldate = {February 2021},
+	year = {2021},
+	bdsk-url-1 = {https://www.hudexchange.info}}
+
+@article{desai2008modelling,
+  title={Modelling of {Hampshire} Adult Services—gearing up for future demands},
+  author={Desai, Mitul Shivam and Penn, Marion Louise and Brailsford, Sally and Chipulu, Max},
+  journal={Health Care Management Science},
+  volume={11},
+  pages={167--176},
+  year={2008},
+  publisher={Springer}
+}
+
+@inproceedings{soton71353,
+       booktitle = {2008 Winter Simulation Conference (WSC)},
+           title = {System dynamics: what's in it for healthcare simulation modelers},
+          author = {S.C. Brailsford},
+       publisher = {IEEE},
+            year = {2008},
+           pages = {1478--1483},
+             url = {https://eprints.soton.ac.uk/71353/}
+}
+
+@article{weiss1987administrative,
+  title={Administrative days in acute care facilities: a queueing-analytic approach},
+  author={Weiss, Elliott N and McClain, John O},
+  journal={Operations Research},
+  volume={35},
+  number={1},
+  pages={35--44},
+  year={1987},
+  publisher={INFORMS}
+}
+
+@article{reynolds2010design,
+  title={Design and analysis of a health care clinic for homeless people using simulations},
+  author={Reynolds, Jared and Zeng, Zhen and Li, Jingshan and Chiang, Shu-Yin},
+  journal={International Journal of Health Care Quality Assurance},
+  volume={23},
+  number={6},
+  pages={607--620},
+  year={2010},
+  publisher={Emerald Group Publishing Limited}
+}
+
+@article{el2021supporting,
+  title={Supporting scale-up of {Covid-19 RT-PCR} testing processes with discrete event simulation},
+  author={El Hage, Jad and Gravitt, Patti and Ravel, Jacques and Lahrichi, Nadia and Gralla, Erica},
+  journal={PLoS One},
+  volume={16},
+  number={7},
+  pages={e0255214},
+  year={2021},
+  publisher={Public Library of Science San Francisco, CA USA}
+}
+
+@article{wood2022modelling,
+  title={Modelling the impact of {Covid-19} on elective waiting times},
+  author={Wood, Richard M},
+  journal={Journal of Simulation},
+  volume={16},
+  number={1},
+  pages={101--109},
+  year={2022},
+  publisher={Taylor \& Francis}
+}
+
+@article{maass2020optimizing,
+  title={Optimizing placement of residential shelters for human trafficking survivors},
+  author={Maass, Kayse Lee and Trapp, Andrew C and Konrad, Renata},
+  journal={Socio-Economic Planning Sciences},
+  volume={70},
+  pages={100730},
+  year={2020},
+  publisher={Elsevier}
+}
+
+@article{miller2022optimization,
+  title={On the Optimization of Benefit to Cost Ratios for Public Sector Decision Making},
+  author={Miller, Frederick and Kaya, Yaren Bilge and Dimas, Geri L and Konrad, Renata and Maass, Kayse Lee and Trapp, Andrew C and others},
+  journal={arXiv preprint arXiv:2212.04534},
+  year={2022}
+}
+
+@article{izady2012setting,
+	author = {Izady, Navid and Worthington, Dave},
+	date-added = {2024-06-19 07:22:31 -0700},
+	date-modified = {2024-06-26 11:05:14 -0700},
+	journal = {European Journal of Operational Research},
+	number = {3},
+	pages = {531--540},
+	publisher = {Elsevier},
+	title = {{Setting Staffing Requirements for Time Dependent Queueing Networks: The Case of Accident and Emergency Departments}},
+	volume = {219},
+	year = {2012}}
+
+@inproceedings{konrad2023achieving,
+	address = {Piscataway, New Jersey},
+	author = {Konrad, Kurtis and Liu, Yunan},
+	booktitle = {Proceedings of the 2023 Winter Simulation Conference.},
+	date-added = {2024-06-17 10:16:39 -0700},
+	date-modified = {2024-06-26 11:10:13 -0700},
+	editor = {C. G. Corlu and S. R. Hunter and H. Lam and B. S. Onggo and J. Shortle and B. Biller},
+	organization = {IEEE},
+	pages = {327--338},
+	publisher = {{Institute of Electrical and Electronics Engineers, Inc.}},
+	title = {{Achieving Stable Service-Level Targets in Time-Varying Queueing Systems: A Simulation-Based Offline Learning Staffing Algorithm}},
+	year = {2023}}
+
+@article{yarmand2015maximizing,
+	author = {Yarmand, Mohammad H and Down, Douglas G},
+	date-added = {2024-06-04 09:26:22 -0700},
+	date-modified = {2024-06-26 11:18:27 -0700},
+	journal = {IIE Transactions},
+	number = {1},
+	pages = {35--49},
+	publisher = {Taylor \& Francis},
+	title = {{Maximizing Throughput in Zero-Buffer Tandem Lines with Dedicated and Flexible Servers}},
+	volume = {47},
+	year = {2015}}
+
+@article{yarmand2013server,
+	author = {Yarmand, Mohammad H and Down, Douglas G},
+	date-added = {2024-06-04 09:26:06 -0700},
+	date-modified = {2024-06-26 11:18:00 -0700},
+	journal = {European Journal of Operational Research},
+	number = {3},
+	pages = {596--603},
+	publisher = {Elsevier},
+	title = {{Server Allocation for Zero Buffer Tandem Queues}},
+	volume = {230},
+	year = {2013}}
+
+@article{patrick2011access,
+	author = {Patrick, Jonathan},
+	date-added = {2024-06-04 09:13:07 -0700},
+	date-modified = {2024-06-26 11:15:58 -0700},
+	journal = {Production and Operations Management},
+	number = {3},
+	pages = {347--358},
+	publisher = {SAGE Publications Sage CA: Los Angeles, CA},
+	title = {{Access to Long-Term Care: The True Cause of Hospital Congestion?}},
+	volume = {20},
+	year = {2011}}
+
+@article{patrick2015simulation,
+	author = {Patrick, Jonathan and Nelson, K and Lane, Dan},
+	date-added = {2024-06-04 09:12:49 -0700},
+	date-modified = {2024-06-26 11:16:23 -0700},
+	journal = {Journal of Simulation},
+	number = {2},
+	pages = {111--120},
+	publisher = {Taylor \& Francis},
+	title = {{A Simulation Model for Capacity Planning in Community Care}},
+	volume = {9},
+	year = {2015}}
+
+@article{izady2015appointment,
+	author = {Izady, Navid},
+	date-added = {2024-05-18 07:09:54 -0700},
+	date-modified = {2024-06-26 11:05:42 -0700},
+	journal = {Operations Research},
+	number = {4},
+	pages = {916--930},
+	publisher = {INFORMS},
+	title = {{Appointment Capacity Planning in Specialty Clinics: A Queueing Approach}},
+	volume = {63},
+	year = {2015}}
+
+@article{ingle2021projecting,
+	author = {Ingle, Tanvi A and Morrison, Maike and Wang, Xutong and Mercer, Timothy and Karman, Vella and Fox, Spencer and Meyers, Lauren Ancel},
+	date-added = {2021-10-30 06:48:34 -0700},
+	date-modified = {2022-05-11 11:23:14 -0700},
+	journal = {PLOS One},
+	number = {5},
+	pages = {e0251153},
+	publisher = {Public Library of Science San Francisco, CA USA},
+	title = {{Projecting COVID-19 Isolation Bed Requirements for People Experiencing Homelessness}},
+	volume = {16},
+	year = {2021}}
+
+@article{arora2021doing,
+	author = {Arora, Priyank and Rahmani, Morvarid and Ramachandran, Karthik},
+	date-added = {2021-10-30 06:40:51 -0700},
+	date-modified = {2022-05-11 11:15:47 -0700},
+	journal = {Manufacturing \& Service Operations Management},
+	publisher = {INFORMS},
+	title = {{Doing Less to do More? Optimal Service Portfolio of Non-Profits that Serve Distressed Individuals}},
+	year = {2021}}
+
+@article{green1991pointwise,
+  title={The pointwise stationary approximation for queues with nonstationary arrivals},
+  author={Green, Linda and Kolesar, Peter},
+  journal={Management Science},
+  volume={37},
+  number={1},
+  pages={84--97},
+  year={1991},
+  publisher={INFORMS}
+}
+
+@article{green1991some,
+  title={Some effects of nonstationarity on multiserver {Markovian} queueing systems},
+  author={Green, Linda and Kolesar, Peter and Svoronos, Anthony},
+  journal={Operations Research},
+  volume={39},
+  number={3},
+  pages={502--511},
+  year={1991},
+  publisher={INFORMS}
+}
+
+@article{jennings1996server,
+  title={Server staffing to meet time-varying demand},
+  author={Jennings, Otis B and Mandelbaum, Avishai and Massey, William A and Whitt, Ward},
+  journal={Management Science},
+  volume={42},
+  number={10},
+  pages={1383--1394},
+  year={1996},
+  publisher={INFORMS}
+}
+
+@misc{racial2021,
+    title        = {Centering racial equity in homelessness system design},
+    author       = {{Oakland-Berkeley-Alameda County Continuum of Care}},
+    year         = 2021,
+    note         = {\url{https://everyonehome.org/wp-content/uploads/2021/02/2021-Centering-Racial-Equity-in-Homeless-System-Design-Full-Report-FINAL.pdf}}
+}
+
+@book{rue2005gaussian,
+  title={Gaussian Markov random fields: theory and applications},
+  author={Rue, Havard and Held, Leonhard},
+  year={2005},
+  publisher={Chapman and Hall/CRC}
+}
+
+@inproceedings{cao2023cluster,
+  title={Cluster-Based Sampling Allocation for Multi-Fidelity Simulation Optimization},
+  author={Cao, Zirui and Li, Haobin and Chew, Ek Peng and Wang, Haowei and Tan, Kok Choon},
+  booktitle={2023 Winter Simulation Conference (WSC)},
+  pages={3448--3459},
+  year={2023},
+  organization={IEEE}
+}
+
+@book{nelson2021foundations,
+  title={Foundations and methods of stochastic simulation},
+  author={Nelson, B and Pei, L},
+  year={2021},
+  publisher={Springer}
+}
+
+@article{semelhago2021rapid,
+  title={Rapid discrete optimization via simulation with Gaussian Markov random fields},
+  author={Semelhago, Mark and Nelson, Barry L and Song, Eunhye and W{\"a}chter, Andreas},
+  journal={INFORMS Journal on Computing},
+  volume={33},
+  number={3},
+  pages={915--930},
+  year={2021},
+  publisher={INFORMS}
+}
+
+@inproceedings{li2022multi,
+  title={Multi-Fidelity Discrete Optimization via Simulation},
+  author={Li, Dongyang and Liu, Haitao and Jin, Xiao and Li, Haobin and Chew, Ek Peng and Tan, Kok Choon and Lin, Yun Hui},
+  booktitle={2022 Winter Simulation Conference (WSC)},
+  pages={3170--3181},
+  year={2022},
+  organization={IEEE}
+}
+
+@article{moss2021gibbon,
+  title={Gibbon: General-purpose information-based bayesian optimisation},
+  author={Moss, Henry B and Leslie, David S and Gonzalez, Javier and Rayson, Paul},
+  journal={Journal of Machine Learning Research},
+  volume={22},
+  number={235},
+  pages={1--49},
+  year={2021}
+}
+
+@inproceedings{wang2017max,
+  title={Max-value entropy search for efficient Bayesian optimization},
+  author={Wang, Zi and Jegelka, Stefanie},
+  booktitle={International Conference on Machine Learning},
+  pages={3627--3635},
+  year={2017},
+  organization={PMLR}
+}
+
+@article{lentle2024using,
+  title={Using simulation for long-term bed modelling in critical care},
+  author={Lentle, Debbie and Sachser, Victoria and Incze, Eduard and Tako, Antuela and Rostami-Tabar, Bahman and Spencer, Craig and Morgan, Jennifer},
+  journal={Journal of Simulation},
+  pages={1--17},
+  year={2024},
+  publisher={Taylor \& Francis}
+}
+
+@article{burgess2024time,
+  title={Time-Varying Capacity Planning for Designing Large-Scale Homeless Care Systems},
+  author={Burgess, Graham and Singham, Dashi I and Rhodes-Leader, Luke},
+  journal={Under Review},
+  year={2024}
+}
+
+@article{kim2001fully,
+  title={A fully sequential procedure for indifference-zone selection in simulation},
+  author={Kim, Seong-Hee and Nelson, Barry L},
+  journal={ACM Transactions on Modeling and Computer Simulation (TOMACS)},
+  volume={11},
+  number={3},
+  pages={251--273},
+  year={2001},
+  publisher={ACM New York, NY, USA}
+}
+
+@inproceedings{glynn2004large,
+  title={A large deviations perspective on ordinal optimization},
+  author={Glynn, Peter and Juneja, Sandeep},
+  booktitle={Proceedings of the 2004 Winter Simulation Conference, 2004.},
+  volume={1},
+  year={2004},
+  organization={IEEE}
+}
+
+@article{chen2019complete,
+  title={Complete expected improvement converges to an optimal budget allocation},
+  author={Chen, Ye and Ryzhov, Ilya O},
+  journal={Advances in Applied Probability},
+  volume={51},
+  number={1},
+  pages={209--235},
+  year={2019},
+  publisher={Cambridge University Press}
+}
+
+@article{xu2013adaptive,
+  title={An adaptive hyperbox algorithm for high-dimensional discrete optimization via simulation problems},
+  author={Xu, Jie and Nelson, Barry L and Hong, L Jeff},
+  journal={INFORMS Journal on Computing},
+  volume={25},
+  number={1},
+  pages={133--146},
+  year={2013},
+  publisher={INFORMS}
+}
+
+@article{fu2006gradient,
+  title={Gradient estimation},
+  author={Fu, Michael C},
+  journal={Handbooks in operations research and management science},
+  volume={13},
+  pages={575--616},
+  year={2006},
+  publisher={Elsevier}
+}
+
+@Inbook{Kim2015,
+author="Kim, Sujin
+and Pasupathy, Raghu
+and Henderson, Shane G.",
+editor="Fu, Michael C",
+title="A Guide to Sample Average Approximation",
+bookTitle="Handbook of Simulation Optimization",
+year="2015",
+publisher="Springer New York",
+address="New York, NY",
+pages="207--243",
+abstract="This chapter reviews the principles of sample average approximation (SAA) for solving simulation optimization problems. We provide an accessible overview of the area and survey interesting recent developments. We explain when one might want to use SAA and when one might expect it to provide good-quality solutions. We also review some of the key theoretical properties of the solutions obtained through SAA. We contrast SAA with stochastic approximation (SA) methods in terms of the computational effort required to obtain solutions of a given quality, explaining why SA ``wins'' asymptotically. However, an extension of SAA known as retrospective optimization can match the asymptotic convergence rate of SA, at least up to a multiplicative constant.",
+isbn="978-1-4939-1384-8",
+doi="10.1007/978-1-4939-1384-8_8",
+url="https://doi.org/10.1007/978-1-4939-1384-8_8"
+}
+
+@article{barton2006metamodel,
+  title={Metamodel-based simulation optimization},
+  author={Barton, Russell R and Meckesheimer, Martin},
+  journal={Handbooks in operations research and management science},
+  volume={13},
+  pages={535--574},
+  year={2006},
+  publisher={Elsevier}
+}
+
+@incollection{frazier2018bayesian,
+  title={Bayesian optimization},
+  author={Frazier, Peter I},
+  booktitle={Recent advances in optimization and modeling of contemporary problems},
+  pages={255--278},
+  year={2018},
+  publisher={INFORMS}
+}

@@ -1,0 +1,22 @@
+\begin{thebibliography}{}
+
+\bibitem[Burgess et~al., 2024]{burgess2024time}
+Burgess, G., Singham, D.~I., and Rhodes-Leader, L. (2024).
+\newblock Time-varying capacity planning for designing large-scale homeless
+  care systems.
+\newblock {\em Under Review}.
+
+\bibitem[Osorio and Chong, 2015]{osorio2015computationally}
+Osorio, C. and Chong, L. (2015).
+\newblock A computationally efficient simulation-based optimization algorithm
+  for large-scale urban transportation problems.
+\newblock {\em Transportation Science}, 49(3):623--636.
+
+\bibitem[Wang et~al., 2013]{wang2013integer}
+Wang, H., Pasupathy, R., and Schmeiser, B.~W. (2013).
+\newblock Integer-ordered simulation optimization using r-spline: Retrospective
+  search with piecewise-linear interpolation and neighborhood enumeration.
+\newblock {\em ACM Transactions on Modeling and Computer Simulation (TOMACS)},
+  23(3):1--24.
+
+\end{thebibliography}

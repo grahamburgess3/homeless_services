@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % to set up page formatting
+\usepackage[skip=10pt]{parskip} % spacing in between paragraphs
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+\usepackage{natbib} % Required for bibliography and citations
+\usepackage{enumitem} % Required to remove gap between items in list
+\usepackage{algorithm} % for algorithms
+\usepackage{algpseudocode} % for algorithmics
+
+\title{Multi-fidelity SO suggestions}
+\author{Graham Burgess}
+\date{December 2024}
+
+\begin{document}
+%
+\maketitle
+
+R-SPLINE \citep{
+
+\begin{algorithm}
+\caption{Multi-fidelity version of R-SPLINE}{alg:mf-rspline}
+\begin{algorithmic}[1]
+
+  \State Set Triangle distribution parameters: $a$, $b$, $c$
+  \State Set $\text{Done} = \text{False}$
+\State Sample $x_0 \sim \text{Triangle}(a,b,c)$. This represents service time already completed.
+
+ \While{not Done}
+ \State Sample candidate $x \sim \text{Triangle}(a,b,c)$. This represents total service time.
+ \If{$x \geq x_0$}
+ \State $x_1 = x - x_0$. This represents remaining service time.
+ \State  Done = True
+ \EndIf
+ \EndWhile
+\State Return remaining service time $x_1$
+    
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}
