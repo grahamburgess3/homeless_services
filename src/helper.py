@@ -30,8 +30,7 @@ def ticdf(u,c):
         return(1-np.sqrt((1-u)*(1-c)))
 
 # now suppose we don't
-def sample_remaining_time(rng,c)
-    
+def sample_remaining_time(rng,c):
     u0 = rng.uniform(0,1)
     U = rng.uniform(u0,1)
     X = ticdf(U,c)

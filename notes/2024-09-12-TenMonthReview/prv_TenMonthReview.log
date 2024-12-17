@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.15)  12 DEC 2024 08:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.12.12)  17 DEC 2024 16:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -464,28 +464,120 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
 )
 \Hy@SectionHShift=\skip55
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
+ (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count309
+\float@exts=\toks36
+\float@box=\box64
+\@float@everytoks=\toks37
+\@floatcapt=\box65
 )
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks38
+\c@algorithm=\count310
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+ (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
-! LaTeX Error: File `algorithm.sty' not found.
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count311
+\c@ALG@rem=\count312
+\c@ALG@nested=\count313
+\ALG@tlm=\skip56
+\ALG@thistlm=\skip57
+\c@ALG@Lnr=\count314
+\c@ALG@blocknr=\count315
+\c@ALG@storecount=\count316
+\c@ALG@tmpcounter=\count317
+\ALG@tmplength=\skip58
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 20.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 20.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) )
+Beginning to dump on file prv_TenMonthReview.fmt
+ (preloaded format=prv_TenMonthReview 2024.12.17)
+40962 strings of total length 742185
+642282 memory locations dumped; current usage is 579&640061
+38750 multiletter control sequences
+\font\nullfont=nullfont
+\font\c__fp_exp_intarray=cmr10 at 0.00002pt
+\font\c__fp_trig_intarray=cmr10 at 0.00003pt
+\font\c_initex_cctab=cmr10 at 0.00005pt
+\font\c_other_cctab=cmr10 at 0.00006pt
+\font\c_str_cctab=cmr10 at 0.00008pt
+\font\g__regex_state_active_intarray=cmr10 at 0.00009pt
+\font\g__regex_thread_info_intarray=cmr10 at 0.0001pt
+\font\g__regex_submatch_prev_intarray=cmr10 at 0.00012pt
+\font\g__regex_submatch_begin_intarray=cmr10 at 0.00014pt
+\font\g__regex_submatch_end_intarray=cmr10 at 0.00015pt
+\font\g__regex_submatch_case_intarray=cmr10 at 0.00017pt
+\font\g__regex_balance_intarray=cmr10 at 0.00018pt
+\font\OMX/cmex/m/n/10=cmex10
+\font\tenln=line10
+\font\tenlnw=linew10
+\font\tencirc=lcircle10
+\font\tencircw=lcirclew10
+\font\OT1/cmr/m/n/5=cmr5
+\font\OT1/cmr/m/n/7=cmr7
+\font\OT1/cmr/m/n/10=cmr10
+\font\OML/cmm/m/it/5=cmmi5
+\font\OML/cmm/m/it/7=cmmi7
+\font\OML/cmm/m/it/10=cmmi10
+\font\OMS/cmsy/m/n/5=cmsy5
+\font\OMS/cmsy/m/n/7=cmsy7
+\font\OMS/cmsy/m/n/10=cmsy10
+\font\c_code_cctab=cmr10 at 0.0002pt
+\font\c_document_cctab=cmr10 at 0.00021pt
+\font\OT1/cmr/m/n/12=cmr12
+\font\OT1/cmr/m/n/8=cmr8
+\font\OT1/cmr/m/n/6=cmr6
+\font\OML/cmm/m/it/12=cmmi12
+\font\OML/cmm/m/it/8=cmmi8
+\font\OML/cmm/m/it/6=cmmi6
+\font\OMS/cmsy/m/n/12=cmsy10 at 12.0pt
+\font\OMS/cmsy/m/n/8=cmsy8
+\font\OMS/cmsy/m/n/6=cmsy6
+\font\OMX/cmex/m/n/12=cmex10 at 12.0pt
+\font\OMX/cmex/m/n/8=cmex8
+\font\OMX/cmex/m/n/6=cmex7 at 6.0pt
+\font\U/msa/m/n/12=msam10 at 12.0pt
+\font\U/msa/m/n/8=msam10 at 8.0pt
+\font\U/msa/m/n/6=msam7 at 6.0pt
+\font\U/msb/m/n/12=msbm10 at 12.0pt
+\font\U/msb/m/n/8=msbm10 at 8.0pt
+\font\U/msb/m/n/6=msbm7 at 6.0pt
+\font\OT1/cmr/m/n/14.4=cmr12 at 14.4pt
+\font\OT1/cmr/bx/n/12=cmbx12
+\font\OT1/cmr/bx/it/12=cmbxti10 at 12.0pt
+\font\OT1/cmr/m/it/12=cmti12
+\font\OT1/cmtt/m/n/12=cmtt12
+\font\OT1/cmss/m/n/12=cmss12
+475684 words of font info for 52 preloaded fonts
+59 hyphenation exceptions
+Hyphenation trie of length 15162 has 496 ops out of 35111
+  18 for language 6
+  97 for language 5
+  148 for language 4
+  50 for language 3
+  2 for language 1
+  181 for language 0
+0 words of pdfTeX memory
+3 indirect objects
+No pages of output.
+PDF statistics:
+ 3 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-! Emergency stop.
-<read *> 
-         
-l.14 \usepackage
-                {algpseudocode} % for algorithms^^M
-*** (cannot \read from terminal in nonstop modes)
-
- 
-Here is how much of TeX's memory you used:
- 20404 strings out of 480247
- 374892 string characters out of 5896151
- 636234 words of memory out of 5000000
- 38054 multiletter control sequences out of 15000+600000
- 469557 words of font info for 29 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 85i,0n,89p,829b,89s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
