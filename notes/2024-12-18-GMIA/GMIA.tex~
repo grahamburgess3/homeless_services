@@ -1,0 +1,34 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % to set up page formatting
+\usepackage[skip=10pt]{parskip} % spacing in between paragraphs
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+\usepackage{natbib} % Required for bibliography and citations
+\usepackage{enumitem} % Required to remove gap between items in list
+\usepackage{tikz} % Required to build tikz diagrams
+\usepackage{xcolor} % to access colors in tikz diags
+\usepackage{hyperref} % for web links
+\usepackage{algorithm} % for algorithms
+\usepackage{algpseudocode} % for algorithmics
+
+\title{Gaussian Markov improvement algorithm and its derivatives}
+\author{Graham Burgess}
+\date{December 2024}
+
+\begin{document}
+%
+\maketitle
+
+\section{Sparse matrix techniques}
+
+To compute the CEI for all solutions $\boldsymbol{x} \in \mathcal{X}$, one needs to compute the conditional mean $M(\boldsymbol{x})$ for all solutions and the conditional variance $V(\boldsymbol{x},\tilde{\boldsymbol{x}})$ of the difference between all solutions and the current best $\tilde{\boldsymbol{x}}$. Computing $M(\boldsymbol{x})$ for all solutions requires a factorisation of $\bar{Q}$, the conditional precision matrix, and a backsolve operation. Computing $V(\boldsymbol{x},\tilde{\boldsymbol{x}})$ for all solutions requires the conditional variance $V(\boldsymbol{x})$ of all solutions and the conditional correlation $C(\boldsymbol{x},\tilde{\boldsymbol{x}})$ between all solutions and the current best $\tilde{\boldsymbol{x}}$. Computing $C(\boldsymbol{x},\tilde{\boldsymbol{x}})$ for all solutions requires a factorisation of $\bar{Q}$ and a backsolve operation to obtain the column of $\bar{Q}^{-1}$ relating to $\tilde{\boldsymbol{x}}$. Computing $V(\boldsymbol{x})$ for all solutions requires each diagonal element of $\bar{Q}^{-1}$, which is more problematic. 
+
+
+
+\newpage
+
+\bibliographystyle{apalike}
+\bibliography{bibliography.bib}
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % to set up page formatting
+\usepackage[skip=10pt]{parskip} % spacing in between paragraphs
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+\usepackage{natbib} % Required for bibliography and citations
+\usepackage{enumitem} % Required to remove gap between items in list
+\usepackage{tikz} % Required to build tikz diagrams
+\usepackage{xcolor} % to access colors in tikz diags
+\usepackage{hyperref} % for web links
+\usepackage{algorithm} % for algorithms
+\usepackage{algpseudocode} % for algorithmics
+
+\title{Gaussian Markov improvement algorithm and its derivatives}
+\author{Graham Burgess}
+\date{December 2024}
+
+\begin{document}
+%
+\maketitle
+
+\section{Sparse matrix techniques}
+
+To compute the CEI for all solutions $\boldsymbol{x} \in \mathcal{X}$, one needs to compute the conditional mean $M(\boldsymbol{x})$ for all solutions and the conditional variance $V(\boldsymbol{x},\tilde{\boldsymbol{x}})$ of the difference between all solutions and the current best $\tilde{\boldsymbol{x}}$. Computing $M(\boldsymbol{x})$ for all solutions requires a factorisation of $\bar{Q}$, the conditional precision matrix, and a backsolve operation. Computing $V(\boldsymbol{x},\tilde{\boldsymbol{x}})$ for all solutions requires the conditional variance $V(\boldsymbol{x})$ of all solutions and the conditional correlation $C(\boldsymbol{x},\tilde{\boldsymbol{x}})$ between all solutions and the current best $\tilde{\boldsymbol{x}}$. Computing $C(\boldsymbol{x},\tilde{\boldsymbol{x}})$ for all solutions requires a factorisation of $\bar{Q}$ and a backsolve operation to obtain the column of $\bar{Q}^{-1}$ relating to $\tilde{\boldsymbol{x}}$. Computing $V(\boldsymbol{x})$ for all solutions requires each diagonal element of $\bar{Q}^{-1}$, which is more problematic. 
+
+The main bottleneck in the original GMIA algorithm is in factorising $\bar{Q}$ and using this to compute diagonal elements of $\bar{Q}^{-1}$. The original GMIA algorithm does the latter with a full inversion. \cite{semelhago2017computational} show an efficient way of computing diagonal elements without full inversion. This relies on an identity for the covariance matrix given by \cite{takahashi1973formation}, explained by \cite{vanhatalo2012modelling} which gives simple expressions for desired elements of $\bar{Q}^{-1}$ which are functions of elements of the factors of $\bar{Q}$. \cite{semelhago2017computational} also show how factorising can be avoided using the Sherman-Morrison-Woodbury identity, which they use to update $M(\boldsymbol{x})$ using old factors of $\bar{Q}$ when they are not updating $V(\boldsymbol{x})$. 
+
+\newpage
+
+\bibliographystyle{apalike}
+\bibliography{bibliography.bib}
+
+\end{document}

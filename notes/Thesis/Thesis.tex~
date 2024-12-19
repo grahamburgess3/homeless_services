@@ -1,0 +1,27 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[left=20mm, right=20mm, top=20mm]{geometry} % to set up page formatting
+\usepackage[skip=10pt]{parskip} % spacing in between paragraphs
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} % Required for flexibility in mathematical equations
+\usepackage{amssymb} % Required for certain math symbols e.g. E[.]
+\usepackage{natbib} % Required for bibliography and citations
+\usepackage{enumitem} % Required to remove gap between items in list
+\usepackage{tikz} % Required to build tikz diagrams
+\usepackage{xcolor} % to access colors in tikz diags
+\usepackage{hyperref} % for web links
+\usepackage{algorithm} % for algorithms
+\usepackage{algpseudocode} % for algorithmics
+
+\title{PhD Thesis}
+\author{Graham Burgess}
+\date{2027}
+
+\begin{document}
+%
+\maketitle
+
+\section{Literative Review}
+
+If you include 
+
+\end{document}

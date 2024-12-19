@@ -1,0 +1,21 @@
+\begin{thebibliography}{}
+
+\bibitem[Semelhago et~al., 2017]{semelhago2017computational}
+Semelhago, M., Nelson, B.~L., W{\"a}chter, A., and Song, E. (2017).
+\newblock Computational methods for optimization via simulation using gaussian
+  markov random fields.
+\newblock In {\em 2017 Winter Simulation Conference (WSC)}, pages 2080--2091.
+  IEEE.
+
+\bibitem[Takahashi, 1973]{takahashi1973formation}
+Takahashi, K. (1973).
+\newblock Formation of sparse bus impedance matrix and its application to short
+  circuit study.
+\newblock In {\em Proc. PICA Conference, June, 1973}.
+
+\bibitem[Vanhatalo and Vehtari, 2012]{vanhatalo2012modelling}
+Vanhatalo, J. and Vehtari, A. (2012).
+\newblock Modelling local and global phenomena with sparse gaussian processes.
+\newblock {\em arXiv preprint arXiv:1206.3290}.
+
+\end{thebibliography}
